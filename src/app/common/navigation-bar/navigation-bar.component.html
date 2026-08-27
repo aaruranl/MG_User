@@ -1,680 +1,325 @@
-<div class="flex flex-wrap -mx-3 m-0 bg-white">
-  <div class="w-full px-6 p-0">
-    <div class="nav-parent">
-      <div class="flex justify-between">
-        <!-- MAIN LOGO -->
-        <div
-          class="my-auto flex hidden md:block cursor-pointer"
-          [routerLink]="'/home/member'"
+<header class="w-full bg-white/95 backdrop-blur-md border-b border-amber-200/30 sticky top-0 z-40 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      
+      <!-- LOGO -->
+      <div class="flex items-center cursor-pointer transition-transform hover:scale-[1.02]" [routerLink]="'/home/member'">
+        <img
+          src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
+          alt="MarriageGate Logo"
+          class="h-10 sm:h-12 w-auto object-contain"
+        />
+      </div>
+
+      <!-- DESKTOP NAV LINKS -->
+      <nav class="hidden lg:flex items-center gap-2">
+        <a
+          [routerLink]="['/home/member']"
+          [class.active-nav-pill]="router.isActive('/home/member', {paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored'})"
+          class="nav-pill"
         >
+          <i class="fas fa-home text-base"></i>
+          <span>Home</span>
+        </a>
+
+        <a
+          [routerLink]="['/member/profiles']"
+          [class.active-nav-pill]="router.isActive('/member/profiles', {paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored'})"
+          class="nav-pill"
+        >
+          <i class="fas fa-users text-base"></i>
+          <span>Members</span>
+        </a>
+
+        <a
+          [routerLink]="['/home/chat']"
+          [class.active-nav-pill]="router.isActive('/home/chat', {paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored'})"
+          class="nav-pill"
+        >
+          <i class="fas fa-comments text-base"></i>
+          <span>Messages</span>
+        </a>
+      </nav>
+
+      <!-- RIGHT SIDE ACTIONS (MEMBER INFO, NOTIFICATIONS, CHAT, PROFILE) -->
+      <div class="flex items-center gap-3 relative">
+        
+        <!-- Active Member Profile Indicator -->
+        <div class="hidden md:flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-amber-50/60 border border-amber-200/50" *ngIf="!isLoading && selectedMember">
           <img
-            class="mr-2"
-            src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
-            alt="logo"
-            class="logo-svg"
+            class="w-8 h-8 rounded-full object-cover border border-amber-400/80 shadow-xs"
+            [src]="selectedMember.profileImages[0]?.url"
+            alt="profile"
           />
+          <span class="text-sm font-semibold text-gray-800">
+            {{ selectedMember.firstName | titlecase }}
+          </span>
         </div>
-        <!-- LARGE SCREEN NAVIGATION OPTION -->
-        <nav
-          class="navbar navbar-expand-sm p-0 hidden sm:hidden md:hidden lg:block"
-        >
-          <div class="w-full px-6">
-            <ul class="navbar-nav flex flex-flex flex-wrap -mx-3 gap-6">
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  [routerLink]="['/home/member']"
-                  [class.active-link]="
-                    router.isActive('/home/member', {
-                      paths: 'subset',
-                      queryParams: 'ignored',
-                      matrixParams: 'ignored',
-                      fragment: 'ignored'
-                    })
-                  "
-                >
-                  <i class="fas fa-home fa-lg mr-1 text-gray-500"></i> Home
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  [routerLink]="['/member/profiles']"
-                  [class.active-link]="
-                    router.isActive('/member/profiles', {
-                      paths: 'subset',
-                      queryParams: 'ignored',
-                      matrixParams: 'ignored',
-                      fragment: 'ignored'
-                    })
-                  "
-                >
-                  <i class="fas fa-users mr-1 text-gray-500"></i> Members
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  [routerLink]="['/home/chat']"
-                  [class.active-link]="
-                    router.isActive('/home/chat', {
-                      paths: 'subset',
-                      queryParams: 'ignored',
-                      matrixParams: 'ignored',
-                      fragment: 'ignored'
-                    })
-                  "
-                >
-                  <i class="fas fa-comments fa-md mr-1 text-gray-500"></i> Message
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <!-- MOBILE SCREEN NAVIGATION OPTION -->
-        <nav
-          class="bottom-nav navbar fixed-bottom bg-white border-top block d-dm-block md:block lg:hidden p-0"
-        >
-          <div class="w-full px-6 px-0">
-            <div
-              class="flex justify-around items-center w-full pt-1"
-            >
-              <!-- Home -->
-              <a
-                class="nav-link text-center position-relative p-0"
-                [routerLink]="['/home/member']"
-                routerLinkActive="active-nav-item"
-                [routerLinkActiveOptions]="{ exact: true }"
-              >
-                <div class="nav-icon-wrapper">
-                  <i class="fas fa-home fa-lg"></i>
-                </div>
-                <span class="nav-label">Home</span>
-              </a>
 
-              <!-- Members -->
-              <a
-                class="nav-link text-center position-relative p-0"
-                [routerLink]="['/member/profiles']"
-                routerLinkActive="active-nav-item"
-                [routerLinkActiveOptions]="{ exact: true }"
-              >
-                <div class="nav-icon-wrapper">
-                  <i class="fas fa-users fa-lg"></i>
-                </div>
-                <span class="nav-label">Members</span>
-              </a>
+        <!-- FRIEND REQUEST BUTTON -->
+        <div class="relative" *ngIf="memberProfiles.length > 0">
+          <button
+            type="button"
+            (click)="toggleDropdown('friendRequest')"
+            class="w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-200"
+            [ngClass]="isFriendRequestOpen ? 'bg-[#5c142b] text-white border-[#5c142b] shadow-md' : 'bg-gray-50 hover:bg-gray-100 text-gray-600 border-gray-200'"
+          >
+            <i class="fas fa-user-plus text-sm"></i>
+            <span *ngIf="totalRequestList > 0" class="absolute -top-1 -right-1 w-5 h-5 bg-red-600 text-white rounded-full text-[10px] font-bold flex items-center justify-center shadow-sm">
+              {{ totalRequestList }}
+            </span>
+          </button>
 
-              <!-- Chat -->
-              <a
-                class="nav-link text-center position-relative p-0"
-                [routerLink]="['/home/chat']"
-                routerLinkActive="active-nav-item"
-                [routerLinkActiveOptions]="{ exact: true }"
-              >
-                <div class="nav-icon-wrapper">
-                  <i class="fas fa-comments fa-lg"></i>
-                  <!-- Optional: Add notification badge -->
-                  <!-- <span class="notification-badge">3</span> -->
-                </div>
-                <span class="nav-label">Chat</span>
-              </a>
-
-              <!-- Profile Dropdown -->
-              <div
-                class="nav-item dropup block sm:block md:hidden"
-                *ngIf="mainUser"
-              >
-                <a
-                  class="nav-link text-center position-relative p-0"
-                  href="#"
-                  id="profileDropup"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <div class="nav-icon-wrapper profile-wrapper">
-                    <img
-                      [src]="mainUser.image"
-                      alt="Profile"
-                      class="rounded-full object-cover profile-img"
-                      width="28"
-                      height="28"
-                    />
-                  </div>
-                  <span class="nav-label">Profile</span>
-                </a>
-
-                <ul
-                  class="dropdown-menu dropdown-menu-end shadow-md-xl border-0 rounded-xl mb-2"
-                  aria-labelledby="profileDropup"
-                >
-                  <li>
-                    <a
-                      class="dropdown-item rounded-lg py-2"
-                      routerLink="/member/billing"
-                    >
-                      <i class="fas fa-credit-card mr-2 text-[#5c142b]"></i>
-                      <span>Plan & Billing</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item rounded-lg py-2 mt-1"
-                      routerLink="/help-center"
-                    >
-                      <i class="fas fa-question-circle mr-2 text-info"></i>
-                      <span>Help & Support</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item rounded-lg py-2 mt-1"
-                      routerLink="home/main-user"
-                    >
-                      <i class="fas fa-cog mr-2 text-amber-500"></i>
-                      <span>Settings & Privacy</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item rounded-lg py-2 mt-1"
-                      (click)="_authLogout()"
-                    >
-                      <i class="fas fa-sign-out-alt mr-2 text-[#5c142b]"></i>
-                      <span>Logout</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </nav>
-        <!-- LEFT SIDE NOTIFICATION CHAT AND PROFILE -->
-        <div class="mr-2 position-relative hidden md:block">
-          <div class="flex">
-            <div class="mr-4 member" *ngIf="!isLoading && selectedMember">
-              <div class="flex">
-                <img
-                  class="object-cover mr-2 circles"
-                  src="{{ selectedMember.profileImages[0].url }}"
-                  alt="profile"
-                  width="40px"
-                  height="40px"
-                />
-                <div class="my-auto font-bold">
-                  {{ selectedMember.firstName | titlecase }}
-                </div>
-              </div>
-            </div>
-            <!-- FRIEND REQUEST -->
-            <div
-              class="circles border mr-2 cursor-pointer position-relative friend"
-              (click)="toggleDropdown('friendRequest')"
-              *ngIf="memberProfiles.length > 0"
-            >
-              <!-- <i class="fas fa-user-plus fa-lg"  ></i> -->
-              <span class="position-relative">
-                <i
-                  class="far fa-user fa-lg"
-                  [ngClass]="{ 'text-red-600': isFriendRequestOpen }"
-                ></i>
-                <i
-                  class="fas fa-plus position-absolute"
-                  style="font-size: 0.6em; bottom: 5; right: -10"
-                ></i>
-              </span>
-
-              <div
-                class="text-white bg-danger notification-bandage position-absolute p-2"
-                *ngIf="totalRequestList > 0"
-              >
-                {{ totalRequestList }}
-              </div>
-            </div>
-            <!-- MESSAGE -->
-            <div
-              class="circles border mr-2 cursor-pointer position-relative mes"
-              (click)="toggleDropdown('message')"
-              *ngIf="memberProfiles.length > 0"
-            >
-              <i
-                class="far fa-comments fa-md"
-                [ngClass]="{ 'text-red-600': isMessageOpen }"
-              ></i>
-              <div
-                class="text-white bg-danger notification-bandage position-absolute p-2"
-                *ngIf="UnreadCount > 0"
-              >
-                {{ UnreadCount }}
-              </div>
-            </div>
-            <!-- NOTIFICATION -->
-            <div
-              class="circles border mr-2 cursor-pointer position-relative noti"
-              (click)="toggleDropdown('notification')"
-              *ngIf="memberProfiles.length > 0"
-            >
-              <i
-                class="far fa-bell fa-lg"
-                [ngClass]="{ 'text-red-600': isNotificationOpen }"
-              ></i>
-              <div
-                class="text-white bg-danger notification-bandage position-absolute p-2"
-                *ngIf="totalUnReadCount > 0"
-              >
-                {{ totalUnReadCount }}
-              </div>
-            </div>
-
-            <div
-              class="profile-image cursor-pointer profi position-relative"
-              (click)="toggleDropdown('profile')"
-              *ngIf="mainUser"
-            >
-              <img
-                class="circles object-cover"
-                [src]="mainUser.image"
-                alt="Profile Image"
-              />
-              <div class="dropdown-icon">
-                <i class="fas fa-caret-down"></i>
-                <!-- or use a custom SVG -->
-              </div>
-            </div>
-          </div>
-          <!-- FRIEND REQUEST DROP DOWNBOX -->
+          <!-- FRIEND REQUEST DROPDOWN -->
           <div
-            class="boder rounded bg-white position-absolute message-box p-0"
             *ngIf="isFriendRequestOpen"
             (scroll)="onScroll($event)"
+            class="absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-amber-200/50 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200"
           >
-            <div class="border-bottom p-6 mb-2 bg-light">
-              <h5 class="h5">Friend Requests</h5>
+            <div class="px-5 py-3.5 bg-gradient-to-r from-amber-50 to-rose-50/50 border-b border-gray-100 flex items-center justify-between">
+              <h3 class="text-sm font-bold text-gray-900 flex items-center gap-2">
+                <i class="fas fa-user-friends text-[#5c142b]"></i> Friend Requests
+              </h3>
+              <span class="text-xs font-semibold text-gray-500">{{ friendRequestList.length }} requests</span>
             </div>
-            <div class="mt-6" *ngIf="friendRequestList.length > 0">
+
+            <div class="max-h-80 overflow-y-auto p-3 space-y-2.5">
               <div
-                class="border border-15 p-2 mt-2 m-2"
                 *ngFor="let r of friendRequestList"
+                class="p-3 rounded-xl border border-gray-100 hover:border-amber-200 bg-white hover:bg-amber-50/20 transition-all"
               >
-                <div (click)="navigateToMemberView(r)">
-                  <div class="flex">
-                    <img
-                      alt="pf"
-                      width="70px"
-                      height="70px"
-                      class="object-cover border border-15 profile-img"
-                      src="{{ r.profileImageURL }}"
-                    />
-                    <div class="text-sm my-auto ml-4 font-bold text-gray-500">
-                      {{ r.name }}
-                    </div>
-                    <div
-                      class="flex my-auto justify-end ml-auto"
-                      *ngIf="r.status === request.Pending"
-                    >
+                <div class="flex items-center gap-3">
+                  <img
+                    [src]="r.profileImageURL"
+                    alt="avatar"
+                    class="w-12 h-12 rounded-xl object-cover border border-amber-200/60 shadow-xs flex-shrink-0"
+                  />
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-gray-900 truncate">{{ r.name }}</p>
+                    
+                    <div class="flex gap-2 mt-2" *ngIf="r.status === request.Pending">
                       <button
-                        class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all h-50 mr-2"
-                        [disabled]="true"
                         (click)="confirmFriendRequest(r.id)"
                         [disabled]="isRequestLoading"
+                        class="px-3 py-1 bg-gradient-to-r from-[#5c142b] to-[#7e1e3b] text-white text-xs font-semibold rounded-lg hover:shadow-sm disabled:opacity-50 transition-all"
                       >
                         Accept
                       </button>
                       <button
-                        class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all h-50"
                         (click)="rejectFriendRequest(r.id)"
                         [disabled]="isRequestLoading"
+                        class="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-lg transition-all"
                       >
                         Reject
                       </button>
                     </div>
-                    <div
-                      class="text-xs text-gray-500 font-bold my-auto ml-auto"
-                      *ngIf="r.status === request.Accepted"
-                    >
-                      Friend Request Accepted
-                    </div>
-                    <div
-                      class="text-xs text-gray-500 font-bold my-auto ml-auto"
-                      *ngIf="r.status === request.Rejected"
-                    >
-                      Friend Request Rejected
-                    </div>
+
+                    <span class="inline-block mt-1 text-xs font-semibold text-emerald-600" *ngIf="r.status === request.Accepted">
+                      ✓ Accepted
+                    </span>
+                    <span class="inline-block mt-1 text-xs font-semibold text-gray-400" *ngIf="r.status === request.Rejected">
+                      ✕ Rejected
+                    </span>
                   </div>
                 </div>
-
-                <div
-                  class="spinner-border text-light mr-1 spinner-border-sm"
-                  role="status"
-                  *ngIf="isRequestLoading"
-                >
-                  <span class="sr-only">Loading...</span>
-                </div>
               </div>
-            </div>
-            <div *ngIf="friendRequestList.length === 0">
-              <div class="text-md text-center mb-6">
-                <div>
-                  <svg
-                    width="80"
-                    height="80"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    class="text-gray-500"
-                  >
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="8.5" cy="7" r="4"></circle>
-                    <line x1="18" y1="8" x2="23" y2="13"></line>
-                    <line x1="23" y1="8" x2="18" y2="13"></line>
-                  </svg>
-                </div>
-                No Friend Requests yet
+
+              <div *ngIf="friendRequestList.length === 0" class="py-10 text-center text-gray-400">
+                <i class="fas fa-user-clock text-3xl mb-2 text-gray-300"></i>
+                <p class="text-xs font-medium">No friend requests yet</p>
               </div>
             </div>
           </div>
-          <!-- NOTIFICATION DROP DOWNBOX -->
+        </div>
+
+        <!-- MESSAGE DROPDOWN BUTTON -->
+        <div class="relative" *ngIf="memberProfiles.length > 0">
+          <button
+            type="button"
+            (click)="toggleDropdown('message')"
+            class="w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-200"
+            [ngClass]="isMessageOpen ? 'bg-[#5c142b] text-white border-[#5c142b] shadow-md' : 'bg-gray-50 hover:bg-gray-100 text-gray-600 border-gray-200'"
+          >
+            <i class="fas fa-comments text-sm"></i>
+            <span *ngIf="UnreadCount > 0" class="absolute -top-1 -right-1 w-5 h-5 bg-red-600 text-white rounded-full text-[10px] font-bold flex items-center justify-center shadow-sm">
+              {{ UnreadCount }}
+            </span>
+          </button>
+
+          <!-- MESSAGE POPUP -->
           <div
-            class="boder rounded bg-white position-absolute message-box bg-light p-0"
+            *ngIf="isMessageOpen"
+            class="absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-amber-200/50 overflow-hidden z-50"
+          >
+            <div class="px-5 py-3.5 bg-gradient-to-r from-amber-50 to-rose-50/50 border-b border-gray-100 flex items-center justify-between">
+              <h3 class="text-sm font-bold text-gray-900 flex items-center gap-2">
+                <i class="fas fa-comment-dots text-[#5c142b]"></i> Recent Messages
+              </h3>
+              <a [routerLink]="['/home/chat']" class="text-xs font-semibold text-[#5c142b] hover:underline">View All</a>
+            </div>
+
+            <div class="max-h-80 overflow-y-auto p-3 space-y-2">
+              <div
+                *ngFor="let p of participants"
+                (click)="openChat(p)"
+                class="p-3 rounded-xl border border-gray-100 hover:border-amber-200 bg-white hover:bg-amber-50/20 cursor-pointer transition-all flex items-center gap-3"
+              >
+                <img [src]="p.profileImage" alt="avatar" class="w-11 h-11 rounded-full object-cover border border-amber-200/60 shadow-xs flex-shrink-0" />
+                <div class="flex-1 min-w-0">
+                  <div class="flex justify-between items-baseline mb-0.5">
+                    <p class="text-sm font-bold text-gray-900 truncate">{{ p.name }}</p>
+                    <span class="text-[11px] text-gray-400">{{ p.lastSentAt }}</span>
+                  </div>
+                  <p class="text-xs text-gray-500 truncate">{{ p.isSentByMe ? 'You: ' : '' }}{{ p.lastMessage }}</p>
+                </div>
+                <div *ngIf="!p.isRead" class="w-2.5 h-2.5 rounded-full bg-red-600 flex-shrink-0"></div>
+              </div>
+
+              <div *ngIf="participants.length === 0" class="py-10 text-center text-gray-400">
+                <i class="fas fa-inbox text-3xl mb-2 text-gray-300"></i>
+                <p class="text-xs font-medium">No active chats yet</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTIFICATIONS BUTTON -->
+        <div class="relative" *ngIf="memberProfiles.length > 0">
+          <button
+            type="button"
+            (click)="toggleDropdown('notification')"
+            class="w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-200"
+            [ngClass]="isNotificationOpen ? 'bg-[#5c142b] text-white border-[#5c142b] shadow-md' : 'bg-gray-50 hover:bg-gray-100 text-gray-600 border-gray-200'"
+          >
+            <i class="fas fa-bell text-sm"></i>
+            <span *ngIf="totalUnReadCount > 0" class="absolute -top-1 -right-1 w-5 h-5 bg-red-600 text-white rounded-full text-[10px] font-bold flex items-center justify-center shadow-sm">
+              {{ totalUnReadCount }}
+            </span>
+          </button>
+
+          <!-- NOTIFICATIONS POPUP -->
+          <div
             *ngIf="isNotificationOpen"
             (scroll)="onNotificationScroll($event)"
+            class="absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-amber-200/50 overflow-hidden z-50"
           >
-            <div class="bg-light">
-              <div class="h5 p-6 border-bottom m-0 pt-3">Notifications</div>
-              <div
-                class="bg-white border px-6 py-2"
-                *ngIf="notificationList.length !== 0"
-              >
-                <div class="flex text-md font-bold justify-between">
-                  <div class="my-auto">
-                    <span
-                      class="mr-4 cursor-pointer"
-                      [ngClass]="{ 'text-[#5c142b]': !isUnread }"
-                      (click)="
-                        isUnread = false;
-                        hasMoreNotification = true;
-                        getNotifications()
-                      "
-                      >All</span
-                    >
-                    <span
-                      class="cursor-pointer"
-                      [ngClass]="{ 'text-[#5c142b]': isUnread }"
-                      (click)="
-                        isUnread = true;
-                        hasMoreNotification = true;
-                        getNotifications()
-                      "
-                      >Unread</span
-                    >
-                  </div>
-                  <div
-                    class="border p-2 rounded cursor-pointer mark-all-bel"
-                    (click)="markAllNotificationsAsRead()"
-                  >
-                    <i class="fas fa-bell-slash text-amber-500"></i>
-                  </div>
-                </div>
-              </div>
-              <!-- <div class="px-6 py-2">TODAY</div> -->
-              <div *ngIf="!isNotificationLoading">
-                <div
-                  class="border bg-white p-6 notification-list cursor-pointer"
-                  *ngFor="let notification of notificationList"
-                >
-                  <div
-                    class="flex"
-                    (click)="navigateToNotificationSection(notification)"
-                  >
-                    <div>
-                      <img
-                        src="{{ notification.parsedPayload?.ImageUrl }}"
-                        [alt]="'name'"
-                        class="avatar-image"
-                        onerror="this.style.display='none'"
-                      />
-                    </div>
-                    <div class="ml-4 text-sm">
-                      <div class="font-bold">{{ notification.title }}</div>
-                      <div class="text-gray-500">{{ notification.body }}</div>
-                      <div class="text-gray-500">
-                        {{ notification.createdDate }}
-                      </div>
-                    </div>
-                    <div class="ml-auto my-auto" *ngIf="!notification.isRead">
-                      <i class="fas fa-circle text-red-600"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div *ngIf="friendRequestList.length === 0">
-                <div
-                  class="text-md text-center mb-6 bg-white mt-2"
-                  *ngIf="notificationList.length === 0"
-                >
-                  <div>
-                    <svg
-                      width="80"
-                      height="80"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="text-gray-500"
-                    >
-                      <path
-                        d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"
-                      ></path>
-                      <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                    </svg>
-                  </div>
-                  No notification yet
-                </div>
+            <div class="px-5 py-3.5 bg-gradient-to-r from-amber-50 to-rose-50/50 border-b border-gray-100 flex items-center justify-between">
+              <h3 class="text-sm font-bold text-gray-900 flex items-center gap-2">
+                <i class="fas fa-bell text-[#5c142b]"></i> Notifications
+              </h3>
+              <div class="flex items-center gap-2">
+                <span (click)="isUnread = false; hasMoreNotification = true; getNotifications()" class="cursor-pointer text-xs font-semibold px-2 py-0.5 rounded-full" [ngClass]="!isUnread ? 'bg-[#5c142b] text-white' : 'text-gray-600'">All</span>
+                <span (click)="isUnread = true; hasMoreNotification = true; getNotifications()" class="cursor-pointer text-xs font-semibold px-2 py-0.5 rounded-full" [ngClass]="isUnread ? 'bg-[#5c142b] text-white' : 'text-gray-600'">Unread</span>
               </div>
             </div>
-            <div
-              class="mx-auto text-center mt-8 mb-8"
-              *ngIf="isNotificationLoading"
-            >
-              <div class="spinner-border text-red-600" role="status">
-                <span class="visually-hidden">Loading...</span>
+
+            <div class="max-h-80 overflow-y-auto p-3 space-y-2">
+              <div
+                *ngFor="let n of notificationList"
+                (click)="navigateToNotificationSection(n)"
+                class="p-3 rounded-xl border border-gray-100 hover:border-amber-200 bg-white hover:bg-amber-50/20 cursor-pointer transition-all flex items-start gap-3"
+              >
+                <img [src]="n.parsedPayload?.ImageUrl || 'assets/icons/notification-default.png'" alt="n" class="w-10 h-10 rounded-full object-cover border border-amber-200/60 shadow-xs flex-shrink-0 mt-0.5" onerror="this.src='https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png'" />
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-bold text-gray-900">{{ n.title }}</p>
+                  <p class="text-xs text-gray-600 mt-0.5 line-clamp-2">{{ n.body }}</p>
+                  <span class="text-[10px] text-gray-400 mt-1 block">{{ n.createdDate }}</span>
+                </div>
+                <div *ngIf="!n.isRead" class="w-2 h-2 rounded-full bg-red-600 flex-shrink-0 mt-1.5"></div>
+              </div>
+
+              <div *ngIf="notificationList.length === 0" class="py-10 text-center text-gray-400">
+                <i class="fas fa-bell-slash text-3xl mb-2 text-gray-300"></i>
+                <p class="text-xs font-medium">No notifications yet</p>
               </div>
             </div>
           </div>
-          <!-- NOTIFICATION DROP DOWNBOX END -->
-
-          <!-- CHAT DROP DOWN -->
-          <div
-            class="boder rounded bg-white position-absolute message-box font-bold p-0"
-            *ngIf="isMessageOpen"
-          >
-            <div class="border-bottom p-6 mb-2 bg-light">
-              <h5 class="h5">Messages</h5>
-            </div>
-            <div class="mt-0" *ngIf="participants.length > 0">
-              <div class="">
-                <div
-                  class="border bg-white p-6 notification-list cursor-pointer m-2 border-15"
-                  *ngFor="let participant of participants"
-                >
-                  <div class="flex" (click)="openChat(participant)">
-                    <div>
-                      <img
-                        [src]="participant.profileImage"
-                        [alt]="participant.name"
-                        class="avatar-image"
-                        onerror="this.style.display='none'"
-                      />
-                    </div>
-                    <div class="ml-4 text-sm w-full">
-                      <div class="flex justify-between">
-                        <div class="font-bold">{{ participant.name }}</div>
-                        <div class="text-gray-500">
-                          {{ participant.lastSentAt }}
-                        </div>
-                      </div>
-                      <div class="text-gray-500">
-                        {{ participant.isSentByMe ? "You: " : "" }}
-                        {{ participant.lastMessage }}
-                      </div>
-                    </div>
-                    <div
-                      class="notification-badge ml-auto mt-0"
-                      *ngIf="!participant.isRead"
-                    >
-                      <i class="fas fa-circle text-red-600"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div *ngIf="participants.length === 0">
-              <div class="text-md text-center mb-6">
-                <div>
-                  <svg
-                    width="80"
-                    height="80"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    class="text-gray-500"
-                  >
-                    <path
-                      d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
-                    ></path>
-                    <path d="M8 9h8"></path>
-                    <path d="M8 13h6"></path>
-                  </svg>
-                </div>
-                No conversations yet
-              </div>
-            </div>
-          </div>
-          <!-- END CHAT DROP DOWN -->
-
-          <!-- PROFILE DROPDOWNBOX -->
-          <div
-            class="boder rounded bg-white position-absolute"
-            [ngClass]="
-              memberProfiles.length === 0 ? 'register-drop' : 'message-box'
-            "
-            *ngIf="isProfileOpen"
-          >
-            <div class="border border-15 p-6">
-              <div class="flex cursor-pointer" *ngIf="mainUser">
-                <div class="mr-4">
-                  <img
-                    src="{{ mainUser.image }}"
-                    class="list-profile object-cover"
-                    alt="..."
-                  />
-                </div>
-                <div class="my-auto font-bold text-gray-500 text-md">
-                  {{
-                    mainUser.firstName +
-                      " " +
-                      (mainUser.lastName === null ? "" : mainUser.lastName)
-                  }}
-                </div>
-              </div>
-              <hr />
-              <div>
-                <div
-                  class="member-toggle-list cursor-pointer mt-2"
-                  *ngFor="let p of displayedProfiles"
-                >
-                  <div
-                    class="flex p-2 member-card border-radios-15"
-                    (click)="p.memberApproval != 1 && changeMemberProfile(p.id)"
-                    [ngClass]="{
-                      'active-user': p.id == selectedMember.id,
-                      'disabled-card': p.memberApproval == 1
-                    }"
-                  >
-                    <div class="mr-4">
-                      <img
-                        [src]="p.profileImages[0].url"
-                        class="list-profile object-cover"
-                        alt="..."
-                      />
-                    </div>
-                    <div class="my-auto font-normal">
-                      {{ p.firstName + " " + p.lastName }}
-                    </div>
-                    <div
-                      class="ml-auto text-xs my-auto"
-                      *ngIf="p.memberApproval === 1"
-                    >
-                      <span class="badge bg-danger">Approval pending</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="my-2 cursor-pointer" *ngIf="displayedProfiles.length > 2">
-                <div
-                  class="w-full text-red-600"
-                  (click)="canAddProfile = !canAddProfile"
-                >
-                  {{ canAddProfile ? "Close" : "See all Profiles" }}
-                </div>
-              </div>
-            </div>
-            <div class="text-sm pt-2 mb-2" *ngIf="memberProfiles.length > 0">
-              <div
-                class="text-md font-bold text-gray-500 cursor-pointer toggle-navigation py-6 my-auto ps-2"
-                (click)="enterPlanAndBilling()"
-              >
-                <span class="">
-                  <i class="fas fa-credit-card fa-md text-gray-500 text-lg"></i>
-                </span>
-                <span class="ml-4"> Plan & Billing</span>
-              </div>
-
-              <div
-                class="text-md font-bold text-gray-500 cursor-pointer toggle-navigation py-6 my-auto ps-2"
-                (click)="enterSettings()"
-              >
-                <span class="">
-                  <i class="fas fa-cog text-lg"></i>
-                </span>
-                <span class="ml-4">Settings & privacy</span>
-              </div>
-
-              <div
-                class="text-md font-bold text-gray-500 cursor-pointer toggle-navigation py-6 ps-2"
-                (click)="enterPrivacyPolicy()"
-              >
-                <span class="">
-                  <i class="fas fa-question-circle text-lg"></i>
-                </span>
-                <span class="ml-4">Help & support</span>
-              </div>
-            </div>
-            <div
-              class="text-md font-bold text-gray-500 cursor-pointer toggle-navigation py-6 ps-2"
-              (click)="_authLogout()"
-            >
-              <span class="">
-                <i class="fas fa-sign-out-alt fa-md text-lg"></i>
-              </span>
-              <span class="ml-4">log out</span>
-            </div>
-          </div>
-          <!-- END DROPDOWNBOX -->
         </div>
+
+        <!-- USER PROFILE AVATAR & DROPDOWN -->
+        <div class="relative" *ngIf="mainUser">
+          <button
+            type="button"
+            (click)="toggleDropdown('profile')"
+            class="flex items-center gap-2 p-1 rounded-full border border-amber-300/60 hover:border-amber-400 focus:outline-none transition-all shadow-xs"
+          >
+            <img
+              class="w-9 h-9 rounded-full object-cover"
+              [src]="mainUser.image"
+              alt="Profile Image"
+            />
+            <i class="fas fa-chevron-down text-xs text-gray-500 pr-1"></i>
+          </button>
+
+          <!-- PROFILE MENU MODAL -->
+          <div
+            *ngIf="isProfileOpen"
+            class="absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-2xl border border-amber-200/50 p-3 z-50 animate-in fade-in duration-200"
+          >
+            <div class="p-3 bg-amber-50/50 rounded-xl mb-2 flex items-center gap-3">
+              <img [src]="mainUser.image" class="w-12 h-12 rounded-full object-cover border-2 border-[#5c142b]" alt="user" />
+              <div class="min-w-0">
+                <p class="text-sm font-bold text-gray-900 truncate">{{ mainUser.firstName }} {{ mainUser.lastName || '' }}</p>
+                <p class="text-xs text-gray-500 truncate">{{ mainUser.email }}</p>
+              </div>
+            </div>
+
+            <!-- Profile Switcher -->
+            <div class="mb-3 space-y-1.5" *ngIf="displayedProfiles.length > 0">
+              <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider px-2">Switch Profile</p>
+              <div
+                *ngFor="let p of displayedProfiles"
+                (click)="p.memberApproval != 1 && changeMemberProfile(p.id)"
+                class="flex items-center gap-2.5 p-2 rounded-xl cursor-pointer transition-all"
+                [ngClass]="p.id == selectedMember.id ? 'bg-amber-100/60 border border-amber-300/80 font-bold' : 'hover:bg-gray-50 text-gray-700'"
+              >
+                <img [src]="p.profileImages[0]?.url" class="w-8 h-8 rounded-full object-cover" alt="sub" />
+                <span class="text-xs flex-1 truncate">{{ p.firstName }} {{ p.lastName }}</span>
+                <span *ngIf="p.memberApproval === 1" class="text-[10px] bg-red-100 text-red-700 px-2 py-0.5 rounded-full font-medium">Pending</span>
+              </div>
+            </div>
+
+            <div class="border-t border-gray-100 pt-2 space-y-1 text-sm text-gray-700">
+              <a (click)="enterPlanAndBilling()" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50/50 hover:text-[#5c142b] cursor-pointer transition-all font-medium text-xs">
+                <i class="fas fa-credit-card text-[#5c142b] w-4 text-center"></i> Plan & Billing
+              </a>
+              <a (click)="enterSettings()" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50/50 hover:text-[#5c142b] cursor-pointer transition-all font-medium text-xs">
+                <i class="fas fa-cog text-amber-500 w-4 text-center"></i> Settings & Privacy
+              </a>
+              <a (click)="enterPrivacyPolicy()" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50/50 hover:text-[#5c142b] cursor-pointer transition-all font-medium text-xs">
+                <i class="fas fa-question-circle text-blue-500 w-4 text-center"></i> Help & Support
+              </a>
+              <div class="border-t border-gray-100 my-1"></div>
+              <a (click)="_authLogout()" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-red-50 text-red-600 cursor-pointer transition-all font-semibold text-xs">
+                <i class="fas fa-sign-out-alt w-4 text-center"></i> Logout
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
-</div>
-<button
-  class="hidden"
-  data-bs-toggle="modal"
-  data-bs-target="#staticBackdrops"
-  id="viewProfileModals"
-></button>
+
+  <!-- MOBILE BOTTOM BAR (FIXED) -->
+  <nav class="lg:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-50 px-6 py-2 shadow-lg">
+    <div class="flex justify-around items-center">
+      <a [routerLink]="['/home/member']" routerLinkActive="text-[#5c142b] font-bold" class="flex flex-col items-center text-xs text-gray-500 gap-1">
+        <i class="fas fa-home text-lg"></i>
+        <span>Home</span>
+      </a>
+      <a [routerLink]="['/member/profiles']" routerLinkActive="text-[#5c142b] font-bold" class="flex flex-col items-center text-xs text-gray-500 gap-1">
+        <i class="fas fa-users text-lg"></i>
+        <span>Members</span>
+      </a>
+      <a [routerLink]="['/home/chat']" routerLinkActive="text-[#5c142b] font-bold" class="flex flex-col items-center text-xs text-gray-500 gap-1">
+        <i class="fas fa-comments text-lg"></i>
+        <span>Chat</span>
+      </a>
+      <a (click)="toggleDropdown('profile')" class="flex flex-col items-center text-xs text-gray-500 gap-1 cursor-pointer" *ngIf="mainUser">
+        <img [src]="mainUser.image" class="w-6 h-6 rounded-full object-cover border border-amber-300" alt="profile" />
+        <span>Profile</span>
+      </a>
+    </div>
+  </nav>
+</header>
