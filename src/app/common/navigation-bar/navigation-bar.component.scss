@@ -22,17 +22,17 @@
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    color: #5c142b;
-    background-color: rgba(92, 20, 43, 0.05);
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.06);
   }
 }
 
 .active-nav-pill {
   color: #ffffff !important;
-  background: linear-gradient(135deg, #5c142b 0%, #7e1e3b 100%) !important;
-  box-shadow: 0 4px 12px rgba(92, 20, 43, 0.25);
+  background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%) !important;
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
 
   i {
-    color: #f5d78e !important;
+    color: #ffffff !important;
   }
 }

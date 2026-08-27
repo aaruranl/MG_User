@@ -1,117 +1,166 @@
-<section class="content">
-  <div class="component-content">
-    <div class="flex flex-wrap -mx-3 m-0 bg-colors">
-      <div class="w-full px-6 md:w-full col-lg-9 mx-auto">
-       <div class="flex flex-wrap -mx-3">
-          <div class="w-full px-6">
-            <div class="flex justify-center items-center">
-              <div class="w-full px-6 px-0 px-sm-4 py-6">
-                <!-- <div class="bg-danger text-white m-shadow-md p-6">
-                  <div class="text-lg font-bold">Member list</div>
-                  <div class="text-md">View and manage all the members with MarriageGate.</div>
-                </div> -->
-                <div class="dashboard-header p-card" style="animation-delay: 0.1s;">
-                  <div class="header-content">
-                    <div class="header-icon">
-                      <i class="fas fa-users p-6"></i>
-                    </div>
-                    <div class="header-text">
-                      <h2 class="header-title text-lg">Member list</h2>
-                      <p class="header-subtitle">View and manage all the members with MarriageGate.</p>
-                    </div>
-                    <!-- <div class="header-decoration">
-                      <div class="floating-shapes">
-                        <div class="shape shape-1"></div>
-                        <div class="shape shape-2"></div>
-                        <div class="shape shape-3"></div>
-                      </div>
-                    </div> -->
-                  </div>
-                </div>
-                <!-- <div class="text-end mt-6 mr-2" *ngIf="mainUser">
-                  <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-2"  (click)="navigateToFrom()" [disabled]="mainUser.remainingMemberCount === 0"> <span class="font-bold">+</span> Add Member</button>
-                  <i class="fas fa-info-circle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="bottom"
-                    title="Your plan will renew on October 25, 2025"
-                    style="cursor: cursor-pointer; font-size: 1.2rem; color: #6c757d;"></i>
+<section class="min-h-screen py-8 sm:py-12 bg-gradient-to-b from-[#faf9f9] via-[#fdfcfc] to-[#f7f2f2]">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Top Header Banner -->
+    <div class="bg-gradient-to-r from-[#dc3545] via-[#e4606d] to-[#b02a37] rounded-3xl p-6 sm:p-8 text-white shadow-xl mb-8 relative overflow-hidden">
+      <!-- Ambient decorative glow shapes -->
+      <div class="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-10 -left-10 w-44 h-44 rounded-full bg-black/10 blur-2xl pointer-events-none"></div>
 
-                </div> -->
-                <div class="text-end mt-6 mr-2" *ngIf="mainUser">
-                  <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="You reached maximum member limit.">
-                    <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-2" type="button" (click)="navigateToFrom()" [disabled]="mainUser.remainingMemberCount === 0"><span class="font-bold">+</span> Add Member</button>
-                  </span>
-                </div>
-
-                <div class="flex flex-wrap -mx-3 mt-6 ms-0 me-0">
-                    <div class="w-full px-6 col-sm-6 p-2 position-relative" *ngFor="let p of memberProfiles">
-                      <div class="mx-auto m-shadow-md p-2">
-                        <div class="flex justify-between items-start">
-                        <div class="flex">
-                          <img alt="fd-profile" width="100px" height="100px"
-                              class="object-cover border profile-img border-15"
-                              src={{p.profileImages[0].url}}>
-                          <div class="text-left my-auto ml-4">
-                            <div class="font-bold text-md text-capitalize">{{p.firstName + ' ' + p.lastName}}</div>
-                            <div class="text-gray-500 text-sm text-capitalize">{{p.profileJob?.title}}</div>
-                           <div class="ml-auto text-xs my-auto text-center mt-2" *ngIf="p.memberApproval === 1"><span class="badge bg-danger">Approval pending</span></div>
-
-                          </div>
-                        </div>
-
-
-                        <div class="mr-4 my-auto">
-                          <!-- <div class="dropdown">
-                          <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer p-0 border-0 bg-transparent" type="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-ellipsis-h"></i>
-                          </button>
-                          <ul class="dropdown-menu shadow-md-sm rounded-xl">
-                            <li><a class="dropdown-item" (click)="navigateToEditForm(p.id)"><i class="fas fa-edit text-[#5c142b] mr-2"></i>Edit</a></li>
-                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="deleteMemberId = p.id"><i class="fas fa-trash text-red-600 mr-2 text-[#5c142b]"></i>Delete</a></li>
-                          </ul>
-                        </div> -->
-                        <div>
-                         <span><i class="fas fa-edit text-[#5c142b] mr-2 cursor-pointer" (click)="navigateToEditForm(p.id)"></i></span>
-                         <span><i class="fas fa-trash text-red-600 text-[#5c142b] cursor-pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="deleteMemberId = p.id"></i></span>
-                        </div>
-                        </div>
-                      </div>
-                      </div>
-                    </div>
-                </div>
-              </div>
-            </div>
+      <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center flex-shrink-0 shadow-inner">
+            <i class="fas fa-users text-2xl text-white"></i>
           </div>
-       </div>
-       <app-loading *ngIf="isLoading"></app-loading>
+          <div>
+            <h1 class="text-2xl sm:text-3xl font-serif font-bold text-white mb-1">Managed Profiles</h1>
+            <p class="text-sm text-white/90">View, customize, and manage matrimonial profiles under your account.</p>
+          </div>
+        </div>
+
+        <button
+          *ngIf="mainUser"
+          type="button"
+          (click)="navigateToFrom()"
+          [disabled]="mainUser.remainingMemberCount === 0"
+          class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white text-[#dc3545] hover:bg-red-50 font-bold text-sm shadow-lg hover:shadow-xl transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <i class="fas fa-plus text-xs"></i>
+          <span>Add New Member</span>
+        </button>
       </div>
     </div>
+
+    <!-- Member Profiles Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" *ngIf="!isLoading">
+      <div
+        *ngFor="let p of memberProfiles"
+        class="bg-white rounded-3xl border border-red-100 p-5 shadow-lg shadow-[#dc3545]/5 hover:shadow-xl hover:border-red-300 transition-all flex flex-col justify-between"
+      >
+        <div class="flex items-center gap-4">
+          <!-- Avatar -->
+          <div class="relative w-20 h-20 rounded-2xl overflow-hidden shadow-md flex-shrink-0 border-2 border-red-200">
+            <img
+              [src]="p.profileImages?.[0]?.url"
+              class="w-full h-full object-cover"
+              alt="Profile Photo"
+            />
+          </div>
+
+          <!-- Info -->
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2">
+              <h3 class="text-base font-bold text-gray-900 truncate font-serif">
+                {{ p.firstName }} {{ p.lastName }}
+              </h3>
+              <span
+                *ngIf="p.memberApproval === 1"
+                class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold border border-amber-300"
+              >
+                Approval Pending
+              </span>
+              <span
+                *ngIf="p.memberApproval === 2"
+                class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-300"
+              >
+                Active
+              </span>
+            </div>
+            <p class="text-xs text-gray-500 truncate mt-0.5">
+              {{ p.profileJob?.title || 'Occupation not specified' }}
+            </p>
+            <p class="text-[11px] text-gray-400 mt-1" *ngIf="p.dateOfBirth">
+              <i class="fas fa-birthday-cake mr-1 text-[#dc3545]"></i>
+              DOB: {{ p.dateOfBirth | date:'mediumDate' }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Action Footer -->
+        <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+          <button
+            type="button"
+            (click)="navigateToEditForm(p.id)"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-[#dc3545] bg-red-50/80 hover:bg-red-100/80 transition-all cursor-pointer"
+          >
+            <i class="fas fa-edit text-xs"></i>
+            <span>Edit Profile</span>
+          </button>
+
+          <button
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            (click)="deleteMemberId = p.id"
+            class="p-2 rounded-xl text-gray-400 hover:text-[#dc3545] hover:bg-red-50 transition-all cursor-pointer text-xs"
+            title="Delete member"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div
+      *ngIf="!isLoading && memberProfiles.length === 0"
+      class="bg-white rounded-3xl border border-red-100 p-12 text-center shadow-lg"
+    >
+      <div class="w-16 h-16 rounded-full bg-red-50 text-[#dc3545] flex items-center justify-center mx-auto mb-4 text-2xl">
+        <i class="fas fa-user-plus"></i>
+      </div>
+      <h3 class="font-serif font-bold text-lg text-gray-900 mb-1">No Members Found</h3>
+      <p class="text-xs text-gray-500 mb-6 max-w-sm mx-auto">You haven't added any matrimonial profiles yet. Click the button below to register a profile.</p>
+      <button
+        (click)="navigateToFrom()"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[#dc3545] to-[#b02a37] text-white text-xs font-bold shadow-lg shadow-[#dc3545]/25 hover:shadow-xl transition-all cursor-pointer"
+      >
+        <i class="fas fa-plus"></i>
+        <span>Create First Profile</span>
+      </button>
+    </div>
+
+    <!-- Loading Indicator -->
+    <app-loading *ngIf="isLoading"></app-loading>
+
   </div>
 </section>
 
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close" data-bs-dismiss="modal" aria-label="Close" id="deleteMemberModalId"></button>
+<!-- Delete Member Confirmation Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-3xl border-0 overflow-hidden shadow-2xl p-6 text-center">
+      <div class="w-16 h-16 rounded-full bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-4 text-2xl">
+        <i class="fas fa-exclamation-triangle"></i>
       </div>
-      <div class="modal-body">
-        <div class="flex flex-wrap -mx-3">
-          <div class="w-10/12 px-6 mx-auto">
-            <div class="text-center">
-              <img src="https://dev1mg.blob.core.windows.net/mgate/common/delete.png" alt="" width="150px">
-            </div>
-            <div class="text-lg text-center mt-6">Confirm to delete this member</div>
-            <div class="mt-6">
-              <div class="flex justify-center">
-                <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-secondary mr-2" data-bs-dismiss="modal" aria-label="Close"> Cancel</button>
-                <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all" (click)="deleteMember()" [disabled]="isLoading">Confirm <div class="spinner-border spinner-border-sm text-light mr-1" *ngIf="isLoading"></div></button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <h3 class="font-serif font-bold text-lg text-gray-900 mb-2">Delete Member Profile</h3>
+      <p class="text-xs text-gray-500 mb-6">Are you sure you want to delete this member? This action is permanent and cannot be undone.</p>
+      <div class="flex items-center justify-center gap-3">
+        <button
+          type="button"
+          class="px-5 py-2.5 rounded-xl border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-all cursor-pointer"
+          data-bs-dismiss="modal"
+          id="deleteMemberModalId"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-md shadow-red-600/30 transition-all cursor-pointer disabled:opacity-50"
+          (click)="deleteMember()"
+          [disabled]="isLoading"
+        >
+          <span>Confirm Delete</span>
+          <div class="spinner-border spinner-border-sm text-white ml-2" *ngIf="isLoading"></div>
+        </button>
       </div>
     </div>
   </div>

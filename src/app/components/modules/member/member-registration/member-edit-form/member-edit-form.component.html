@@ -7,438 +7,154 @@
     memberIdInput === ''
   "
 ></app-top-bar>
-<section
-  class="content"
-  [ngClass]="{ 'pt-3': memberProfile && memberProfile.memberApproval === 1 }"
->
-  <div class="component-content">
-    <div class="flex flex-wrap -mx-3 m-0 p-0">
-      <div class="bg-white mt-1 hidden md:hidden lg:block">
-        <div class="flex justify-between mx-sm-5">
-          <div
-            class="text-md cursor-pointer py-2 form-title"
-            [ngClass]="{
-              'text-red-600 border-bottom-title font-bold':
-                currentStep === steps.lookingFor
-            }"
-            (click)="changeStep(steps.lookingFor)"
-          >
-            Matching
-          </div>
-          <div
-            class="text-sm cursor-pointer py-2 form-title"
-            [ngClass]="{
-              'text-red-600 border-bottom-title font-bold':
-                currentStep === steps.basic
-            }"
-            (click)="changeStep(steps.basic)"
-          >
-            Personal Information
-          </div>
-          <div
-            class="text-sm cursor-pointer py-2 form-title"
-            [ngClass]="{
-              'text-red-600 border-bottom-title font-bold':
-                currentStep === steps.contact
-            }"
-            (click)="changeStep(steps.contact)"
-          >
-            Contact Details
-          </div>
-          <div
-            class="text-sm cursor-pointer py-2 form-title"
-            [ngClass]="{
-              'text-red-600 border-bottom-title font-bold':
-                currentStep === steps.personal
-            }"
-            (click)="changeStep(steps.personal)"
-          >
-            Personal Details
-          </div>
-          <div
-            class="text-sm cursor-pointer py-2 form-title"
-            [ngClass]="{
-              'text-red-600 border-bottom-title font-bold':
-                currentStep === steps.family
-            }"
-            (click)="changeStep(steps.family)"
-          >
-            Family Information
-          </div>
-          <div
-            class="text-sm cursor-pointer py-2 form-title"
-            [ngClass]="{
-              'text-red-600 border-bottom-title font-bold':
-                currentStep === steps.religionBackground
-            }"
-            (click)="changeStep(steps.religionBackground)"
-          >
-            Religious Background
-          </div>
-          <div
-            class="text-sm cursor-pointer py-2 form-title"
-            [ngClass]="{
-              'text-red-600 border-bottom-title font-bold':
-                currentStep === steps.education
-            }"
-            (click)="changeStep(steps.education)"
-          >
-            Education & Career
-          </div>
-        </div>
-      </div>
 
-      <!-- Mobile-only stepper -->
-      <div
-        class="bg-white py-2 px-2 border-bottom block md:block lg:hidden"
-      >
-        <div class="flex justify-between stepper-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-          <div
-            class="step-circle text-center cursor-pointer"
-            *ngFor="let step of stepList; let i = index"
-            [ngClass]="{ active: currentStep === step.key }"
-            (click)="changeStep(step.key)"
-          >
-            <div class="circle">{{ i + 1 }}</div>
-            <!-- <div class="step-label">{{ step.label }}</div> -->
-          </div>
-        </div>
-      </div>
+<section class="min-h-screen py-6 sm:py-10 bg-gradient-to-b from-[#faf8f5] via-[#fcfbf9] to-[#f4eee6]">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <div class="">
-        <div
-          class="w-full px-6 col-sm-10 md:w-2/3 lg:w-10/12 mx-auto mt-6 mb-8"
-          *ngIf="!isLoading"
+    <!-- Stepper Navigation Bar (Responsive Pill Carousel) -->
+    <div class="bg-white/90 backdrop-blur-md rounded-2xl p-2 border border-gray-200/80 shadow-sm mb-6 sticky top-16 z-40">
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 px-1">
+        <button
+          type="button"
+          *ngFor="let step of stepList; let i = index"
+          (click)="changeStep(step.key)"
+          [ngClass]="{
+            'bg-gradient-to-r from-[#5c142b] to-[#7e1e3b] text-white shadow-md shadow-[#5c142b]/20 font-bold': currentStep === step.key,
+            'text-gray-600 hover:text-[#5c142b] hover:bg-amber-50/50': currentStep !== step.key
+          }"
+          class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs whitespace-nowrap transition-all flex-shrink-0 cursor-pointer"
         >
-          <div class="flex flex-wrap -mx-3">
-            <div class="w-full px-6 col-sm-10 md:w-full lg:w-1/2 mx-auto">
-              <div class="text-white">
-                <div *ngIf="currentStep === steps.lookingFor">
-                  <!-- <div class="text-md font-bold">Profile Matching Criteria</div>
-                        <div class="text-sm">The following information is used to match user profiles based on preferences.</div> -->
-                  <div
-                    class="dashboard-header p-card"
-                    style="animation-delay: 0.1s"
-                  >
-                    <div class="header-content p-2">
-                      <div class="header-icon p-6 hidden sm:block">
-                        <i class="fas fa-heart"></i>
-                      </div>
-                      <div class="header-text">
-                        <h2 class="header-title text-lg">
-                          Profile Matching Criteria
-                        </h2>
-                        <p class="header-subtitle">
-                          The following information is used to match user
-                          profiles based on preferences.
-                        </p>
-                      </div>
-                      <!-- <div class="header-decoration">
-                              <div class="floating-shapes">
-                                <div class="shape shape-1"></div>
-                                <div class="shape shape-2"></div>
-                                <div class="shape shape-3"></div>
-                              </div>
-                            </div> -->
-                    </div>
-                  </div>
-                </div>
-                <div *ngIf="currentStep === steps.basic">
-                  <!-- <div class="text-md font-bold">Personal Information</div>
-                        <div class="text-sm">Please provide your basic personal details to get started.</div> -->
-                  <div
-                    class="dashboard-header p-card"
-                    style="animation-delay: 0.1s"
-                  >
-                    <div class="header-content p-2">
-                      <div class="header-icon p-6 hidden sm:block">
-                        <i class="fas fa-id-card"></i>
-                      </div>
-                      <div class="header-text">
-                        <h2 class="header-title text-lg">
-                          Personal Information
-                        </h2>
-                        <p class="header-subtitle">
-                          Please provide your basic personal details to get
-                          started.
-                        </p>
-                      </div>
-                      <!-- <div class="header-decoration">
-                              <div class="floating-shapes">
-                                <div class="shape shape-1"></div>
-                                <div class="shape shape-2"></div>
-                                <div class="shape shape-3"></div>
-                              </div>
-                            </div> -->
-                    </div>
-                  </div>
-                </div>
-                <div *ngIf="currentStep === steps.contact">
-                  <!-- <div class="text-md font-bold">Contact Details</div>
-                        <div class="text-sm">These details help your matched connections reach out to you.</div> -->
-                  <div
-                    class="dashboard-header p-card"
-                    style="animation-delay: 0.1s"
-                  >
-                    <div class="header-content p-2">
-                      <div class="header-icon p-6 hidden sm:block">
-                        <i class="fas fa-phone"></i>
-                      </div>
-                      <div class="header-text">
-                        <h2 class="header-title text-lg">Contact Details</h2>
-                        <p class="header-subtitle">
-                          These details help your matched connections reach out
-                          to you.
-                        </p>
-                      </div>
-                      <!-- <div class="header-decoration">
-                              <div class="floating-shapes">
-                                <div class="shape shape-1"></div>
-                                <div class="shape shape-2"></div>
-                                <div class="shape shape-3"></div>
-                              </div>
-                            </div> -->
-                    </div>
-                  </div>
-                </div>
-
-                <div *ngIf="currentStep === steps.personal">
-                  <!-- <div class="text-md font-bold">Personal Details</div>
-                        <div class="text-sm">These details describe your lifestyle and can help you connect with like-minded individuals.</div> -->
-                  <div
-                    class="dashboard-header p-card"
-                    style="animation-delay: 0.1s"
-                  >
-                    <div class="header-content p-2">
-                      <div class="header-icon p-6 hidden sm:block">
-                        <i class="fas fa-user-circle"></i>
-                      </div>
-                      <div class="header-text">
-                        <h2 class="header-title text-lg">Personal Details</h2>
-                        <p class="header-subtitle">
-                          These details describe your lifestyle and can help you
-                          connect with like-minded individuals.
-                        </p>
-                      </div>
-                      <!-- <div class="header-decoration">
-                              <div class="floating-shapes">
-                                <div class="shape shape-1"></div>
-                                <div class="shape shape-2"></div>
-                                <div class="shape shape-3"></div>
-                              </div>
-                            </div> -->
-                    </div>
-                  </div>
-                </div>
-
-                <div *ngIf="currentStep === steps.family">
-                  <!-- <div class="text-md font-bold">Family Information</div>
-                        <div class="text-sm">This information helps match profiles based on family background and values.</div> -->
-                  <div
-                    class="dashboard-header p-card"
-                    style="animation-delay: 0.1s"
-                  >
-                    <div class="header-content p-2">
-                      <div class="header-icon p-6 hidden sm:block">
-                        <i class="fas fa-user-friends"></i>
-                      </div>
-                      <div class="header-text">
-                        <h2 class="header-title text-lg">Family Information</h2>
-                        <p class="header-subtitle">
-                          These details describe your lifestyle and can help you
-                          connect with like-minded individuals.
-                        </p>
-                      </div>
-                      <!-- <div class="header-decoration">
-                              <div class="floating-shapes">
-                                <div class="shape shape-1"></div>
-                                <div class="shape shape-2"></div>
-                                <div class="shape shape-3"></div>
-                              </div>
-                            </div> -->
-                    </div>
-                  </div>
-                </div>
-                <div *ngIf="currentStep === steps.religionBackground">
-                  <!-- <div class="text-md font-bold">Religious Background</div>
-                      <div class="text-sm">
-                        This information, helps find matches that align with your religious and cultural beliefs.
-                      </div> -->
-                  <div
-                    class="dashboard-header p-card"
-                    style="animation-delay: 0.1s"
-                  >
-                    <div class="header-content p-2">
-                      <div class="header-icon p-6 hidden sm:block">
-                        <i class="fas fa-praying-hands"></i>
-                      </div>
-                      <div class="header-text">
-                        <h2 class="header-title text-lg">
-                          Religious Background
-                        </h2>
-                        <p class="header-subtitle">
-                          This information, helps find matches that align with
-                          your religious and cultural beliefs.
-                        </p>
-                      </div>
-                      <!-- <div class="header-decoration">
-                              <div class="floating-shapes">
-                                <div class="shape shape-1"></div>
-                                <div class="shape shape-2"></div>
-                                <div class="shape shape-3"></div>
-                              </div>
-                            </div> -->
-                    </div>
-                  </div>
-                </div>
-                <div *ngIf="currentStep === steps.education">
-                  <!-- <div class="text-md font-bold">Education & Career</div>
-                      <div class="text-sm">
-                        Your education and career details help match profiles with similar professional and academic backgrounds.
-                      </div> -->
-                  <div
-                    class="dashboard-header p-card"
-                    style="animation-delay: 0.1s"
-                  >
-                    <div class="header-content p-2">
-                      <div class="header-icon p-6 hidden sm:block">
-                        <i class="fas fa-graduation-cap"></i>
-                      </div>
-                      <div class="header-text">
-                        <h2 class="header-title text-lg">Education & Career</h2>
-                        <p class="header-subtitle">
-                          Your education and career details help match profiles
-                          with similar professional and academic backgrounds.
-                        </p>
-                      </div>
-                      <!-- <div class="header-decoration">
-                              <div class="floating-shapes">
-                                <div class="shape shape-1"></div>
-                                <div class="shape shape-2"></div>
-                                <div class="shape shape-3"></div>
-                              </div>
-                            </div> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div div class="m-shadow-md p-6 profile-card cursor-pointer">
-                <div class="flex justify-between">
-                  <i
-                    class="fas fa-arrow-left fs-5 mt-2 text-red-600"
-                    (click)="goBack()"
-                  ></i>
-                  <div class="text-center text-md font-bold">
-                    <div class="" *ngIf="currentStep === steps.lookingFor">
-                      {{ "Matching" | uppercase }}
-                    </div>
-                    <div class="" *ngIf="currentStep === steps.basic">
-                      {{ "Personal Information" | uppercase }}
-                    </div>
-                    <div class="" *ngIf="currentStep === steps.contact">
-                      {{ "Contact Details" | uppercase }}
-                    </div>
-                    <div class="" *ngIf="currentStep === steps.personal">
-                      {{ "Personal Details" | uppercase }}
-                    </div>
-                    <div class="" *ngIf="currentStep === steps.family">
-                      {{ "Family Information" | uppercase }}
-                    </div>
-                    <div
-                      class=""
-                      *ngIf="currentStep === steps.religionBackground"
-                    >
-                      {{ "Religious Background" | uppercase }}
-                    </div>
-                    <div class="" *ngIf="currentStep === steps.education">
-                      {{ "Education & Career" | uppercase }}
-                    </div>
-                  </div>
-                  <div></div>
-                </div>
-
-                <div class="px-2">
-                  <div
-                    class="mt-6"
-                    [ngClass]="{ 'hidden': currentStep !== steps.lookingFor }"
-                  >
-                    <app-looking-for-form
-                      [isEditFrom]="true"
-                      [memberProfile]="memberProfile"
-                      (refreshMemberProfileEmitter)="refreshMemberProfile()"
-                    ></app-looking-for-form>
-                  </div>
-                  <div
-                    class="mt-6"
-                    [ngClass]="{ 'hidden': currentStep !== steps.basic }"
-                  >
-                    <app-member-profile-form
-                      [memberProfile]="memberProfile"
-                      [isEditFrom]="true"
-                      [hideGender]="isHideGender"
-                      (refreshMemberProfileEmitter)="refreshMemberProfile()"
-                    ></app-member-profile-form>
-                  </div>
-                  <div
-                    class="mt-6"
-                    [ngClass]="{ 'hidden': currentStep !== steps.contact }"
-                  >
-                    <app-contact-info-form
-                      [isEditFrom]="true"
-                      [memberProfile]="memberProfile"
-                      (refreshMemberProfileEmitter)="refreshMemberProfile()"
-                    ></app-contact-info-form>
-                  </div>
-                  <div
-                    class="mt-6"
-                    [ngClass]="{ 'hidden': currentStep !== steps.personal }"
-                  >
-                    <app-personal-details-form
-                      [isEditFrom]="true"
-                      [memberProfile]="memberProfile"
-                      (refreshMemberProfileEmitter)="refreshMemberProfile()"
-                    ></app-personal-details-form>
-                  </div>
-                  <div
-                    class="mt-6"
-                    [ngClass]="{ 'hidden': currentStep !== steps.family }"
-                  >
-                    <app-family-information-form
-                      [isEditFrom]="true"
-                      [memberProfile]="memberProfile"
-                      (refreshMemberProfileEmitter)="refreshMemberProfile()"
-                    ></app-family-information-form>
-                  </div>
-                  <div
-                    class="mt-6"
-                    [ngClass]="{
-                      'hidden': currentStep !== steps.religionBackground
-                    }"
-                  >
-                    <app-religious-background-form
-                      [isEditFrom]="true"
-                      [memberProfile]="memberProfile"
-                      (refreshMemberProfileEmitter)="refreshMemberProfile()"
-                    ></app-religious-background-form>
-                  </div>
-                  <div
-                    class="mt-6"
-                    [ngClass]="{ 'hidden': currentStep !== steps.education }"
-                  >
-                    <app-education-details-form
-                      [isEditFrom]="true"
-                      [memberProfile]="memberProfile"
-                      (refreshMemberProfileEmitter)="refreshMemberProfile()"
-                    ></app-education-details-form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <app-loading *ngIf="isLoading"></app-loading>
+          <span
+            [ngClass]="{
+              'bg-white/20 text-amber-200': currentStep === step.key,
+              'bg-gray-100 text-gray-500': currentStep !== step.key
+            }"
+            class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold"
+          >
+            {{ i + 1 }}
+          </span>
+          <span>{{ step.label }}</span>
+        </button>
       </div>
     </div>
+
+    <!-- Active Step Header Banner -->
+    <div class="bg-gradient-to-r from-[#5c142b] via-[#7e1e3b] to-[#c99839] rounded-3xl p-6 sm:p-8 text-white shadow-xl mb-6 relative overflow-hidden">
+      <!-- Ambient Glow Decor -->
+      <div class="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-10 -left-10 w-44 h-44 rounded-full bg-amber-400/20 blur-2xl pointer-events-none"></div>
+
+      <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center flex-shrink-0 shadow-inner">
+            <i class="fas fa-heart text-xl sm:text-2xl text-amber-200" *ngIf="currentStep === steps.lookingFor"></i>
+            <i class="fas fa-user text-xl sm:text-2xl text-amber-200" *ngIf="currentStep === steps.basic"></i>
+            <i class="fas fa-phone-alt text-xl sm:text-2xl text-amber-200" *ngIf="currentStep === steps.contact"></i>
+            <i class="fas fa-heart-pulse text-xl sm:text-2xl text-amber-200" *ngIf="currentStep === steps.personal"></i>
+            <i class="fas fa-users text-xl sm:text-2xl text-amber-200" *ngIf="currentStep === steps.family"></i>
+            <i class="fas fa-om text-xl sm:text-2xl text-amber-200" *ngIf="currentStep === steps.religionBackground"></i>
+            <i class="fas fa-graduation-cap text-xl sm:text-2xl text-amber-200" *ngIf="currentStep === steps.education"></i>
+          </div>
+
+          <div>
+            <span class="inline-block px-2.5 py-0.5 rounded-full bg-white/20 text-[11px] font-bold tracking-wider uppercase mb-1">
+              Editing Step {{ currentStep + 1 }} of 7
+            </span>
+            <h1 class="text-xl sm:text-2xl font-serif font-bold text-white">
+              <span *ngIf="currentStep === steps.lookingFor">Matching Criteria</span>
+              <span *ngIf="currentStep === steps.basic">Personal Information</span>
+              <span *ngIf="currentStep === steps.contact">Contact Details</span>
+              <span *ngIf="currentStep === steps.personal">Lifestyle & Habits</span>
+              <span *ngIf="currentStep === steps.family">Family Background</span>
+              <span *ngIf="currentStep === steps.religionBackground">Religious Background</span>
+              <span *ngIf="currentStep === steps.education">Education & Career</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Member info badge -->
+        <div class="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm text-xs font-semibold" *ngIf="memberProfile">
+          <img
+            [src]="memberProfile.profileImages?.[0]?.url"
+            class="w-6 h-6 rounded-full object-cover border border-amber-300"
+            alt="profile"
+          />
+          <span>{{ memberProfile.firstName }} {{ memberProfile.lastName }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Form Card Container -->
+    <div class="bg-white rounded-3xl border border-amber-200/40 shadow-xl shadow-[#5c142b]/5 p-6 sm:p-10 relative overflow-hidden" *ngIf="!isLoading">
+      
+      <!-- Step 1: Matching / Looking For -->
+      <div [ngClass]="{ 'hidden': currentStep !== steps.lookingFor }">
+        <app-looking-for-form
+          [isEditFrom]="true"
+          [memberProfile]="memberProfile"
+          (refreshMemberProfileEmitter)="refreshMemberProfile()"
+        ></app-looking-for-form>
+      </div>
+
+      <!-- Step 2: Basic Info -->
+      <div [ngClass]="{ 'hidden': currentStep !== steps.basic }">
+        <app-member-profile-form
+          [memberProfile]="memberProfile"
+          [isEditFrom]="true"
+          [hideGender]="isHideGender"
+          (refreshMemberProfileEmitter)="refreshMemberProfile()"
+        ></app-member-profile-form>
+      </div>
+
+      <!-- Step 3: Contact Info -->
+      <div [ngClass]="{ 'hidden': currentStep !== steps.contact }">
+        <app-contact-info-form
+          [isEditFrom]="true"
+          [memberProfile]="memberProfile"
+          (refreshMemberProfileEmitter)="refreshMemberProfile()"
+        ></app-contact-info-form>
+      </div>
+
+      <!-- Step 4: Personal Lifestyle -->
+      <div [ngClass]="{ 'hidden': currentStep !== steps.personal }">
+        <app-personal-details-form
+          [isEditFrom]="true"
+          [memberProfile]="memberProfile"
+          (refreshMemberProfileEmitter)="refreshMemberProfile()"
+        ></app-personal-details-form>
+      </div>
+
+      <!-- Step 5: Family Background -->
+      <div [ngClass]="{ 'hidden': currentStep !== steps.family }">
+        <app-family-information-form
+          [isEditFrom]="true"
+          [memberProfile]="memberProfile"
+          (refreshMemberProfileEmitter)="refreshMemberProfile()"
+        ></app-family-information-form>
+      </div>
+
+      <!-- Step 6: Religious Background -->
+      <div [ngClass]="{ 'hidden': currentStep !== steps.religionBackground }">
+        <app-religious-background-form
+          [isEditFrom]="true"
+          [memberProfile]="memberProfile"
+          (refreshMemberProfileEmitter)="refreshMemberProfile()"
+        ></app-religious-background-form>
+      </div>
+
+      <!-- Step 7: Education & Career -->
+      <div [ngClass]="{ 'hidden': currentStep !== steps.education }">
+        <app-education-details-form
+          [isEditFrom]="true"
+          [memberProfile]="memberProfile"
+          (refreshMemberProfileEmitter)="refreshMemberProfile()"
+        ></app-education-details-form>
+      </div>
+
+    </div>
+
+    <!-- Spinner Loading Overlay -->
+    <app-loading *ngIf="isLoading"></app-loading>
+
   </div>
 </section>

@@ -4,36 +4,37 @@
    ========================================================================= */
 
 :root {
-  /* --- Primary Brand Colors --- */
-  --mg-primary: #5c142b;            /* Primary Burgundy */
-  --mg-primary-dark: #3b0918;       /* Deep Wine / Dark Header */
-  --mg-primary-light: #7e1e3b;      /* Hover State Burgundy */
-  --mg-primary-subtle: #fdf2f4;     /* Soft Tint Background */
+  /* --- Primary Brand Colors (#dc3545 Crimson Theme) --- */
+  --mg-primary: #dc3545;            /* Core Brand Crimson Red */
+  --mg-primary-dark: #b02a37;       /* Deep Crimson / Dark Header */
+  --mg-primary-light: #e4606d;      /* Hover State Crimson */
+  --mg-primary-subtle: #fef2f2;     /* Soft Rose Background Tint */
 
   /* --- Secondary & Gold Accents --- */
-  --mg-accent-gold: #c99839;        /* Royal Gold */
+  --mg-accent-gold: #c99839;        /* Royal Gold Accent */
   --mg-accent-gold-light: #f5d78e;  /* Highlight Champagne */
   --mg-accent-gold-dark: #9b7223;   /* Rich Gold Border */
   --mg-accent-rose-gold: #e29578;   /* Warm Rose Accent */
 
   /* --- Backgrounds & Surfaces --- */
-  --mg-bg-app: #faf8f5;             /* Warm Matrimonial Off-White */
+  --mg-bg-app: #fcfbfb;             /* Crisp Warm Matrimonial Off-White */
   --mg-bg-surface: #ffffff;         /* Pure Card White */
-  --mg-bg-subtle: #f9f6f0;          /* Warm Subtle Section Tint */
+  --mg-bg-subtle: #fef8f8;          /* Warm Subtle Section Tint */
 
   /* --- Neutral & Text Colors --- */
   --mg-text-main: #1f2937;          /* High-contrast Charcoal Body */
   --mg-text-muted: #6b7280;         /* Gray Subtitles / Captions */
   --mg-text-light: #9ca3af;         /* Placeholder / Secondary Gray */
   --mg-border-color: #e5e7eb;       /* Clean Neutral Divider */
-  --mg-border-gold: rgba(201, 152, 57, 0.4); /* Gold Accent Border */
+  --mg-border-gold: rgba(220, 53, 69, 0.25); /* Subtle Red Accent Border */
 
   /* --- Status Colors --- */
   --mg-status-success: #059669;
-  --mg-status-danger: #dc2626;
+  --mg-status-danger: #dc3545;
   --mg-status-warning: #f59e0b;
 
   /* --- Typography --- */
   --mg-font-serif: 'Playfair Display', Georgia, serif;
   --mg-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
+

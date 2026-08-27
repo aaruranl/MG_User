@@ -1,124 +1,246 @@
-<app-top-bar *ngIf="mainUser && mainUser.memberCount === 0"></app-top-bar>
+<app-top-bar *ngIf="(mainUser && mainUser.memberCount === 0) || (isEditMode && memberProfile && memberProfile.memberApproval === 1)"></app-top-bar>
 
-<section class="min-h-screen py-8 sm:py-12 bg-gradient-to-b from-[#faf8f5] via-[#fcfbf9] to-[#f4eee6]">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- Top Stepper Header Card -->
-    <div class="bg-gradient-to-r from-[#5c142b] via-[#7e1e3b] to-[#c99839] rounded-3xl p-6 sm:p-8 text-white shadow-xl mb-8 relative overflow-hidden">
-      <!-- Background subtle glow shapes -->
-      <div class="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
-      <div class="absolute -bottom-10 -left-10 w-44 h-44 rounded-full bg-amber-400/20 blur-2xl pointer-events-none"></div>
+<section class="min-h-screen py-6 sm:py-10 bg-gradient-to-b from-[#faf9f9] via-[#fdfcfc] to-[#f7f2f2]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div class="flex items-center gap-4">
-          <!-- Step Icon Badge -->
-          <div class="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center flex-shrink-0 shadow-inner">
-            <i class="fas fa-heart text-2xl text-amber-200" *ngIf="currentStep === steps.lookingFor"></i>
-            <i class="fas fa-user text-2xl text-amber-200" *ngIf="currentStep === steps.basic"></i>
-            <i class="fas fa-phone-alt text-2xl text-amber-200" *ngIf="currentStep === steps.contact"></i>
-            <i class="fas fa-heart-pulse text-2xl text-amber-200" *ngIf="currentStep === steps.personal"></i>
-            <i class="fas fa-users text-2xl text-amber-200" *ngIf="currentStep === steps.family"></i>
-            <i class="fas fa-om text-2xl text-amber-200" *ngIf="currentStep === steps.religionBackground"></i>
-            <i class="fas fa-graduation-cap text-2xl text-amber-200" *ngIf="currentStep === steps.education"></i>
+    <!-- Top Mobile-Only Step Header -->
+    <div class="lg:hidden mb-6 bg-gradient-to-r from-[#dc3545] via-[#e4606d] to-[#b02a37] rounded-2xl p-4 text-white shadow-md">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-white">
+            <i class="fas {{ stepList[currentStep].icon }} text-base"></i>
           </div>
-
           <div>
-            <span class="inline-block px-2.5 py-0.5 rounded-full bg-white/20 text-[11px] font-bold tracking-wider uppercase mb-1">
-              Step {{ currentStep + 1 }} of 7
-            </span>
-            <h1 class="text-xl sm:text-2xl font-serif font-bold text-white">
-              <span *ngIf="currentStep === steps.lookingFor">Matching Preferences</span>
-              <span *ngIf="currentStep === steps.basic">Personal Details</span>
-              <span *ngIf="currentStep === steps.contact">Contact & Location</span>
-              <span *ngIf="currentStep === steps.personal">Lifestyle & Habits</span>
-              <span *ngIf="currentStep === steps.family">Family Background</span>
-              <span *ngIf="currentStep === steps.religionBackground">Religious Background</span>
-              <span *ngIf="currentStep === steps.education">Education & Career</span>
-            </h1>
+            <span class="text-[10px] uppercase font-bold tracking-wider text-white/80">Step {{ currentStep + 1 }} of 7</span>
+            <h2 class="text-sm font-serif font-bold text-white">{{ stepList[currentStep].label }}</h2>
           </div>
         </div>
 
-        <!-- Back Button (if eligible) -->
         <button
-          *ngIf="(mainUser && mainUser.memberCount > 0) || currentStep !== steps.lookingFor"
+          *ngIf="!isEditMode && ((mainUser && mainUser.memberCount > 0) || currentStep !== steps.lookingFor)"
           (click)="goBack()"
-          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold text-white backdrop-blur-sm transition-all"
+          class="px-3 py-1.5 rounded-lg bg-white/15 text-xs font-semibold text-white cursor-pointer"
         >
-          <i class="fas fa-arrow-left"></i>
-          <span>Previous Step</span>
+          <i class="fas fa-arrow-left mr-1"></i> Back
         </button>
       </div>
 
-      <!-- Stepper Pill Indicators -->
-      <div class="mt-6 pt-6 border-t border-white/15">
-        <div class="grid grid-cols-7 gap-1.5 sm:gap-2">
-          <div
-            *ngFor="let s of [0, 1, 2, 3, 4, 5, 6]; let i = index"
-            class="h-1.5 rounded-full transition-all duration-300"
-            [ngClass]="{
-              'bg-amber-300 shadow-sm shadow-amber-300/50': i <= currentStep,
-              'bg-white/20': i > currentStep
-            }"
-          ></div>
-        </div>
+      <!-- Mobile Step Progress Track -->
+      <div class="grid grid-cols-7 gap-1 mt-3">
+        <div
+          *ngFor="let s of stepList; let i = index"
+          (click)="isEditMode && changeStep(s.key)"
+          class="h-1.5 rounded-full transition-all"
+          [ngClass]="{
+            'bg-white shadow-xs': i <= currentStep,
+            'bg-white/20': i > currentStep,
+            'cursor-pointer': isEditMode
+          }"
+        ></div>
       </div>
     </div>
 
-    <!-- Form Container Card -->
-    <div class="bg-white rounded-3xl border border-amber-200/40 shadow-xl shadow-[#5c142b]/5 p-6 sm:p-10 relative overflow-hidden">
+    <!-- Main 2-Column Layout: Left Stepper Navigation + Right Form Content -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       
-      <!-- Step 1: Looking For / Matching -->
-      <div [ngClass]="{ 'hidden': currentStep !== steps.lookingFor }">
-        <app-looking-for-form
-          (userMatchingDetailsEmitter)="getUserLookingForDetails($event)"
-        ></app-looking-for-form>
-      </div>
+      <!-- LEFT SIDEBAR: 7 STEPS NAVIGATION (Sticky on Desktop) -->
+      <aside class="hidden lg:block lg:col-span-4 sticky top-20">
+        <div class="bg-white rounded-3xl border border-red-100 shadow-xl shadow-[#dc3545]/5 p-6 overflow-hidden relative">
+          
+          <!-- Decorative Top Glow -->
+          <div class="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-red-100/50 blur-2xl pointer-events-none"></div>
 
-      <!-- Step 2: Basic Profile -->
-      <div [ngClass]="{ 'hidden': currentStep !== steps.basic }">
-        <app-member-profile-form
-          (basicDetailsEmitter)="getUserBasicDetailsEmitter($event)"
-          [hideGender]="isHideGender"
-        ></app-member-profile-form>
-      </div>
+          <!-- Wizard Sidebar Header -->
+          <div class="mb-6 pb-4 border-b border-gray-100 relative z-10">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full bg-red-50 text-[#dc3545] text-[10px] font-bold uppercase tracking-wider border border-red-200">
+                {{ isEditMode ? 'Edit Mode' : 'Profile Registration' }}
+              </span>
+              <span class="text-xs font-bold text-gray-400">Step {{ currentStep + 1 }}/7</span>
+            </div>
+            
+            <h2 class="text-lg font-serif font-bold text-gray-900 mt-2">
+              {{ isEditMode ? 'Update Profile Details' : 'Complete Your Profile' }}
+            </h2>
+            <p class="text-xs text-gray-500 mt-0.5">
+              {{ isEditMode ? 'Select any step to modify member info' : 'Follow the 7 steps to find your ideal match' }}
+            </p>
 
-      <!-- Step 3: Contact Info -->
-      <div [ngClass]="{ 'hidden': currentStep !== steps.contact }">
-        <app-contact-info-form
-          (contactDetailsEmitter)="getUserContactDetailsEmitter($event)"
-        ></app-contact-info-form>
-      </div>
+            <!-- Member Badge in Edit Mode -->
+            <div class="mt-3 flex items-center gap-2.5 p-2 rounded-2xl bg-red-50/60 border border-red-200/60" *ngIf="isEditMode && memberProfile">
+              <img
+                [src]="memberProfile.profileImages[0]?.url"
+                class="w-8 h-8 rounded-full object-cover border border-[#dc3545]"
+                alt="profile"
+              />
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-gray-900 truncate">{{ memberProfile.firstName }} {{ memberProfile.lastName }}</div>
+                <div class="text-[10px] text-[#dc3545] font-semibold truncate">{{ memberProfile.profileJob?.title || 'Profile Active' }}</div>
+              </div>
+            </div>
+          </div>
 
-      <!-- Step 4: Personal Lifestyle -->
-      <div [ngClass]="{ 'hidden': currentStep !== steps.personal }">
-        <app-personal-details-form
-          (personalDetailsEmitter)="getUserPersonalDetailsEmitter($event)"
-        ></app-personal-details-form>
-      </div>
+          <!-- Vertical 7-Step Navigation List -->
+          <nav class="space-y-2 relative z-10">
+            <div
+              *ngFor="let step of stepList; let i = index"
+              (click)="isEditMode && changeStep(step.key)"
+              [ngClass]="{
+                'bg-gradient-to-r from-red-50 to-red-100/70 border-[#dc3545] text-[#dc3545] shadow-md shadow-[#dc3545]/10 ring-1 ring-[#dc3545]/30 font-bold': currentStep === step.key,
+                'bg-gray-50/60 border-transparent text-gray-600 hover:bg-red-50/30 hover:text-[#dc3545]': currentStep !== step.key && (isEditMode || i < currentStep),
+                'opacity-60 bg-transparent border-transparent text-gray-400 cursor-not-allowed': !isEditMode && i > currentStep,
+                'cursor-pointer': isEditMode || i <= currentStep
+              }"
+              class="flex items-center gap-3.5 p-3 rounded-2xl border transition-all text-left group"
+            >
+              <!-- Step Number / Status Icon -->
+              <div
+                [ngClass]="{
+                  'bg-gradient-to-r from-[#dc3545] to-[#b02a37] text-white shadow-sm shadow-[#dc3545]/30': currentStep === step.key,
+                  'bg-emerald-600 text-white': !isEditMode && i < currentStep,
+                  'bg-gray-200 text-gray-500': currentStep !== step.key && (isEditMode || i > currentStep)
+                }"
+                class="w-9 h-9 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0 transition-all"
+              >
+                <i class="fas fa-check text-xs" *ngIf="!isEditMode && i < currentStep"></i>
+                <i class="fas {{ step.icon }} text-xs" *ngIf="currentStep === step.key"></i>
+                <span *ngIf="(isEditMode && currentStep !== step.key) || (!isEditMode && i > currentStep)">{{ i + 1 }}</span>
+              </div>
 
-      <!-- Step 5: Family Information -->
-      <div [ngClass]="{ 'hidden': currentStep !== steps.family }">
-        <app-family-information-form
-          (userFamilyEmitter)="getUserFamilyDetailsEmitter($event)"
-        ></app-family-information-form>
-      </div>
+              <!-- Step Label & Description -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold tracking-tight truncate">{{ step.label }}</span>
+                  <i class="fas fa-chevron-right text-[10px] text-[#dc3545]" *ngIf="currentStep === step.key"></i>
+                </div>
+                <p class="text-[11px] text-gray-400 font-normal truncate mt-0.5">{{ step.desc }}</p>
+              </div>
+            </div>
+          </nav>
 
-      <!-- Step 6: Religious Background -->
-      <div [ngClass]="{ 'hidden': currentStep !== steps.religionBackground }">
-        <app-religious-background-form
-          (userReligiousEmitter)="getUserReligiousEmitter($event)"
-        ></app-religious-background-form>
-      </div>
+          <!-- Back Button for Create Mode -->
+          <div class="mt-6 pt-4 border-t border-gray-100" *ngIf="!isEditMode && ((mainUser && mainUser.memberCount > 0) || currentStep !== steps.lookingFor)">
+            <button
+              type="button"
+              (click)="goBack()"
+              class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 hover:border-red-300 bg-white hover:bg-red-50/50 text-xs font-semibold text-gray-700 transition-all cursor-pointer"
+            >
+              <i class="fas fa-arrow-left text-[10px]"></i>
+              <span>Previous Step</span>
+            </button>
+          </div>
 
-      <!-- Step 7: Education & Career -->
-      <div [ngClass]="{ 'hidden': currentStep !== steps.education }">
-        <app-education-details-form
-          (userEducationEmitter)="getEducationDetails($event)"
-        ></app-education-details-form>
-      </div>
+        </div>
+      </aside>
 
-      <!-- Spinner Overlay -->
-      <app-loading *ngIf="isLoading"></app-loading>
+      <!-- RIGHT COLUMN: ACTIVE FORM CARD -->
+      <main class="lg:col-span-8">
+        
+        <!-- Active Step Header Banner -->
+        <div class="bg-gradient-to-r from-[#dc3545] via-[#e4606d] to-[#b02a37] rounded-3xl p-6 sm:p-8 text-white shadow-xl mb-6 relative overflow-hidden">
+          <!-- Ambient Glow Decor -->
+          <div class="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+          <div class="absolute -bottom-10 -left-10 w-44 h-44 rounded-full bg-black/10 blur-2xl pointer-events-none"></div>
+
+          <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center flex-shrink-0 shadow-inner">
+                <i class="fas {{ stepList[currentStep].icon }} text-xl sm:text-2xl text-white"></i>
+              </div>
+
+              <div>
+                <span class="inline-block px-2.5 py-0.5 rounded-full bg-white/20 text-[11px] font-bold tracking-wider uppercase mb-1">
+                  {{ isEditMode ? 'Editing ' : '' }}Step {{ currentStep + 1 }} of 7
+                </span>
+                <h1 class="text-xl sm:text-2xl font-serif font-bold text-white">
+                  {{ stepList[currentStep].label }}
+                </h1>
+                <p class="text-xs text-white/90 mt-0.5">{{ stepList[currentStep].desc }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Container Card -->
+        <div class="bg-white rounded-3xl border border-red-100 shadow-xl shadow-[#dc3545]/5 p-6 sm:p-8 relative overflow-hidden" *ngIf="!isLoading">
+          
+          <!-- Step 1: Looking For / Matching -->
+          <div [ngClass]="{ 'hidden': currentStep !== steps.lookingFor }">
+            <app-looking-for-form
+              [isEditFrom]="isEditMode"
+              [memberProfile]="memberProfile"
+              (userMatchingDetailsEmitter)="getUserLookingForDetails($event)"
+              (refreshMemberProfileEmitter)="refreshMemberProfile()"
+            ></app-looking-for-form>
+          </div>
+
+          <!-- Step 2: Basic Profile -->
+          <div [ngClass]="{ 'hidden': currentStep !== steps.basic }">
+            <app-member-profile-form
+              [isEditFrom]="isEditMode"
+              [memberProfile]="memberProfile"
+              (basicDetailsEmitter)="getUserBasicDetailsEmitter($event)"
+              (refreshMemberProfileEmitter)="refreshMemberProfile()"
+              [hideGender]="isHideGender"
+            ></app-member-profile-form>
+          </div>
+
+          <!-- Step 3: Contact Info -->
+          <div [ngClass]="{ 'hidden': currentStep !== steps.contact }">
+            <app-contact-info-form
+              [isEditFrom]="isEditMode"
+              [memberProfile]="memberProfile"
+              (contactDetailsEmitter)="getUserContactDetailsEmitter($event)"
+              (refreshMemberProfileEmitter)="refreshMemberProfile()"
+            ></app-contact-info-form>
+          </div>
+
+          <!-- Step 4: Personal Lifestyle -->
+          <div [ngClass]="{ 'hidden': currentStep !== steps.personal }">
+            <app-personal-details-form
+              [isEditFrom]="isEditMode"
+              [memberProfile]="memberProfile"
+              (personalDetailsEmitter)="getUserPersonalDetailsEmitter($event)"
+              (refreshMemberProfileEmitter)="refreshMemberProfile()"
+            ></app-personal-details-form>
+          </div>
+
+          <!-- Step 5: Family Information -->
+          <div [ngClass]="{ 'hidden': currentStep !== steps.family }">
+            <app-family-information-form
+              [isEditFrom]="isEditMode"
+              [memberProfile]="memberProfile"
+              (userFamilyEmitter)="getUserFamilyDetailsEmitter($event)"
+              (refreshMemberProfileEmitter)="refreshMemberProfile()"
+            ></app-family-information-form>
+          </div>
+
+          <!-- Step 6: Religious Background -->
+          <div [ngClass]="{ 'hidden': currentStep !== steps.religionBackground }">
+            <app-religious-background-form
+              [isEditFrom]="isEditMode"
+              [memberProfile]="memberProfile"
+              (userReligiousEmitter)="getUserReligiousEmitter($event)"
+              (refreshMemberProfileEmitter)="refreshMemberProfile()"
+            ></app-religious-background-form>
+          </div>
+
+          <!-- Step 7: Education & Career -->
+          <div [ngClass]="{ 'hidden': currentStep !== steps.education }">
+            <app-education-details-form
+              [isEditFrom]="isEditMode"
+              [memberProfile]="memberProfile"
+              (userEducationEmitter)="getEducationDetails($event)"
+              (refreshMemberProfileEmitter)="refreshMemberProfile()"
+            ></app-education-details-form>
+          </div>
+
+        </div>
+
+        <!-- Spinner Loading Overlay -->
+        <app-loading *ngIf="isLoading"></app-loading>
+
+      </main>
     </div>
 
   </div>
