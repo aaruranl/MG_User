@@ -1,22 +1,35 @@
-.logo-svg{
-  width: 250px !important;
+.logo-svg {
+  width: 220px !important;
+  transition: transform 0.25s ease;
+  &:hover {
+    transform: scale(1.02);
+  }
 }
 
-.profile-btn{
-  border: 1px solid #e6b28a;
+.profile-btn {
+  border: 1px solid rgba(201, 152, 57, 0.3);
+  border-radius: 9999px;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  &:hover {
+    background: #ffffff;
+    border-color: #d4af37;
+    box-shadow: 0 4px 12px rgba(201, 152, 57, 0.2);
+  }
 }
 
 .list-profile {
-  border-radius: 100%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  object-fit: cover;
+  border: 1.5px solid #d4af37;
 }
 
 @media (max-width: 480px) {
-  .logo-svg{
-    width: 155px !important;
+  .logo-svg {
+    width: 160px !important;
   }
 }
