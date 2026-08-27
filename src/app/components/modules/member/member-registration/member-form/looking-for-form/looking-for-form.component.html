@@ -1,73 +1,128 @@
 
-<form [formGroup]="profileMatchingForm">
-  <div class="flex flex-wrap -mx-3">
-    <div class="w-full px-6 md:w-full mb-6">
-      <label for="diet" class="mb-1 font-bold text-gray-500">I am creating this Profile for?<span class="text-red-600">*</span></label>
-      <ng-select
-      [items]="lookingForList"
-      bindLabel="name"
-      bindValue="id"
-      [ngModelOptions]="{standalone: true}"
-      [clearable]="false"
-      [readonly]="isEditFrom"
-      [searchable]="true"
-      [(ngModel)]="SelectedLookingFor">
+<form [formGroup]="profileMatchingForm" class="space-y-8">
+  
+  <!-- PROFILE CREATED FOR (INTERACTIVE VISUAL CARDS) -->
+  <div>
+    <div class="mb-3">
+      <label class="block text-sm font-bold text-gray-900 tracking-wide">
+        I am creating this Profile for <span class="text-red-600">*</span>
+      </label>
+      <p class="text-xs text-gray-500">Select who will be using this matrimonial profile</p>
+    </div>
 
-    </ng-select>
-    </div>
-    <!-- <div class="text-md font-bold text-gray-500 mb-6 mt-6" *ngIf="SelectedLookingFor === 1 || SelectedLookingFor === 6 || SelectedLookingFor === 7">Looking For in a Match</div> -->
-    <!-- <div class="w-full px-6 md:w-full mb-6" *ngIf="SelectedLookingFor === 1 || SelectedLookingFor === 6 || SelectedLookingFor === 7">
-      <label for="diet" class="mb-1 ">Looking For Gender<span class="text-red-600">*</span></label>
-      <div class="flex">
-        <div class="mr-4">
-          <div class="form-check">
-            <input class="form-check-input cursor-pointer" type="radio" name="gender" id="genderMale" [value]="1" formControlName="gender">
-            <label class="form-check-label ml-2" for="genderMale">Male</label>
-          </div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5">
+      <div
+        *ngFor="let item of lookingForList"
+        (click)="!isEditFrom && (SelectedLookingFor = item.id)"
+        [ngClass]="{
+          'bg-gradient-to-b from-amber-50/90 to-amber-100/50 border-[#c99839] text-[#5c142b] shadow-md shadow-[#c99839]/10 font-bold ring-2 ring-[#c99839]/30': SelectedLookingFor === item.id,
+          'bg-white border-gray-200 text-gray-700 hover:border-amber-300 hover:bg-amber-50/20': SelectedLookingFor !== item.id,
+          'cursor-not-allowed opacity-75': isEditFrom,
+          'cursor-pointer': !isEditFrom
+        }"
+        class="flex flex-col items-center justify-center p-3 rounded-2xl border transition-all text-center gap-2 group"
+      >
+        <div
+          [ngClass]="{
+            'bg-[#5c142b] text-white': SelectedLookingFor === item.id,
+            'bg-gray-100 text-gray-500 group-hover:bg-amber-100 group-hover:text-[#5c142b]': SelectedLookingFor !== item.id
+          }"
+          class="w-10 h-10 rounded-xl flex items-center justify-center text-base transition-all"
+        >
+          <i class="fas fa-user" *ngIf="item.id === 1"></i>
+          <i class="fas fa-male" *ngIf="item.id === 2"></i>
+          <i class="fas fa-female" *ngIf="item.id === 3"></i>
+          <i class="fas fa-user-friends" *ngIf="item.id === 4 || item.id === 5"></i>
+          <i class="fas fa-smile" *ngIf="item.id === 6"></i>
+          <i class="fas fa-heart" *ngIf="item.id === 7"></i>
         </div>
-        <div class="mr-4">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="gender" id="genderFemale" [value]="2" formControlName="gender">
-            <label class="form-check-label ml-2 cursor-pointer " for="genderFemale">Female</label>
-          </div>
-        </div>
+        <span class="text-xs tracking-tight">{{ item.name }}</span>
       </div>
-    </div> -->
+    </div>
+  </div>
 
-    <div class="w-full px-6 md:w-1/4">
-      <div class="form-group mb-6">
-        <label for="minAge" class="mb-1">Min Age <span class="text-red-600">*</span></label>
-        <input type="number" id="minAge" formControlName="minAge" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"  [ngClass]="{'errorBorder': isSubmitted && profileMatchingForm.get('minAge')?.errors}">
-        <div class="text-xs text-red-600 mt-1" *ngIf="isSubmitted && profileMatchingForm.get('minAge')?.errors" class="error-message">
-          <div class="text-xs text-red-600 mt-1" *ngIf="isSubmitted && profileMatchingForm.get('minAge')?.errors?.['required']">Min age is required</div>
-          <div class="text-xs text-red-600 mt-1" *ngIf="isSubmitted && profileMatchingForm.get('minAge')?.errors?.['min']">Age must be greater than 18.</div>
-        </div>
+  <!-- AGE PREFERENCES & COUNTRY -->
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+    
+    <!-- Min Age -->
+    <div class="md:col-span-3 space-y-1.5">
+      <label for="minAge" class="block text-xs font-bold uppercase tracking-wider text-gray-700">
+        Min Age <span class="text-red-600">*</span>
+      </label>
+      <div class="relative">
+        <input
+          type="number"
+          id="minAge"
+          formControlName="minAge"
+          placeholder="18"
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-900 transition-all font-semibold shadow-xs"
+          [ngClass]="{'border-red-500 bg-red-50/30 ring-2 ring-red-400/20': isSubmitted && profileMatchingForm.get('minAge')?.errors}"
+        />
+        <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-400 pointer-events-none">Yrs</span>
+      </div>
+      <div class="text-[11px] text-red-600" *ngIf="isSubmitted && profileMatchingForm.get('minAge')?.errors">
+        <span *ngIf="profileMatchingForm.get('minAge')?.errors?.['required']">Min age is required.</span>
+        <span *ngIf="profileMatchingForm.get('minAge')?.errors?.['min']">Must be at least 18.</span>
       </div>
     </div>
-    <div class="w-full px-6 md:w-1/4">
-      <div class="form-group mb-6">
-        <label for="maxAge" class="mb-1">Max Age <span class="text-red-600">*</span></label>
-        <input type="number" id="maxAge" formControlName="maxAge" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"  [ngClass]="{'errorBorder': isSubmitted && (profileMatchingForm.get('maxAge')?.errors || profileMatchingForm.hasError('minGreaterThanMax'))}">
-        <div class="text-xs text-red-600 mt-1" *ngIf="isSubmitted && profileMatchingForm.get('maxAge')?.errors" class="error-message">
-          <div class="text-xs text-red-600 mt-1" *ngIf="isSubmitted && profileMatchingForm.get('maxAge')?.errors?.['required']">Max age is required</div>
-          <div class="text-xs text-red-600 mt-1" *ngIf="isSubmitted && profileMatchingForm.get('maxAge')?.errors?.['max']">Age must be lower than 60.</div>
-        </div>
+
+    <!-- Max Age -->
+    <div class="md:col-span-3 space-y-1.5">
+      <label for="maxAge" class="block text-xs font-bold uppercase tracking-wider text-gray-700">
+        Max Age <span class="text-red-600">*</span>
+      </label>
+      <div class="relative">
+        <input
+          type="number"
+          id="maxAge"
+          formControlName="maxAge"
+          placeholder="60"
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-900 transition-all font-semibold shadow-xs"
+          [ngClass]="{'border-red-500 bg-red-50/30 ring-2 ring-red-400/20': isSubmitted && (profileMatchingForm.get('maxAge')?.errors || profileMatchingForm.hasError('minGreaterThanMax'))}"
+        />
+        <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-400 pointer-events-none">Yrs</span>
+      </div>
+      <div class="text-[11px] text-red-600" *ngIf="isSubmitted && profileMatchingForm.get('maxAge')?.errors">
+        <span *ngIf="profileMatchingForm.get('maxAge')?.errors?.['required']">Max age is required.</span>
+        <span *ngIf="profileMatchingForm.get('maxAge')?.errors?.['max']">Must be 60 or lower.</span>
       </div>
     </div>
-    <div class="w-full px-6 md:w-1/2 mb-6">
+
+    <!-- Preferred Country Dropdown -->
+    <div class="md:col-span-6">
       <app-country-dropdown
         label="Preferred Country"
         [required]="true"
         [(ngModel)]="selectedCountry"
         [ngModelOptions]="{standalone: true}"
-        placeholder="Select preferred country..."
+        placeholder="Select preferred country for match..."
       ></app-country-dropdown>
     </div>
-    <div class="text-red-600 mb-6" *ngIf="profileMatchingForm.hasError('minGreaterThanMax') && profileMatchingForm.touched">
-         Max age must be greater than min age.
-      </div>
 
-    <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-4 w-full mt-2" [disabled]="isLoading" (click)="next()">  <div class="spinner-border spinner-border-sm text-light mr-1" *ngIf="isLoading"></div>
-      {{isEditFrom ? 'UPDATE' : 'NEXT'}}</button>
-</div>
+  </div>
+
+  <!-- Age Range Warning -->
+  <div
+    *ngIf="profileMatchingForm.hasError('minGreaterThanMax') && profileMatchingForm.touched"
+    class="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-center gap-2"
+  >
+    <i class="fas fa-exclamation-circle text-red-500 text-sm"></i>
+    <span>Maximum age must be greater than minimum age.</span>
+  </div>
+
+  <!-- ACTION BUTTON -->
+  <div class="pt-6 border-t border-gray-100 flex items-center justify-end">
+    <button
+      type="button"
+      (click)="next()"
+      [disabled]="isLoading"
+      class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-[#5c142b] to-[#7e1e3b] hover:from-[#470f21] hover:to-[#6a1931] shadow-lg shadow-[#5c142b]/25 hover:shadow-xl hover:shadow-[#5c142b]/35 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <div class="spinner-border spinner-border-sm text-white" *ngIf="isLoading"></div>
+      <span>{{ isEditFrom ? 'Update Preferences' : 'Continue to Personal Details' }}</span>
+      <i class="fas fa-arrow-right text-amber-300 text-xs" *ngIf="!isLoading"></i>
+    </button>
+  </div>
+
 </form>
+

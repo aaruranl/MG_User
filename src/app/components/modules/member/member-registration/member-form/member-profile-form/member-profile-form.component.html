@@ -1,378 +1,269 @@
-<form [formGroup]="userBasicFrom">
-  <div class="form-flex flex-wrap -mx-3">
-    <!-- First Name -->
-    <div class="flex flex-wrap -mx-3">
-      <div class="w-full px-6 md:w-1/2">
-        <div class="form-group mb-6">
-          <label for="firstName" class="mb-1"
-            >First Name <span class="text-red-600">*</span>
-          </label>
-          <input
-            type="text"
-            id="firstName"
-            formControlName="firstName"
-            class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
-            [ngClass]="{
-              errorBorder: isSubmitted && userBasicFrom.get('firstName')?.errors
-            }"
-          />
-          <div
-            class="text-xs text-red-600 mt-1"
-            *ngIf="isSubmitted && userBasicFrom.get('firstName')?.errors"
-          >
-            First name is required
-          </div>
+<form [formGroup]="userBasicFrom" class="space-y-8">
+
+  <!-- BASIC NAME & DEMOGRAPHICS GRID -->
+  <div>
+    <h3 class="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
+      <i class="fas fa-id-card text-[#5c142b]"></i>
+      <span>Basic Information</span>
+    </h3>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-5">
+      
+      <!-- First Name -->
+      <div class="sm:col-span-1 md:col-span-6 space-y-1.5">
+        <label for="firstName" class="block text-xs font-bold uppercase tracking-wider text-gray-700">
+          First Name <span class="text-red-600">*</span>
+        </label>
+        <input
+          type="text"
+          id="firstName"
+          formControlName="firstName"
+          placeholder="Enter first name"
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-900 transition-all font-medium shadow-xs"
+          [ngClass]="{ 'border-red-500 bg-red-50/30 ring-2 ring-red-400/20': isSubmitted && userBasicFrom.get('firstName')?.errors }"
+        />
+        <div class="text-[11px] text-red-600" *ngIf="isSubmitted && userBasicFrom.get('firstName')?.errors">
+          First name is required
         </div>
       </div>
 
-      <div class="w-full px-6 md:w-1/2">
-        <!-- Last Name -->
-        <div class="form-group mb-6">
-          <label for="lastName text-sm" class="mb-1"
-            >Last Name <span class="text-red-600">*</span></label
-          >
-          <input
-            type="text"
-            id="lastName"
-            formControlName="lastName"
-            class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
-            [ngClass]="{
-              errorBorder: isSubmitted && userBasicFrom.get('lastName')?.errors
-            }"
-          />
-          <div
-            class="text-xs text-red-600 mt-1"
-            *ngIf="isSubmitted && userBasicFrom.get('lastName')?.errors"
-          >
-            Last name is required
-          </div>
+      <!-- Last Name -->
+      <div class="sm:col-span-1 md:col-span-6 space-y-1.5">
+        <label for="lastName" class="block text-xs font-bold uppercase tracking-wider text-gray-700">
+          Last Name <span class="text-red-600">*</span>
+        </label>
+        <input
+          type="text"
+          id="lastName"
+          formControlName="lastName"
+          placeholder="Enter last name"
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-900 transition-all font-medium shadow-xs"
+          [ngClass]="{ 'border-red-500 bg-red-50/30 ring-2 ring-red-400/20': isSubmitted && userBasicFrom.get('lastName')?.errors }"
+        />
+        <div class="text-[11px] text-red-600" *ngIf="isSubmitted && userBasicFrom.get('lastName')?.errors">
+          Last name is required
         </div>
       </div>
-      <div class="w-full px-6 md:w-1/2">
-        <!-- Date of Birth -->
-        <div class="form-group mb-6">
-          <label for="dateOfBirth text-sm" class="mb-1">
-            Date of Birth <span class="text-red-600">*</span>
-          </label>
-          <input
-            type="date"
-            id="dateOfBirth"
-            formControlName="dateOfBirth"
-            class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
-            [ngClass]="{
-              errorBorder:
-                isSubmitted && userBasicFrom.get('dateOfBirth')?.errors
-            }"
-          />
-          <div
-            class="text-xs text-red-600 mt-1"
-            *ngIf="isSubmitted && userBasicFrom.get('dateOfBirth')?.errors"
-          >
-            <ng-container>
-              Date of birth is required
-            </ng-container>
-            <ng-container>
-              You must be at least 18 years old
-            </ng-container>
-          </div>
+
+      <!-- Date of Birth -->
+      <div class="sm:col-span-1 md:col-span-6 space-y-1.5">
+        <label for="dateOfBirth" class="block text-xs font-bold uppercase tracking-wider text-gray-700">
+          Date of Birth <span class="text-red-600">*</span>
+        </label>
+        <input
+          type="date"
+          id="dateOfBirth"
+          formControlName="dateOfBirth"
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-900 transition-all font-medium shadow-xs"
+          [ngClass]="{ 'border-red-500 bg-red-50/30 ring-2 ring-red-400/20': isSubmitted && userBasicFrom.get('dateOfBirth')?.errors }"
+        />
+        <div class="text-[11px] text-red-600" *ngIf="isSubmitted && userBasicFrom.get('dateOfBirth')?.errors">
+          Valid date of birth required (Must be 18+)
         </div>
       </div>
-      <div class="w-full px-6 md:w-1/4">
-        <div class="form-group mb-6">
-          <label for="height" class="mb-1"
-            >Height (Cm) <span class="text-red-600">*</span></label
-          >
+
+      <!-- Height -->
+      <div class="sm:col-span-1 md:col-span-3 space-y-1.5">
+        <label for="height" class="block text-xs font-bold uppercase tracking-wider text-gray-700">
+          Height <span class="text-red-600">*</span>
+        </label>
+        <div class="relative">
           <input
             type="number"
             id="height"
             formControlName="height"
-            class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
+            placeholder="170"
             maxlength="3"
             oninput="this.value = this.value.slice(0, 3)"
-            [ngClass]="{
-              errorBorder: isSubmitted && userBasicFrom.get('height')?.errors
-            }"
+            class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-900 transition-all font-medium shadow-xs"
+            [ngClass]="{ 'border-red-500 bg-red-50/30 ring-2 ring-red-400/20': isSubmitted && userBasicFrom.get('height')?.errors }"
           />
-          <div
-            class="text-xs text-red-600 mt-1"
-            *ngIf="isSubmitted && userBasicFrom.get('height')?.errors"
-            class="error-message"
-          >
-            <div
-              class="text-xs text-red-600 mt-1"
-              *ngIf="isSubmitted && userBasicFrom.get('height')?.errors?.['required']"
-            >
-              Height is required
-            </div>
-            <div
-              class="text-xs text-red-600 mt-1"
-              *ngIf="isSubmitted && userBasicFrom.get('height')?.errors?.['min']"
-            >
-              Invalid height
-            </div>
-          </div>
+          <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-400 pointer-events-none">cm</span>
+        </div>
+        <div class="text-[11px] text-red-600" *ngIf="isSubmitted && userBasicFrom.get('height')?.errors">
+          Height is required
         </div>
       </div>
-      <div class="w-full px-6 md:w-1/4">
-        <div class="form-group mb-6">
-          <label for="weight" class="mb-1"
-            >Weight (Kg) <span class="text-red-600">*</span>
-          </label>
+
+      <!-- Weight -->
+      <div class="sm:col-span-1 md:col-span-3 space-y-1.5">
+        <label for="weight" class="block text-xs font-bold uppercase tracking-wider text-gray-700">
+          Weight <span class="text-red-600">*</span>
+        </label>
+        <div class="relative">
           <input
             type="number"
             id="weight"
             formControlName="weight"
-            class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
+            placeholder="65"
             maxlength="3"
             oninput="this.value = this.value.slice(0, 3)"
-            [ngClass]="{
-              errorBorder: isSubmitted && userBasicFrom.get('weight')?.errors
-            }"
+            class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-900 transition-all font-medium shadow-xs"
+            [ngClass]="{ 'border-red-500 bg-red-50/30 ring-2 ring-red-400/20': isSubmitted && userBasicFrom.get('weight')?.errors }"
           />
-          <div
-            *ngIf="isSubmitted && userBasicFrom.get('weight')?.errors"
-            class="error-message"
-          >
-            <div
-              class="text-xs text-red-600 mt-1"
-              *ngIf="isSubmitted && userBasicFrom.get('weight')?.errors?.['required']"
-            >
-              Weight is required
-            </div>
-            <div
-              class="text-xs text-red-600 mt-1"
-              *ngIf="isSubmitted && userBasicFrom.get('weight')?.errors?.['min']"
-            >
-              Invalid weight
-            </div>
-          </div>
+          <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-400 pointer-events-none">kg</span>
+        </div>
+        <div class="text-[11px] text-red-600" *ngIf="isSubmitted && userBasicFrom.get('weight')?.errors">
+          Weight is required
         </div>
       </div>
 
-      <div class="w-full px-6">
-        <div class="mt-6 image-upload">
-          <label class=""
-            >Profile Image <span class="text-red-600">*</span>
-          </label>
-          <div class="text-xs text-gray-500 mb-1">
-            You can upload a maximum of 5 images. Each image must be clear and
-            between 250 KB and 5 MB in size.
-          </div>
-          <div
-            class="rounded p-6"
-            [ngClass]="
-              images.length === 0 && isSubmitted ? 'errorBorder' : 'border'
-            "
-          >
-            <div class="dot-border p-2">
-              <div class="flex flex-wrap gap-2" id="image-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-                <!-- Render uploaded images with remove button -->
-                <div
-                  class="position-relative img-box"
-                  *ngFor="let img of images; let i = index"
-                >
-                  <img
-                    [src]="img"
-                    class="object-cover border rounded"
-                    width="80"
-                    height="80"
-                  />
-                  <button
-                    class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-sm position-absolute top-0 end-0 p-1 rounded-full"
-                    (click)="removeImage(i)"
-                    style="transform: translate(30%, -30%)"
-                  >
-                    <i
-                      class="fa fa-window-close text-md text-red-600"
-                      aria-hidden="true"
-                    ></i>
-                  </button>
-                </div>
-                <div
-                  *ngIf="images.length < 5"
-                  class="img-box border rounded cursor-pointer flex justify-center items-center"
-                  style="width: 80px; height: 80px"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                >
-                  <span class="text-md font-bold" *ngIf="!isUploading">+</span>
-                  <div
-                    class="spinner-border spinner-border-sm text-light mr-1"
-                    role="status"
-                    *ngIf="isUploading"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
+    </div>
+  </div>
 
-          <!-- Hidden File Input -->
-
-          <div
-            class="text-xs text-red-600 mt-1"
-            *ngIf="isSubmitted && images.length === 0"
-          >
-            Image is required
-          </div>
-          <div class="form-check mt-1">
-            <input
-              class="form-check-input small-check"
-              type="checkbox"
-              [value]="true"
-              id="flexCheckChecked"
-              formControlName="isVisible"
-            />
-            <label class="form-check-label ml-2 text-sm" for="flexCheckChecked">
-              Make it visible.
-            </label>
-          </div>
+  <!-- GENDER SELECTION TILES -->
+  <div *ngIf="!hideGender" class="pt-4 border-t border-gray-100">
+    <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-3">
+      Gender <span class="text-red-600">*</span>
+    </label>
+    <div class="grid grid-cols-2 gap-4 max-w-md">
+      <!-- Male Tile -->
+      <label
+        (click)="userBasicFrom.get('gender')?.setValue(1)"
+        [ngClass]="{
+          'bg-gradient-to-b from-amber-50/90 to-amber-100/50 border-[#c99839] text-[#5c142b] shadow-md shadow-[#c99839]/10 ring-2 ring-[#c99839]/30 font-bold': userBasicFrom.get('gender')?.value === 1,
+          'bg-white border-gray-200 text-gray-700 hover:border-amber-300 hover:bg-amber-50/20': userBasicFrom.get('gender')?.value !== 1
+        }"
+        class="flex items-center gap-3 p-3.5 rounded-2xl border cursor-pointer transition-all"
+      >
+        <div
+          [ngClass]="{
+            'bg-[#5c142b] text-white': userBasicFrom.get('gender')?.value === 1,
+            'bg-gray-100 text-gray-500': userBasicFrom.get('gender')?.value !== 1
+          }"
+          class="w-10 h-10 rounded-xl flex items-center justify-center text-lg"
+        >
+          <i class="fas fa-male"></i>
         </div>
-      </div>
-      <div class="w-full px-6 md:w-full" *ngIf="!hideGender">
-        <div class="form-group mb-6 mt-6">
-          <label class="mb-1">Gender <span class="text-red-600">*</span> </label>
-          <div class="flex">
-            <div class="mr-4">
-              <div class="form-check">
-                <input
-                  class="form-check-input cursor-pointer"
-                  type="radio"
-                  name="gender"
-                  id="genderMale"
-                  [value]="1"
-                  formControlName="gender"
-                />
-                <label class="form-check-label ml-2 cursor-pointer" for="genderMale"
-                  >Male</label
-                >
-              </div>
-            </div>
-            <div class="mr-4">
-              <div class="form-check">
-                <input
-                  class="form-check-input cursor-pointer"
-                  type="radio"
-                  name="gender"
-                  id="genderFemale"
-                  [value]="2"
-                  formControlName="gender"
-                />
-                <label class="form-check-label ml-2 cursor-pointer" for="genderFemale"
-                  >Female</label
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="w-full px-6">
-        <!-- Marital Status -->
-        <div class="form-group mb-6 mt-6">
-          <label class="mb-1"
-            >Marital Status <span class="text-red-600">*</span>
-          </label>
+        <div class="text-sm font-semibold">Male</div>
+      </label>
 
-          <div class="flex flex-wrap -mx-3">
-            <div class="w-1/2 px-6 md:w-1/4 mt-2">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="maritalStatus"
-                  id="maritalSingle"
-                  [value]="1"
-                  formControlName="maritalStatus"
-                  checked
-                />
-                <label
-                  class="form-check-label cursor-pointer ml-2"
-                  for="maritalSingle"
-                >
-                  Single
-                </label>
-              </div>
-            </div>
-
-            <div class="w-1/2 px-6 md:w-1/4 mt-2">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="maritalStatus"
-                  id="maritalMarried"
-                  [value]="2"
-                  formControlName="maritalStatus"
-                />
-                <label
-                  class="form-check-label cursor-pointer ml-2"
-                  for="maritalMarried"
-                >
-                  Married
-                </label>
-              </div>
-            </div>
-            <div class="w-1/2 px-6 md:w-1/4 mt-2">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="maritalStatus"
-                  id="Divorced"
-                  [value]="3"
-                  formControlName="maritalStatus"
-                />
-                <label class="form-check-label cursor-pointer ml-2" for="Divorced">
-                  Divorced
-                </label>
-              </div>
-            </div>
-            <div class="w-1/2 px-6 md:w-1/4 mt-2">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="maritalStatus"
-                  id="Widowed"
-                  [value]="4"
-                  formControlName="maritalStatus"
-                />
-                <label class="form-check-label cursor-pointer ml-2" for="Widowed">
-                  Widowed
-                </label>
-              </div>
-            </div>
-            <div class="w-1/2 px-6 md:w-1/4 mt-2">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="maritalStatus"
-                  id="Separated"
-                  [value]="5"
-                  formControlName="maritalStatus"
-                />
-                <label class="form-check-label cursor-pointer ml-2" for="Separated">
-                  Separated
-                </label>
-              </div>
-            </div>
-          </div>
+      <!-- Female Tile -->
+      <label
+        (click)="userBasicFrom.get('gender')?.setValue(2)"
+        [ngClass]="{
+          'bg-gradient-to-b from-amber-50/90 to-amber-100/50 border-[#c99839] text-[#5c142b] shadow-md shadow-[#c99839]/10 ring-2 ring-[#c99839]/30 font-bold': userBasicFrom.get('gender')?.value === 2,
+          'bg-white border-gray-200 text-gray-700 hover:border-amber-300 hover:bg-amber-50/20': userBasicFrom.get('gender')?.value !== 2
+        }"
+        class="flex items-center gap-3 p-3.5 rounded-2xl border cursor-pointer transition-all"
+      >
+        <div
+          [ngClass]="{
+            'bg-[#5c142b] text-white': userBasicFrom.get('gender')?.value === 2,
+            'bg-gray-100 text-gray-500': userBasicFrom.get('gender')?.value !== 2
+          }"
+          class="w-10 h-10 rounded-xl flex items-center justify-center text-lg"
+        >
+          <i class="fas fa-female"></i>
         </div>
+        <div class="text-sm font-semibold">Female</div>
+      </label>
+    </div>
+  </div>
+
+  <!-- MARITAL STATUS SELECTOR TILES -->
+  <div class="pt-4 border-t border-gray-100">
+    <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-3">
+      Marital Status <span class="text-red-600">*</span>
+    </label>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+      <div
+        *ngFor="let ms of [
+          { id: 1, label: 'Single', icon: 'fa-user' },
+          { id: 2, label: 'Married', icon: 'fa-ring' },
+          { id: 3, label: 'Divorced', icon: 'fa-user-slash' },
+          { id: 4, label: 'Widowed', icon: 'fa-heart-broken' },
+          { id: 5, label: 'Separated', icon: 'fa-user-friends' }
+        ]"
+        (click)="userBasicFrom.get('maritalStatus')?.setValue(ms.id)"
+        [ngClass]="{
+          'bg-gradient-to-b from-amber-50/90 to-amber-100/50 border-[#c99839] text-[#5c142b] shadow-md shadow-[#c99839]/10 ring-2 ring-[#c99839]/30 font-bold': userBasicFrom.get('maritalStatus')?.value === ms.id,
+          'bg-white border-gray-200 text-gray-700 hover:border-amber-300 hover:bg-amber-50/20': userBasicFrom.get('maritalStatus')?.value !== ms.id
+        }"
+        class="flex flex-col items-center justify-center p-3 rounded-2xl border cursor-pointer transition-all text-center gap-1.5"
+      >
+        <i class="fas {{ ms.icon }} text-base"></i>
+        <span class="text-xs font-medium">{{ ms.label }}</span>
       </div>
     </div>
   </div>
 
-  <button
-    class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-2 w-full mt-8"
-    (click)="next()"
-    [disabled]="isLoading"
-  >
+  <!-- PROFILE PHOTOS UPLOAD SECTION -->
+  <div class="pt-4 border-t border-gray-100">
+    <div class="flex items-center justify-between mb-2">
+      <label class="block text-xs font-bold uppercase tracking-wider text-gray-700">
+        Profile Photos <span class="text-red-600">*</span>
+      </label>
+      <span class="text-xs text-gray-500">Up to 5 images (250 KB – 5 MB)</span>
+    </div>
+
     <div
-      class="spinner-border spinner-border-sm text-light mr-1"
-      *ngIf="isLoading"
-    ></div>
-    {{ isEditFrom ? "UPDATE" : "NEXT" }}
-  </button>
+      class="p-5 rounded-3xl border-2 border-dashed transition-all"
+      [ngClass]="images.length === 0 && isSubmitted ? 'border-red-400 bg-red-50/20' : 'border-amber-200/80 bg-amber-50/20'"
+    >
+      <div class="flex flex-wrap items-center gap-3">
+        <!-- Render uploaded thumbnails with sleek delete overlay -->
+        <div
+          *ngFor="let img of images; let i = index"
+          class="relative w-20 h-20 rounded-2xl overflow-hidden shadow-md group border border-gray-200"
+        >
+          <img [src]="img" class="w-full h-full object-cover" alt="Profile image" />
+          <button
+            type="button"
+            (click)="removeImage(i)"
+            class="absolute inset-0 bg-black/60 text-white opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity cursor-pointer text-sm"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+
+        <!-- Add Photo Button Tile -->
+        <button
+          type="button"
+          *ngIf="images.length < 5"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          class="w-20 h-20 rounded-2xl border-2 border-dashed border-amber-300 hover:border-[#5c142b] bg-white hover:bg-amber-50/50 flex flex-col items-center justify-center text-gray-500 hover:text-[#5c142b] transition-all cursor-pointer shadow-xs gap-1"
+        >
+          <i class="fas fa-plus text-sm" *ngIf="!isUploading"></i>
+          <span class="text-[10px] font-bold" *ngIf="!isUploading">Add</span>
+          <div class="spinner-border spinner-border-sm text-[#5c142b]" *ngIf="isUploading"></div>
+        </button>
+      </div>
+
+      <!-- Visibility Toggle -->
+      <div class="mt-4 pt-3 border-t border-amber-200/40 flex items-center gap-2">
+        <input
+          class="w-4 h-4 rounded text-[#5c142b] focus:ring-[#5c142b] cursor-pointer"
+          type="checkbox"
+          [value]="true"
+          id="flexCheckChecked"
+          formControlName="isVisible"
+        />
+        <label class="text-xs text-gray-700 font-medium cursor-pointer" for="flexCheckChecked">
+          Make photos publicly visible to matches
+        </label>
+      </div>
+    </div>
+    <div class="text-[11px] text-red-600 mt-1" *ngIf="isSubmitted && images.length === 0">
+      At least one photo is required.
+    </div>
+  </div>
+
+  <!-- ACTION BUTTON -->
+  <div class="pt-6 border-t border-gray-100 flex items-center justify-end">
+    <button
+      type="button"
+      (click)="next()"
+      [disabled]="isLoading"
+      class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-[#5c142b] to-[#7e1e3b] hover:from-[#470f21] hover:to-[#6a1931] shadow-lg shadow-[#5c142b]/25 hover:shadow-xl hover:shadow-[#5c142b]/35 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <div class="spinner-border spinner-border-sm text-white" *ngIf="isLoading"></div>
+      <span>{{ isEditFrom ? 'Update Details' : 'Continue to Contact Details' }}</span>
+      <i class="fas fa-arrow-right text-amber-300 text-xs" *ngIf="!isLoading"></i>
+    </button>
+  </div>
+
 </form>
 
 <!-- Modal -->
@@ -384,19 +275,21 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Image Cropper</h5>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content rounded-3xl border-0 overflow-hidden shadow-2xl">
+      <div class="modal-header bg-gradient-to-r from-[#5c142b] to-[#7e1e3b] text-white px-6 py-4">
+        <h5 class="modal-title font-serif text-lg font-bold" id="exampleModalLabel">Crop Profile Image</h5>
         <button
           type="button"
-          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
+          class="text-white hover:text-amber-200 transition-colors"
           data-bs-dismiss="modal"
           aria-label="Close"
           id="close-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer"
-        ></button>
+        >
+          <i class="fas fa-times text-lg"></i>
+        </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body p-6">
         <app-image-cropper
           (imageCroppedEvent)="onImageCropped($event)"
         ></app-image-cropper>
@@ -404,3 +297,4 @@
     </div>
   </div>
 </div>
+
