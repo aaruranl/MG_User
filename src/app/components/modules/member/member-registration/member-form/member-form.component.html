@@ -4,22 +4,22 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Top Mobile-Only Step Header -->
-    <div class="lg:hidden mb-6 bg-gradient-to-r from-[#dc3545] via-[#e4606d] to-[#b02a37] rounded-2xl p-4 text-white shadow-md">
+    <div class="lg:hidden mb-6 bg-white rounded-2xl p-4 border border-red-100 shadow-sm">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-white">
-            <i class="fas {{ stepList[currentStep].icon }} text-base"></i>
+          <div class="w-10 h-10 rounded-xl bg-red-50 text-[#dc3545] flex items-center justify-center font-bold">
+            <i class="fas {{ getActiveStep().icon }} text-base"></i>
           </div>
           <div>
-            <span class="text-[10px] uppercase font-bold tracking-wider text-white/80">Step {{ currentStep + 1 }} of 7</span>
-            <h2 class="text-sm font-serif font-bold text-white">{{ stepList[currentStep].label }}</h2>
+            <span class="text-[10px] uppercase font-bold tracking-wider text-gray-400">Step {{ getActiveStepIndex() + 1 }} of 7</span>
+            <h2 class="text-sm font-bold text-gray-900">{{ getActiveStep().label }}</h2>
           </div>
         </div>
 
         <button
           *ngIf="!isEditMode && ((mainUser && mainUser.memberCount > 0) || currentStep !== steps.lookingFor)"
           (click)="goBack()"
-          class="px-3 py-1.5 rounded-lg bg-white/15 text-xs font-semibold text-white cursor-pointer"
+          class="px-3 py-1.5 rounded-lg bg-gray-100 text-xs font-semibold text-gray-700 cursor-pointer"
         >
           <i class="fas fa-arrow-left mr-1"></i> Back
         </button>
@@ -32,8 +32,8 @@
           (click)="isEditMode && changeStep(s.key)"
           class="h-1.5 rounded-full transition-all"
           [ngClass]="{
-            'bg-white shadow-xs': i <= currentStep,
-            'bg-white/20': i > currentStep,
+            'bg-[#dc3545] shadow-xs': i <= getActiveStepIndex(),
+            'bg-gray-200': i > getActiveStepIndex(),
             'cursor-pointer': isEditMode
           }"
         ></div>
@@ -56,10 +56,10 @@
               <span class="px-2.5 py-0.5 rounded-full bg-red-50 text-[#dc3545] text-[10px] font-bold uppercase tracking-wider border border-red-200">
                 {{ isEditMode ? 'Edit Mode' : 'Profile Registration' }}
               </span>
-              <span class="text-xs font-bold text-gray-400">Step {{ currentStep + 1 }}/7</span>
+              <span class="text-xs font-bold text-gray-400">Step {{ getActiveStepIndex() + 1 }}/7</span>
             </div>
             
-            <h2 class="text-lg font-serif font-bold text-gray-900 mt-2">
+            <h2 class="text-lg font-bold text-gray-900 mt-2">
               {{ isEditMode ? 'Update Profile Details' : 'Complete Your Profile' }}
             </h2>
             <p class="text-xs text-gray-500 mt-0.5">
@@ -87,9 +87,9 @@
               (click)="isEditMode && changeStep(step.key)"
               [ngClass]="{
                 'bg-gradient-to-r from-red-50 to-red-100/70 border-[#dc3545] text-[#dc3545] shadow-md shadow-[#dc3545]/10 ring-1 ring-[#dc3545]/30 font-bold': currentStep === step.key,
-                'bg-gray-50/60 border-transparent text-gray-600 hover:bg-red-50/30 hover:text-[#dc3545]': currentStep !== step.key && (isEditMode || i < currentStep),
-                'opacity-60 bg-transparent border-transparent text-gray-400 cursor-not-allowed': !isEditMode && i > currentStep,
-                'cursor-pointer': isEditMode || i <= currentStep
+                'bg-gray-50/60 border-transparent text-gray-600 hover:bg-red-50/30 hover:text-[#dc3545]': currentStep !== step.key && (isEditMode || i < getActiveStepIndex()),
+                'opacity-60 bg-transparent border-transparent text-gray-400 cursor-not-allowed': !isEditMode && i > getActiveStepIndex(),
+                'cursor-pointer': isEditMode || i <= getActiveStepIndex()
               }"
               class="flex items-center gap-3.5 p-3 rounded-2xl border transition-all text-left group"
             >
@@ -97,14 +97,14 @@
               <div
                 [ngClass]="{
                   'bg-gradient-to-r from-[#dc3545] to-[#b02a37] text-white shadow-sm shadow-[#dc3545]/30': currentStep === step.key,
-                  'bg-emerald-600 text-white': !isEditMode && i < currentStep,
-                  'bg-gray-200 text-gray-500': currentStep !== step.key && (isEditMode || i > currentStep)
+                  'bg-emerald-600 text-white': !isEditMode && i < getActiveStepIndex(),
+                  'bg-gray-200 text-gray-500': currentStep !== step.key && (isEditMode || i > getActiveStepIndex())
                 }"
                 class="w-9 h-9 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0 transition-all"
               >
-                <i class="fas fa-check text-xs" *ngIf="!isEditMode && i < currentStep"></i>
+                <i class="fas fa-check text-xs" *ngIf="!isEditMode && i < getActiveStepIndex()"></i>
                 <i class="fas {{ step.icon }} text-xs" *ngIf="currentStep === step.key"></i>
-                <span *ngIf="(isEditMode && currentStep !== step.key) || (!isEditMode && i > currentStep)">{{ i + 1 }}</span>
+                <span *ngIf="(isEditMode && currentStep !== step.key) || (!isEditMode && i > getActiveStepIndex())">{{ i + 1 }}</span>
               </div>
 
               <!-- Step Label & Description -->
@@ -133,37 +133,23 @@
         </div>
       </aside>
 
-      <!-- RIGHT COLUMN: ACTIVE FORM CARD -->
+      <!-- RIGHT COLUMN: ACTIVE FORM CARD (Without Redundant Top Header Banner) -->
       <main class="lg:col-span-8">
         
-        <!-- Active Step Header Banner -->
-        <div class="bg-gradient-to-r from-[#dc3545] via-[#e4606d] to-[#b02a37] rounded-3xl p-6 sm:p-8 text-white shadow-xl mb-6 relative overflow-hidden">
-          <!-- Ambient Glow Decor -->
-          <div class="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
-          <div class="absolute -bottom-10 -left-10 w-44 h-44 rounded-full bg-black/10 blur-2xl pointer-events-none"></div>
-
-          <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center flex-shrink-0 shadow-inner">
-                <i class="fas {{ stepList[currentStep].icon }} text-xl sm:text-2xl text-white"></i>
-              </div>
-
-              <div>
-                <span class="inline-block px-2.5 py-0.5 rounded-full bg-white/20 text-[11px] font-bold tracking-wider uppercase mb-1">
-                  {{ isEditMode ? 'Editing ' : '' }}Step {{ currentStep + 1 }} of 7
-                </span>
-                <h1 class="text-xl sm:text-2xl font-serif font-bold text-white">
-                  {{ stepList[currentStep].label }}
-                </h1>
-                <p class="text-xs text-white/90 mt-0.5">{{ stepList[currentStep].desc }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Form Container Card -->
         <div class="bg-white rounded-3xl border border-red-100 shadow-xl shadow-[#dc3545]/5 p-6 sm:p-8 relative overflow-hidden" *ngIf="!isLoading">
           
+          <!-- Section Title Inside Form Container -->
+          <div class="mb-6 pb-4 border-b border-gray-100 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-red-50 text-[#dc3545] flex items-center justify-center text-lg">
+              <i class="fas {{ getActiveStep().icon }}"></i>
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-gray-900">{{ getActiveStep().label }}</h2>
+              <p class="text-xs text-gray-500">{{ getActiveStep().desc }}</p>
+            </div>
+          </div>
+
           <!-- Step 1: Looking For / Matching -->
           <div [ngClass]="{ 'hidden': currentStep !== steps.lookingFor }">
             <app-looking-for-form

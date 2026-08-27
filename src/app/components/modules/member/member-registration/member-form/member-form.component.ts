@@ -73,6 +73,15 @@ export class MemberFormComponent implements OnInit {
     { key: this.steps.education, label: 'Education & Career', desc: 'Degrees, profession & salary', icon: 'fa-graduation-cap' }
   ];
 
+  public getActiveStepIndex(): number {
+    const idx = this.stepList.findIndex(s => s.key === this.currentStep);
+    return idx >= 0 ? idx : 0;
+  }
+
+  public getActiveStep(): { key: number; label: string; desc: string; icon: string } {
+    return this.stepList[this.getActiveStepIndex()] || this.stepList[0];
+  }
+
   constructor(
     private route: Router,
     private activeRoute: ActivatedRoute,
@@ -221,9 +230,9 @@ export class MemberFormComponent implements OnInit {
       isActive: true,
       firstName: this.userBasicDetails?.firstName,
       lastName: this.userBasicDetails?.lastName,
-      email: this.userContactDetails?.basicDetails.email,
-      phoneNumber: this.userContactDetails?.basicDetails.phoneNumber,
-      phoneCode: this.userContactDetails?.basicDetails.phoneCode,
+      email: this.userContactDetails?.basicDetails?.email || this.userDetails?.Email || '',
+      phoneNumber: this.userContactDetails?.basicDetails?.phoneNumber || this.userDetails?.PhoneNumber || '',
+      phoneCode: this.userContactDetails?.basicDetails?.phoneCode || '',
       aboutMe: this.userPersonalDetails?.aboutMe,
       gender: this.userBasicDetails?.gender,
       dateOfBirth: this.userBasicDetails?.dateOfBirth,
