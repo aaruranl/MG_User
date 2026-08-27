@@ -2,36 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./styles/theme.scss";
 @import "@ng-select/ng-select/themes/default.theme.css";
 @import "ngx-toastr/toastr";
 @import "quill/dist/quill.snow.css";
 
-/* Luxury & Modern Design System Tokens */
-:root {
-  --mg-burgundy-dark: #3b0918;
-  --mg-burgundy: #5c142b;
-  --mg-burgundy-light: #7e1e3b;
-  --mg-burgundy-subtle: #fdf2f4;
-  
-  --mg-gold: #c99839;
-  --mg-gold-light: #f5d78e;
-  --mg-gold-dark: #9b7223;
-  --mg-rose-gold: #e29578;
-  
-  --font-serif: 'Playfair Display', 'Roboto Slab', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
 html, body {
-  font-family: var(--font-sans);
-  background-color: #fcf9f6;
-  color: #1f2937;
+  font-family: var(--mg-font-sans);
+  background-color: var(--mg-bg-app);
+  color: var(--mg-text-main);
   line-height: 1.6;
   overflow-x: hidden;
 }
 
 h1, h2, h3, .font-serif {
-  font-family: var(--font-serif);
+  font-family: var(--mg-font-serif);
 }
 
 /* =========================================================================

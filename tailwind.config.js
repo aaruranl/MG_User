@@ -6,20 +6,42 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        brand: {
+          DEFAULT: 'var(--mg-primary)',
+          dark: 'var(--mg-primary-dark)',
+          light: 'var(--mg-primary-light)',
+          subtle: 'var(--mg-primary-subtle)',
+        },
+        gold: {
+          DEFAULT: 'var(--mg-accent-gold)',
+          light: 'var(--mg-accent-gold-light)',
+          dark: 'var(--mg-accent-gold-dark)',
+          rose: 'var(--mg-accent-rose-gold)',
+        },
+        surface: {
+          app: 'var(--mg-bg-app)',
+          card: 'var(--mg-bg-surface)',
+          subtle: 'var(--mg-bg-subtle)',
+        },
+        text: {
+          main: 'var(--mg-text-main)',
+          muted: 'var(--mg-text-muted)',
+          light: 'var(--mg-text-light)',
+        },
         luxury: {
-          burgundy: '#5c142b',
-          'burgundy-dark': '#3b0918',
-          'burgundy-light': '#7e1e3b',
-          'burgundy-subtle': '#fdf2f4',
-          gold: '#c99839',
-          'gold-light': '#f5d78e',
-          'gold-dark': '#9b7223',
-          'rose-gold': '#e29578',
+          burgundy: 'var(--mg-primary)',
+          'burgundy-dark': 'var(--mg-primary-dark)',
+          'burgundy-light': 'var(--mg-primary-light)',
+          'burgundy-subtle': 'var(--mg-primary-subtle)',
+          gold: 'var(--mg-accent-gold)',
+          'gold-light': 'var(--mg-accent-gold-light)',
+          'gold-dark': 'var(--mg-accent-gold-dark)',
+          'rose-gold': 'var(--mg-accent-rose-gold)',
         }
       },
       fontFamily: {
-        serif: ['Playfair Display', 'Georgia', 'serif'],
-        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+        serif: ['var(--mg-font-serif)', 'Playfair Display', 'Georgia', 'serif'],
+        sans: ['var(--mg-font-sans)', 'Plus Jakarta Sans', 'Inter', 'sans-serif'],
       },
       boxShadow: {
         luxury: '0 10px 30px rgba(92, 20, 43, 0.08)',
