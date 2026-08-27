@@ -7,16 +7,16 @@
 @import "ngx-toastr/toastr";
 @import "quill/dist/quill.snow.css";
 
-html, body {
-  font-family: var(--mg-font-sans);
+html, body, button, input, select, textarea, optgroup {
+  font-family: 'Poppins', var(--mg-font-sans), sans-serif;
   background-color: var(--mg-bg-app);
   color: var(--mg-text-main);
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-h1, h2, h3, .font-serif {
-  font-family: var(--mg-font-serif);
+h1, h2, h3, h4, h5, h6, .font-serif {
+  font-family: 'Poppins', var(--mg-font-serif), sans-serif;
 }
 
 /* =========================================================================

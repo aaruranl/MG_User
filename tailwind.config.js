@@ -40,8 +40,8 @@ module.exports = {
         }
       },
       fontFamily: {
-        serif: ['var(--mg-font-serif)', 'Playfair Display', 'Georgia', 'serif'],
-        sans: ['var(--mg-font-sans)', 'Plus Jakarta Sans', 'Inter', 'sans-serif'],
+        serif: ['var(--mg-font-serif)', 'Poppins', 'sans-serif'],
+        sans: ['var(--mg-font-sans)', 'Poppins', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
       boxShadow: {
         luxury: '0 10px 30px rgba(92, 20, 43, 0.08)',
