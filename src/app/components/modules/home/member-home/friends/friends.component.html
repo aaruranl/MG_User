@@ -1,48 +1,48 @@
 
 <section class="content">
   <div class="component-content">
-    <section class="content d-flex justify-content-center align-items-center" style="min-height: 80vh;" *ngIf="false">
+    <section class="content flex justify-center items-center" style="min-height: 80vh;" *ngIf="false">
       <div class="text-center">
-        <img src="https://static4.depositphotos.com/1021974/379/i/450/depositphotos_3791938-stock-photo-web-construction.jpg" alt="Under Construction" class="img-fluid mb-4" style="max-width: 200px;">
-        <h3 class="text-muted">This page is under construction</h3>
+        <img src="https://static4.depositphotos.com/1021974/379/i/450/depositphotos_3791938-stock-photo-web-construction.jpg" alt="Under Construction" class="img-fluid mb-6" style="max-width: 200px;">
+        <h3 class="text-gray-500">This page is under construction</h3>
         <p>Please check back later!</p>
       </div>
     </section>
-    <div class="col-8 mx-auto">
-      <div class="text-xl fw-bold">Friends</div>
+    <div class="w-2/3 px-6 mx-auto">
+      <div class="text-xl font-bold">Friends</div>
       <hr>
-      <!-- <div class="text-lg mt-3 m-shadow p-3">
-        <div class="d-flex">
-          <div class="pe-2 pointer" [ngClass]="{ 'active-tab': selectedTab === 'friends' }" (click)="selectTab('friends')"> Friends</div>
-          <div class="px-2 pointer" [ngClass]="{ 'active-tab': selectedTab === 'requests' }" (click)="selectTab('requests')"> Friend Requests</div>
+      <!-- <div class="text-lg mt-6 m-shadow-md p-6">
+        <div class="flex">
+          <div class="pe-2 cursor-pointer" [ngClass]="{ 'active-tab': selectedTab === 'friends' }" (click)="selectTab('friends')"> Friends</div>
+          <div class="px-2 cursor-pointer" [ngClass]="{ 'active-tab': selectedTab === 'requests' }" (click)="selectTab('requests')"> Friend Requests</div>
         </div>
       </div> -->
 
-      <div class="mt-4">
+      <div class="mt-6">
         <!-- CARD SECTION -->
-         <div class="row m-0">
-          <div class="col-5 m-shadow p-2 me-3 position-relative">
-            <div class="d-flex justify-content-between align-items-start">
-              <div class="d-flex">
+         <div class="flex flex-wrap -mx-3 m-0">
+          <div class="w-5/12 px-6 m-shadow-md p-2 mr-4 position-relative">
+            <div class="flex justify-between items-start">
+              <div class="flex">
                 <img alt="fd-profile" width="100px" height="100px"
-                    class="object-fit-cover border profile-img border-15"
+                    class="object-cover border profile-img border-15"
                     src="https://dev1mg.blob.core.windows.net/profile/dfa85f7b-931c-48bb-b628-1d0a57b30f10/3dmuslimfemaleavatar.png-8e1bb398-0ed4-4596-acc4-4e85d119a194">
-                <div class="text-left my-auto ms-3">
-                  <div class="fw-bold text-md">Abiram</div>
-                  <div class="text-muted text-sm">Software Engineer</div>
+                <div class="text-left my-auto ml-4">
+                  <div class="font-bold text-md">Abiram</div>
+                  <div class="text-gray-500 text-sm">Software Engineer</div>
                 </div>
               </div>
 
-              <div class="me-3 my-auto">
+              <div class="mr-4 my-auto">
                 <div class="dropdown">
-                <button class="btn p-0 border-0 bg-transparent" type="button" data-bs-toggle="dropdown">
+                <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer p-0 border-0 bg-transparent" type="button" data-bs-toggle="dropdown">
                   <i class="fas fa-ellipsis-h"></i>
                 </button>
-                <ul class="dropdown-menu shadow-sm rounded-3">
-                  <li><a class="dropdown-item" href="#"><i class="fas fa-comments me-2"></i>Message</a></li>
-                  <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2 text-primary"></i>View</a></li>
-                  <!-- <li><a class="dropdown-item" href="#"><i class="fas fa-user-slash me-2"></i>>Un Friend</a></li> -->
-                  <!-- <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-user-times me-2"></i>Unfriend</a></li> -->
+                <ul class="dropdown-menu shadow-md-sm rounded-xl">
+                  <li><a class="dropdown-item" href="#"><i class="fas fa-comments mr-2"></i>Message</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="fas fa-eye mr-2 text-[#5c142b]"></i>View</a></li>
+                  <!-- <li><a class="dropdown-item" href="#"><i class="fas fa-user-slash mr-2"></i>>Un Friend</a></li> -->
+                  <!-- <li><a class="dropdown-item text-red-600" href="#"><i class="fas fa-user-times mr-2"></i>Unfriend</a></li> -->
                 </ul>
               </div>
               </div>

@@ -1,9 +1,9 @@
 <section class="content">
   <div class="component-content">
-    <div class="row m-0 mt-3 m-list-participent">
-      <div class="col-11 col-sm-10 mx-auto border bg-white border-15 mb-5" *ngIf="!isLoadingPar" >
-        <div class="row chat-main" *ngIf="participants.length > 0 && isGetParticipant">
-          <div class="col-12 col-sm-4 p-0 chat-list" *ngIf="screenWidth > 546">
+    <div class="flex flex-wrap -mx-3 m-0 mt-6 m-list-participent">
+      <div class="w-11/12 px-6 col-sm-10 mx-auto border bg-white border-15 mb-8" *ngIf="!isLoadingPar" >
+        <div class="flex flex-wrap -mx-3 chat-main" *ngIf="participants.length > 0 && isGetParticipant">
+          <div class="w-full px-6 col-sm-4 p-0 chat-list" *ngIf="screenWidth > 546">
              <div class="search-wrapper">
                 <input
                   type="text"
@@ -11,18 +11,18 @@
                   placeholder="Search conversations..."
                   [(ngModel)]="searchTerm">
               </div>
-             <div *ngFor="let member of filteredParticipants()" class="d-flex align-items-center p-3 border-bottom member-item conversation-item pointer" (click)="getPrivateMessage(member)" [ngClass]="{'bg-danger text-white':selectedParticipant && selectedParticipant.receiverProfileId === member.receiverProfileId}">
+             <div *ngFor="let member of filteredParticipants()" class="flex items-center p-6 border-bottom member-item conversation-item cursor-pointer" (click)="getPrivateMessage(member)" [ngClass]="{'bg-danger text-white':selectedParticipant && selectedParticipant.receiverProfileId === member.receiverProfileId}">
               <!-- Avatar -->
-              <div class="position-relative me-3">
-                <div class="rounded-circle d-flex align-items-center justify-content-center fw-semibold text-white" >
+              <div class="position-relative mr-4">
+                <div class="rounded-full flex items-center justify-center font-semibold text-white" >
                 <img [src]="member.profileImage" [alt]="member.name" class="avatar-image" onerror="this.style.display='none'">
                 </div>
-                <span *ngIf="member.isActive" class="position-absolute bottom-0 end-0 rounded-circle border border-2 border-white bg-success" style="width: 12px; height: 12px;"></span>
+                <span *ngIf="member.isActive" class="position-absolute bottom-0 end-0 rounded-full border border-2 border-white bg-success" style="width: 12px; height: 12px;"></span>
               </div>
               <!-- Member Info -->
               <div class="flex-grow-1 min-w-0">
-                <div class="d-flex align-items-center justify-content-between">
-                  <h6 class="mb-0 text-truncate fw-medium">
+                <div class="flex items-center justify-between">
+                  <h6 class="mb-0 text-truncate font-medium">
                     {{ member.name }}
                   </h6>
                   <!-- <span class="text-sm" *ngIf="member.receiverProfileId !== member.receiverProfileId">{{member.isOnline ? 'Online' : (member.lastOnlineAt  ? 'Last seen at ' + member.lastOnlineAt : '')}}</span> -->
@@ -35,21 +35,21 @@
             </div>
           </div>
           <!-- CHAT BOX CONTAINER -->
-           <div class="col-12 col-sm-8 p-3 border-start" *ngIf="screenWidth > 546" >
-            <div class="d-flex border-bottom pb-2" *ngIf="selectedParticipant">
-              <span class="me-2 d-block d-sm-none" (click)="isOpenChat = false"><i class="fas fa-arrow-left fs-5 mt-2 text-danger" ></i></span>
+           <div class="w-full px-6 col-sm-8 p-6 border-start" *ngIf="screenWidth > 546" >
+            <div class="flex border-bottom pb-2" *ngIf="selectedParticipant">
+              <span class="mr-2 block sm:hidden" (click)="isOpenChat = false"><i class="fas fa-arrow-left fs-5 mt-2 text-red-600" ></i></span>
               <div class="">
                 <img src={{selectedParticipant.profileImage}} [alt]="selectedParticipant.name" class="avatar-image" width="52px" onerror="this.style.display='none'">
               </div>
-              <div class="ms-3 text-sm my-auto">
-                <div class="fw-bold text-muted">{{selectedParticipant.name}}</div>
-                <div class="text-muted" >{{selectedParticipant.isOnline ? 'Online' : (selectedParticipant.lastOnlineAt  ? 'Last seen at ' + selectedParticipant.lastOnlineAt : '')}}</div>
+              <div class="ml-4 text-sm my-auto">
+                <div class="font-bold text-gray-500">{{selectedParticipant.name}}</div>
+                <div class="text-gray-500" >{{selectedParticipant.isOnline ? 'Online' : (selectedParticipant.lastOnlineAt  ? 'Last seen at ' + selectedParticipant.lastOnlineAt : '')}}</div>
               </div>
             </div>
-            <div class="flex-grow-1 overflow-auto mt-3 mb-2 px-2 m-box" id="chatMessages" #chatMessages >
+            <div class="flex-grow-1 overflow-auto mt-6 mb-2 px-2 m-box" id="chatMessages" #chatMessages >
               <div *ngIf="!isLoading">
                 <div *ngFor="let message of messagesCheck" class="mb-2">
-                  <div class="d-flex" [ngClass]="{'justify-content-end': message.isMine}">
+                  <div class="flex" [ngClass]="{'justify-end': message.isMine}">
                     <div class="p-2 rounded" [ngClass]="{'bg-danger text-white': message.isMine, 'bg-light': !message.isMine}" style="max-width: 70%;overflow-wrap: break-word; white-space: pre-wrap;" >
                       <div *ngIf="message.fileType === file_type.Text">{{ message.textContent }}</div>
                       <div *ngIf="message.fileType === file_type.Image">
@@ -59,41 +59,41 @@
                       </div>
                       <!-- <span class="text-xs float-end" *ngIf="message.isMine">
                         <i *ngIf="message.isRead" class="fas fa-check-double text-info"></i>
-                        <i *ngIf="!message.isRead" class="fas fa-check text-muted text-info"></i>
+                        <i *ngIf="!message.isRead" class="fas fa-check text-gray-500 text-info"></i>
                       </span> -->
                     </div>
 
 
                   </div>
                    <!-- Timestamp below message -->
-                  <div class="mt-1 small text-muted text-xxs" [ngClass]="{'text-start': message.isMine, 'text-end': message.isMine }">
+                  <div class="mt-1 small text-gray-500 text-xxs" [ngClass]="{'text-start': message.isMine, 'text-end': message.isMine }">
                     {{ message.sentAt}}
                   </div>
                 </div>
-                  <small class="text-muted bg-light p-2 typing-indicator" *ngIf="typingMembers.has(selectedParticipant.receiverProfileId)">
+                  <small class="text-gray-500 bg-light p-2 typing-indicator" *ngIf="typingMembers.has(selectedParticipant.receiverProfileId)">
                     <span>Typing<span class="dot-1">.</span><span class="dot-2">.</span><span class="dot-3">.</span></span>
                   </small>
 
               </div>
 
-            <div class="d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="isLoading">
-              <div class="spinner-border text-danger" role="status">
+            <div class="flex justify-center items-center" style="height: 100%;" *ngIf="isLoading">
+              <div class="spinner-border text-red-600" role="status">
                 <span class="visually-hidden">Loading...</span>
               </div>
             </div>
 
           </div>
           <!-- Image preview before sending -->
-          <div *ngIf="previewImage.length > 0" class="my-2 d-flex border">
+          <div *ngIf="previewImage.length > 0" class="my-2 flex border">
             <div class="position-relative" *ngFor="let i of previewImage">
               <img [src]="i" class="img-thumbnail" style="max-width: 100px;" />
-              <button type="button" class="btn-close position-absolute top-0 end-0" aria-label="Close" (click)="clearImagePreview()"></button>
+              <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close position-absolute top-0 end-0" aria-label="Close" (click)="clearImagePreview()"></button>
             </div>
           </div>
 
           <!-- Message input area -->
          <form (ngSubmit)="sendMessage()" enctype="multipart/form-data">
-            <div class="d-flex align-items-center gap-2 border-top pt-2 position-relative">
+            <div class="flex items-center gap-2 border-top pt-2 position-relative">
               <!-- Message input -->
               <input type="text"
                     [(ngModel)]="newMessage"
@@ -101,24 +101,24 @@
                     (input)="onTyping()"
                     (blur)="stopTyping()"
                      #minSpend
-                    class="form-control"
+                    class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                     placeholder="Type a message..." required />
 
               <!-- Emoji Picker Toggle Button -->
               <button type="button"
-                      class="btn btn-outline-secondary position-relative"
+                      class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-outline-secondary position-relative"
                       (click)="toggleEmojiPicker()">
                 <i class="fas fa-smile"></i>
               </button>
 
               <!-- File Upload Button -->
               <!-- <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
-              <button type="button" class="btn btn-outline-secondary" (click)="fileInput.click()">
+              <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-outline-secondary" (click)="fileInput.click()">
                 <i class="fas fa-image"></i>
               </button> -->
 
               <!-- Send Button -->
-              <button type="submit" class="btn btn-danger">➤</button>
+              <button type="submit" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all">➤</button>
 
               <!-- Emoji Picker Dropdown -->
               <div *ngIf="showEmojiPicker"
@@ -129,7 +129,7 @@
                   (emojiSelect)="addEmoji($event)"
                   title="Pick your emoji…"
                   emoji="point_up"
-                  style="box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); border-radius: 12px;"
+                  style="box-shadow-md: 0 0 15px rgba(255, 255, 255, 0.2); border-radius: 12px;"
                 ></emoji-mart>
               </div>
             </div>
@@ -138,7 +138,7 @@
            </div>
 
             <!-- CHAT MOBILE BOX CONTAINER -->
-            <div class="col-12 col-sm-4 p-0 chat-list" *ngIf="screenWidth < 546 && isOpenChat === false">
+            <div class="w-full px-6 col-sm-4 p-0 chat-list" *ngIf="screenWidth < 546 && isOpenChat === false">
              <div class="search-wrapper">
                 <input
                   type="text"
@@ -146,18 +146,18 @@
                   placeholder="Search conversations..."
                   [(ngModel)]="searchTerm">
               </div>
-             <div *ngFor="let member of filteredParticipants()" class="d-flex align-items-center p-3 border-bottom member-item conversation-item pointer" (click)="getPrivateMessage(member)" [ngClass]="{'bg-danger text-white':selectedParticipant && selectedParticipant.receiverProfileId === member.receiverProfileId}">
+             <div *ngFor="let member of filteredParticipants()" class="flex items-center p-6 border-bottom member-item conversation-item cursor-pointer" (click)="getPrivateMessage(member)" [ngClass]="{'bg-danger text-white':selectedParticipant && selectedParticipant.receiverProfileId === member.receiverProfileId}">
               <!-- Avatar -->
-              <div class="position-relative me-3">
-                <div class="rounded-circle d-flex align-items-center justify-content-center fw-semibold text-white">
+              <div class="position-relative mr-4">
+                <div class="rounded-full flex items-center justify-center font-semibold text-white">
                 <img [src]="member.profileImage" [alt]="member.name" class="avatar-image" onerror="this.style.display='none'">
                 </div>
-                <span class="position-absolute bottom-0 end-0 rounded-circle border border-2 border-white bg-success" style="width: 12px; height: 12px;" *ngIf="member.isOnline"></span>
+                <span class="position-absolute bottom-0 end-0 rounded-full border border-2 border-white bg-success" style="width: 12px; height: 12px;" *ngIf="member.isOnline"></span>
               </div>
               <!-- Member Info -->
               <div class="flex-grow-1 min-w-0">
-                <div class="d-flex align-items-center justify-content-between">
-                  <h6 class="mb-0 text-truncate fw-medium">
+                <div class="flex items-center justify-between">
+                  <h6 class="mb-0 text-truncate font-medium">
                     {{ member.name }}
                   </h6>
                   <span class="text-sm">{{member.lastSentAt}}</span>
@@ -170,22 +170,22 @@
             </div>
           </div>
 
-           <div class="col-12 col-sm-8 p-3 border-start"  *ngIf="screenWidth < 546 && isOpenChat === true">
-            <div class="d-flex border-bottom pb-2" *ngIf="selectedParticipant">
-              <span class="me-2 d-block d-sm-none" (click)="isOpenChat = false"><i class="fas fa-arrow-left fs-5 mt-2 text-danger" ></i></span>
+           <div class="w-full px-6 col-sm-8 p-6 border-start"  *ngIf="screenWidth < 546 && isOpenChat === true">
+            <div class="flex border-bottom pb-2" *ngIf="selectedParticipant">
+              <span class="mr-2 block sm:hidden" (click)="isOpenChat = false"><i class="fas fa-arrow-left fs-5 mt-2 text-red-600" ></i></span>
               <div class="">
                 <img src={{selectedParticipant.profileImage}} [alt]="selectedParticipant.name" class="avatar-image" width="52px" onerror="this.style.display='none'">
               </div>
-              <div class="ms-3 text-sm my-auto">
-                <div class="fw-bold text-muted">{{selectedParticipant.name}}</div>
-                <div class="text-muted" >{{selectedParticipant.isOnline ? 'Online' : (selectedParticipant.lastOnlineAt  ? 'Last seen at ' + selectedParticipant.lastOnlineAt : '')}}</div>
+              <div class="ml-4 text-sm my-auto">
+                <div class="font-bold text-gray-500">{{selectedParticipant.name}}</div>
+                <div class="text-gray-500" >{{selectedParticipant.isOnline ? 'Online' : (selectedParticipant.lastOnlineAt  ? 'Last seen at ' + selectedParticipant.lastOnlineAt : '')}}</div>
 
               </div>
             </div>
-            <div class="flex-grow-1 overflow-auto mt-3 mb-2 px-2 m-box" id="chatMessages" #chatMessages >
+            <div class="flex-grow-1 overflow-auto mt-6 mb-2 px-2 m-box" id="chatMessages" #chatMessages >
               <div *ngIf="!isLoading">
                 <div *ngFor="let message of messagesCheck" class="mb-2">
-                  <div class="d-flex" [ngClass]="{'justify-content-end': message.isMine}">
+                  <div class="flex" [ngClass]="{'justify-end': message.isMine}">
                     <div class="p-2 rounded" [ngClass]="{'bg-danger text-white': message.isMine, 'bg-light': !message.isMine}" style="max-width: 70%;overflow-wrap: break-word; white-space: pre-wrap;" >
                       <div *ngIf="message.fileType === file_type.Text">{{ message.textContent }}</div>
                       <div *ngIf="message.fileType === file_type.Image">
@@ -195,41 +195,41 @@
                       </div>
                       <!-- <span class="text-xs float-end" *ngIf="message.isMine">
                         <i *ngIf="message.isRead" class="fas fa-check-double text-info"></i>
-                        <i *ngIf="!message.isRead" class="fas fa-check text-muted text-info"></i>
+                        <i *ngIf="!message.isRead" class="fas fa-check text-gray-500 text-info"></i>
                       </span> -->
                     </div>
 
 
                   </div>
                    <!-- Timestamp below message -->
-                  <div class="mt-1 small text-muted text-xxs" [ngClass]="{'text-start': message.isMine, 'text-end': message.isMine }">
+                  <div class="mt-1 small text-gray-500 text-xxs" [ngClass]="{'text-start': message.isMine, 'text-end': message.isMine }">
                     {{ message.sentAt}}
                   </div>
                 </div>
-                  <small class="text-muted bg-light p-2 typing-indicator" *ngIf="typingMembers.has(selectedParticipant.receiverProfileId)">
+                  <small class="text-gray-500 bg-light p-2 typing-indicator" *ngIf="typingMembers.has(selectedParticipant.receiverProfileId)">
                     <span>Typing<span class="dot-1">.</span><span class="dot-2">.</span><span class="dot-3">.</span></span>
                   </small>
 
               </div>
 
-            <div class="d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="isLoading">
-              <div class="spinner-border text-danger" role="status">
+            <div class="flex justify-center items-center" style="height: 100%;" *ngIf="isLoading">
+              <div class="spinner-border text-red-600" role="status">
                 <span class="visually-hidden">Loading...</span>
               </div>
             </div>
 
           </div>
           <!-- Image preview before sending -->
-          <div *ngIf="previewImage.length > 0" class="my-2 d-flex border">
+          <div *ngIf="previewImage.length > 0" class="my-2 flex border">
             <div class="position-relative" *ngFor="let i of previewImage">
               <img [src]="i" class="img-thumbnail" style="max-width: 100px;" />
-              <button type="button" class="btn-close position-absolute top-0 end-0" aria-label="Close" (click)="clearImagePreview()"></button>
+              <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close position-absolute top-0 end-0" aria-label="Close" (click)="clearImagePreview()"></button>
             </div>
           </div>
 
           <!-- Message input area -->
          <form (ngSubmit)="sendMessage()" enctype="multipart/form-data">
-            <div class="d-flex align-items-center gap-2 border-top pt-2 position-relative">
+            <div class="flex items-center gap-2 border-top pt-2 position-relative">
               <!-- Message input -->
               <input type="text"
                     [(ngModel)]="newMessage"
@@ -237,10 +237,10 @@
                      #minSpend
                     (input)="onTyping()"
                     (blur)="stopTyping()"
-                    class="form-control"
+                    class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                     placeholder="Type a message..." required />
               <!-- Send Button -->
-              <button type="submit" class="btn btn-danger">➤</button>
+              <button type="submit" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all">➤</button>
 
               <!-- Emoji Picker Dropdown -->
               <div *ngIf="showEmojiPicker"
@@ -251,7 +251,7 @@
                   (emojiSelect)="addEmoji($event)"
                   title="Pick your emoji…"
                   emoji="point_up"
-                  style="box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); border-radius: 12px;"
+                  style="box-shadow-md: 0 0 15px rgba(255, 255, 255, 0.2); border-radius: 12px;"
                 ></emoji-mart>
               </div>
             </div>
@@ -260,25 +260,25 @@
            </div>
         </div>
         <div *ngIf="participants.length === 0 && isGetParticipant" class="chat-empty-card">
-          <div class="container-fluid h-100">
-            <div class="row justify-content-center align-items-center h-100">
-              <div class="col-12 col-md-8 col-lg-6">
+          <div class="w-full px-6 h-full">
+            <div class="flex flex-wrap -mx-3 justify-center items-center h-full">
+              <div class="w-full px-6 md:w-2/3 lg:w-1/2">
                 <div class="">
-                  <div class="text-center py-5">
+                  <div class="text-center py-8">
                     <!-- Chat Icon -->
-                    <div class="mb-4">
-                      <i class="bi bi-chat-dots text-muted" style="font-size: 4rem;"></i>
+                    <div class="mb-6">
+                      <i class="bi bi-chat-dots text-gray-500" style="font-size: 4rem;"></i>
                     </div>
 
                     <!-- Main Message -->
-                    <h4 class="text-muted mb-3">No Conversations Yet</h4>
-                    <p class="card-text text-muted mb-4">
+                    <h4 class="text-gray-500 mb-6">No Conversations Yet</h4>
+                    <p class="card-text text-gray-500 mb-6">
                       You haven't started chatting with anyone. Find and connect with matching profiles to begin conversations.
                     </p>
 
                     <!-- Action Button -->
-                    <button type="button" class="btn btn-danger btn-lg" [routerLink]="['/home/member']">
-                      <i class="bi bi-search me-2"></i>
+                    <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-lg" [routerLink]="['/home/member']">
+                      <i class="bi bi-search mr-2"></i>
                       Find Matching Profiles
                     </button>
                   </div>

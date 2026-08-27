@@ -4,22 +4,22 @@
 ></app-payment-fail-top-bar>
 <section class="content">
   <div class="component-content">
-    <div class="container mt-4">
-      <div class="row justify-content-center pb-3">
-        <div class="col-12 col-md-12 col-lg-10">
-          <div class="row" *ngIf="mainUser && !isLoading">
-            <div class="col-4 d-none d-sm-block">
-              <div class="w-50 ms-auto">
+    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 mt-6">
+      <div class="flex flex-wrap -mx-3 justify-center pb-3">
+        <div class="w-full px-6 md:w-full lg:w-10/12">
+          <div class="flex flex-wrap -mx-3" *ngIf="mainUser && !isLoading">
+            <div class="w-1/3 px-6 hidden sm:block">
+              <div class="w-50 ml-auto">
                 <div class="list-group">
                   <div
-                    class="list-group-item list-group-item-action pointer"
+                    class="list-group-item list-group-item-action cursor-pointer"
                     (click)="isGeneral = true"
                     [ngClass]="{ 'bg-danger text-white': isGeneral }"
                   >
                     General
                   </div>
                   <div
-                    class="list-group-item list-group-item-action pointer"
+                    class="list-group-item list-group-item-action cursor-pointer"
                     (click)="isGeneral = false"
                     [ngClass]="{ 'bg-danger text-white': !isGeneral }"
                   >
@@ -29,10 +29,10 @@
               </div>
             </div>
             <!-- MOBILE VIEW -->
-            <!-- Flex container -->
-            <div class="d-flex d-block d-sm-none justify-content-start mb-3">
+            <!-- Flex max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 -->
+            <div class="flex block sm:hidden justify-content-start mb-6">
               <div
-                class="flex-fill text-center pointer py-2 me-2 rounded"
+                class="flex-fill text-center cursor-pointer py-2 mr-2 rounded"
                 (click)="isGeneral = true"
                 [ngClass]="{
                   'bg-danger text-white': isGeneral,
@@ -43,7 +43,7 @@
               </div>
 
               <div
-                class="flex-fill text-center pointer py-2 rounded"
+                class="flex-fill text-center cursor-pointer py-2 rounded"
                 (click)="isGeneral = false"
                 [ngClass]="{
                   'bg-danger text-white': !isGeneral,
@@ -54,17 +54,17 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-8">
-              <div class="border border-15 bg-white p-3" *ngIf="isGeneral">
+            <div class="w-full px-6 col-sm-8">
+              <div class="border border-15 bg-white p-6" *ngIf="isGeneral">
                 <h4 class="mb-1">Profile Information</h4>
-                <div class="text-muted text-sm">
+                <div class="text-gray-500 text-sm">
                   Update your personal information and profile settings
                 </div>
 
-                <div class="mt-3">
+                <div class="mt-6">
                   <div class="profile-avatar position-relative">
                     <!-- Image Preview -->
-                    <div class="avatar-container">
+                    <div class="avatar-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
                       <img
                         [src]="images"
                         [alt]=""
@@ -74,7 +74,7 @@
                       <div class="avatar-overlay">
                         <button
                           type="button"
-                          class="btn btn-sm btn-light avatar-btn"
+                          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-sm inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-light avatar-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer"
                         >
                           <i class="fas fa-trash"></i>
                         </button>
@@ -82,13 +82,13 @@
                     </div>
                     <!-- Edit Image Button -->
                     <div
-                      class="avatar-edit-btn"
+                      class="avatar-edit-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer"
                       data-bs-toggle="modal"
                       data-bs-target="#profileImgModal"
                     >
                       <label
                         for="imageInput"
-                        class="btn btn-sm btn-light rounded-circle"
+                        class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-sm inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-light rounded-full"
                       >
                         <i class="fas fa-camera"></i>
                       </label>
@@ -98,55 +98,55 @@
 
                 <hr />
                 <form [formGroup]="profileForm">
-                  <div class="row">
-                    <div class="col-12 col-sm-6">
-                      <div class="form-group mb-3">
-                        <label class="form-label">
-                          <i class="fas fa-user me-2"></i>First Name
+                  <div class="flex flex-wrap -mx-3">
+                    <div class="w-full px-6 col-sm-6">
+                      <div class="form-group mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                          <i class="fas fa-user mr-2"></i>First Name
                         </label>
                         <input
                           type="text"
-                          class="form-control"
+                          class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                           formControlName="firstName"
                           placeholder="Enter first name"
                         />
                       </div>
                     </div>
-                    <div class="col-12 col-sm-6">
-                      <div class="form-group mb-3">
-                        <label class="form-label">
-                          <i class="fas fa-user me-2"></i>Last Name
+                    <div class="w-full px-6 col-sm-6">
+                      <div class="form-group mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                          <i class="fas fa-user mr-2"></i>Last Name
                         </label>
                         <input
                           type="text"
-                          class="form-control"
+                          class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                           formControlName="lastName"
                           placeholder="Enter last name"
                         />
                       </div>
                     </div>
-                    <div class="col-12 col-sm-6">
-                      <div class="form-group mb-3">
-                        <label class="form-label">
-                          <i class="fas fa-envelope me-2"></i>Email Address
+                    <div class="w-full px-6 col-sm-6">
+                      <div class="form-group mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                          <i class="fas fa-envelope mr-2"></i>Email Address
                         </label>
                         <input
                           type="email"
-                          class="form-control"
+                          class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                           formControlName="email"
                           [readonly]="true"
                           placeholder="Enter email address"
                         />
                       </div>
                     </div>
-                    <div class="col-12 col-sm-6">
-                      <div class="form-group mb-4">
-                        <label class="form-label">
-                          <i class="fas fa-phone me-2"></i>Phone Number
+                    <div class="w-full px-6 col-sm-6">
+                      <div class="form-group mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-1.5">
+                          <i class="fas fa-phone mr-2"></i>Phone Number
                         </label>
                         <!-- <input
                           type="tel"
-                          class="form-control"
+                          class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                           formControlName="phoneNumber"
                           [readonly]="
                             mainUser.phoneNumber === null ? false : true
@@ -164,11 +164,11 @@
                         ></app-phone-number-input>
                       </div>
                     </div>
-                    <div class="col-12">
-                      <div class="d-flex justify-content-between">
+                    <div class="w-full px-6">
+                      <div class="flex justify-between">
                         <div>
                           <button
-                            class="btn btn-danger"
+                            class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all"
                             (click)="saveUser()"
                             [disabled]="isSaveLoading"
                           >
@@ -191,14 +191,14 @@
                             </svg>
                             Save
                             <div
-                              class="spinner-border spinner-border-sm text-light me-1"
+                              class="spinner-border spinner-border-sm text-light mr-1"
                               *ngIf="isSaveLoading"
                             ></div>
                           </button>
                         </div>
 
                         <div
-                          class="text-danger fw-bold pointer my-auto"
+                          class="text-red-600 font-bold cursor-pointer my-auto"
                           data-bs-toggle="modal"
                           data-bs-target="#accountDeteModal"
                         >
@@ -210,39 +210,39 @@
                 </form>
               </div>
 
-              <div class="border border-15 bg-white p-3" *ngIf="!isGeneral">
+              <div class="border border-15 bg-white p-6" *ngIf="!isGeneral">
                 <h4 class="mb-1">Security & Privacy</h4>
-                <div class="text-muted text-sm">
+                <div class="text-gray-500 text-sm">
                   Manage your password and security preferences
                 </div>
                 <div class="my-3 h5">
                   {{ mainUser.isPasswordReset ? "Change" : "Set" }} Password
                 </div>
-                <div class="mt-3">
+                <div class="mt-6">
                   <form [formGroup]="resetPasswordFrom">
-                    <div class="row">
-                      <div class="col-12">
+                    <div class="flex flex-wrap -mx-3">
+                      <div class="w-full px-6">
                         <div
-                          class="form-group mb-3"
+                          class="form-group mb-6"
                           *ngIf="mainUser.isPasswordReset"
                         >
-                          <label class="form-label"> Current Password </label>
+                          <label class="block text-sm font-semibold text-gray-700 mb-1.5"> Current Password </label>
                           <input
                             type="password"
-                            class="form-control"
+                            class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                             formControlName="correctPassword"
                           />
                         </div>
                       </div>
-                      <div class="col-12">
-                        <div class="form-group mb-3">
-                          <label class="form-label">
+                      <div class="w-full px-6">
+                        <div class="form-group mb-6">
+                          <label class="block text-sm font-semibold text-gray-700 mb-1.5">
                             {{ mainUser.isPasswordReset ? "New" : "" }} Password
                           </label>
                           <div class="input-group">
                             <input
                               [type]="showNewPassword ? 'text' : 'password'"
-                              class="form-control"
+                              class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                               formControlName="newPassword"
                               (keyup)="updatePasswordStrength(false)"
                               (input)="onInputChange()"
@@ -262,7 +262,7 @@
                             />
                             <button
                               type="button"
-                              class="btn btn-outline-secondary border"
+                              class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-outline-secondary border"
                               (click)="toggleShowNewPassword()"
                               tabindex="-1"
                             >
@@ -279,7 +279,7 @@
                               isSubmitted &&
                               this.resetPasswordFrom.get('newPassword')?.errors
                             "
-                            class="text-danger text-xs"
+                            class="text-red-600 text-xs"
                           >
                             {{ mainUser.isPasswordReset ? "New" : "" }} Password
                             is required
@@ -300,22 +300,22 @@
                           </div>
                           <small class="form-text"
                             >Password strength:
-                            <span class="fw-bold">{{
+                            <span class="font-bold">{{
                               passwordStrength.text
                             }}</span></small
                           >
                         </div>
                       </div>
-                      <div class="col-12">
-                        <div class="form-group mb-3">
-                          <label class="form-label">
+                      <div class="w-full px-6">
+                        <div class="form-group mb-6">
+                          <label class="block text-sm font-semibold text-gray-700 mb-1.5">
                             Confirm
                             {{ mainUser.isPasswordReset ? "New" : "" }} Password
                           </label>
                           <div class="input-group">
                             <input
                               [type]="showConfirmPassword ? 'text' : 'password'"
-                              class="form-control"
+                              class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                               formControlName="confirmNewPassword"
                               (input)="onInputChange()"
                               [readOnly]="
@@ -335,7 +335,7 @@
                             />
                             <button
                               type="button"
-                              class="btn btn-outline-secondary border"
+                              class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-outline-secondary border"
                               (click)="toggleShowConfirmPassword()"
                               tabindex="-1"
                             >
@@ -349,7 +349,7 @@
                               ></i>
                             </button>
                           </div>
-                          <div class="text-danger" *ngIf="!isMatchPwd">
+                          <div class="text-red-600" *ngIf="!isMatchPwd">
                             Password does not match
                           </div>
                           <div
@@ -358,7 +358,7 @@
                               this.resetPasswordFrom.get('confirmNewPassword')
                                 ?.errors
                             "
-                            class="text-danger text-xs"
+                            class="text-red-600 text-xs"
                           >
                             Confirm
                             {{ mainUser.isPasswordReset ? "New" : "" }} Password
@@ -366,9 +366,9 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-12">
+                      <div class="w-full px-6">
                         <button
-                          class="btn btn-danger"
+                          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all"
                           (click)="changesPassword()"
                           [disabled]="
                             (this.resetPasswordFrom.get('correctPassword')
@@ -398,7 +398,7 @@
                           </svg>
                           Update Password
                           <div
-                            class="spinner-border spinner-border-sm text-light me-1"
+                            class="spinner-border spinner-border-sm text-light mr-1"
                             *ngIf="isChangesPasswordLoading"
                           ></div>
                         </button>
@@ -413,9 +413,9 @@
         </div>
       </div>
 
-      <!-- <div class="row mb-3 d-block d-sm-none" *ngIf="isGeneral && !isLoading">
-        <div class="col-12 col-sm-12 col-md-6 mx-auto">
-           <button class="btn btn-danger w-100" (click)="_authLogout()" >Log out </button>
+      <!-- <div class="flex flex-wrap -mx-3 mb-6 block sm:hidden" *ngIf="isGeneral && !isLoading">
+        <div class="w-full px-6 col-sm-12 md:w-1/2 mx-auto">
+           <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all w-full" (click)="_authLogout()" >Log out </button>
         </div>
       </div> -->
     </div>
@@ -436,10 +436,10 @@
         <h5 class="modal-title" id="exampleModalLabel">Image Cropper</h5>
         <button
           type="button"
-          class="btn-close"
+          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
           data-bs-dismiss="modal"
           aria-label="Close"
-          id="close-btn"
+          id="close-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer"
         ></button>
       </div>
       <div class="modal-body">
@@ -464,15 +464,15 @@
       <div class="modal-header">
         <button
           type="button"
-          class="btn-close"
+          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
           data-bs-dismiss="modal"
           aria-label="Close"
           id="close-btnsss"
         ></button>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-10 mx-auto">
+        <div class="flex flex-wrap -mx-3">
+          <div class="w-10/12 px-6 mx-auto">
             <div class="text-center">
               <img
                 src="https://dev1mg.blob.core.windows.net/mgate/common/delete.png"
@@ -480,30 +480,30 @@
                 width="150px"
               />
             </div>
-            <div class="text-lg text-center mt-3">
+            <div class="text-lg text-center mt-6">
               Confirm to delete my account
             </div>
-            <div class="text-muted text-sm text-center">
+            <div class="text-gray-500 text-sm text-center">
               This action is permanent. All your data will be permanently
               deleted and cannot be recovered.
             </div>
-            <div class="mt-3">
-              <div class="d-flex justify-content-center">
+            <div class="mt-6">
+              <div class="flex justify-center">
                 <button
-                  class="btn btn-secondary me-2"
+                  class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-secondary mr-2"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 >
                   Cancel
                 </button>
                 <button
-                  class="btn btn-danger"
+                  class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all"
                   (click)="deleteAccount()"
                   [disabled]="isDeleteLoading"
                 >
                   Confirm
                   <div
-                    class="spinner-border spinner-border-sm text-light me-1"
+                    class="spinner-border spinner-border-sm text-light mr-1"
                     *ngIf="isDeleteLoading"
                   ></div>
                 </button>

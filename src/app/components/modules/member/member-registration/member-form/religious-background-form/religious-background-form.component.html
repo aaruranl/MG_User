@@ -1,8 +1,8 @@
 <form [formGroup]="userReligiousForm">
-  <div class="row">
-    <div class="col-12 col-md-6 mb-3">
+  <div class="flex flex-wrap -mx-3">
+    <div class="w-full px-6 md:w-1/2 mb-6">
       <label for="diet" class="mb-1">Religion
-        <span class="text-danger">*</span>
+        <span class="text-red-600">*</span>
       </label>
       <ng-select
       [items]="religionList"
@@ -18,7 +18,7 @@
     </div>
 
 
-  <div class="col-12 col-md-6 mb-3">
+  <div class="w-full px-6 md:w-1/2 mb-6">
     <label for="diet" class="mb-1">Community</label>
     <ng-select
     [items]="communityList"
@@ -34,11 +34,11 @@
     </ng-select>
     <div class="form-check mt-1">
       <input class="form-check-input small-check" type="checkbox" [value]="true" id="flexCheckChecked" formControlName="isVisible">
-      <label class="form-check-label ms-2 text-sm" for="flexCheckChecked"> Make it visible.</label>
+      <label class="form-check-label ml-2 text-sm" for="flexCheckChecked"> Make it visible.</label>
     </div>
   </div>
 
-  <!-- <div class="col-12 col-md-6 mb-3">
+  <!-- <div class="w-full px-6 md:w-1/2 mb-6">
     <label for="diet" class="mb-1">Sub Community</label>
     <ng-select
     [items]="SubCommunityList"
@@ -55,7 +55,7 @@
     </ng-select>
   </div> -->
 
-  <div class="col-12 col-md-6 mb-3">
+  <div class="w-full px-6 md:w-1/2 mb-6">
     <label for="diet" class="mb-1">Raasi</label>
     <ng-select
     [items]="rasiList"
@@ -70,7 +70,7 @@
     </ng-select>
   </div>
 
-  <div class="col-12 col-md-6 mb-3">
+  <div class="w-full px-6 md:w-1/2 mb-6">
     <label for="diet" class="mb-1">Star/Nakshathra</label>
     <ng-select
     [items]="natshathiraList"
@@ -85,19 +85,19 @@
     </ng-select>
   </div>
 
-  <div class=" fw-bold text-muted mb-3 mt-3">Birth Details</div>
- <div class="col-12 col-md-6 mb-3">
-  <div class="form-group mb-3">
+  <div class=" font-bold text-gray-500 mb-6 mt-6">Birth Details</div>
+ <div class="w-full px-6 md:w-1/2 mb-6">
+  <div class="form-group mb-6">
     <label for="timeOfBirth" class="mb-2">Time of Birth</label>
 
     <div class="input-group">
-      <input type="time" id="timeOfBirth" formControlName="timeOfBirth" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('timeOfBirth')?.errors}" >
-      <button *ngIf="userReligiousForm.get('timeOfBirth')?.value" type="button" class="btn btn-light border" (click)="userReligiousForm.get('timeOfBirth')?.setValue(null)">
+      <input type="time" id="timeOfBirth" formControlName="timeOfBirth" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('timeOfBirth')?.errors}" >
+      <button *ngIf="userReligiousForm.get('timeOfBirth')?.value" type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all border" (click)="userReligiousForm.get('timeOfBirth')?.setValue(null)">
         clear
       </button>
     </div>
 
-    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('timeOfBirth')?.errors">
+    <div class="text-xs text-red-600 mt-1" *ngIf="isSubmitted && userReligiousForm.get('timeOfBirth')?.errors">
       Time of birth is required
     </div>
   </div>
@@ -105,19 +105,19 @@
 
 
 <!-- DOOR NUMBER -->
-<!-- <div class="col-12 col-md-6 mb-3">
+<!-- <div class="w-full px-6 md:w-1/2 mb-6">
   <label for="Door text-sm" class="mb-2">Door Number</label>
-  <input type="text" id="Door" formControlName="doorNumber" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('doorNumber')?.errors}"/>
+  <input type="text" id="Door" formControlName="doorNumber" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('doorNumber')?.errors}"/>
 
 </div> -->
 <!-- GOOGLE AUTO COMPLETE -->
-    <div class="col-12 mb-3">
+    <div class="w-full px-6 mb-6">
       <label for="Door text-sm" class="mb-2">Search Address</label>
-      <input class="form-control" #placesRef="ngx-places" ngx-gp-autocomplete  (onAddressChange)="handleAddressChange($event)"/>
+      <input class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" #placesRef="ngx-places" ngx-gp-autocomplete  (onAddressChange)="handleAddressChange($event)"/>
     </div>
 
-  <div class="col-12 col-md-6 mb-3">
-    <label for="email text-sm" class="mb-2">Country<span class="text-danger">*</span> </label>
+  <div class="w-full px-6 md:w-1/2 mb-6">
+    <label for="email text-sm" class="mb-2">Country<span class="text-red-600">*</span> </label>
     <!-- <ng-select
     [items]="countryList"
     bindLabel="country"
@@ -129,9 +129,9 @@
     (change)="changeCountry()"
     >
     <ng-template ng-label-tmp let-item="item">
-      <div class="d-flex">
+      <div class="flex">
         <div>
-          <img class="me-2" src={{item.flags?.svg}} alt="" width="30px">
+          <img class="mr-2" src={{item.flags?.svg}} alt="" width="30px">
         </div>
         <div>
           {{item.country}}
@@ -139,9 +139,9 @@
       </div>
     </ng-template>
     <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-      <div class="d-flex">
+      <div class="flex">
         <div>
-          <img src={{item.flags?.svg}} alt="" width="30px" class="me-2">
+          <img src={{item.flags?.svg}} alt="" width="30px" class="mr-2">
         </div>
 
         <div class="">
@@ -151,35 +151,35 @@
     </ng-template>
   </ng-select> -->
 
-   <input type="text" id="country" formControlName="country" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('country')?.errors}"/>
-    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('country')?.errors">Country is required</div>
+   <input type="text" id="country" formControlName="country" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('country')?.errors}"/>
+    <div class="text-xs text-red-600 mt-1" *ngIf="isSubmitted && userReligiousForm.get('country')?.errors">Country is required</div>
   </div>
-   <div class="col-12 col-md-6 mb-3">
-    <label for="province text-sm" class="mb-2">State/Province<span class="text-danger">*</span> </label>
-    <input type="text" id="province" formControlName="stateProvince" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('stateProvince')?.errors}"/>
-    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('stateProvince')?.errors">State/Province is required</div>
+   <div class="w-full px-6 md:w-1/2 mb-6">
+    <label for="province text-sm" class="mb-2">State/Province<span class="text-red-600">*</span> </label>
+    <input type="text" id="province" formControlName="stateProvince" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('stateProvince')?.errors}"/>
+    <div class="text-xs text-red-600 mt-1" *ngIf="isSubmitted && userReligiousForm.get('stateProvince')?.errors">State/Province is required</div>
      <!-- <ng-select [items]="stateAndProvince" bindLabel="name" bindValue="name" [clearable]="false"
       [searchable]="true" [(ngModel)]="selectedProvince"  [ngModelOptions]="{standalone: true}" ></ng-select> -->
   </div>
 
-  <div class="col-12 col-md-6 mb-3">
-    <label for="city text-sm" class="mb-2">City/Village<span class="text-danger">*</span> </label>
-    <input type="text" id="city" formControlName="city" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('city')?.errors}"/>
-    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('city')?.errors">City is required</div>
+  <div class="w-full px-6 md:w-1/2 mb-6">
+    <label for="city text-sm" class="mb-2">City/Village<span class="text-red-600">*</span> </label>
+    <input type="text" id="city" formControlName="city" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('city')?.errors}"/>
+    <div class="text-xs text-red-600 mt-1" *ngIf="isSubmitted && userReligiousForm.get('city')?.errors">City is required</div>
   </div>
 <!-- STREET -->
-<div class="col-12 col-md-6 mb-3">
-  <label for="Street text-sm" class="mb-2">Street<span class="text-danger">*</span> </label>
-  <input type="text" id="Street" formControlName="street" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('street')?.errors}"/>
-  <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('street')?.errors">Street is required</div>
+<div class="w-full px-6 md:w-1/2 mb-6">
+  <label for="Street text-sm" class="mb-2">Street<span class="text-red-600">*</span> </label>
+  <input type="text" id="Street" formControlName="street" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('street')?.errors}"/>
+  <div class="text-xs text-red-600 mt-1" *ngIf="isSubmitted && userReligiousForm.get('street')?.errors">Street is required</div>
 </div>
 
-   <!-- <div class="col-12 col-md-6 mb-3">
-        <label for="province text-sm" class="mb-2">Zip Code<span class="text-danger">*</span> </label>
-        <input type="text" id="province" formControlName="zipCode" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('zipCode')?.errors}"/>
-        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('zipCode')?.errors">ZipCode is required</div>
+   <!-- <div class="w-full px-6 md:w-1/2 mb-6">
+        <label for="province text-sm" class="mb-2">Zip Code<span class="text-red-600">*</span> </label>
+        <input type="text" id="province" formControlName="zipCode" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('zipCode')?.errors}"/>
+        <div class="text-xs text-red-600 mt-1" *ngIf="isSubmitted && userReligiousForm.get('zipCode')?.errors">ZipCode is required</div>
       </div> -->
 
-  <button class="btn btn-danger me-3 w-100 mt-5" (click)="next()" [disabled]="isLoading">{{isEditFrom ? 'UPDATE' : 'NEXT'}} <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isLoading"></div></button>
+  <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-4 w-full mt-8" (click)="next()" [disabled]="isLoading">{{isEditFrom ? 'UPDATE' : 'NEXT'}} <div class="spinner-border spinner-border-sm text-light mr-1" *ngIf="isLoading"></div></button>
 </div>
 </form>

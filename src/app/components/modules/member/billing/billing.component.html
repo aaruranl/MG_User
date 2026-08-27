@@ -4,9 +4,9 @@
 ></app-payment-fail-top-bar>
 <section class="content">
   <div class="component-content">
-    <div class="row m-0 p-0">
+    <div class="flex flex-wrap -mx-3 m-0 p-0">
       <div
-        class="col-12 col-sm-8 col-md-10 col-lg-8 mx-auto mt-3 mb-3"
+        class="w-full px-6 col-sm-8 md:w-10/12 lg:w-2/3 mx-auto mt-6 mb-6"
         *ngIf="!isPlanBillingLoading"
       >
         <h3>Plan and Billing</h3>
@@ -14,18 +14,18 @@
           Manage your subscription plan and billing preferences
         </div>
 
-        <div class="mt-3">
-          <div class="border p-3 bg-white border-15">
+        <div class="mt-6">
+          <div class="border p-6 bg-white border-15">
             <div>
-              <i class="fas fa-credit-card me-3"></i
-              ><span class="fw-bold text-muted fs-4">Current Plan</span>
+              <i class="fas fa-credit-card mr-4"></i
+              ><span class="font-bold text-gray-500 fs-4">Current Plan</span>
             </div>
             <div
-              class="mt-3 d-flex justify-content-between"
+              class="mt-6 flex justify-between"
               *ngIf="!isPlanBillingLoading && currentPlan"
             >
               <div>
-                <div class="text-lg fw-bold text-muted">
+                <div class="text-lg font-bold text-gray-500">
                   {{ currentPlan.planName }}
                 </div>
                 <div class="price-section mb-2 mt-2">
@@ -47,7 +47,7 @@
                   </div>
                 </div>
                 @if (currentPlan.downgradeSubscriptionDate) {
-                  <div class="text-primary">
+                  <div class="text-[#5c142b]">
                     Your plan will be downgraded to
                     {{ currentPlan.downgradeSubscriptionPlan?.name }} on
                     {{ currentPlan.downgradeSubscriptionDate | date }}.
@@ -57,15 +57,15 @@
               <div>
                 <div
                   [ngClass]="{
-                    'text-danger': currentPlan.isRequestToCancel,
-                    'text-primary':
+                    'text-red-600': currentPlan.isRequestToCancel,
+                    'text-[#5c142b]':
                       currentPlan.subscriptionStatus ==
                         subscriptionStatus.Trialing &&
                       !currentPlan.isRequestToCancel,
                   }"
                 >
-                  <i class="fas fa-calendar-alt me-2"></i
-                  ><span class="me-3"
+                  <i class="fas fa-calendar-alt mr-2"></i
+                  ><span class="mr-4"
                     >{{
                       currentPlan.subscriptionStatus ==
                         subscriptionStatus.Trialing &&
@@ -79,15 +79,15 @@
                   >
                 </div>
                 <div>
-                  <i class="fas fa-user me-2"></i
-                  ><span class="me-3"
+                  <i class="fas fa-user mr-2"></i
+                  ><span class="mr-4"
                     >Remaining members:
                     <b>{{ currentPlan.remainingMemberCount }}</b></span
                   >
                 </div>
                 <div>
-                  <i class="fas fa-envelope me-2"></i
-                  ><span class="me-3"
+                  <i class="fas fa-envelope mr-2"></i
+                  ><span class="mr-4"
                     >Remaining requests:
                     <b
                       >{{ currentPlan.remainingFriendRequestCount }}/month</b
@@ -96,24 +96,24 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="d-flex justify-content-center" *ngIf="isPlanBillingLoading">
-                <div class="spinner-border text-danger" role="status" >
+            <!-- <div class="flex justify-center" *ngIf="isPlanBillingLoading">
+                <div class="spinner-border text-red-600" role="status" >
               <span class="visually-hidden">Loading...</span>
              </div>
             </div> -->
             <hr />
 
-            <div class="mt-3 d-flex" *ngIf="currentPlan">
-              <!-- <div class="btn dim-btn text-danger me-3">View Invoice</div> -->
+            <div class="mt-6 flex" *ngIf="currentPlan">
+              <!-- <div class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer dim-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer text-red-600 mr-4">View Invoice</div> -->
 
               @if (currentPlan.isPaymentFailed) {
                 <button
-                  class="btn btn-primary"
+                  class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-[#5c142b] hover:bg-[#7e1e3b] shadow-sm transition-all"
                   (click)="retrievePayment()"
                   [disabled]="isRetrieveLoading"
                 >
                   <div
-                    class="spinner-border spinner-border-sm text-light me-1"
+                    class="spinner-border spinner-border-sm text-light mr-1"
                     *ngIf="isRetrieveLoading"
                   ></div>
                   Retrieve Payment
@@ -121,11 +121,11 @@
               } @else {
                 <button
                   *ngIf="!currentPlan.isPaymentFailed"
-                  class="btn"
+                  class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer"
                   [disabled]="isPlanBillingLoading"
                   [ngClass]="
                     !currentPlan.isRequestToCancel
-                      ? 'dim-btn text-danger'
+                      ? 'dim-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer text-red-600'
                       : 'dim-green'
                   "
                   (click)="
@@ -135,7 +135,7 @@
                   "
                 >
                   <div
-                    class="spinner-border spinner-border-sm text-light me-1"
+                    class="spinner-border spinner-border-sm text-light mr-1"
                     *ngIf="isCancelLoading"
                   ></div>
                   {{
@@ -147,7 +147,7 @@
               }
 
               <button
-                class="btn btn-danger ms-3"
+                class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all ml-4"
                 data-bs-toggle="modal"
                 data-bs-target="#view-invoice"
               >
@@ -155,7 +155,7 @@
               </button>
             </div>
             @if (currentPlan.isPaymentFailed) {
-              <div class="text-danger text-sm mt-2 fw-bold">
+              <div class="text-red-600 text-sm mt-2 font-bold">
                 {{ currentPlan.paymentFailureReason }}
               </div>
             }
@@ -163,28 +163,28 @@
         </div>
 
         <!-- CART CHANGE -->
-        <div class="mt-4">
+        <div class="mt-6">
           <h3>Payment Method</h3>
-          <div class="mt-3">
-            <div class="row">
-              <div class="col-12">
-                <div class="border p-3 bg-white border-15">
+          <div class="mt-6">
+            <div class="flex flex-wrap -mx-3">
+              <div class="w-full px-6">
+                <div class="border p-6 bg-white border-15">
                   <div
-                    class="row"
+                    class="flex flex-wrap -mx-3"
                     *ngIf="
                       currentPlan && !isPlanBillingLoading && !isPaymentChange
                     "
                   >
-                    <div class="col-4">
-                      <div class="d-flex">
-                        <div class="me-3">
+                    <div class="w-1/3 px-6">
+                      <div class="flex">
+                        <div class="mr-4">
                           <img
                             width="60"
                             [src]="currentPlan.cardImage"
                             alt="{{ currentPlan.cardType }}"
                           />
                         </div>
-                        <div class="me-2">
+                        <div class="mr-2">
                           <div class="text-md">
                             {{ currentPlan.cardType | titlecase }}
                           </div>
@@ -195,78 +195,78 @@
                       </div>
                     </div>
                     <div
-                      class="col-8 text-right my-auto text-danger pointer"
+                      class="w-2/3 px-6 text-right my-auto text-red-600 cursor-pointer"
                       (click)="changePaymentMethod()"
                     >
-                      <i class="fas fa-pencil-alt me-1"></i> Change
+                      <i class="fas fa-pencil-alt mr-1"></i> Change
                     </div>
                   </div>
                   <div *ngIf="isPaymentChange">
-                    <div class="h5 text-muted mb-3">Payment Details</div>
-                    <div class="row">
-                      <div class="col-12">
-                        <label for="floatingNumber" class="text-muted mb-1">
+                    <div class="h5 text-gray-500 mb-6">Payment Details</div>
+                    <div class="flex flex-wrap -mx-3">
+                      <div class="w-full px-6">
+                        <label for="floatingNumber" class="text-gray-500 mb-1">
                           <span class="text-md">Card number</span></label
                         >
-                        <div id="floatingNumber" class="form-control"></div>
+                        <div id="floatingNumber" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"></div>
                       </div>
-                      <div class="col-6 mt-3 m-top-30">
-                        <label for="floatingExpiry" class="text-muted mb-1"
+                      <div class="w-1/2 px-6 mt-6 m-top-30">
+                        <label for="floatingExpiry" class="text-gray-500 mb-1"
                           ><span class="text-md">Expires</span></label
                         >
-                        <div id="floatingExpiry" class="form-control"></div>
+                        <div id="floatingExpiry" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"></div>
                       </div>
-                      <div class="col-6 mt-3 m-top-30">
-                        <label for="floatingCvc" class="text-muted mb-1"
+                      <div class="w-1/2 px-6 mt-6 m-top-30">
+                        <label for="floatingCvc" class="text-gray-500 mb-1"
                           ><span class="text-md">CVV</span></label
                         >
                         <div class="input-group rounded">
                           <div
                             id="floatingCvc"
-                            class="form-control groupIcon"
+                            class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all groupIcon"
                           ></div>
                         </div>
                       </div>
-                      <!-- <div class="col-sm-6 mt-3 m-top-30">
-                            <label for="floatingPost" class="fw-semibold mb-1"><span class="text-sm fw-normal">
+                      <!-- <div class="col-sm-6 mt-6 m-top-30">
+                            <label for="floatingPost" class="font-semibold mb-1"><span class="text-sm font-normal">
                                 Post Code</span></label>
-                            <div id="floatingPost" class="form-control"></div>
+                            <div id="floatingPost" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"></div>
 
                           </div> -->
-                      <div class="col-12 justify-content-end d-sm-flex mt-4">
+                      <div class="w-full px-6 justify-end d-sm-flex mt-6">
                         <button
-                          class="btn btn-danger w-100 me-3"
+                          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all w-full mr-4"
                           (click)="confirmPayment()"
                           [disabled]="isLoading"
                         >
                           <div
-                            class="spinner-border spinner-border-sm text-light me-1"
+                            class="spinner-border spinner-border-sm text-light mr-1"
                             role="status"
                             *ngIf="isChangeLoading"
                           ></div>
                           Change Now
                         </button>
                         <button
-                          class="btn btn-light w-100"
+                          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all w-full"
                           (click)="cancelChangeMethod()"
                         >
                           <div
-                            class="spinner-border spinner-border-sm text-light me-1"
+                            class="spinner-border spinner-border-sm text-light mr-1"
                             role="status"
                             *ngIf="isChangeLoading"
                           ></div>
                           Cancel
                         </button>
                       </div>
-                      <div class="text-xs text-muted mt-2 text-center">
+                      <div class="text-xs text-gray-500 mt-2 text-center">
                         Your payment information is secure and encrypted. By
                         completing this purchase, you agree to our Terms of
                         Service and Privacy Policy.
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="d-flex justify-content-center" *ngIf="isPlanBillingLoading">
-                      <div class="spinner-border text-danger" role="status" >
+                  <!-- <div class="flex justify-center" *ngIf="isPlanBillingLoading">
+                      <div class="spinner-border text-red-600" role="status" >
                         <span class="visually-hidden">Loading...</span>
                       </div>
                       </div> -->
@@ -276,23 +276,23 @@
           </div>
         </div>
 
-        <div class="mt-4" *ngIf="availablePlans">
+        <div class="mt-6" *ngIf="availablePlans">
           <h3>Change Plan</h3>
-          <div class="mt-3">
+          <div class="mt-6">
             <!-- Subscription Cards -->
             <div
-              class="row g-4"
+              class="flex flex-wrap -mx-3 g-4"
               *ngIf="!isAvailablePlanLoading && availablePlans"
             >
               <!-- Free Plan -->
               <div
-                class="col-lg-4 col-md-6 col-sm-12 col-12"
+                class="lg:w-1/3 md:w-1/2 col-sm-12 w-full px-6"
                 *ngFor="let plan of availablePlans.subscriptionPlans"
               >
-                <div class="subscription-card-container">
-                  <div class="card subscription-card h-100 pointer border mb-5">
-                    <div class="text-center fw-bold pt-3 fs-4">
-                      <div class="mb-2 text-muted">
+                <div class="subscription-card-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
+                  <div class="card subscription-card h-full cursor-pointer border mb-8">
+                    <div class="text-center font-bold pt-3 fs-4">
+                      <div class="mb-2 text-gray-500">
                         <span class=""></span>
                         <span
                           class=""
@@ -331,7 +331,7 @@
                           <span class="currency" *ngIf="plan.discount === 0">$</span>
                           @if (plan.discount > 0) {
                             <span class="price-amount original-price text-sm">${{ plan.price | number:'1.2-2' }}</span>
-                            <span class="ms-2 price-amount discounted-price">{{ plan.discountedPrice | number:'1.2-2' }}</span>
+                            <span class="ml-2 price-amount discounted-price">{{ plan.discountedPrice | number:'1.2-2' }}</span>
                           }@else {
                             <span class="price-amount">{{ plan.price | number:'1.2-2' }}</span>
                           }
@@ -364,68 +364,68 @@
 
                       <div class="features-list">
                         <ul class="list-unstyled text-start">
-                          <li class="feature-item mb-3">
-                            <i class="fas fa-check me-2 text-success"></i>
-                            <span class="fw-semibold me-1">{{
+                          <li class="feature-item mb-6">
+                            <i class="fas fa-check mr-2 text-emerald-600"></i>
+                            <span class="font-semibold mr-1">{{
                               plan.subscriptionPlanFeature.memberCount
                             }}</span>
-                            <span class="text-muted"> Members included</span>
-                            <div class="ms-4 text-muted" style="font-size: 0.8rem; white-space: pre-line;">
+                            <span class="text-gray-500"> Members included</span>
+                            <div class="ml-6 text-gray-500" style="font-size: 0.8rem; white-space: pre-line;">
                               (This plan allows you to create <br>
 up to {{ plan.subscriptionPlanFeature.memberCount }} family member profiles.)
                             </div>
                           </li>
-                          <li class="feature-item mb-3">
-                            <i class="fas fa-check me-2 text-success"></i>
-                            <span class="fw-semibold me-1">{{
+                          <li class="feature-item mb-6">
+                            <i class="fas fa-check mr-2 text-emerald-600"></i>
+                            <span class="font-semibold mr-1">{{
                               plan.subscriptionPlanFeature
                                 .sendFriendRequestCount
                             }}</span>
-                            <span class="text-muted">
+                            <span class="text-gray-500">
                               Friend requests per month</span
                             >
                           </li>
-                          <li class="feature-item mb-3">
-                            <i class="fas fa-check me-1 text-success"></i>
-                            <span class="fw-semibold"></span>
-                            <span class="text-muted">
+                          <li class="feature-item mb-6">
+                            <i class="fas fa-check mr-1 text-emerald-600"></i>
+                            <span class="font-semibold"></span>
+                            <span class="text-gray-500">
                               Advanced search filters</span
                             >
                           </li>
-                          <li class="feature-item mb-3">
-                            <i class="fas fa-check me-1 text-success"></i>
-                            <span class="fw-semibold"></span>
-                            <span class="text-muted">
+                          <li class="feature-item mb-6">
+                            <i class="fas fa-check mr-1 text-emerald-600"></i>
+                            <span class="font-semibold"></span>
+                            <span class="text-gray-500">
                               Personalized match suggestions</span
                             >
                           </li>
 
-                          <li class="feature-item mb-3">
-                            <i class="fas fa-check me-1 text-success"></i>
-                            <span class="fw-semibold"></span>
-                            <span class="text-muted"> Unlimited matches</span>
+                          <li class="feature-item mb-6">
+                            <i class="fas fa-check mr-1 text-emerald-600"></i>
+                            <span class="font-semibold"></span>
+                            <span class="text-gray-500"> Unlimited matches</span>
                           </li>
-                          <li class="feature-item mb-3">
-                            <i class="fas fa-check me-2 text-success"></i>
-                            <span class="fw-semibold"></span>
-                            <span class="text-muted"
+                          <li class="feature-item mb-6">
+                            <i class="fas fa-check mr-2 text-emerald-600"></i>
+                            <span class="font-semibold"></span>
+                            <span class="text-gray-500"
                               >Priority customer support
                             </span>
                           </li>
-                          <!-- <li class="feature-item mb-3">
-                            <i class="fas fa-sync-alt me-2"></i>
-                            <span class="text-muted">Billed every
+                          <!-- <li class="feature-item mb-6">
+                            <i class="fas fa-sync-alt mr-2"></i>
+                            <span class="text-gray-500">Billed every
                               <span
-                                class="fw-semibold">{{plan.interval === billingInterval.Month ? 'month' : plan.interval === billingInterval.Year ? 'year' : plan.interval === billingInterval.Week ? 'week' : 'day' }}</span></span>
+                                class="font-semibold">{{plan.interval === billingInterval.Month ? 'month' : plan.interval === billingInterval.Year ? 'year' : plan.interval === billingInterval.Week ? 'week' : 'day' }}</span></span>
                           </li> -->
                         </ul>
                       </div>
                       <button
-                        class="btn w-100 mb-2 bg-white"
+                        class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer w-full mb-2 bg-white"
                         [ngClass]="
                           currentPlan.canChangeSubscription
-                            ? 'btn-danger text-white'
-                            : 'btn-striped text-danger'
+                            ? 'inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-danger text-white'
+                            : 'inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-striped text-red-600'
                         "
                         data-bs-toggle="modal"
                         data-bs-target="#switchPlan"
@@ -442,8 +442,8 @@ up to {{ plan.subscriptionPlanFeature.memberCount }} family member profiles.)
                 </div>
               </div>
             </div>
-            <!-- <div class="d-flex justify-content-center" *ngIf="isAvailablePlanLoading">
-                <div class="spinner-border text-danger" role="status" >
+            <!-- <div class="flex justify-center" *ngIf="isAvailablePlanLoading">
+                <div class="spinner-border text-red-600" role="status" >
               <span class="visually-hidden">Loading...</span>
             </div>
             </div> -->
@@ -470,32 +470,32 @@ up to {{ plan.subscriptionPlanFeature.memberCount }} family member profiles.)
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Change Plan</h1>
         <button
           type="button"
-          class="btn-close"
+          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
           data-bs-dismiss="modal"
           aria-label="Close"
-          id="close-btn"
+          id="close-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer"
         ></button>
       </div>
       <div class="modal-body">
-        <div class="text-center text-lg mb-3">
+        <div class="text-center text-lg mb-6">
           Do you want to switch your plan?
         </div>
-        <div class="text-center d-flex">
+        <div class="text-center flex">
           <button
             type="button"
-            class="btn btn-light w-75 me-3"
+            class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all w-75 mr-4"
             data-bs-dismiss="modal"
           >
             No
           </button>
           <button
             type="button"
-            class="btn btn-danger w-75"
+            class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all w-75"
             (click)="switchPlan()"
             [disabled]="isSwitchPlanLoading"
           >
             <div
-              class="spinner-border spinner-border-sm text-light me-1"
+              class="spinner-border spinner-border-sm text-light mr-1"
               role="status"
               *ngIf="isSwitchPlanLoading"
             ></div>
@@ -522,30 +522,30 @@ up to {{ plan.subscriptionPlanFeature.memberCount }} family member profiles.)
         <h4>Invoice</h4>
         <button
           type="button"
-          class="btn-close"
+          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
       <div class="modal-body p-0">
-        <div class="mt-4 mb-4">
-          <div class="col-12 col-sm-10 mx-auto">
-            <div class="text-muted my-2 fw-bold mx-2">
+        <div class="mt-6 mb-6">
+          <div class="w-full px-6 col-sm-10 mx-auto">
+            <div class="text-gray-500 my-2 font-bold mx-2">
               totalCount : {{ totalItemCount }}
             </div>
-            <div class="mt-3">
-              <div class="border p-3 bg-white border-15">
+            <div class="mt-6">
+              <div class="border p-6 bg-white border-15">
                 <div *ngIf="!isInvoiceLoading && invoices">
                   <div
-                    class="row border p-2 border-15 bg-danger text-white mb-2 m-0"
+                    class="flex flex-wrap -mx-3 border p-2 border-15 bg-danger text-white mb-2 m-0"
                   >
-                    <div class="col-3">Plan</div>
-                    <div class="col-3">Date</div>
-                    <div class="col-3">Amount</div>
-                    <div class="col-3">Status</div>
+                    <div class="w-1/4 px-6">Plan</div>
+                    <div class="w-1/4 px-6">Date</div>
+                    <div class="w-1/4 px-6">Amount</div>
+                    <div class="w-1/4 px-6">Status</div>
                   </div>
                   <div
-                    class="row border p-2 border-15 mt-2 m-0"
+                    class="flex flex-wrap -mx-3 border p-2 border-15 mt-2 m-0"
                     *ngFor="
                       let invoice of invoices
                         | paginate
@@ -556,10 +556,10 @@ up to {{ plan.subscriptionPlanFeature.memberCount }} family member profiles.)
                             }
                     "
                   >
-                    <div class="col-3">{{ invoice.planName }}</div>
-                    <div class="col-3">{{ invoice.invoiceDate | date }}</div>
-                    <div class="col-3">{{ invoice.amount }}</div>
-                    <div class="col-3">
+                    <div class="w-1/4 px-6">{{ invoice.planName }}</div>
+                    <div class="w-1/4 px-6">{{ invoice.invoiceDate | date }}</div>
+                    <div class="w-1/4 px-6">{{ invoice.amount }}</div>
+                    <div class="w-1/4 px-6">
                       <span
                         class="badge"
                         [ngClass]="{
@@ -573,20 +573,20 @@ up to {{ plan.subscriptionPlanFeature.memberCount }} family member profiles.)
                   </div>
                   <!-- PAGINATION -->
                   <div
-                    class="row mb-auto pagination mt-4"
+                    class="flex flex-wrap -mx-3 mb-auto pagination mt-6"
                     *ngIf="totalItemCount > 4"
                   >
-                    <div class="col-6 col-sm-4 mt-auto">
+                    <div class="w-1/2 px-6 col-sm-4 mt-auto">
                       <div class="pull-left">
-                        <div class="form-group row">
+                        <div class="form-group flex flex-wrap -mx-3">
                           <label
-                            class="col-sm-4 col-form-label text-sm fw-bold pt-0"
+                            class="col-sm-4 col-block text-sm font-semibold text-gray-700 mb-1.5 text-sm font-bold pt-0"
                             ><small>Entries per page</small></label
                           >
                           <div class="col-sm-4 page-input">
                             <input
                               type="number"
-                              class="form-control"
+                              class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                               [(ngModel)]="itemsPerPage"
                               min="1"
                               (change)="changePerPageValue(itemsPerPage)"
@@ -609,10 +609,10 @@ up to {{ plan.subscriptionPlanFeature.memberCount }} family member profiles.)
                 </div>
 
                 <div
-                  class="d-flex justify-content-center"
+                  class="flex justify-center"
                   *ngIf="isInvoiceLoading"
                 >
-                  <div class="spinner-border text-danger" role="status">
+                  <div class="spinner-border text-red-600" role="status">
                     <span class="visually-hidden">Loading...</span>
                   </div>
                 </div>
@@ -628,7 +628,7 @@ up to {{ plan.subscriptionPlanFeature.memberCount }} family member profiles.)
 <!-- Button trigger modal -->
 <button
   type="button"
-  class="btn btn-primary d-none"
+  class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-[#5c142b] hover:bg-[#7e1e3b] shadow-sm transition-all hidden"
   data-bs-toggle="modal"
   data-bs-target="#retrieve-staticBackdrop"
   id="open-retrieve-payment-modal"
@@ -651,29 +651,29 @@ up to {{ plan.subscriptionPlanFeature.memberCount }} family member profiles.)
       <div class="modal-header">
         <button
           type="button"
-          class="btn-close"
+          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-12 text-center">
+        <div class="flex flex-wrap -mx-3">
+          <div class="w-full px-6 text-center">
             <img
               src="https://cdni.iconscout.com/illustration/premium/thumb/payment-failed-illustration-svg-download-png-3822060.png"
               alt="payment-declined"
               width="300"
-              class="mb-3"
+              class="mb-6"
             />
             <h4>Your previous payment method was declined.</h4>
-            <div class="text-center text-md mb-3 text-muted">
+            <div class="text-center text-md mb-6 text-gray-500">
               Please update your payment information to continue your
               subscription.
             </div>
-            <div class="text-center d-flex justify-content-center">
+            <div class="text-center flex justify-center">
               <button
                 type="button"
-                class="btn btn-danger w-75"
+                class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all w-75"
                 data-bs-dismiss="modal"
               >
                 Ok

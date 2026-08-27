@@ -1,170 +1,170 @@
-<div class="row m-0">
-  <div class="col-12">
-    <div class="row" *ngIf="memberProfile">
+<div class="flex flex-wrap -mx-3 m-0">
+  <div class="w-full px-6">
+    <div class="flex flex-wrap -mx-3" *ngIf="memberProfile">
       <!-- HEDER -->
-      <div class="col-12 p-3 bg-danger">
+      <div class="w-full px-6 p-6 bg-danger">
         <div class="modal-header p-0 border-bottom-0">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="currentTap = 1"
-            id="member-profile-close-btn" *ngIf="isPopUp"></button>
+          <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close" data-bs-dismiss="modal" aria-label="Close" (click)="currentTap = 1"
+            id="member-profile-close-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer" *ngIf="isPopUp"></button>
         </div>
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-            <div class="d-flex">
-              <div class="me-4">
-                <img src="{{ memberProfile.profileImage }}" alt="pf" class="profile-pic object-fit-cover" />
+        <div class="flex flex-wrap -mx-3">
+          <div class="w-full px-6 col-sm-12 md:w-full lg:w-1/2">
+            <div class="flex">
+              <div class="mr-6">
+                <img src="{{ memberProfile.profileImage }}" alt="pf" class="profile-pic object-cover" />
               </div>
               <div class="text-white my-auto">
-                <div class="text-lg fw-bold my-auto text-capitalize">
+                <div class="text-lg font-bold my-auto text-capitalize">
                   {{ memberProfile.firstName + " " + memberProfile.lastName }}
                 </div>
                 <div class="" *ngIf="memberProfile.manageBy">
                   <b>Manage By : </b> {{ memberProfile.manageBy }}
                 </div>
-                <div class="d-flex">
-                  <div class="me-2">{{ memberProfile.age }} years</div>
+                <div class="flex">
+                  <div class="mr-2">{{ memberProfile.age }} years</div>
                   <div class="">{{ memberProfile.profileJob?.title }}</div>
                 </div>
-                <div class="d-flex">
-                  <div class="me-2">
-                    <i class="fas fa-map-marker-alt text-white me-2"></i>
+                <div class="flex">
+                  <div class="mr-2">
+                    <i class="fas fa-map-marker-alt text-white mr-2"></i>
                     {{ memberProfile.originCountry }}
                   </div>
-                  <!-- <div class=""><i class="fas fa-globe text-white me-2"></i>{{memberProfile.motherTongue}}</div> -->
+                  <!-- <div class=""><i class="fas fa-globe text-white mr-2"></i>{{memberProfile.motherTongue}}</div> -->
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-12 col-sm-6 col-md-12 col-lg-6 col-6 my-auto mt-2" *ngIf="!isAdmin">
-            <div class="d-flex justify-content-end mt-2">
-              <button class="btn bt-danger-light bg-danger text-white me-3" [disabled]="isLoading"
+          <div class="w-full px-6 col-sm-6 md:w-full lg:w-1/2 w-1/2 px-6 my-auto mt-2" *ngIf="!isAdmin">
+            <div class="flex justify-end mt-2">
+              <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bt-danger-light bg-danger text-white mr-4" [disabled]="isLoading"
                 (click)="cancelFriendRequest(memberProfile.friendRequest.id)" *ngIf="
                   memberProfile.friendRequest &&
                   memberProfile.friendRequest!.status === request.Pending &&
                   memberProfile.friendRequest.receiverProfileId !==
                     selectedMember
                 ">
-                <i class="fas fa-user-times text-white me-2"></i>
+                <i class="fas fa-user-times text-white mr-2"></i>
                 Cancel Friend Request
-                <div class="spinner-border text-light me-1 spinner-border-sm" role="status" *ngIf="isLoading">
+                <div class="spinner-border text-light mr-1 spinner-border-sm" role="status" *ngIf="isLoading">
                   <span class="sr-only">Loading...</span>
                 </div>
               </button>
-              <button class="btn bt-danger-light bg-danger text-white me-3" [disabled]="isLoading"
+              <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bt-danger-light bg-danger text-white mr-4" [disabled]="isLoading"
                 (click)="addFriendRequest(memberProfile.id)" *ngIf="
                   memberProfile.friendRequest?.receiverProfileId !==
                     selectedMember && memberProfile.friendRequest === null
                 ">
-                <i class="fas fa-user-plus text-white me-2"></i>
+                <i class="fas fa-user-plus text-white mr-2"></i>
                 Add Friend
-                <div class="spinner-border text-light me-1 spinner-border-sm" role="status" *ngIf="isLoading">
+                <div class="spinner-border text-light mr-1 spinner-border-sm" role="status" *ngIf="isLoading">
                   <span class="sr-only">Loading...</span>
                 </div>
               </button>
-              <button class="btn bt-danger-light bg-danger text-white me-3"
+              <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bt-danger-light bg-danger text-white mr-4"
                 (click)="confirmFriendRequest(memberProfile.friendRequest?.id)" *ngIf="
                   memberProfile.friendRequest?.receiverProfileId ===
                     selectedMember &&
                   memberProfile.friendRequest!.status !== request.Accepted &&
                   memberProfile.friendRequest!.status !== request.Rejected
                 ">
-                <i class="fas fa-check text-white me-2"></i>
+                <i class="fas fa-check text-white mr-2"></i>
                 Confirm
-                <div class="spinner-border text-light me-1 spinner-border-sm" role="status" *ngIf="isLoading">
+                <div class="spinner-border text-light mr-1 spinner-border-sm" role="status" *ngIf="isLoading">
                   <span class="sr-only">Loading...</span>
                 </div>
               </button>
-              <button class="btn bt-danger-light bg-danger text-white me-3" [disabled]="isLoading" *ngIf="
+              <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bt-danger-light bg-danger text-white mr-4" [disabled]="isLoading" *ngIf="
                   memberProfile.friendRequest &&
                   memberProfile.friendRequest!.status === request.Accepted
                 ">
-                <i class="fas fa-user text-white me-2"></i>
+                <i class="fas fa-user text-white mr-2"></i>
                 Friend
               </button>
-              <button class="btn bt-danger-light bg-danger text-white me-3" [disabled]="isLoading" *ngIf="
+              <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bt-danger-light bg-danger text-white mr-4" [disabled]="isLoading" *ngIf="
                   memberProfile.friendRequest &&
                   memberProfile.friendRequest!.status === request.Rejected
                 ">
-                <i class="fas fa-user text-white me-2"></i>
+                <i class="fas fa-user text-white mr-2"></i>
                 Rejected
               </button>
-              <button class="btn btn-light" (click)="openChat(memberProfile)" *ngIf="
+              <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all" (click)="openChat(memberProfile)" *ngIf="
                   memberProfile.friendRequest &&
                   memberProfile.friendRequest!.status === request.Accepted
                 ">
-                <i class="fas fa-comment-dots text-primary"></i> Message
+                <i class="fas fa-comment-dots text-[#5c142b]"></i> Message
               </button>
             </div>
           </div>
         </div>
       </div>
       <!-- TAP BAR -->
-      <div class="col-12">
-        <div class="d-flex justify-content-between">
-          <div class="p-3 pointer" *ngFor="let tab of tabs" [ngClass]="{ 'bar-active': currentTap === tab.id }"
+      <div class="w-full px-6">
+        <div class="flex justify-between">
+          <div class="p-6 cursor-pointer" *ngFor="let tab of tabs" [ngClass]="{ 'bar-active': currentTap === tab.id }"
             (click)="currentTap = tab.id">
-            <div class="d-none d-sm-none d-md-none d-lg-block">
-              <i [class]="tab.icon + ' me-2'"></i>{{ tab.label }}
+            <div class="hidden sm:hidden md:hidden lg:block">
+              <i [class]="tab.icon + ' mr-2'"></i>{{ tab.label }}
             </div>
-            <div class="d-block d-sm-block d-md-block d-lg-none">
-              <i [class]="tab.icon + ' me-2'"></i>
+            <div class="block sm:block md:block lg:hidden">
+              <i [class]="tab.icon + ' mr-2'"></i>
             </div>
           </div>
         </div>
       </div>
 
       <!-- //OVER VIEW -->
-      <div class="row mt-4 p-3 m-0" *ngIf="currentTap === 1">
-        <div class="col-12">
-          <div class="text-lg fw-bold">About</div>
-          <div class="mt-2 text-sm text-muted about-wrap">
+      <div class="flex flex-wrap -mx-3 mt-6 p-6 m-0" *ngIf="currentTap === 1">
+        <div class="w-full px-6">
+          <div class="text-lg font-bold">About</div>
+          <div class="mt-2 text-sm text-gray-500 about-wrap">
             {{ memberProfile.aboutMe }}
           </div>
         </div>
-        <div class="col-12 mt-3">
-          <div class="text-lg fw-bold">Quick Information</div>
-          <div class="row mt-3">
-            <div class="col-5 me-2 bg-light p-3 mb-2">
+        <div class="w-full px-6 mt-6">
+          <div class="text-lg font-bold">Quick Information</div>
+          <div class="flex flex-wrap -mx-3 mt-6">
+            <div class="w-5/12 px-6 mr-2 bg-light p-6 mb-2">
               <div class="text-xs">Height</div>
-              <div class="text-sm fw-bold">{{ memberProfile.height }}</div>
+              <div class="text-sm font-bold">{{ memberProfile.height }}</div>
             </div>
-            <div class="col-5 me-2 bg-light p-3 mb-2">
+            <div class="w-5/12 px-6 mr-2 bg-light p-6 mb-2">
               <div class="text-xs">Marriage Status</div>
-              <div class="text-sm fw-bold">
+              <div class="text-sm font-bold">
                 {{ memberProfile.marriageStatus }}
               </div>
             </div>
-            <div class="col-5 me-2 bg-light p-3 mb-2">
+            <div class="w-5/12 px-6 mr-2 bg-light p-6 mb-2">
               <div class="text-xs">Food Habit</div>
-              <div class="text-sm fw-bold">{{ memberProfile.foodHabit }}</div>
+              <div class="text-sm font-bold">{{ memberProfile.foodHabit }}</div>
             </div>
-            <div class="col-5 me-2 bg-light p-3 mb-2">
+            <div class="w-5/12 px-6 mr-2 bg-light p-6 mb-2">
               <div class="text-xs">Willing to Relocate</div>
-              <div class="text-sm fw-bold">
+              <div class="text-sm font-bold">
                 {{ memberProfile.willingToRelocate }}
               </div>
             </div>
-            <div class="col-5 me-2 bg-light p-3 mb-2">
+            <div class="w-5/12 px-6 mr-2 bg-light p-6 mb-2">
               <div class="text-xs">Mother Tongue</div>
-              <div class="text-sm fw-bold">
+              <div class="text-sm font-bold">
                 {{ memberProfile.motherTongue }}
               </div>
             </div>
-            <div class="col-5 me-2 bg-light p-3 mb-2" *ngIf="memberProfile.bloodGroup">
+            <div class="w-5/12 px-6 mr-2 bg-light p-6 mb-2" *ngIf="memberProfile.bloodGroup">
               <div class="text-xs">Blood Group</div>
-              <div class="text-sm fw-bold">{{ memberProfile.bloodGroup }}</div>
+              <div class="text-sm font-bold">{{ memberProfile.bloodGroup }}</div>
             </div>
           </div>
         </div>
-        <div class="col-12 mt-3" *ngIf="memberProfile.profileImages[0].isVisible || isAdmin">
-          <div class="text-lg fw-bold">Photos</div>
-          <div class="row mt-3">
-            <div class="col-3 p-0 pointer" *ngFor="let m of memberProfile.profileImages; let i = index">
+        <div class="w-full px-6 mt-6" *ngIf="memberProfile.profileImages[0].isVisible || isAdmin">
+          <div class="text-lg font-bold">Photos</div>
+          <div class="flex flex-wrap -mx-3 mt-6">
+            <div class="w-1/4 px-6 p-0 cursor-pointer" *ngFor="let m of memberProfile.profileImages; let i = index">
               <div class="div p-2">
-                <img class="object-fit-cover profile-photo" src="{{ m.url }}" alt="photos"
+                <img class="object-cover profile-photo" src="{{ m.url }}" alt="photos"
                   data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal"
                   (click)="imageSelected.emit(i)"
                   *ngIf="isPopUp" />
-                <img class="object-fit-cover profile-photo" src="{{ m.url }}" alt="photos"
+                <img class="object-cover profile-photo" src="{{ m.url }}" alt="photos"
                   data-bs-target="#exampleModal222" data-bs-toggle="modal" data-bs-dismiss="modal"
                   (click)="goToImage(i)" *ngIf="!isPopUp" />
               </div>
@@ -173,70 +173,70 @@
         </div>
       </div>
 
-      <div class="row mt-4 p-3" *ngIf="currentTap === 2">
-        <div class="col-12">
-          <div class="text-lg fw-bold">Personal Details</div>
-          <div class="row mt-3 m-0">
-            <div class="col-12 col-sm-12 col-md-10 p-3 bg-light">
-              <div class="row text-sm">
-                <div class="col-6 mb-2">
+      <div class="flex flex-wrap -mx-3 mt-6 p-6" *ngIf="currentTap === 2">
+        <div class="w-full px-6">
+          <div class="text-lg font-bold">Personal Details</div>
+          <div class="flex flex-wrap -mx-3 mt-6 m-0">
+            <div class="w-full px-6 col-sm-12 md:w-10/12 p-6 bg-light">
+              <div class="flex flex-wrap -mx-3 text-sm">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Gender:</strong> {{ memberProfile.gender }}
                 </div>
-                <div class="col-6 mb-2">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Age:</strong> {{ memberProfile.age }} years
                 </div>
-                <div class="col-6 mb-2">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Height:</strong> {{ memberProfile.height }} Cm
                 </div>
-                <div class="col-6 mb-2">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Weight:</strong> {{ memberProfile.weight }} Kg
                 </div>
-                <div class="col-6 mb-2">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Body Type:</strong> {{ memberProfile.bodyType }}
                 </div>
-                <div class="col-6 mb-2" *ngIf="memberProfile.skinComplexion">
+                <div class="w-1/2 px-6 mb-2" *ngIf="memberProfile.skinComplexion">
                   <strong>Skin Complexion:</strong>
                   {{ memberProfile.skinComplexion }}
                 </div>
-                <div class="col-6 mb-2">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Food Habit:</strong> {{ memberProfile.foodHabit }}
                 </div>
-                <div class="col-6 mb-2">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Drinks:</strong> {{ memberProfile.drinksHabit }}
                 </div>
-                <div class="col-6 mb-2">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Smoking:</strong> {{ memberProfile.smokeHabit }}
                 </div>
-                <div class="col-6 mb-2" *ngIf="memberProfile.bloodGroup">
+                <div class="w-1/2 px-6 mb-2" *ngIf="memberProfile.bloodGroup">
                   <strong>Blood Group:</strong> {{ memberProfile.bloodGroup }}
                 </div>
-                <div class="col-6 mb-2">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Willing to Relocate:</strong>
                   {{ memberProfile.willingToRelocate }}
                 </div>
-                <div class="col-6 mb-2" *ngIf="memberProfile?.communityName">
+                <div class="w-1/2 px-6 mb-2" *ngIf="memberProfile?.communityName">
                   <strong>Community:</strong> {{ memberProfile.communityName }}
                 </div>
-                <div class="col-6 mb-2">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Religion:</strong> {{ memberProfile.religionName }}
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="text-lg fw-bold mt-4">Languages & Location</div>
-          <div class="row mt-3 m-0">
-            <div class="col-12 col-sm-12 col-md-10 p-3 bg-light">
-              <div class="row text-sm">
-                <div class="col-6 mb-2">
+          <div class="text-lg font-bold mt-6">Languages & Location</div>
+          <div class="flex flex-wrap -mx-3 mt-6 m-0">
+            <div class="w-full px-6 col-sm-12 md:w-10/12 p-6 bg-light">
+              <div class="flex flex-wrap -mx-3 text-sm">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Mother Tongue:</strong>
                   {{ memberProfile.motherTongue }}
                 </div>
-                <div class="col-6 mb-2">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Known Languages:</strong>
                   {{ memberProfile.knownLanguages }}
                 </div>
-                <div class="col-6 mb-2">
+                <div class="w-1/2 px-6 mb-2">
                   <strong>Origin Country:</strong>
                   {{ memberProfile.originCountry }}
                 </div>
@@ -244,11 +244,11 @@
             </div>
           </div>
 
-          <div class="text-lg fw-bold mt-4">Addresses</div>
-          <div class="row mt-3 m-0">
-            <div class="col-12 col-sm-12 col-md-10 bg-light mb-2">
-              <div class="fw-bold mb-1">
-                <i class="fas fa-map-marker-alt me-2"></i>Living Address
+          <div class="text-lg font-bold mt-6">Addresses</div>
+          <div class="flex flex-wrap -mx-3 mt-6 m-0">
+            <div class="w-full px-6 col-sm-12 md:w-10/12 bg-light mb-2">
+              <div class="font-bold mb-1">
+                <i class="fas fa-map-marker-alt mr-2"></i>Living Address
               </div>
               <div class="text-sm">
                 {{
@@ -260,9 +260,9 @@
                 }}
               </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-10 bg-light">
-              <div class="fw-bold mb-1">
-                <i class="fas fa-home me-2"></i>Birth Address
+            <div class="w-full px-6 col-sm-12 md:w-10/12 bg-light">
+              <div class="font-bold mb-1">
+                <i class="fas fa-home mr-2"></i>Birth Address
               </div>
               <div class="text-sm">
                 {{
@@ -278,21 +278,21 @@
         </div>
       </div>
 
-      <div class="row mt-4 p-3" *ngIf="currentTap === 3">
-        <div class="col-12" *ngIf="memberProfile.profileJob">
-          <div class="text-lg fw-bold">Job Information</div>
-          <div class="row mt-3 m-0">
-            <div class="col-12 com-sm-12 com-md-10 p-3 bg-light">
-              <div class="d-flex">
-                <div class="me-3"><i class="fas fa-briefcase"></i></div>
-                <div class="text-sm fw-bold text-capitalize">
+      <div class="flex flex-wrap -mx-3 mt-6 p-6" *ngIf="currentTap === 3">
+        <div class="w-full px-6" *ngIf="memberProfile.profileJob">
+          <div class="text-lg font-bold">Job Information</div>
+          <div class="flex flex-wrap -mx-3 mt-6 m-0">
+            <div class="w-full px-6 com-sm-12 com-md-10 p-6 bg-light">
+              <div class="flex">
+                <div class="mr-4"><i class="fas fa-briefcase"></i></div>
+                <div class="text-sm font-bold text-capitalize">
                   {{ memberProfile.profileJob.title }}
-                  <div class="text-xs fw-normal">
+                  <div class="text-xs font-normal">
                     {{ memberProfile.profileJob.companyName }}
                   </div>
                 </div>
               </div>
-              <div class="d-flex justify-content-between mt-3 text-sm">
+              <div class="flex justify-between mt-6 text-sm">
                 <div>
                   Sector:
                   {{
@@ -309,15 +309,15 @@
             </div>
           </div>
         </div>
-        <div class="col-12 mt-3" *ngIf="memberProfile.profileEducations.length > 0">
-          <div class="text-lg fw-bold">Education</div>
-          <div class="row mt-3 m-0">
-            <div class="col-12 com-sm-12 com-md-10 p-3 bg-light">
-              <div class="d-flex">
-                <div class="me-3"><i class="fas fa-graduation-cap"></i></div>
-                <div class="text-sm fw-bold">
+        <div class="w-full px-6 mt-6" *ngIf="memberProfile.profileEducations.length > 0">
+          <div class="text-lg font-bold">Education</div>
+          <div class="flex flex-wrap -mx-3 mt-6 m-0">
+            <div class="w-full px-6 com-sm-12 com-md-10 p-6 bg-light">
+              <div class="flex">
+                <div class="mr-4"><i class="fas fa-graduation-cap"></i></div>
+                <div class="text-sm font-bold">
                   {{ memberProfile.profileEducations[0].qualification }}
-                  <div class="text-xs fw-normal">
+                  <div class="text-xs font-normal">
                     {{ memberProfile.profileEducations[0].institute }}
                   </div>
                 </div>
@@ -327,14 +327,14 @@
         </div>
       </div>
 
-      <div class="col-12 mt-3" *ngIf="currentTap === 4">
-        <div class="text-lg fw-bold">Family Details</div>
-        <div class="row mt-3 m-0">
-          <div class="col-12 com-sm-12 com-md-10 p-3 bg-light rounded">
+      <div class="w-full px-6 mt-6" *ngIf="currentTap === 4">
+        <div class="text-lg font-bold">Family Details</div>
+        <div class="flex flex-wrap -mx-3 mt-6 m-0">
+          <div class="w-full px-6 com-sm-12 com-md-10 p-6 bg-light rounded">
             <!-- Father's Info -->
-            <div class="mb-3">
-              <div class="text-xs fw-normal">Father's Name:</div>
-              <div class="fw-bold text-sm">
+            <div class="mb-6">
+              <div class="text-xs font-normal">Father's Name:</div>
+              <div class="font-bold text-sm">
                 {{ memberProfile.profileFamily?.fatherName | titlecase }}
               </div>
               <div class="text-xs">
@@ -343,9 +343,9 @@
             </div>
 
             <!-- Mother's Info -->
-            <div class="mb-3">
-              <div class="text-xs fw-normal">Mother's Name:</div>
-              <div class="fw-bold text-sm">
+            <div class="mb-6">
+              <div class="text-xs font-normal">Mother's Name:</div>
+              <div class="font-bold text-sm">
                 {{ memberProfile.profileFamily?.motherName | titlecase }}
               </div>
               <div class="text-xs">
@@ -354,17 +354,17 @@
             </div>
 
             <!-- Siblings -->
-            <div class="mb-3">
-              <div class="text-xs fw-normal">Number of Siblings:</div>
-              <div class="fw-bold text-sm">
+            <div class="mb-6">
+              <div class="text-xs font-normal">Number of Siblings:</div>
+              <div class="font-bold text-sm">
                 {{ memberProfile.profileFamily?.numberOfSiblings }}
               </div>
             </div>
 
             <!-- profileFamily Type -->
             <div>
-              <div class="text-xs fw-normal">Family Type:</div>
-              <div class="fw-bold text-sm">
+              <div class="text-xs font-normal">Family Type:</div>
+              <div class="font-bold text-sm">
                 {{
                 memberProfile.profileFamily?.familyType === 1
                 ? "Joint Family"
@@ -379,56 +379,56 @@
           </div>
         </div>
       </div>
-      <div class="col-12 mt-3" *ngIf="currentTap === 5">
-        <div class="text-lg fw-bold mb-3">Astrological Information</div>
-        <div class="d-flex justify-content-center bg-light rounded p-4 text-center flex-column align-items-center"
+      <div class="w-full px-6 mt-6" *ngIf="currentTap === 5">
+        <div class="text-lg font-bold mb-6">Astrological Information</div>
+        <div class="flex justify-center bg-light rounded p-6 text-center flex-col items-center"
           style="background: linear-gradient(to bottom right, #f6f3ff, #eef5ff)">
           <!-- Nakshathiram -->
-          <div class="mb-4" *ngIf="memberProfile.profileAstrology?.starName">
-            <div class="rounded-circle bg-white d-flex justify-content-center align-items-center"
+          <div class="mb-6" *ngIf="memberProfile.profileAstrology?.starName">
+            <div class="rounded-full bg-white flex justify-center items-center"
               style="width: 48px; height: 48px; margin: 0 auto">
               <i class="fas fa-star" style="color: #a855f7"></i>
             </div>
-            <div class="mt-2 text-xs text-muted">Nakshathiram</div>
-            <div class="fw-bold text-sm" style="color: #a855f7">
+            <div class="mt-2 text-xs text-gray-500">Nakshathiram</div>
+            <div class="font-bold text-sm" style="color: #a855f7">
               {{ memberProfile.profileAstrology?.starName }}
             </div>
           </div>
 
           <!-- Raasi -->
-          <div class="mb-4" *ngIf="memberProfile.profileAstrology?.raasi">
-            <div class="rounded-circle bg-white d-flex justify-content-center align-items-center"
+          <div class="mb-6" *ngIf="memberProfile.profileAstrology?.raasi">
+            <div class="rounded-full bg-white flex justify-center items-center"
               style="width: 48px; height: 48px; margin: 0 auto">
               <i class="fas fa-star" style="color: #2563eb"></i>
             </div>
-            <div class="mt-2 text-xs text-muted">Raasi</div>
-            <div class="fw-bold text-sm text-primary">
+            <div class="mt-2 text-xs text-gray-500">Raasi</div>
+            <div class="font-bold text-sm text-[#5c142b]">
               {{ memberProfile.profileAstrology?.rasiName }}
             </div>
           </div>
           <!-- Time of Birth -->
           <div *ngIf="memberProfile.profileAstrology?.timeOfBirth">
-            <div class="rounded-circle bg-white d-flex justify-content-center align-items-center"
+            <div class="rounded-full bg-white flex justify-center items-center"
               style="width: 48px; height: 48px; margin: 0 auto">
               <i class="fas fa-calendar-alt" style="color: #16a34a"></i>
             </div>
-            <div class="mt-2 text-xs text-muted">Time of Birth</div>
-            <div class="fw-bold text-sm" style="color: #16a34a">
+            <div class="mt-2 text-xs text-gray-500">Time of Birth</div>
+            <div class="font-bold text-sm" style="color: #16a34a">
               {{ memberProfile.profileAstrology?.timeOfBirth }}
             </div>
           </div>
         </div>
       </div>
-      <div class="mt-3">
-        <div class="col-12 p-0">
-          <div class="d-flex bg-light p-3">
-            <div class="text-sm me-3">
-              <i class="fas fa-envelope me-2"></i>{{ memberProfile.email }}
+      <div class="mt-6">
+        <div class="w-full px-6 p-0">
+          <div class="flex bg-light p-6">
+            <div class="text-sm mr-4">
+              <i class="fas fa-envelope mr-2"></i>{{ memberProfile.email }}
             </div>
             @if (memberProfile.phoneNumber) {
             <div class="text-sm">
               <a [href]="'https://wa.me/' + memberProfile.phoneNumber" target="_blank" class="text-decoration-none">
-                <i class="fab fa-whatsapp text-success"></i>
+                <i class="fab fa-whatsapp text-emerald-600"></i>
                 {{ memberProfile.phoneNumber }}
               </a>
             </div>
@@ -442,7 +442,7 @@
 </div>
 
 <!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" >
+<!-- <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-[#5c142b] hover:bg-[#7e1e3b] shadow-sm transition-all" >
   Launch demo modal
 </button> -->
 
@@ -452,7 +452,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Images</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" *ngIf="memberProfile">
         <div id="memberImagesCarousel" class="carousel slide">
@@ -467,15 +467,15 @@
                 let image of memberProfile.profileImages;
                 let i = index
               " [ngClass]="{ active: i === activeImageIndex }">
-              <img [src]="image.url" class="d-block w-100 c-image" alt="..." />
+              <img [src]="image.url" class="block w-full c-image" alt="..." />
             </div>
           </div>
           <button class="carousel-control-prev" type="button" (click)="prevImage()">
-            <span class="carousel-control-prev-icon text-danger" aria-hidden="true"></span>
+            <span class="carousel-control-prev-icon text-red-600" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
           <button class="carousel-control-next" type="button" (click)="nextImage()">
-            <span class="carousel-control-next-icon text-danger" aria-hidden="true"></span>
+            <span class="carousel-control-next-icon text-red-600" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
         </div>

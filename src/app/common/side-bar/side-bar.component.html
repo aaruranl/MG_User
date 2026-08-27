@@ -1,26 +1,26 @@
 
-<div class="content-side p-3" >
-  <div class="mb-3 d-flex justify-content-between align-items-center" *ngIf="!isLoading && !isInitialLoad">
-    <div class="text-lg fw-bold text-muted d-none d-md-block">
+<div class="content-side p-6" >
+  <div class="mb-6 flex justify-between items-center" *ngIf="!isLoading && !isInitialLoad">
+    <div class="text-lg font-bold text-gray-500 hidden md:block">
        <i class="fas fa-filter"></i> Filter
     </div>
-    <div class="btn btn-danger d-block d-sm-block d-md-none" data-bs-dismiss="modal" aria-label="Close">Apply Filter</div>
-    <div class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" (click)="clearFilter()">Clear Filter</div>
+    <div class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all block sm:block md:hidden" data-bs-dismiss="modal" aria-label="Close">Apply Filter</div>
+    <div class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium border border-red-600 text-red-600 hover:bg-red-50 transition-all" data-bs-dismiss="modal" aria-label="Close" (click)="clearFilter()">Clear Filter</div>
   </div>
 
 <div class="mt-2 mb-2" *ngIf="!isLoading && !isInitialLoad">
   <div class="input-group">
      <span class="input-group-text">
-      <i class="fas fa-search text-muted"></i>
+      <i class="fas fa-search text-gray-500"></i>
     </span>
-    <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchMembers(searchText)" placeholder="Search" />
+    <input type="text" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [(ngModel)]="searchText" (keyup)="searchMembers(searchText)" placeholder="Search" />
   </div>
 </div>
 
   <ul class="list-group" id="accordionFilter" *ngIf="!isLoading && !isInitialLoad">
 
     <!-- Basic Info -->
-    <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterBasic" id="default-coll"> <i class="fas fa-user me-2 text-muted"></i>Basic Info</li>
+    <li class="list-group-item cursor-pointer font-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterBasic" id="default-coll"> <i class="fas fa-user mr-2 text-gray-500"></i>Basic Info</li>
     <div class="collapse" id="filterBasic" data-bs-parent="#accordionFilter">
       <div class="card card-body">
 
@@ -41,9 +41,9 @@
 
             <!-- Label template -->
             <ng-template ng-label-tmp let-item="item">
-              <div class="d-flex">
+              <div class="flex">
                 <div>
-                  <img class="me-2" src={{item.flags?.svg}} alt="" width="30px">
+                  <img class="mr-2" src={{item.flags?.svg}} alt="" width="30px">
                 </div>
                 <div>
                   {{item.country}}
@@ -52,9 +52,9 @@
             </ng-template>
             <!-- Option template -->
             <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-              <div class="d-flex">
+              <div class="flex">
                 <div>
-                  <img src={{item.flags?.svg}} alt="" width="30px" class="me-2">
+                  <img src={{item.flags?.svg}} alt="" width="30px" class="mr-2">
                 </div>
 
                 <div class="">
@@ -82,9 +82,9 @@
 
             <!-- Label template -->
             <ng-template ng-label-tmp let-item="item">
-              <div class="d-flex">
+              <div class="flex">
                 <div>
-                  <img class="me-2" src={{item.flags?.svg}} alt="" width="30px">
+                  <img class="mr-2" src={{item.flags?.svg}} alt="" width="30px">
                 </div>
                 <div>
                   {{item.country}}
@@ -93,9 +93,9 @@
             </ng-template>
             <!-- Option template -->
             <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-              <div class="d-flex">
+              <div class="flex">
                 <div>
-                  <img src={{item.flags?.svg}} alt="" width="30px" class="me-2">
+                  <img src={{item.flags?.svg}} alt="" width="30px" class="mr-2">
                 </div>
 
                 <div class="">
@@ -112,16 +112,16 @@
           [searchable]="true" [(ngModel)]="selectedProvince"  [ngModelOptions]="{standalone: true}" ></ng-select>
         </div> -->
 
-        <div class="mt-3">
+        <div class="mt-6">
           <label class="fw-500">Age Range</label>
-          <div class="row mt-2">
-            <div class="col-6">
+          <div class="flex flex-wrap -mx-3 mt-2">
+            <div class="w-1/2 px-6">
               <div class="text-sm">Min</div>
-              <input id="minAge" type="number" class="form-control" [(ngModel)]="minAgeValue" disabled="">
+              <input id="minAge" type="number" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [(ngModel)]="minAgeValue" disabled="">
             </div>
-            <div class="col-6">
+            <div class="w-1/2 px-6">
               <div class="text-sm">Max</div>
-              <input id="minAge" type="number" class="form-control" [(ngModel)]="maxAgeValue" disabled="">
+              <input id="minAge" type="number" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [(ngModel)]="maxAgeValue" disabled="">
             </div>
           </div>
         </div>
@@ -133,7 +133,7 @@
     </div>
 
     <!-- Lifestyle -->
-    <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterLifestyle"> <i class="fas fa-utensils text-muted me-2"></i>Lifestyle</li>
+    <li class="list-group-item cursor-pointer font-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterLifestyle"> <i class="fas fa-utensils text-gray-500 mr-2"></i>Lifestyle</li>
     <div class="collapse" id="filterLifestyle" data-bs-parent="#accordionFilter">
       <div class="card card-body rounded-0">
         <div>
@@ -147,14 +147,14 @@
               (change)="onDietChange($event)"
               [checked]="foodHabit.includes(d.id)"
             >
-            <label class="form-check-label ms-2 text-sm" [for]="'diet_' + d.id">
+            <label class="form-check-label ml-2 text-sm" [for]="'diet_' + d.id">
               {{ d.name }}
             </label>
           </div>
         </div>
 
 
-        <div class="mt-3">
+        <div class="mt-6">
           <label class="fw-500">Drink Habits</label>
           <div class="form-check mt-2" *ngFor="let dr of drinkHabitList">
             <input
@@ -165,14 +165,14 @@
               (change)="onDrinkChange($event)"
               [checked]="drinkHabit.includes(dr.id)"
             >
-            <label class="form-check-label ms-2 text-sm" [for]="'dr_' + dr.id">
+            <label class="form-check-label ml-2 text-sm" [for]="'dr_' + dr.id">
               {{ dr.name }}
             </label>
           </div>
         </div>
 
 
-        <div class="mt-3">
+        <div class="mt-6">
           <label class="fw-500">Smoke Habits</label>
           <div class="form-check mt-2" *ngFor="let s of SmokeHabitList">
             <input
@@ -183,13 +183,13 @@
               (change)="onSmokeChange($event)"
               [checked]="smokeHabit.includes(s.id)"
             >
-            <label class="form-check-label ms-2 text-sm" [for]="'sm_' + s.id">
+            <label class="form-check-label ml-2 text-sm" [for]="'sm_' + s.id">
               {{ s.name }}
             </label>
           </div>
         </div>
 
-        <div class="mt-3">
+        <div class="mt-6">
         <label class="fw-500">Willing to Relocate</label>
         <div class="form-check mt-2" *ngFor="let w of welcomeRelocateList">
             <input
@@ -200,7 +200,7 @@
               (change)="onRelocateChange($event)"
               [checked]="welcomeRelocate.includes(w.id)"
             >
-            <label class="form-check-label ms-2 text-sm" [for]="'wg_' + w.id">
+            <label class="form-check-label ml-2 text-sm" [for]="'wg_' + w.id">
               {{ w.name }}
             </label>
           </div>
@@ -209,10 +209,10 @@
     </div>
 
     <!-- Physical Attributes -->
-    <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterPhysical"><i class="fas fa-dumbbell me-2 text-muted "></i>Physical Attributes</li>
+    <li class="list-group-item cursor-pointer font-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterPhysical"><i class="fas fa-dumbbell mr-2 text-gray-500 "></i>Physical Attributes</li>
     <div class="collapse" id="filterPhysical" data-bs-parent="#accordionFilter">
       <div class="card card-body rounded-0">
-         <div class="mt-3">
+         <div class="mt-6">
           <label class="fw-500">Body Type</label>
           <div class="form-check mt-2" *ngFor="let bt of bodyTypeList">
             <input
@@ -223,14 +223,14 @@
               (change)="onBodyTypeChange($event)"
               [checked]="bodyType.includes(bt.id)"
             >
-            <label class="form-check-label ms-2 text-sm" [for]="'bt_' + bt.id">
+            <label class="form-check-label ml-2 text-sm" [for]="'bt_' + bt.id">
               {{ bt.name }}
             </label>
           </div>
          </div>
 
 
-         <div class="mt-3">
+         <div class="mt-6">
             <label class="fw-500">Skin Complexion</label>
             <div class="form-check mt-2" *ngFor="let c of complexionList">
             <input
@@ -241,23 +241,23 @@
               (change)="onComplexionChange($event)"
               [checked]="complexion.includes(c.id)"
             >
-            <label class="form-check-label ms-2 text-sm" [for]="'c_' + c.id">
+            <label class="form-check-label ml-2 text-sm" [for]="'c_' + c.id">
               {{ c.name }}
             </label>
           </div>
          </div>
 
 
-         <div class="mt-3">
+         <div class="mt-6">
            <label class="fw-500">Height Range</label>
-            <div class="row mt-2">
-              <div class="col-6">
+            <div class="flex flex-wrap -mx-3 mt-2">
+              <div class="w-1/2 px-6">
                 <div class="text-sm">Min(Cm)</div>
-                <input id="minAge" type="number" class="form-control" [(ngModel)]="minHeightValue" disabled="">
+                <input id="minAge" type="number" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [(ngModel)]="minHeightValue" disabled="">
               </div>
-              <div class="col-6">
+              <div class="w-1/2 px-6">
                 <div class="text-sm">Max(Cm)</div>
-                <input id="minAge" type="number" class="form-control" [(ngModel)]="maxHeightValue" disabled="">
+                <input id="minAge" type="number" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [(ngModel)]="maxHeightValue" disabled="">
               </div>
             </div>
              <div class="custom-slider"> <ngx-slider
@@ -270,16 +270,16 @@
 
          </div>
 
-         <div class="mt-3">
+         <div class="mt-6">
           <label class="fw-500">Weight Range</label>
-           <div class="row mt-2">
-              <div class="col-6">
+           <div class="flex flex-wrap -mx-3 mt-2">
+              <div class="w-1/2 px-6">
                 <div class="text-sm">Min(Kg)</div>
-                <input id="minAge" type="number" class="form-control" [(ngModel)]="minWeightValue" disabled="">
+                <input id="minAge" type="number" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [(ngModel)]="minWeightValue" disabled="">
               </div>
-              <div class="col-6">
+              <div class="w-1/2 px-6">
                 <div class="text-sm">Max(Kg)</div>
-                <input id="minAge" type="number" class="form-control" [(ngModel)]="maxWeightValue" disabled="">
+                <input id="minAge" type="number" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" [(ngModel)]="maxWeightValue" disabled="">
               </div>
             </div>
              <div class="custom-slider">
@@ -292,10 +292,10 @@
     </div>
 
     <!-- Cultural Background -->
-    <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterCulture"> <i class="fas fa-globe-americas me-2 text-muted"></i>Cultural Background</li>
+    <li class="list-group-item cursor-pointer font-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterCulture"> <i class="fas fa-globe-americas mr-2 text-gray-500"></i>Cultural Background</li>
     <div class="collapse" id="filterCulture" data-bs-parent="#accordionFilter">
       <div class="card card-body rounded-0">
-         <div class="mt-3">
+         <div class="mt-6">
             <label class="fw-500">Religion</label>
 
           <ng-select
@@ -310,7 +310,7 @@
             (change)="ngSelectChange()"
            ></ng-select>
          </div>
-        <div class="mt-3">
+        <div class="mt-6">
           <label class="fw-500">Community</label>
 
            <ng-select
@@ -326,7 +326,7 @@
            ></ng-select>
         </div>
 
-         <div class="mt-3">
+         <div class="mt-6">
           <label class="fw-500">Marital Status</label>
           <ng-select
             [items]="marriageStatusList"
@@ -342,7 +342,7 @@
          </div>
 
 
-        <div class="mt-3">
+        <div class="mt-6">
           <label class="fw-500">Known Languages</label>
           <ng-select
             [items]="knownLanguagesList"
@@ -361,10 +361,10 @@
     </div>
 
     <!-- Career & Education -->
-    <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterCareer"><i class="fas fa-briefcase me-2 text-muted "></i>Career & Education</li>
+    <li class="list-group-item cursor-pointer font-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterCareer"><i class="fas fa-briefcase mr-2 text-gray-500 "></i>Career & Education</li>
     <div class="collapse" id="filterCareer" data-bs-parent="#accordionFilter">
       <div class="card card-body rounded-0">
-        <div class="mt-3"></div>
+        <div class="mt-6"></div>
         <label class="fw-500">Job Sectors</label>
         <div class="form-check mt-2" *ngFor="let sec of sectorList">
 
@@ -376,12 +376,12 @@
               (change)="onJobSectorChange($event)"
               [checked]="sector.includes(sec.id)"
             >
-            <label class="form-check-label ms-2 text-sm" [for]="'js_' + sec.id">
+            <label class="form-check-label ml-2 text-sm" [for]="'js_' + sec.id">
               {{ sec.name }}
             </label>
           </div>
 
-        <div class="mt-3">
+        <div class="mt-6">
           <label class="fw-500">Job Types</label>
             <ng-select
             [items]="jobTypeList"
@@ -397,7 +397,7 @@
         </div>
 
 
-        <div class="mt-3">
+        <div class="mt-6">
           <label class="fw-500">Education Qualifications</label>
             <ng-select
             [items]="educationList"
@@ -412,10 +412,10 @@
            ></ng-select>
         </div>
 
-        <div class="mt-3">
+        <div class="mt-6">
   <label class="fw-500">Salary</label>
-  <div class="row mt-2">
-    <div class="col-12 mb-2">
+  <div class="flex flex-wrap -mx-3 mt-2">
+    <div class="w-full px-6 mb-2">
       <div class="text-sm">Currency</div>
       <ng-select
         [items]="currencyList"
@@ -431,26 +431,26 @@
       </ng-select>
     </div>
 
-    <ng-container *ngIf="selectedCurrency">
-      <div class="col-6">
+    <ng-container>
+      <div class="w-1/2 px-6">
         <div class="text-sm">Min</div>
         <input
           type="number"
-          class="form-control"
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
           [(ngModel)]="minSalaryValue"
           (ngModelChange)="onMinSalaryChange($event)"
         >
       </div>
 
-      <div class="col-6">
+      <div class="w-1/2 px-6">
         <div class="text-sm">Max</div>
         <input
           type="number"
-          class="form-control"
+          class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
           [(ngModel)]="maxSalaryValue"
           (ngModelChange)="onMaxSalaryChange($event)"
         >
-        <div class="text-danger text-sm mt-1" *ngIf="salaryMaxError">
+        <div class="text-red-600 text-sm mt-1" *ngIf="salaryMaxError">
           {{ salaryMaxError }}
         </div>
       </div>
@@ -461,10 +461,10 @@
     </div>
 
     <!-- Astrology -->
-    <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterAstro"><i class="fas fa-star me-2 text-muted"></i>Astrology</li>
+    <li class="list-group-item cursor-pointer font-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterAstro"><i class="fas fa-star mr-2 text-gray-500"></i>Astrology</li>
     <div class="collapse" id="filterAstro" data-bs-parent="#accordionFilter">
       <div class="card card-body rounded-0">
-        <div class="mt-3">
+        <div class="mt-6">
           <label class="fw-500" >Nakshathiram</label>
            <ng-select
             [items]="natshathiraList"
@@ -478,7 +478,7 @@
              (change)="ngSelectChange()"
            ></ng-select>
         </div>
-        <div class="mt-3">
+        <div class="mt-6">
           <label class="fw-500" >Raasi</label>
            <ng-select
             [items]="rasiList"

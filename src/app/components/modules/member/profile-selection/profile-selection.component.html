@@ -1,19 +1,19 @@
 <section class="content">
   <div class="component-content">
-    <div class="row m-0 bg-colors">
-      <div class="col-12 col-md-12 col-lg-9 mx-auto">
-       <div class="row">
-          <div class="col-12">
-            <div class="d-flex justify-content-center align-items-center">
-              <div class="col-12 px-0 px-sm-4 py-3">
-                <!-- <div class="bg-danger text-white m-shadow p-3">
-                  <div class="text-lg fw-bold">Member list</div>
+    <div class="flex flex-wrap -mx-3 m-0 bg-colors">
+      <div class="w-full px-6 md:w-full col-lg-9 mx-auto">
+       <div class="flex flex-wrap -mx-3">
+          <div class="w-full px-6">
+            <div class="flex justify-center items-center">
+              <div class="w-full px-6 px-0 px-sm-4 py-6">
+                <!-- <div class="bg-danger text-white m-shadow-md p-6">
+                  <div class="text-lg font-bold">Member list</div>
                   <div class="text-md">View and manage all the members with MarriageGate.</div>
                 </div> -->
                 <div class="dashboard-header p-card" style="animation-delay: 0.1s;">
                   <div class="header-content">
                     <div class="header-icon">
-                      <i class="fas fa-users p-4"></i>
+                      <i class="fas fa-users p-6"></i>
                     </div>
                     <div class="header-text">
                       <h2 class="header-title text-lg">Member list</h2>
@@ -28,51 +28,51 @@
                     </div> -->
                   </div>
                 </div>
-                <!-- <div class="text-end mt-3 me-2" *ngIf="mainUser">
-                  <button class="btn btn-danger me-2"  (click)="navigateToFrom()" [disabled]="mainUser.remainingMemberCount === 0"> <span class="fw-bold">+</span> Add Member</button>
+                <!-- <div class="text-end mt-6 mr-2" *ngIf="mainUser">
+                  <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-2"  (click)="navigateToFrom()" [disabled]="mainUser.remainingMemberCount === 0"> <span class="font-bold">+</span> Add Member</button>
                   <i class="fas fa-info-circle"
                     data-bs-toggle="tooltip"
                     data-bs-placement="bottom"
                     title="Your plan will renew on October 25, 2025"
-                    style="cursor: pointer; font-size: 1.2rem; color: #6c757d;"></i>
+                    style="cursor: cursor-pointer; font-size: 1.2rem; color: #6c757d;"></i>
 
                 </div> -->
-                <div class="text-end mt-3 me-2" *ngIf="mainUser">
+                <div class="text-end mt-6 mr-2" *ngIf="mainUser">
                   <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="You reached maximum member limit.">
-                    <button class="btn btn-danger me-2" type="button" (click)="navigateToFrom()" [disabled]="mainUser.remainingMemberCount === 0"><span class="fw-bold">+</span> Add Member</button>
+                    <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-2" type="button" (click)="navigateToFrom()" [disabled]="mainUser.remainingMemberCount === 0"><span class="font-bold">+</span> Add Member</button>
                   </span>
                 </div>
 
-                <div class="row mt-3 ms-0 me-0">
-                    <div class="col-12 col-sm-6 p-2 position-relative" *ngFor="let p of memberProfiles">
-                      <div class="mx-auto m-shadow p-2">
-                        <div class="d-flex justify-content-between align-items-start">
-                        <div class="d-flex">
+                <div class="flex flex-wrap -mx-3 mt-6 ms-0 me-0">
+                    <div class="w-full px-6 col-sm-6 p-2 position-relative" *ngFor="let p of memberProfiles">
+                      <div class="mx-auto m-shadow-md p-2">
+                        <div class="flex justify-between items-start">
+                        <div class="flex">
                           <img alt="fd-profile" width="100px" height="100px"
-                              class="object-fit-cover border profile-img border-15"
+                              class="object-cover border profile-img border-15"
                               src={{p.profileImages[0].url}}>
-                          <div class="text-left my-auto ms-3">
-                            <div class="fw-bold text-md text-capitalize">{{p.firstName + ' ' + p.lastName}}</div>
-                            <div class="text-muted text-sm text-capitalize">{{p.profileJob?.title}}</div>
-                           <div class="ms-auto text-xs my-auto text-center mt-2" *ngIf="p.memberApproval === 1"><span class="badge bg-danger">Approval pending</span></div>
+                          <div class="text-left my-auto ml-4">
+                            <div class="font-bold text-md text-capitalize">{{p.firstName + ' ' + p.lastName}}</div>
+                            <div class="text-gray-500 text-sm text-capitalize">{{p.profileJob?.title}}</div>
+                           <div class="ml-auto text-xs my-auto text-center mt-2" *ngIf="p.memberApproval === 1"><span class="badge bg-danger">Approval pending</span></div>
 
                           </div>
                         </div>
 
 
-                        <div class="me-3 my-auto">
+                        <div class="mr-4 my-auto">
                           <!-- <div class="dropdown">
-                          <button class="btn p-0 border-0 bg-transparent" type="button" data-bs-toggle="dropdown">
+                          <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer p-0 border-0 bg-transparent" type="button" data-bs-toggle="dropdown">
                             <i class="fas fa-ellipsis-h"></i>
                           </button>
-                          <ul class="dropdown-menu shadow-sm rounded-3">
-                            <li><a class="dropdown-item" (click)="navigateToEditForm(p.id)"><i class="fas fa-edit text-primary me-2"></i>Edit</a></li>
-                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="deleteMemberId = p.id"><i class="fas fa-trash text-danger me-2 text-primary"></i>Delete</a></li>
+                          <ul class="dropdown-menu shadow-md-sm rounded-xl">
+                            <li><a class="dropdown-item" (click)="navigateToEditForm(p.id)"><i class="fas fa-edit text-[#5c142b] mr-2"></i>Edit</a></li>
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="deleteMemberId = p.id"><i class="fas fa-trash text-red-600 mr-2 text-[#5c142b]"></i>Delete</a></li>
                           </ul>
                         </div> -->
                         <div>
-                         <span><i class="fas fa-edit text-primary me-2 pointer" (click)="navigateToEditForm(p.id)"></i></span>
-                         <span><i class="fas fa-trash text-danger text-primary pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="deleteMemberId = p.id"></i></span>
+                         <span><i class="fas fa-edit text-[#5c142b] mr-2 cursor-pointer" (click)="navigateToEditForm(p.id)"></i></span>
+                         <span><i class="fas fa-trash text-red-600 text-[#5c142b] cursor-pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="deleteMemberId = p.id"></i></span>
                         </div>
                         </div>
                       </div>
@@ -95,19 +95,19 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="deleteMemberModalId"></button>
+        <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close" data-bs-dismiss="modal" aria-label="Close" id="deleteMemberModalId"></button>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-10 mx-auto">
+        <div class="flex flex-wrap -mx-3">
+          <div class="w-10/12 px-6 mx-auto">
             <div class="text-center">
               <img src="https://dev1mg.blob.core.windows.net/mgate/common/delete.png" alt="" width="150px">
             </div>
-            <div class="text-lg text-center mt-3">Confirm to delete this member</div>
-            <div class="mt-3">
-              <div class="d-flex justify-content-center">
-                <button class="btn btn-secondary me-2" data-bs-dismiss="modal" aria-label="Close"> Cancel</button>
-                <button class="btn btn-danger" (click)="deleteMember()" [disabled]="isLoading">Confirm <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isLoading"></div></button>
+            <div class="text-lg text-center mt-6">Confirm to delete this member</div>
+            <div class="mt-6">
+              <div class="flex justify-center">
+                <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-secondary mr-2" data-bs-dismiss="modal" aria-label="Close"> Cancel</button>
+                <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all" (click)="deleteMember()" [disabled]="isLoading">Confirm <div class="spinner-border spinner-border-sm text-light mr-1" *ngIf="isLoading"></div></button>
               </div>
             </div>
           </div>

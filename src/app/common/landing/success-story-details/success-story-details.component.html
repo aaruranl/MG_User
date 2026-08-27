@@ -1,8 +1,8 @@
-<div class="landing-body bg-background d-flex flex-column min-vh-100">
+<div class="landing-body bg-background flex flex-col min-vh-100">
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg sticky-top bg-white shadow-nav py-2">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center" routerLink="/">
+  <nav class="navbar navbar-expand-lg sticky-top bg-white shadow-md-nav py-2">
+    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
+      <a class="navbar-brand flex items-center" routerLink="/">
         <img
           src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
           alt="MarriageGate Logo"
@@ -12,14 +12,14 @@
       </a>
       <!-- Mobile Home Icon -->
       <a
-        class="nav-link d-md-none me-2"
+        class="nav-link md:hidden mr-2"
         routerLink="/"
         routerLinkActive="active"
       >
         <i class="fas fa-home fs-5"></i>
       </a>
       <button
-        class="navbar-toggler d-md-none"
+        class="navbar-toggler md:hidden"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarNav"
@@ -30,34 +30,34 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center gap-2">
+        <ul class="navbar-nav ml-auto items-center gap-2">
           <li class="nav-item">
-            <a class="nav-link px-3 rounded" routerLink="/" routerLinkActive="active-nav">
-              <i class="fas fa-home me-1"></i> Home
+            <a class="nav-link px-6 rounded" routerLink="/" routerLinkActive="active-nav">
+              <i class="fas fa-home mr-1"></i> Home
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-3 rounded" routerLink="/pricing" routerLinkActive="active-nav">
-              <i class="fas fa-tags me-1"></i> Pricing
+            <a class="nav-link px-6 rounded" routerLink="/pricing" routerLinkActive="active-nav">
+              <i class="fas fa-tags mr-1"></i> Pricing
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-3 rounded" routerLink="/contact-us" routerLinkActive="active-nav">
-              <i class="fas fa-envelope me-1"></i> Contact Us
+            <a class="nav-link px-6 rounded" routerLink="/contact-us" routerLinkActive="active-nav">
+              <i class="fas fa-envelope mr-1"></i> Contact Us
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-3 rounded" routerLink="/blogs" routerLinkActive="active-nav">
-              <i class="fas fa-blog me-1"></i> Blogs
+            <a class="nav-link px-6 rounded" routerLink="/blogs" routerLinkActive="active-nav">
+              <i class="fas fa-blog mr-1"></i> Blogs
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-3 rounded active-nav" routerLink="/success-stories" routerLinkActive="active-nav">
-              <i class="fas fa-heart me-1"></i> Stories
+            <a class="nav-link px-6 rounded active-nav" routerLink="/success-stories" routerLinkActive="active-nav">
+              <i class="fas fa-heart mr-1"></i> Stories
             </a>
           </li>
           <li class="nav-item ms-lg-2">
-            <a class="btn bg-danger text-white bg-danger-hover px-4 fw-medium" [href]="baseUrl + 'login'" target="_blank">Join</a>
+            <a class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bg-danger text-white bg-danger-hover px-6 font-medium" [href]="baseUrl + 'login'" target="_blank">Join</a>
           </li>
         </ul>
       </div>
@@ -67,49 +67,49 @@
   <app-loading *ngIf="isLoading"></app-loading>
   <div *ngIf="isLoading" class="flex-grow-1"></div>
 
-  <ng-container *ngIf="!isLoading && story">
+  <ng-container *ngIf="story">
     <!-- Header Section (Split Layout for Desktop) -->
     <section class="story-header bg-muted-30 position-relative overflow-hidden">
-      <div class="container h-100">
-        <div class="row h-100 align-items-center">
+      <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 h-full">
+        <div class="flex flex-wrap -mx-3 h-full items-center">
           
           <!-- Text Content (Left) -->
-          <div class="col-lg-6 py-5 position-relative z-2">
-            <a routerLink="/success-stories" class="btn btn-link text-muted-foreground text-decoration-none p-0 mb-4 d-inline-flex align-items-center hover-danger transition-all">
-              <i class="fas fa-arrow-left me-2"></i> Back to all stories
+          <div class="lg:w-1/2 py-8 position-relative z-2">
+            <a routerLink="/success-stories" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-link text-gray-500-foreground text-decoration-none p-0 mb-6 inline-flex items-center hover-danger transition-all">
+              <i class="fas fa-arrow-left mr-2"></i> Back to all stories
             </a>
             
             <div class="animate-fade-in">
-              <h1 class="display-3 fw-bold mb-3 text-danger">{{ story.coupleNames }}</h1>
+              <h1 class="display-3 font-bold mb-6 text-red-600">{{ story.coupleNames }}</h1>
               
-              <div class="d-flex flex-wrap gap-4 text-muted-foreground mb-4">
-                <div class="d-flex align-items-center" *ngIf="story.weddingDate">
-                  <i class="fas fa-ring text-danger me-2"></i> 
-                  <span class="fw-medium">Married on {{ story.weddingDate | date:'longDate' }}</span>
+              <div class="flex flex-wrap gap-6 text-gray-500-foreground mb-6">
+                <div class="flex items-center" *ngIf="story.weddingDate">
+                  <i class="fas fa-ring text-red-600 mr-2"></i> 
+                  <span class="font-medium">Married on {{ story.weddingDate | date:'longDate' }}</span>
                 </div>
-                <div class="d-flex align-items-center" *ngIf="story.location">
-                  <i class="fas fa-map-marker-alt text-danger me-2"></i> 
-                  <span class="fw-medium">{{ story.location }}</span>
+                <div class="flex items-center" *ngIf="story.location">
+                  <i class="fas fa-map-marker-alt text-red-600 mr-2"></i> 
+                  <span class="font-medium">{{ story.location }}</span>
                 </div>
               </div>
             </div>
           </div>
           
           <!-- Image Content (Right - Hidden on very small screens, absolutely positioned on desktop) -->
-          <div class="col-lg-6 d-none d-lg-block position-absolute top-0 end-0 h-100 p-0 header-image-container animate-fade-in delay-300">
-            <div class="h-100 w-100 position-relative">
+          <div class="lg:w-1/2 hidden lg:block position-absolute top-0 end-0 h-full p-0 header-image-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 animate-fade-in delay-300">
+            <div class="h-full w-full position-relative">
               <img [src]="story.coverPhoto" 
                    alt="{{ story.coupleNames }}" 
-                   class="w-100 h-100 object-fit-cover header-image">
+                   class="w-full h-full object-cover header-image">
               <div class="image-gradient-left"></div>
             </div>
           </div>
           
           <!-- Mobile Image (Visible only on mobile) -->
-          <div class="col-12 d-lg-none p-0 mt-4">
+          <div class="w-full px-6 lg:hidden p-0 mt-6">
             <img [src]="story.coverPhoto" 
                  alt="{{ story.coupleNames }}" 
-                 class="w-100 object-fit-cover"
+                 class="w-full object-cover"
                  style="height: 300px;">
           </div>
         </div>
@@ -117,13 +117,13 @@
     </section>
 
     <!-- Narrative Section -->
-    <section class="py-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 mx-auto">
-            <div class="story-content p-md-5 p-4 bg-white shadow-sm rounded-4 position-relative" style="margin-top: -30px; z-index: 10;">
+    <section class="py-8">
+      <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap -mx-3">
+          <div class="lg:w-2/3 mx-auto">
+            <div class="story-content p-md-5 p-6 bg-white shadow-md-sm rounded-2xl position-relative" style="margin-top: -30px; z-index: 10;">
               
-              <div class="text-center mb-5 text-danger opacity-25">
+              <div class="text-center mb-8 text-red-600 opacity-25">
                 <i class="fas fa-quote-left display-4"></i>
               </div>
               
@@ -136,16 +136,16 @@
     </section>
 
     <!-- Gallery Section (if applicable) -->
-    <section class="py-5 bg-muted-30" *ngIf="gallery.length > 0">
-      <div class="container">
-        <div class="text-center mb-5">
-          <h2 class="display-6 fw-bold">Wedding Gallery</h2>
+    <section class="py-8 bg-muted-30" *ngIf="gallery.length > 0">
+      <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+          <h2 class="display-6 font-bold">Wedding Gallery</h2>
         </div>
         
-        <div class="row justify-content-center g-3">
-          <div class="col-md-4 col-sm-6" *ngFor="let img of gallery; let i = index">
-            <div class="card border-0 shadow-sm overflow-hidden gallery-card h-100">
-              <img [src]="img" class="w-100 h-100 object-fit-cover gallery-img transition-all" loading="lazy" style="min-height: 250px;">
+        <div class="flex flex-wrap -mx-3 justify-center g-3">
+          <div class="md:w-1/3 col-sm-6" *ngFor="let img of gallery; let i = index">
+            <div class="card border-0 shadow-md-sm overflow-hidden gallery-card h-full">
+              <img [src]="img" class="w-full h-full object-cover gallery-img transition-all" loading="lazy" style="min-height: 250px;">
             </div>
           </div>
         </div>
@@ -154,81 +154,81 @@
 
   </ng-container>
 
-  <ng-container *ngIf="!isLoading && !story">
-    <div class="container py-5 text-center min-vh-100 d-flex flex-column justify-content-center">
-      <i class="fas fa-search fs-1 text-muted-foreground mb-3"></i>
+  <ng-container>
+    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8 text-center min-vh-100 flex flex-col justify-center">
+      <i class="fas fa-search fs-1 text-gray-500-foreground mb-6"></i>
       <h2>Story Not Found</h2>
-      <p class="text-muted-foreground mb-4">We couldn't find the success story you were looking for.</p>
-      <a routerLink="/success-stories" class="btn btn-primary px-4">View All Stories</a>
+      <p class="text-gray-500-foreground mb-6">We couldn't find the success story you were looking for.</p>
+      <a routerLink="/success-stories" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-[#5c142b] hover:bg-[#7e1e3b] shadow-sm transition-all px-6">View All Stories</a>
     </div>
   </ng-container>
 
-  <footer class="py-4 footer-bg border-top position-relative mt-auto">
-    <div class="container py-3 position-relative">
-      <div class="row g-5">
-        <div class="col-lg-3">
-          <div class="mb-3">
+  <footer class="py-6 footer-bg border-top position-relative mt-auto">
+    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-6 position-relative">
+      <div class="flex flex-wrap -mx-3 g-5">
+        <div class="lg:w-1/4">
+          <div class="mb-6">
             <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="MarriageGate Logo" height="40">
           </div>
-          <p class="text-muted-foreground">
+          <p class="text-gray-500-foreground">
             Recognized around the globe as the most trusted matrimonial platform for connecting hearts and building lasting relationships.
           </p>
         </div>
-        <div class="col-sm-6 col-lg-3">
-          <h5 class="fw-semibold mb-3">Quick Links</h5>
-          <ul class="list-unstyled text-muted-foreground">
-            <li class="mb-2"><a routerLink="/" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Home</a></li>
-            <li class="mb-2"><a routerLink="/contact-us" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Contact</a></li>
-            <li class="mb-2"><a routerLink="/pricing" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Pricing</a></li>
-            <li class="mb-2"><a [href]="baseUrl + 'login'" target="_blank" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Join</a></li>
+        <div class="col-sm-6 lg:w-1/4">
+          <h5 class="font-semibold mb-6">Quick Links</h5>
+          <ul class="list-unstyled text-gray-500-foreground">
+            <li class="mb-2"><a routerLink="/" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Home</a></li>
+            <li class="mb-2"><a routerLink="/contact-us" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Contact</a></li>
+            <li class="mb-2"><a routerLink="/pricing" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Pricing</a></li>
+            <li class="mb-2"><a [href]="baseUrl + 'login'" target="_blank" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Join</a></li>
           </ul>
         </div>
-        <div class="col-sm-6 col-lg-3">
-          <h5 class="fw-semibold mb-3">Support</h5>
-          <ul class="list-unstyled text-muted-foreground">
-            <li class="mb-2"><a routerLink="/privacy-policy" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Privacy Policy</a></li>
-            <li class="mb-2"><a routerLink="/terms-and-condition" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Terms and Condition</a></li>
+        <div class="col-sm-6 lg:w-1/4">
+          <h5 class="font-semibold mb-6">Support</h5>
+          <ul class="list-unstyled text-gray-500-foreground">
+            <li class="mb-2"><a routerLink="/privacy-policy" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Privacy Policy</a></li>
+            <li class="mb-2"><a routerLink="/terms-and-condition" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Terms and Condition</a></li>
           </ul>
         </div>
-        <div class="col-sm-6 col-lg-3">
-          <h5 class="fw-semibold mb-3">Follow Us</h5>
-          <ul class="list-unstyled text-muted-foreground">
+        <div class="col-sm-6 lg:w-1/4">
+          <h5 class="font-semibold mb-6">Follow Us</h5>
+          <ul class="list-unstyled text-gray-500-foreground">
             <li class="mb-2">
-              <a href="https://www.instagram.com/marriage.gate" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
-                <i class="fab fa-instagram me-2 social-icon"></i>
+              <a href="https://www.instagram.com/marriage.gate" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
+                <i class="fab fa-instagram mr-2 social-icon"></i>
                 <span>Instagram</span>
               </a>
             </li>
             <li class="mb-2">
-              <a href="https://www.facebook.com/marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
-                <i class="fab fa-facebook me-2 social-icon"></i>
+              <a href="https://www.facebook.com/marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
+                <i class="fab fa-facebook mr-2 social-icon"></i>
                 <span>Facebook</span>
               </a>
             </li>
             <li class="mb-2">
-              <a href="https://wa.me/41779053799" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
-                <i class="fab fa-whatsapp me-2 social-icon"></i>
+              <a href="https://wa.me/41779053799" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
+                <i class="fab fa-whatsapp mr-2 social-icon"></i>
                 <span>WhatsApp</span>
               </a>
             </li>
             <li class="mb-2">
-              <a href="https://www.tiktok.com/@marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
-                <i class="fab fa-tiktok me-2 social-icon"></i>
+              <a href="https://www.tiktok.com/@marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
+                <i class="fab fa-tiktok mr-2 social-icon"></i>
                 <span>TikTok</span>
               </a>
             </li>
           </ul>
         </div>
       </div>
-      <div class="border-top mt-5 pt-4 text-center footer-copyright">
+      <div class="border-top mt-8 pt-4 text-center footer-copyright">
         <p>&copy; {{ currentYear }} MarriageGate. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
   <!-- Mobile Bottom Navigation Bar -->
-  <nav class="mobile-bottom-nav d-lg-none">
-    <div class="mobile-nav-container">
+  <nav class="mobile-bottom-nav lg:hidden">
+    <div class="mobile-nav-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
       <a class="mobile-nav-item" routerLink="/pricing" routerLinkActive="active">
         <i class="fas fa-tags"></i>
         <span>Pricing</span>
@@ -245,26 +245,26 @@
 
   <!-- Mobile Offcanvas Menu -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenuOffcanvas" aria-labelledby="mobileMenuOffcanvasLabel" style="width: 280px;">
-    <div class="offcanvas-header border-bottom py-3">
-      <h5 class="offcanvas-title fw-bold" id="mobileMenuOffcanvasLabel">MarriageGate</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="offcanvas-header border-bottom py-6">
+      <h5 class="offcanvas-title font-bold" id="mobileMenuOffcanvasLabel">MarriageGate</h5>
+      <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body p-0">
       <div class="list-group list-group-flush fs-6">
-        <a routerLink="/" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-home text-danger me-3" style="width: 20px;"></i> Home
+        <a routerLink="/" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-home text-red-600 mr-4" style="width: 20px;"></i> Home
         </a>
-        <a routerLink="/pricing" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-tags text-danger me-3" style="width: 20px;"></i> Pricing
+        <a routerLink="/pricing" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-tags text-red-600 mr-4" style="width: 20px;"></i> Pricing
         </a>
-        <a routerLink="/blogs" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-blog text-danger me-3" style="width: 20px;"></i> Blog
+        <a routerLink="/blogs" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-blog text-red-600 mr-4" style="width: 20px;"></i> Blog
         </a>
-        <a routerLink="/success-stories" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-heart text-danger me-3" style="width: 20px;"></i> Success Story
+        <a routerLink="/success-stories" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-heart text-red-600 mr-4" style="width: 20px;"></i> Success Story
         </a>
-        <a routerLink="/contact-us" class="list-group-item list-group-item-action py-3 px-4 border-0" data-bs-dismiss="offcanvas">
-          <i class="fas fa-envelope text-danger me-3" style="width: 20px;"></i> Contact Us
+        <a routerLink="/contact-us" class="list-group-item list-group-item-action py-6 px-6 border-0" data-bs-dismiss="offcanvas">
+          <i class="fas fa-envelope text-red-600 mr-4" style="width: 20px;"></i> Contact Us
         </a>
       </div>
     </div>

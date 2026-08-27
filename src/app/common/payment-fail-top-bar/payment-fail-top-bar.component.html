@@ -1,27 +1,27 @@
 <section class="nav-parent">
-  <div class="row m-0 bg-white py-2">
+  <div class="flex flex-wrap -mx-3 m-0 bg-white py-2">
 
     <!-- Logo -->
-    <div class="col-6">
+    <div class="w-1/2 px-6">
       <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
            alt="logo" class="logo-svg">
     </div>
 
     <!-- User Section -->
-    <div class="col-6" *ngIf="mainUser">
-      <div class="d-flex justify-content-end">
+    <div class="w-1/2 px-6" *ngIf="mainUser">
+      <div class="flex justify-end">
 
         <!-- Custom Profile Menu -->
-        <div class="profile-btn px-2 py-auto" (click)="menuOpen = !menuOpen">
-          <div class="d-flex user-dropdown py-1">
+        <div class="profile-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer px-2 py-auto" (click)="menuOpen = !menuOpen">
+          <div class="flex user-dropdown py-1">
             <img [src]="mainUser.image"
-                 class="list-profile object-fit-cover me-3"
+                 class="list-profile object-cover mr-4"
                  alt="Profile">
 
-            <div class="text-muted fw-bold my-auto">
-              <div class="text-md me-1">
+            <div class="text-gray-500 font-bold my-auto">
+              <div class="text-md mr-1">
                 {{mainUser.firstName}} {{mainUser.lastName}}
-                <span class="ms-3">
+                <span class="ml-4">
                   <i class="fas" [ngClass]="menuOpen ? 'fa-angle-up' : 'fa-angle-down'"></i>
                 </span>
               </div>
@@ -30,25 +30,25 @@
         </div>
 
         <!-- MENU PANEL -->
-        <div class="custom-menu shadow-sm" *ngIf="menuOpen">
+        <div class="custom-menu shadow-md-sm" *ngIf="menuOpen">
 
           <div class="menu-item" (click)="enterPlanAndBilling()">
-            <i class="fas fa-credit-card text-muted"></i>
+            <i class="fas fa-credit-card text-gray-500"></i>
             <span>Plan & Billing</span>
           </div>
 
           <div class="menu-item" (click)="enterSettings()">
-            <i class="fas fa-cog text-muted"></i>
+            <i class="fas fa-cog text-gray-500"></i>
             <span>Settings & privacy</span>
           </div>
 
           <div class="menu-item" (click)="enterPrivacyPolicy()">
-            <i class="fas fa-question-circle text-muted"></i>
+            <i class="fas fa-question-circle text-gray-500"></i>
             <span>Help & support</span>
           </div>
 
           <div class="menu-item" (click)="_authLogout()">
-            <i class="fas fa-sign-out-alt text-muted"></i>
+            <i class="fas fa-sign-out-alt text-gray-500"></i>
             <span>Log out</span>
           </div>
 

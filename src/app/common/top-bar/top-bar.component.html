@@ -1,20 +1,20 @@
 <section class="nav-parent">
         <div class="">
-            <div class="row m-0 bg-white py-2">
-                <div class="col-6">
+            <div class="flex flex-wrap -mx-3 m-0 bg-white py-2">
+                <div class="w-1/2 px-6">
                    <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="logo-svg" >
                 </div>
-                <div class="col-6">
-                    <div class="d-flex justify-content-end">
-                        <div class="dropdown pointer px-2 rounded py-auto profile-btn">
-                            <div class="d-flex user-dropdown py-1" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="mainUser">
-                                <img src="{{mainUser.image}}" class="list-profile object-fit-cover me-3" alt="Profile">
-                                <div class="text-muted fw-bold my-auto">
-                                    <div class="text-md me-1">{{mainUser.firstName}} {{mainUser.lastName}}<span class="ms-3"><i class="fas fa-angle-down"></i></span></div>
+                <div class="w-1/2 px-6">
+                    <div class="flex justify-end">
+                        <div class="dropdown cursor-pointer px-2 rounded py-auto profile-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer">
+                            <div class="flex user-dropdown py-1" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="mainUser">
+                                <img src="{{mainUser.image}}" class="list-profile object-cover mr-4" alt="Profile">
+                                <div class="text-gray-500 font-bold my-auto">
+                                    <div class="text-md mr-1">{{mainUser.firstName}} {{mainUser.lastName}}<span class="ml-4"><i class="fas fa-angle-down"></i></span></div>
                                 </div>
                             </div>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#" (click)="_authLogout()"><i class="fas fa-sign-out-alt me-2"></i>Log out</a></li>
+                                <li><a class="dropdown-item" href="#" (click)="_authLogout()"><i class="fas fa-sign-out-alt mr-2"></i>Log out</a></li>
                             </ul>
                         </div>
                     </div>

@@ -1,19 +1,19 @@
 <section class="">
   <div class="component-content">
-    <div class="row m-0 app-bg pb-3 bg-image-s">
-      <div class="col-12 col-md-12 col-lg-10 mx-auto">
-        <div class="row">
-          <div class="col-12">
-            <div class="d-flex justify-content-center align-items-center mt-5">
-              <div class="col-12">
+    <div class="flex flex-wrap -mx-3 m-0 app-bg pb-3 bg-image-s">
+      <div class="w-full px-6 md:w-full lg:w-10/12 mx-auto">
+        <div class="flex flex-wrap -mx-3">
+          <div class="w-full px-6">
+            <div class="flex justify-center items-center mt-8">
+              <div class="w-full px-6">
                 <div
-                  class="login-card m-shadow col-12 col-md-8 col-lg-5 mx-auto px-4 py-3 bg-white"
+                  class="login-card m-shadow-md w-full px-6 md:w-2/3 lg:w-5/12 mx-auto px-6 py-6 bg-white"
                 >
-                  <div class="row">
+                  <div class="flex flex-wrap -mx-3">
                     <div
-                      class="col-12 d-flex align-item-center justify-content-center"
+                      class="w-full px-6 flex align-item-center justify-center"
                     >
-                      <div class="mb-3 mt-3">
+                      <div class="mb-6 mt-6">
                         <img
                           src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
                           alt="logo"
@@ -26,27 +26,27 @@
                   <!-- ------------------------------------- SIGIN IN AND SIGN UP ---------------------------------------->
                   <div *ngIf="!isForgot">
                     <div
-                      class="d-flex"
+                      class="flex"
                       [ngClass]="
                         isOtpVerification
-                          ? ' justify-content-between'
-                          : ' justify-content-center'
+                          ? ' justify-between'
+                          : ' justify-center'
                       "
                     >
                       <div *ngIf="!isOtpVerification">
-                        <h5 class="text-center text-muted fw-bold">
+                        <h5 class="text-center text-gray-500 font-bold">
                           {{ isSingUp ? "SIGN UP" : "SIGN IN" }}
                         </h5>
                       </div>
                       <div
-                        class="pointer"
+                        class="cursor-pointer"
                         (click)="isOtpVerification = false"
                         *ngIf="isOtpVerification"
                       >
-                        <i class="fas fa-arrow-left fs-5 mt-2 text-danger"></i>
+                        <i class="fas fa-arrow-left fs-5 mt-2 text-red-600"></i>
                       </div>
                       <div *ngIf="isOtpVerification">
-                        <h5 class="text-center text-muted fw-bold">
+                        <h5 class="text-center text-gray-500 font-bold">
                           Enter your verification code
                         </h5>
                       </div>
@@ -56,13 +56,13 @@
                     <div *ngIf="!isSingUp">
                       <div *ngIf="!isOtpVerification">
                         <form [formGroup]="loginForm" autocomplete="off">
-                          <div class="mb-3 mt-3" *ngIf="isEmailLogin">
-                            <label for="email" class="form-label">{{
+                          <div class="mb-6 mt-6" *ngIf="isEmailLogin">
+                            <label for="email" class="block text-sm font-semibold text-gray-700 mb-1.5">{{
                               isEmailLogin ? "Email" : "Phone number"
                             }}</label>
                             <input
                               type="email"
-                              class="form-control"
+                              class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                               formControlName="email"
                               id="email"
                               placeholder=""
@@ -73,7 +73,7 @@
                               autocomplete="disabled"
                             />
                             <div
-                              class="text-xs text-danger"
+                              class="text-xs text-red-600"
                               *ngIf="
                                 isSubmitted &&
                                 loginForm.get('email')?.errors?.['required']
@@ -82,7 +82,7 @@
                               Email is required
                             </div>
                             <div
-                              class="text-xs text-danger"
+                              class="text-xs text-red-600"
                               *ngIf="
                                 isSubmitted &&
                                 loginForm.get('email')?.errors?.['email']
@@ -91,20 +91,20 @@
                               Enter a valid email address
                             </div>
                           </div>
-                          <div class="mb-3 mt-3" *ngIf="!isEmailLogin">
+                          <div class="mb-6 mt-6" *ngIf="!isEmailLogin">
                             <app-phone-number-input
                               (phoneNumberEmitter)="getPhoneNumber($event)"
                               [isSubmitted]="isSubmitted"
                             ></app-phone-number-input>
                           </div>
-                          <div class="mb-3 position-relative">
-                            <label for="password" class="form-label"
+                          <div class="mb-6 position-relative">
+                            <label for="password" class="block text-sm font-semibold text-gray-700 mb-1.5"
                               >Password</label
                             >
                             <div class="input-group">
                               <input
                                 [type]="showPassword ? 'text' : 'password'"
-                                class="form-control"
+                                class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                                 formControlName="password"
                                 id="password"
                                 placeholder=""
@@ -118,10 +118,10 @@
                               <span
                                 class="input-group-text bg-white border-start-0"
                                 (click)="togglePasswordVisibility()"
-                                style="cursor: pointer"
+                                style="cursor: cursor-pointer"
                               >
                                 <i
-                                  class="bi text-muted"
+                                  class="bi text-gray-500"
                                   [ngClass]="
                                     showPassword
                                       ? 'fas fa-eye'
@@ -132,7 +132,7 @@
                               </span>
                             </div>
                             <div
-                              class="text-xs text-danger"
+                              class="text-xs text-red-600"
                               *ngIf="
                                 isSubmitted && loginForm.get('password')?.errors
                               "
@@ -149,7 +149,7 @@
                         <div *ngIf="isLoading" class="spinner-overlay">
                           <div class="m-spinner"></div>
                         </div>
-                        <div class="text-md text-center text-muted mt-3">
+                        <div class="text-md text-center text-gray-500 mt-6">
                           We send a six digits verification code to your email
                           <b>{{
                             !isSingUp
@@ -158,8 +158,8 @@
                           }}</b
                           >. You can check your inbox.
                         </div>
-                        <div class="mt-3 text-primary">
-                          <u class="pointer" (click)="login()"
+                        <div class="mt-6 text-[#5c142b]">
+                          <u class="cursor-pointer" (click)="login()"
                             >I didn't receive the code? Send again</u
                           >
                         </div>
@@ -169,14 +169,14 @@
                     <div *ngIf="isSingUp">
                       <div *ngIf="!isOtpVerification">
                         <form [formGroup]="signUpForm">
-                          <div class="mb-3 mt-3">
-                            <label for="firstname" class="form-label"
+                          <div class="mb-6 mt-6">
+                            <label for="firstname" class="block text-sm font-semibold text-gray-700 mb-1.5"
                               >First name
-                              <span class="text-danger">*</span></label
+                              <span class="text-red-600">*</span></label
                             >
                             <input
                               type="text"
-                              class="form-control"
+                              class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                               id="first-name"
                               formControlName="firstName"
                               placeholder=""
@@ -187,7 +187,7 @@
                               }"
                             />
                             <div
-                              class="text-xs text-danger"
+                              class="text-xs text-red-600"
                               *ngIf="
                                 isSubmitted &&
                                 signUpForm.get('firstName')?.errors
@@ -197,14 +197,14 @@
                             </div>
                           </div>
 
-                          <div class="mb-3">
-                            <label for="lasttname" class="form-label"
+                          <div class="mb-6">
+                            <label for="lasttname" class="block text-sm font-semibold text-gray-700 mb-1.5"
                               >Last name
-                              <span class="text-danger">*</span></label
+                              <span class="text-red-600">*</span></label
                             >
                             <input
                               type="text"
-                              class="form-control"
+                              class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                               id="last-name"
                               formControlName="lastName"
                               placeholder=""
@@ -215,7 +215,7 @@
                               }"
                             />
                             <div
-                              class="text-xs text-danger"
+                              class="text-xs text-red-600"
                               *ngIf="
                                 isSubmitted &&
                                 signUpForm.get('lastName')?.errors
@@ -225,14 +225,14 @@
                             </div>
                           </div>
 
-                          <div class="mb-3">
-                            <label for="s-email" class="form-label"
+                          <div class="mb-6">
+                            <label for="s-email" class="block text-sm font-semibold text-gray-700 mb-1.5"
                               >Email address
-                              <span class="text-danger">*</span></label
+                              <span class="text-red-600">*</span></label
                             >
                             <input
                               type="email"
-                              class="form-control"
+                              class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                               id="email-singup"
                               formControlName="email"
                               placeholder=""
@@ -244,7 +244,7 @@
                               autocomplete="disabled"
                             />
                             <div
-                              class="text-xs text-danger"
+                              class="text-xs text-red-600"
                               *ngIf="
                                 isSubmitted && signUpForm.get('email')?.errors
                               "
@@ -256,15 +256,15 @@
                             (phoneNumberEmitter)="getPhoneNumber($event)"
                             [isSubmitted]="isSubmitted"
                           ></app-phone-number-input>
-                          <div class="mb-3">
-                            <label for="password-singnup" class="form-label"
+                          <div class="mb-6">
+                            <label for="password-singnup" class="block text-sm font-semibold text-gray-700 mb-1.5"
                               >Password
-                              <span class="text-danger">*</span></label
+                              <span class="text-red-600">*</span></label
                             >
                             <div class="input-group">
                               <input
                                 [type]="showPassword ? 'text' : 'password'"
-                                class="form-control"
+                                class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                                 id="password-singnup"
                                 formControlName="password"
                                 placeholder=""
@@ -279,10 +279,10 @@
                               <span
                                 class="input-group-text bg-white border-start-0"
                                 (click)="togglePasswordVisibility()"
-                                style="cursor: pointer"
+                                style="cursor: cursor-pointer"
                               >
                                 <i
-                                  class="text-muted"
+                                  class="text-gray-500"
                                   [ngClass]="
                                     showPassword
                                       ? 'fas fa-eye'
@@ -292,7 +292,7 @@
                               </span>
                             </div>
                             <div
-                              class="text-xs text-danger"
+                              class="text-xs text-red-600"
                               *ngIf="
                                 isSubmitted &&
                                 signUpForm.get('password')?.errors?.['required']
@@ -301,7 +301,7 @@
                               Password is required
                             </div>
                             <div
-                              class="text-xs text-danger"
+                              class="text-xs text-red-600"
                               *ngIf="
                                 isSubmitted &&
                                 signUpForm.get('password')?.value &&
@@ -311,7 +311,7 @@
                               Password must be at least 8 characters
                             </div>
                             <div
-                              class="text-xs text-danger"
+                              class="text-xs text-red-600"
                               *ngIf="
                                 isSubmitted &&
                                 signUpForm.get('password')?.value &&
@@ -337,7 +337,7 @@
                             </div>
                             <small class="form-text"
                               >Password strength:
-                              <span class="fw-bold">{{
+                              <span class="font-bold">{{
                                 passwordStrength.text
                               }}</span></small
                             >
@@ -353,53 +353,53 @@
                         <div *ngIf="isLoading" class="spinner-overlay">
                           <div class="m-spinner"></div>
                         </div>
-                        <div class="text-md text-center text-muted mt-3">
+                        <div class="text-md text-center text-gray-500 mt-6">
                           We send a six digits verification code to your email
                           <b>{{ signUpForm.get("email")?.value }}</b
                           >. You can check your inbox.
                         </div>
-                        <div class="mt-3 text-primary">
-                          <u class="pointer" (click)="resentOtp()"
+                        <div class="mt-6 text-[#5c142b]">
+                          <u class="cursor-pointer" (click)="resentOtp()"
                             >I didn't receive the code? Send again</u
                           >
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 mb-3" *ngIf="!isOtpVerification">
+                    <div class="w-full px-6 mb-6" *ngIf="!isOtpVerification">
                       <button
-                        class="btn btn-danger me-3 w-100"
+                        class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-4 w-full"
                         (click)="login()"
                         [disabled]="isLoading"
                         *ngIf="!isSingUp"
                       >
                         <div
-                          class="spinner-border spinner-border-sm text-light me-1"
+                          class="spinner-border spinner-border-sm text-light mr-1"
                           role="status"
                           *ngIf="isLoading"
                         ></div>
                         LOGIN
                       </button>
                       <button
-                        class="btn btn-danger me-3 w-100"
+                        class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-4 w-full"
                         (click)="signUp()"
                         [disabled]="isLoading"
                         *ngIf="isSingUp"
                       >
                         <div
-                          class="spinner-border spinner-border-sm text-light me-1"
+                          class="spinner-border spinner-border-sm text-light mr-1"
                           role="status"
                           *ngIf="isLoading"
                         ></div>
                         SIGN UP
                       </button>
                       <div
-                        class="mt-2 text-right pointer text-muted"
+                        class="mt-2 text-right cursor-pointer text-gray-500"
                         *ngIf="!isSingUp"
                         (click)="isForgotSubmitted = false; isForgot = true"
                       >
                         Forgot password?
                       </div>
-                      <!-- <button class="btn btn-danger me-3" (click)="isSingUp = true">SING-UP</button> -->
+                      <!-- <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-4" (click)="isSingUp = true">SING-UP</button> -->
                     </div>
                     <div
                       class="divider"
@@ -407,17 +407,17 @@
                     >
                       <span>OR</span>
                     </div>
-                    <div class="mb-3" *ngIf="!isSingUp && !isOtpVerification">
+                    <div class="mb-6" *ngIf="!isSingUp && !isOtpVerification">
                       <div class="login-page">
-                        <div class="d-flex justify-content-center">
+                        <div class="flex justify-center">
                           <div><app-social-login></app-social-login></div>
-                          <div class="ms-3">
+                          <div class="ml-4">
                             <div
                               *ngIf="isEmailLogin"
-                              class="d-flex justify-content-center"
+                              class="flex justify-center"
                             >
                               <div
-                                class="btn btn-light s-btn p-1 border m-login-logo"
+                                class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all s-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer p-1 border m-login-logo"
                                 (click)="loginWithPhoneNumber(false)"
                               >
                                 <div class="">
@@ -522,10 +522,10 @@
                             </div>
                             <div
                               *ngIf="!isEmailLogin"
-                              class="d-flex justify-content-center"
+                              class="flex justify-center"
                             >
                               <div
-                                class="btn btn-white s-btn p-1 border m-login-logo"
+                                class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-white s-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer p-1 border m-login-logo"
                                 (click)="loginWithPhoneNumber(true)"
                               >
                                 <div class="">
@@ -618,20 +618,20 @@
                       </div>
                     </div>
                     <div
-                      class="mt-3 text-muted"
+                      class="mt-6 text-gray-500"
                       *ngIf="!isSingUp && !isOtpVerification"
                     >
                       Need an account?
                       <u
-                        class="pointer fw-bold text-danger"
+                        class="cursor-pointer font-bold text-red-600"
                         (click)="changeSignUpStatus()"
                         >SIGN UP</u
                       >
                     </div>
-                    <div class="mt-3" *ngIf="isSingUp && !isOtpVerification">
+                    <div class="mt-6" *ngIf="isSingUp && !isOtpVerification">
                       Already have an account?
                       <u
-                        class="pointer fw-bold text-danger"
+                        class="cursor-pointer font-bold text-red-600"
                         (click)="changeSignInStatus()"
                         >SIGN IN</u
                       >
@@ -640,29 +640,29 @@
 
                   <!--------------------------------------- FORGOT FLOW ---------------------------------------->
                   <div *ngIf="isForgot">
-                    <div class="row">
-                      <div class="col-sm-12 col-12 mx-auto">
+                    <div class="flex flex-wrap -mx-3">
+                      <div class="col-sm-12 w-full px-6 mx-auto">
                         <div>
                           <div
-                            class="d-flex"
+                            class="flex"
                             [ngClass]="
                               step === resetStep.login
-                                ? 'justify-content-center'
-                                : 'justify-content-between'
+                                ? 'justify-center'
+                                : 'justify-between'
                             "
                           >
                             <div
-                              class="pointer"
+                              class="cursor-pointer"
                               (click)="backToStep()"
                               *ngIf="step > resetStep.login"
                             >
                               <i
-                                class="fas fa-arrow-left fs-5 mt-2 text-danger"
+                                class="fas fa-arrow-left fs-5 mt-2 text-red-600"
                               ></i>
                             </div>
                             <div>
                               <h4
-                                class="modal-title fw-bold text-muted"
+                                class="modal-title font-bold text-gray-500"
                                 id="exampleModalToggleLabel"
                               >
                                 {{
@@ -684,7 +684,7 @@
                                 alt=""
                                 width="150px"
                               />
-                              <div class="text-center text-muted">
+                              <div class="text-center text-gray-500">
                                 Please enter your
                                 {{
                                   isEmailLogin
@@ -696,15 +696,15 @@
                             </div>
 
                             <form [formGroup]="forgotForm">
-                              <div class="mb-3 mt-3 position-relative">
+                              <div class="mb-6 mt-6 position-relative">
                                 <div *ngIf="isEmailLogin">
-                                  <label for="f-email" class="form-label"
+                                  <label for="f-email" class="block text-sm font-semibold text-gray-700 mb-1.5"
                                     >Email</label
                                   >
                                   <div class="input-group">
                                     <input
                                       type="email"
-                                      class="form-control"
+                                      class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                                       formControlName="email"
                                       id="f-email"
                                       placeholder=""
@@ -717,7 +717,7 @@
                                     />
                                   </div>
                                   <div
-                                    class="text-xs text-danger"
+                                    class="text-xs text-red-600"
                                     *ngIf="
                                       isForgotSubmitted &&
                                       forgotForm.get('email')?.errors
@@ -741,7 +741,7 @@
 
                           <!-- STEP 2 -->
                           <div *ngIf="step === resetStep.verification">
-                            <div class="otp-container">
+                            <div class="otp-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
                               <app-verification
                                 (otpEmitter)="getOtpFromChild($event)"
                               ></app-verification>
@@ -749,7 +749,7 @@
                                 <div class="m-spinner"></div>
                               </div>
                             </div>
-                            <div class="text-md text-center text-muted mt-3">
+                            <div class="text-md text-center text-gray-500 mt-6">
                               We send six digits verification code to your
                               <b>{{
                                 isEmailLogin
@@ -759,13 +759,13 @@
                               >. You can check your
                               {{ isEmailLogin ? "inbox." : "message" }}
                             </div>
-                            <div class="mt-3 text-primary">
-                              <u class="pointer" (click)="sendOtp()"
+                            <div class="mt-6 text-[#5c142b]">
+                              <u class="cursor-pointer" (click)="sendOtp()"
                                 >I didn't receive the code? Send again</u
                               >
                             </div>
-                            <!-- <button class="btn btn-danger me-3 w-100 mt-3 mb-3" [disabled]="isLoading" (click)="verifyOtp()" *ngIf="step === resetStep.verification">
-                                      <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>Verify
+                            <!-- <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-4 w-full mt-6 mb-6" [disabled]="isLoading" (click)="verifyOtp()" *ngIf="step === resetStep.verification">
+                                      <div class="spinner-border spinner-border-sm text-light mr-1" role="status" *ngIf="isLoading"></div>Verify
                                   </button> -->
                           </div>
 
@@ -776,20 +776,20 @@
                                 alt=""
                                 width="150px"
                               />
-                              <!-- <div class="text-center text-muted">Your new password must be different from previously used passwords.</div> -->
+                              <!-- <div class="text-center text-gray-500">Your new password must be different from previously used passwords.</div> -->
                             </div>
 
-                            <div class="mt-3">
+                            <div class="mt-6">
                               <form [formGroup]="passwordResetForm">
-                                <div class="mb-3">
+                                <div class="mb-6">
                                   <label
                                     for="password-comfirm"
-                                    class="form-label"
+                                    class="block text-sm font-semibold text-gray-700 mb-1.5"
                                     >Password</label
                                   >
                                   <input
                                     type="password"
-                                    class="form-control"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                                     id="password-comfirm"
                                     formControlName="password"
                                     placeholder=""
@@ -808,12 +808,12 @@
                                 <div class="">
                                   <label
                                     for="password-singnup"
-                                    class="form-label"
+                                    class="block text-sm font-semibold text-gray-700 mb-1.5"
                                     >Confirm Password</label
                                   >
                                   <input
                                     type="password"
-                                    class="form-control"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                                     id="password-singnup"
                                     formControlName="confirmPassword"
                                     placeholder=""
@@ -844,12 +844,12 @@
                                   </div>
                                   <small class="form-text"
                                     >Password strength:
-                                    <span class="fw-bold">{{
+                                    <span class="font-bold">{{
                                       passwordStrength.text
                                     }}</span></small
                                   >
                                 </div>
-                                <div class="text-danger" *ngIf="!isMatchPwd">
+                                <div class="text-red-600" *ngIf="!isMatchPwd">
                                   Password does not match
                                 </div>
                               </form>
@@ -857,29 +857,29 @@
                           </div>
                         </div>
                         <button
-                          class="btn btn-danger me-3 w-100"
+                          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-4 w-full"
                           [disabled]="isLoading"
                           (click)="sendOtp()"
                           *ngIf="step === resetStep.enterEmail"
                         >
                           <div
-                            class="spinner-border spinner-border-sm text-light me-1"
+                            class="spinner-border spinner-border-sm text-light mr-1"
                             role="status"
                             *ngIf="isLoading"
                           ></div>
                           Send
                         </button>
-                        <!-- <button class="btn btn-danger me-3 w-100 mt-3 mb-3" [disabled]="isLoading" (click)="verifyOtp()" *ngIf="step === resetStep.verification">
-                          <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>Verify
+                        <!-- <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-4 w-full mt-6 mb-6" [disabled]="isLoading" (click)="verifyOtp()" *ngIf="step === resetStep.verification">
+                          <div class="spinner-border spinner-border-sm text-light mr-1" role="status" *ngIf="isLoading"></div>Verify
                         </button> -->
                         <button
-                          class="btn btn-danger me-3 w-100 mt-3 mb-3"
+                          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all mr-4 w-full mt-6 mb-6"
                           [disabled]="isLoading"
                           (click)="createPassword()"
                           *ngIf="step === resetStep.resetPassword"
                         >
                           <div
-                            class="spinner-border spinner-border-sm text-light me-1"
+                            class="spinner-border spinner-border-sm text-light mr-1"
                             role="status"
                             *ngIf="isLoading"
                           ></div>

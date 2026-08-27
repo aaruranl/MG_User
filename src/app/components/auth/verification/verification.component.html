@@ -1,10 +1,10 @@
-<div class="otp-container">
+<div class="flex justify-center my-6">
   <form [formGroup]="otpForm">
-    <div class="otp-input-container">
+    <div class="flex gap-3 justify-center">
       <ng-container *ngFor="let control of inputControls; let i = index; trackBy: trackByFn">
         <input
           type="text"
-          class="otp-input"
+          class="w-12 h-14 text-center text-xl font-bold rounded-xl border border-amber-300/60 bg-white text-gray-900 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none shadow-sm transition-all"
           maxlength="1"
           [formControlName]="control"
           (input)="onInput($event, i)"
@@ -21,5 +21,3 @@
     </div>
   </form>
 </div>
-
-

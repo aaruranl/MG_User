@@ -1,8 +1,8 @@
 <div class="landing-body">
   <!-- Navigation (Consistent with Landing Page) -->
-  <nav class="navbar navbar-expand-lg sticky-top bg-white shadow-nav py-2">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center" routerLink="/">
+  <nav class="navbar navbar-expand-lg sticky-top bg-white shadow-md-nav py-2">
+    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
+      <a class="navbar-brand flex items-center" routerLink="/">
         <img
           src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
           alt="MarriageGate Logo"
@@ -12,7 +12,7 @@
       </a>
       <!-- Mobile Home Icon -->
       <a
-        class="nav-link d-md-none me-2"
+        class="nav-link md:hidden mr-2"
         routerLink="/"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
@@ -20,7 +20,7 @@
         <i class="fas fa-home fs-5"></i>
       </a>
       <button
-        class="navbar-toggler d-md-none"
+        class="navbar-toggler md:hidden"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarNav"
@@ -31,48 +31,48 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center gap-2">
+        <ul class="navbar-nav ml-auto items-center gap-2">
           <li class="nav-item">
             <a
-              class="nav-link px-3 rounded"
+              class="nav-link px-6 rounded"
               routerLink="/"
               routerLinkActive="active-nav"
               [routerLinkActiveOptions]="{ exact: true }"
             >
-              <i class="fas fa-home me-1"></i> Home
+              <i class="fas fa-home mr-1"></i> Home
             </a>
           </li>
           <li class="nav-item">
             <a
-              class="nav-link px-3 rounded"
+              class="nav-link px-6 rounded"
               routerLink="/pricing"
               routerLinkActive="active-nav"
             >
-              <i class="fas fa-tags me-1"></i> Pricing
+              <i class="fas fa-tags mr-1"></i> Pricing
             </a>
           </li>
           <li class="nav-item">
             <a
-              class="nav-link px-3 rounded active-nav"
+              class="nav-link px-6 rounded active-nav"
               routerLink="/contact-us"
               routerLinkActive="active-nav"
             >
-              <i class="fas fa-envelope me-1"></i> Contact Us
+              <i class="fas fa-envelope mr-1"></i> Contact Us
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-3 rounded" routerLink="/blogs" routerLinkActive="active-nav">
-              <i class="fas fa-blog me-1"></i> Blogs
+            <a class="nav-link px-6 rounded" routerLink="/blogs" routerLinkActive="active-nav">
+              <i class="fas fa-blog mr-1"></i> Blogs
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-3 rounded" routerLink="/success-stories" routerLinkActive="active-nav">
-              <i class="fas fa-heart me-1"></i> Stories
+            <a class="nav-link px-6 rounded" routerLink="/success-stories" routerLinkActive="active-nav">
+              <i class="fas fa-heart mr-1"></i> Stories
             </a>
           </li>
           <li class="nav-item ms-lg-2">
             <a
-              class="btn bg-primary text-white bg-primary-hover px-4 fw-medium"
+              class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bg-primary text-white bg-primary-hover px-6 font-medium"
               [href]="baseUrl + 'login'"
               target="_blank"
               >Join</a
@@ -84,10 +84,10 @@
   </nav>
 
   <!-- Hero Header -->
-  <section class="contact-hero py-5 position-relative overflow-hidden">
+  <section class="contact-hero py-8 position-relative overflow-hidden">
     <!-- Background Image with Opacity -->
     <div
-      class="position-absolute top-0 start-0 w-100 h-100 contact-bg-image"
+      class="position-absolute top-0 start-0 w-full h-full contact-bg-image"
       style="
         background-image: url(&quot;https://dev1mg.blob.core.windows.net/mgate/common/contact-bg.jpeg&quot;);
         background-size: cover;
@@ -97,21 +97,21 @@
 
     <!-- White Overlay for Opacity Control -->
     <div
-      class="position-absolute top-0 start-0 w-100 h-100"
+      class="position-absolute top-0 start-0 w-full h-full"
       style="background-color: rgba(255, 255, 255, 0.92); z-index: 1"
     ></div>
 
     <div
-      class="container py-5 text-center position-relative"
+      class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8 text-center position-relative"
       style="z-index: 2"
     >
-      <span class="custom-badge mb-3 animate-pulse">
-        <i class="fas fa-headset me-2"></i> We're Here to Help
+      <span class="custom-badge mb-6 animate-pulse">
+        <i class="fas fa-headset mr-2"></i> We're Here to Help
       </span>
-      <h1 class="display-4 fw-bold mb-3">
+      <h1 class="display-4 font-bold mb-6">
         Get in <span class="text-gradient-primary">Touch</span>
       </h1>
-      <p class="lead text-muted-foreground mx-auto" style="max-width: 600px">
+      <p class="lead text-gray-500-foreground mx-auto" style="max-width: 600px">
         Have questions? We'd love to hear from you. Send us a message and we'll
         respond as soon as possible.
       </p>
@@ -119,10 +119,10 @@
   </section>
 
   <!-- Contact Info & Form Section -->
-  <section class="py-5 contact-form-section position-relative overflow-hidden">
+  <section class="py-8 contact-form-section position-relative overflow-hidden">
     <!-- Background Image with Opacity -->
     <div
-      class="position-absolute top-0 start-0 w-100 h-100 form-bg-image"
+      class="position-absolute top-0 start-0 w-full h-full form-bg-image"
       style="
         background-image: url(&quot;https://dev1mg.blob.core.windows.net/mgate/common/contact-bg1.jpeg&quot;);
         background-size: cover;
@@ -132,29 +132,29 @@
 
     <!-- White Overlay for Opacity Control -->
     <div
-      class="position-absolute top-0 start-0 w-100 h-100"
+      class="position-absolute top-0 start-0 w-full h-full"
       style="background-color: rgba(255, 255, 255, 0.9); z-index: 1"
     ></div>
 
-    <div class="container py-5 position-relative" style="z-index: 2">
-      <div class="row g-5">
+    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8 position-relative" style="z-index: 2">
+      <div class="flex flex-wrap -mx-3 g-5">
         <!-- Contact Information Cards -->
-        <div class="col-lg-4">
-          <div class="d-flex flex-column gap-4">
+        <div class="lg:w-1/3">
+          <div class="flex flex-col gap-6">
             <!-- Email Card -->
-            <div class="card custom-card border-0 p-4 animate-fade-in">
-              <div class="d-flex align-items-start gap-3">
+            <div class="card custom-card border-0 p-6 animate-fade-in">
+              <div class="flex items-start gap-6">
                 <div class="icon-box flex-shrink-0">
                   <i class="fas fa-envelope fs-3"></i>
                 </div>
                 <div>
-                  <h4 class="h5 fw-bold mb-1">Email Us</h4>
-                  <p class="text-muted-foreground small mb-2">
+                  <h4 class="h5 font-bold mb-1">Email Us</h4>
+                  <p class="text-gray-500-foreground small mb-2">
                     Our team is here to help.
                   </p>
                   <a
                     href="mailto:support@marriagegate.com"
-                    class="text-primary fw-medium text-decoration-none"
+                    class="text-[#5c142b] font-medium text-decoration-none"
                     >support&#64;marriagegate.com</a
                   >
                 </div>
@@ -163,21 +163,21 @@
 
             <!-- WhatsApp Card -->
             <div
-              class="card custom-card border-0 p-4 animate-fade-in delay-300"
+              class="card custom-card border-0 p-6 animate-fade-in delay-300"
             >
-              <div class="d-flex align-items-start gap-3">
+              <div class="flex items-start gap-6">
                 <div class="icon-box flex-shrink-0">
                   <i class="fab fa-whatsapp fs-3"></i>
                 </div>
                 <div>
-                  <h4 class="h5 fw-bold mb-1">WhatsApp</h4>
-                  <p class="text-muted-foreground small mb-2">
+                  <h4 class="h5 font-bold mb-1">WhatsApp</h4>
+                  <p class="text-gray-500-foreground small mb-2">
                     Mon-Fri from 9am to 6pm.
                   </p>
                   <a
                     href="https://wa.me/41779053799"
                     target="_blank"
-                    class="text-primary fw-medium text-decoration-none"
+                    class="text-[#5c142b] font-medium text-decoration-none"
                     >+41 77 905 3799</a
                   >
                 </div>
@@ -186,19 +186,19 @@
 
             <!-- Office Card -->
             <div
-              class="card custom-card border-0 p-4 animate-fade-in delay-500"
+              class="card custom-card border-0 p-6 animate-fade-in delay-500"
             >
-              <div class="d-flex align-items-start gap-3">
+              <div class="flex items-start gap-6">
                 <div class="icon-box flex-shrink-0">
                   <i class="fas fa-map-marker-alt fs-3"></i>
                 </div>
                 <div>
-                  <h4 class="h5 fw-bold mb-1">Office</h4>
-                  <p class="text-muted-foreground small mb-2">
+                  <h4 class="h5 font-bold mb-1">Office</h4>
+                  <p class="text-gray-500-foreground small mb-2">
                     Come say hello at our office.
                   </p>
-                  <p class="mb-0 fw-medium small">
-                    <a href="https://share.google/srElw0XeqadGQxARY" target="_blank" rel="noopener noreferrer" class="text-primary text-foreground text-decoration-none">
+                  <p class="mb-0 font-medium small">
+                    <a href="https://share.google/srElw0XeqadGQxARY" target="_blank" rel="noopener noreferrer" class="text-[#5c142b] text-foreground text-decoration-none">
                       Gstaldenstrasse 9, 8810 Horgen, Switzerland
                     </a>
                   </p>
@@ -210,29 +210,29 @@
 
         <!-- Contact Form -->
          
-        <div class="col-lg-8">
+        <div class="lg:w-2/3">
           <div
-    class="card border-0 shadow-lg rounded-4 p-4 p-md-5 backdrop-blur-xl animate-fade-in position-relative"
+    class="card border-0 shadow-md-xl rounded-2xl p-6 p-md-5 backdrop-blur-xl animate-fade-in position-relative"
     style="background: rgba(255, 255, 255, 0.8)"
   >
     <div *ngIf="isSubmitting" class="sending-overlay">
       <div class="sending-content">
-        <div class="spinner-border text-primary mb-3" role="status">
+        <div class="spinner-border text-[#5c142b] mb-6" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
-        <div class="fw-medium">Sending your message...</div>
+        <div class="font-medium">Sending your message...</div>
       </div>
     </div>
 
          
-            <h3 class="fw-bold mb-4">Send us a Message</h3>
+            <h3 class="font-bold mb-6">Send us a Message</h3>
             <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm" [class.opacity-75]="isSubmitting">
-              <div class="row g-4">
-                <div class="col-md-6">
-                  <label class="form-label fw-medium small">Full Name</label>
+              <div class="flex flex-wrap -mx-3 g-4">
+                <div class="md:w-1/2">
+                  <label class="block text-sm font-semibold text-gray-700 mb-1.5 font-medium small">Full Name</label>
                  <input
                     type="text"
-                    class="form-control rounded-3"
+                    class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all rounded-xl"
                     placeholder="John Doe"
                     [(ngModel)]="fullName"
                     name="fullName"
@@ -242,18 +242,18 @@
 
                   <div
                     *ngIf="fullNameModel.invalid && (fullNameModel.touched || contactForm.submitted)"
-                    class="text-danger small mt-1"
+                    class="text-red-600 small mt-1"
                   >
                     Full name is required.
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-medium small"
+                <div class="md:w-1/2">
+                  <label class="block text-sm font-semibold text-gray-700 mb-1.5 font-medium small"
                     >Email Address</label
                   >
                   <input
                   type="email"
-                  class="form-control rounded-3"
+                  class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all rounded-xl"
                   placeholder="john@example.com"
                   [(ngModel)]="email"
                   name="email"
@@ -264,7 +264,7 @@
 
                 <div
                   *ngIf="emailModel.invalid && (emailModel.touched || contactForm.submitted)"
-                  class="text-danger small mt-1"
+                  class="text-red-600 small mt-1"
                 >
                   <span *ngIf="emailModel.errors?.['required']">
                     Email is required.
@@ -275,11 +275,11 @@
                   </span>
                 </div>
                 </div>
-                <div class="col-12">
-                  <label class="form-label fw-medium small">Subject</label>
+                <div class="w-full px-6">
+                  <label class="block text-sm font-semibold text-gray-700 mb-1.5 font-medium small">Subject</label>
                   <input
                       type="text"
-                      class="form-control rounded-3"
+                      class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all rounded-xl"
                       placeholder="How can we help you?"
                       [(ngModel)]="subject"
                       name="subject"
@@ -289,15 +289,15 @@
 
                     <div
                       *ngIf="subjectModel.invalid && (subjectModel.touched || contactForm.submitted)"
-                      class="text-danger small mt-1"
+                      class="text-red-600 small mt-1"
                     >
                       Subject is required.
                     </div>
                 </div>
-                <div class="col-12">
-                  <label class="form-label fw-medium small">Message</label>
+                <div class="w-full px-6">
+                  <label class="block text-sm font-semibold text-gray-700 mb-1.5 font-medium small">Message</label>
                   <textarea
-                    class="form-control rounded-3"
+                    class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all rounded-xl"
                     rows="5"
                     placeholder="Write your message here..."
                     [(ngModel)]="message"
@@ -305,15 +305,15 @@
                     required
                   ></textarea>
                 </div>
-                <div class="col-12 pt-2">
+                <div class="w-full px-6 pt-2">
                   <button
                   type="submit"
                   [disabled]="isSubmitting"
-                  class="btn bg-gradient-primary text-white btn-lg px-5 py-3 rounded-3 w-100 fw-medium shadow-lg bg-primary-hover"
+                  class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bg-gradient-primary text-white inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-lg px-8 py-6 rounded-xl w-full font-medium shadow-md-xl bg-primary-hover"
                 >
                   <span *ngIf="!isSubmitting">Send Message</span>
                   <span *ngIf="isSubmitting">Sending...</span>
-                  <i class="fas fa-paper-plane ms-2"></i>
+                  <i class="fas fa-paper-plane ml-2"></i>
                 </button>
                 </div>
               </div>
@@ -325,107 +325,107 @@
   </section>
 
   <!-- FAQ Preview Section -->
-  <!-- <section class="py-5 bg-muted-30">
-    <div class="container py-5 text-center">
-      <h2 class="fw-bold mb-4">Frequently Asked Questions</h2>
-      <p class="text-muted-foreground mb-5">
+  <!-- <section class="py-8 bg-muted-30">
+    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8 text-center">
+      <h2 class="font-bold mb-6">Frequently Asked Questions</h2>
+      <p class="text-gray-500-foreground mb-8">
         Quick answers to common questions about our services.
       </p>
-      <div class="row g-4 justify-content-center">
-        <div class="col-md-4">
-          <div class="p-3">
-            <h5 class="fw-bold">How do I verify my profile?</h5>
-            <p class="small text-muted-foreground">
+      <div class="flex flex-wrap -mx-3 g-4 justify-center">
+        <div class="md:w-1/3">
+          <div class="p-6">
+            <h5 class="font-bold">How do I verify my profile?</h5>
+            <p class="small text-gray-500-foreground">
               Verification is done via mobile OTP and government ID upload in
               your settings.
             </p>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="p-3">
-            <h5 class="fw-bold">Is my data secure?</h5>
-            <p class="small text-muted-foreground">
+        <div class="md:w-1/3">
+          <div class="p-6">
+            <h5 class="font-bold">Is my data secure?</h5>
+            <p class="small text-gray-500-foreground">
               Absolutely. We use bank-level encryption and comply with international data protection standards to keep your information safe. You also have full control over your privacy, 
               with options to hide sensitive details such as your contact information and salary from other users.
             </p>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="p-3">
-            <h5 class="fw-bold">How to report a profile?</h5>
-            <p class="small text-muted-foreground">
+        <div class="md:w-1/3">
+          <div class="p-6">
+            <h5 class="font-bold">How to report a profile?</h5>
+            <p class="small text-gray-500-foreground">
               Use the 'Report' button on any profile page or email our safety
               team.
             </p>
           </div>
   </section> -->
 
-  <footer class="py-4 footer-bg border-top position-relative">
-    <div class="container py-3 position-relative">
-      <div class="row g-5">
-        <div class="col-lg-3">
-          <div class="mb-3">
+  <footer class="py-6 footer-bg border-top position-relative">
+    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-6 position-relative">
+      <div class="flex flex-wrap -mx-3 g-5">
+        <div class="lg:w-1/4">
+          <div class="mb-6">
             <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="MarriageGate Logo" height="40">
           </div>
-          <p class="text-muted-foreground">
+          <p class="text-gray-500-foreground">
             Recognized around the globe as the most trusted matrimonial platform for connecting hearts and building lasting relationships.
           </p>
         </div>
-        <div class="col-sm-6 col-lg-3">
-          <h5 class="fw-semibold mb-3">Quick Links</h5>
-          <ul class="list-unstyled text-muted-foreground">
-            <li class="mb-2"><a routerLink="/" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Home</a></li>
-            <li class="mb-2"><a routerLink="/contact-us" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Contact</a></li>
-            <li class="mb-2"><a routerLink="/pricing" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Pricing</a></li>
-            <li class="mb-2"><a [href]="baseUrl + 'login'" target="_blank" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Join</a></li>
+        <div class="col-sm-6 lg:w-1/4">
+          <h5 class="font-semibold mb-6">Quick Links</h5>
+          <ul class="list-unstyled text-gray-500-foreground">
+            <li class="mb-2"><a routerLink="/" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Home</a></li>
+            <li class="mb-2"><a routerLink="/contact-us" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Contact</a></li>
+            <li class="mb-2"><a routerLink="/pricing" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Pricing</a></li>
+            <li class="mb-2"><a [href]="baseUrl + 'login'" target="_blank" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Join</a></li>
           </ul>
         </div>
-        <div class="col-sm-6 col-lg-3">
-          <h5 class="fw-semibold mb-3">Support</h5>
-          <ul class="list-unstyled text-muted-foreground">
-            <li class="mb-2"><a routerLink="/privacy-policy" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Privacy Policy</a></li>
-            <li class="mb-2"><a routerLink="/terms-and-condition" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Terms and Condition</a></li>
+        <div class="col-sm-6 lg:w-1/4">
+          <h5 class="font-semibold mb-6">Support</h5>
+          <ul class="list-unstyled text-gray-500-foreground">
+            <li class="mb-2"><a routerLink="/privacy-policy" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Privacy Policy</a></li>
+            <li class="mb-2"><a routerLink="/terms-and-condition" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Terms and Condition</a></li>
           </ul>
         </div>
-        <div class="col-sm-6 col-lg-3">
-          <h5 class="fw-semibold mb-3">Follow Us</h5>
-          <ul class="list-unstyled text-muted-foreground">
+        <div class="col-sm-6 lg:w-1/4">
+          <h5 class="font-semibold mb-6">Follow Us</h5>
+          <ul class="list-unstyled text-gray-500-foreground">
             <li class="mb-2">
-              <a href="https://www.instagram.com/marriage.gate" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
-                <i class="fab fa-instagram me-2 social-icon"></i>
+              <a href="https://www.instagram.com/marriage.gate" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
+                <i class="fab fa-instagram mr-2 social-icon"></i>
                 <span>Instagram</span>
               </a>
             </li>
             <li class="mb-2">
-              <a href="https://www.facebook.com/marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
-                <i class="fab fa-facebook me-2 social-icon"></i>
+              <a href="https://www.facebook.com/marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
+                <i class="fab fa-facebook mr-2 social-icon"></i>
                 <span>Facebook</span>
               </a>
             </li>
             <li class="mb-2">
-              <a href="https://wa.me/41779053799" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
-                <i class="fab fa-whatsapp me-2 social-icon"></i>
+              <a href="https://wa.me/41779053799" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
+                <i class="fab fa-whatsapp mr-2 social-icon"></i>
                 <span>WhatsApp</span>
               </a>
             </li>
             <li class="mb-2">
-              <a href="https://www.tiktok.com/@marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
-                <i class="fab fa-tiktok me-2 social-icon"></i>
+              <a href="https://www.tiktok.com/@marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
+                <i class="fab fa-tiktok mr-2 social-icon"></i>
                 <span>TikTok</span>
               </a>
             </li>
           </ul>
         </div>
       </div>
-      <div class="border-top mt-5 pt-4 text-center footer-copyright">
+      <div class="border-top mt-8 pt-4 text-center footer-copyright">
         <p>&copy; {{ currentYear }} MarriageGate. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
   <!-- Mobile Bottom Navigation Bar -->
-  <nav class="mobile-bottom-nav d-lg-none">
-    <div class="mobile-nav-container">
+  <nav class="mobile-bottom-nav lg:hidden">
+    <div class="mobile-nav-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
       <a
         class="mobile-nav-item"
         routerLink="/pricing"
@@ -450,26 +450,26 @@
 
   <!-- Mobile Offcanvas Menu -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenuOffcanvas" aria-labelledby="mobileMenuOffcanvasLabel" style="width: 280px;">
-    <div class="offcanvas-header border-bottom py-3">
-      <h5 class="offcanvas-title fw-bold" id="mobileMenuOffcanvasLabel">MarriageGate</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="offcanvas-header border-bottom py-6">
+      <h5 class="offcanvas-title font-bold" id="mobileMenuOffcanvasLabel">MarriageGate</h5>
+      <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body p-0">
       <div class="list-group list-group-flush fs-6">
-        <a routerLink="/" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-home text-danger me-3" style="width: 20px;"></i> Home
+        <a routerLink="/" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-home text-red-600 mr-4" style="width: 20px;"></i> Home
         </a>
-        <a routerLink="/pricing" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-tags text-danger me-3" style="width: 20px;"></i> Pricing
+        <a routerLink="/pricing" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-tags text-red-600 mr-4" style="width: 20px;"></i> Pricing
         </a>
-        <a routerLink="/blogs" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-blog text-danger me-3" style="width: 20px;"></i> Blog
+        <a routerLink="/blogs" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-blog text-red-600 mr-4" style="width: 20px;"></i> Blog
         </a>
-        <a routerLink="/success-stories" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-heart text-danger me-3" style="width: 20px;"></i> Success Story
+        <a routerLink="/success-stories" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-heart text-red-600 mr-4" style="width: 20px;"></i> Success Story
         </a>
-        <a routerLink="/contact-us" class="list-group-item list-group-item-action py-3 px-4 border-0" data-bs-dismiss="offcanvas">
-          <i class="fas fa-envelope text-danger me-3" style="width: 20px;"></i> Contact Us
+        <a routerLink="/contact-us" class="list-group-item list-group-item-action py-6 px-6 border-0" data-bs-dismiss="offcanvas">
+          <i class="fas fa-envelope text-red-600 mr-4" style="width: 20px;"></i> Contact Us
         </a>
       </div>
     </div>

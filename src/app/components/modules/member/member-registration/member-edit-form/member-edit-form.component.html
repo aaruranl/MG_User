@@ -12,13 +12,13 @@
   [ngClass]="{ 'pt-3': memberProfile && memberProfile.memberApproval === 1 }"
 >
   <div class="component-content">
-    <div class="row m-0 p-0">
-      <div class="bg-white mt-1 d-none d-md-none d-lg-block">
-        <div class="d-flex justify-content-between mx-sm-5">
+    <div class="flex flex-wrap -mx-3 m-0 p-0">
+      <div class="bg-white mt-1 hidden md:hidden lg:block">
+        <div class="flex justify-between mx-sm-5">
           <div
-            class="text-md pointer py-2 form-title"
+            class="text-md cursor-pointer py-2 form-title"
             [ngClass]="{
-              'text-danger border-bottom-title fw-bold':
+              'text-red-600 border-bottom-title font-bold':
                 currentStep === steps.lookingFor
             }"
             (click)="changeStep(steps.lookingFor)"
@@ -26,9 +26,9 @@
             Matching
           </div>
           <div
-            class="text-sm pointer py-2 form-title"
+            class="text-sm cursor-pointer py-2 form-title"
             [ngClass]="{
-              'text-danger border-bottom-title fw-bold':
+              'text-red-600 border-bottom-title font-bold':
                 currentStep === steps.basic
             }"
             (click)="changeStep(steps.basic)"
@@ -36,9 +36,9 @@
             Personal Information
           </div>
           <div
-            class="text-sm pointer py-2 form-title"
+            class="text-sm cursor-pointer py-2 form-title"
             [ngClass]="{
-              'text-danger border-bottom-title fw-bold':
+              'text-red-600 border-bottom-title font-bold':
                 currentStep === steps.contact
             }"
             (click)="changeStep(steps.contact)"
@@ -46,9 +46,9 @@
             Contact Details
           </div>
           <div
-            class="text-sm pointer py-2 form-title"
+            class="text-sm cursor-pointer py-2 form-title"
             [ngClass]="{
-              'text-danger border-bottom-title fw-bold':
+              'text-red-600 border-bottom-title font-bold':
                 currentStep === steps.personal
             }"
             (click)="changeStep(steps.personal)"
@@ -56,9 +56,9 @@
             Personal Details
           </div>
           <div
-            class="text-sm pointer py-2 form-title"
+            class="text-sm cursor-pointer py-2 form-title"
             [ngClass]="{
-              'text-danger border-bottom-title fw-bold':
+              'text-red-600 border-bottom-title font-bold':
                 currentStep === steps.family
             }"
             (click)="changeStep(steps.family)"
@@ -66,9 +66,9 @@
             Family Information
           </div>
           <div
-            class="text-sm pointer py-2 form-title"
+            class="text-sm cursor-pointer py-2 form-title"
             [ngClass]="{
-              'text-danger border-bottom-title fw-bold':
+              'text-red-600 border-bottom-title font-bold':
                 currentStep === steps.religionBackground
             }"
             (click)="changeStep(steps.religionBackground)"
@@ -76,9 +76,9 @@
             Religious Background
           </div>
           <div
-            class="text-sm pointer py-2 form-title"
+            class="text-sm cursor-pointer py-2 form-title"
             [ngClass]="{
-              'text-danger border-bottom-title fw-bold':
+              'text-red-600 border-bottom-title font-bold':
                 currentStep === steps.education
             }"
             (click)="changeStep(steps.education)"
@@ -90,11 +90,11 @@
 
       <!-- Mobile-only stepper -->
       <div
-        class="bg-white py-2 px-2 border-bottom d-block d-md-block d-lg-none"
+        class="bg-white py-2 px-2 border-bottom block md:block lg:hidden"
       >
-        <div class="d-flex justify-content-between stepper-container">
+        <div class="flex justify-between stepper-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
           <div
-            class="step-circle text-center pointer"
+            class="step-circle text-center cursor-pointer"
             *ngFor="let step of stepList; let i = index"
             [ngClass]="{ active: currentStep === step.key }"
             (click)="changeStep(step.key)"
@@ -107,21 +107,21 @@
 
       <div class="">
         <div
-          class="col-12 col-sm-10 col-md-8 col-lg-10 mx-auto mt-3 mb-5"
+          class="w-full px-6 col-sm-10 md:w-2/3 lg:w-10/12 mx-auto mt-6 mb-8"
           *ngIf="!isLoading"
         >
-          <div class="row">
-            <div class="col-12 col-sm-10 col-md-12 col-lg-6 mx-auto">
+          <div class="flex flex-wrap -mx-3">
+            <div class="w-full px-6 col-sm-10 md:w-full lg:w-1/2 mx-auto">
               <div class="text-white">
                 <div *ngIf="currentStep === steps.lookingFor">
-                  <!-- <div class="text-md fw-bold">Profile Matching Criteria</div>
+                  <!-- <div class="text-md font-bold">Profile Matching Criteria</div>
                         <div class="text-sm">The following information is used to match user profiles based on preferences.</div> -->
                   <div
                     class="dashboard-header p-card"
                     style="animation-delay: 0.1s"
                   >
                     <div class="header-content p-2">
-                      <div class="header-icon p-4 d-none d-sm-block">
+                      <div class="header-icon p-6 hidden sm:block">
                         <i class="fas fa-heart"></i>
                       </div>
                       <div class="header-text">
@@ -144,14 +144,14 @@
                   </div>
                 </div>
                 <div *ngIf="currentStep === steps.basic">
-                  <!-- <div class="text-md fw-bold">Personal Information</div>
+                  <!-- <div class="text-md font-bold">Personal Information</div>
                         <div class="text-sm">Please provide your basic personal details to get started.</div> -->
                   <div
                     class="dashboard-header p-card"
                     style="animation-delay: 0.1s"
                   >
                     <div class="header-content p-2">
-                      <div class="header-icon p-4 d-none d-sm-block">
+                      <div class="header-icon p-6 hidden sm:block">
                         <i class="fas fa-id-card"></i>
                       </div>
                       <div class="header-text">
@@ -174,14 +174,14 @@
                   </div>
                 </div>
                 <div *ngIf="currentStep === steps.contact">
-                  <!-- <div class="text-md fw-bold">Contact Details</div>
+                  <!-- <div class="text-md font-bold">Contact Details</div>
                         <div class="text-sm">These details help your matched connections reach out to you.</div> -->
                   <div
                     class="dashboard-header p-card"
                     style="animation-delay: 0.1s"
                   >
                     <div class="header-content p-2">
-                      <div class="header-icon p-4 d-none d-sm-block">
+                      <div class="header-icon p-6 hidden sm:block">
                         <i class="fas fa-phone"></i>
                       </div>
                       <div class="header-text">
@@ -203,14 +203,14 @@
                 </div>
 
                 <div *ngIf="currentStep === steps.personal">
-                  <!-- <div class="text-md fw-bold">Personal Details</div>
+                  <!-- <div class="text-md font-bold">Personal Details</div>
                         <div class="text-sm">These details describe your lifestyle and can help you connect with like-minded individuals.</div> -->
                   <div
                     class="dashboard-header p-card"
                     style="animation-delay: 0.1s"
                   >
                     <div class="header-content p-2">
-                      <div class="header-icon p-4 d-none d-sm-block">
+                      <div class="header-icon p-6 hidden sm:block">
                         <i class="fas fa-user-circle"></i>
                       </div>
                       <div class="header-text">
@@ -232,14 +232,14 @@
                 </div>
 
                 <div *ngIf="currentStep === steps.family">
-                  <!-- <div class="text-md fw-bold">Family Information</div>
+                  <!-- <div class="text-md font-bold">Family Information</div>
                         <div class="text-sm">This information helps match profiles based on family background and values.</div> -->
                   <div
                     class="dashboard-header p-card"
                     style="animation-delay: 0.1s"
                   >
                     <div class="header-content p-2">
-                      <div class="header-icon p-4 d-none d-sm-block">
+                      <div class="header-icon p-6 hidden sm:block">
                         <i class="fas fa-user-friends"></i>
                       </div>
                       <div class="header-text">
@@ -260,7 +260,7 @@
                   </div>
                 </div>
                 <div *ngIf="currentStep === steps.religionBackground">
-                  <!-- <div class="text-md fw-bold">Religious Background</div>
+                  <!-- <div class="text-md font-bold">Religious Background</div>
                       <div class="text-sm">
                         This information, helps find matches that align with your religious and cultural beliefs.
                       </div> -->
@@ -269,7 +269,7 @@
                     style="animation-delay: 0.1s"
                   >
                     <div class="header-content p-2">
-                      <div class="header-icon p-4 d-none d-sm-block">
+                      <div class="header-icon p-6 hidden sm:block">
                         <i class="fas fa-praying-hands"></i>
                       </div>
                       <div class="header-text">
@@ -292,7 +292,7 @@
                   </div>
                 </div>
                 <div *ngIf="currentStep === steps.education">
-                  <!-- <div class="text-md fw-bold">Education & Career</div>
+                  <!-- <div class="text-md font-bold">Education & Career</div>
                       <div class="text-sm">
                         Your education and career details help match profiles with similar professional and academic backgrounds.
                       </div> -->
@@ -301,7 +301,7 @@
                     style="animation-delay: 0.1s"
                   >
                     <div class="header-content p-2">
-                      <div class="header-icon p-4 d-none d-sm-block">
+                      <div class="header-icon p-6 hidden sm:block">
                         <i class="fas fa-graduation-cap"></i>
                       </div>
                       <div class="header-text">
@@ -322,13 +322,13 @@
                   </div>
                 </div>
               </div>
-              <div div class="m-shadow p-3 profile-card pointer">
-                <div class="d-flex justify-content-between">
+              <div div class="m-shadow-md p-6 profile-card cursor-pointer">
+                <div class="flex justify-between">
                   <i
-                    class="fas fa-arrow-left fs-5 mt-2 text-danger"
+                    class="fas fa-arrow-left fs-5 mt-2 text-red-600"
                     (click)="goBack()"
                   ></i>
-                  <div class="text-center text-md fw-bold">
+                  <div class="text-center text-md font-bold">
                     <div class="" *ngIf="currentStep === steps.lookingFor">
                       {{ "Matching" | uppercase }}
                     </div>
@@ -359,8 +359,8 @@
 
                 <div class="px-2">
                   <div
-                    class="mt-4"
-                    [ngClass]="{ 'd-none': currentStep !== steps.lookingFor }"
+                    class="mt-6"
+                    [ngClass]="{ 'hidden': currentStep !== steps.lookingFor }"
                   >
                     <app-looking-for-form
                       [isEditFrom]="true"
@@ -369,8 +369,8 @@
                     ></app-looking-for-form>
                   </div>
                   <div
-                    class="mt-4"
-                    [ngClass]="{ 'd-none': currentStep !== steps.basic }"
+                    class="mt-6"
+                    [ngClass]="{ 'hidden': currentStep !== steps.basic }"
                   >
                     <app-member-profile-form
                       [memberProfile]="memberProfile"
@@ -380,8 +380,8 @@
                     ></app-member-profile-form>
                   </div>
                   <div
-                    class="mt-4"
-                    [ngClass]="{ 'd-none': currentStep !== steps.contact }"
+                    class="mt-6"
+                    [ngClass]="{ 'hidden': currentStep !== steps.contact }"
                   >
                     <app-contact-info-form
                       [isEditFrom]="true"
@@ -390,8 +390,8 @@
                     ></app-contact-info-form>
                   </div>
                   <div
-                    class="mt-4"
-                    [ngClass]="{ 'd-none': currentStep !== steps.personal }"
+                    class="mt-6"
+                    [ngClass]="{ 'hidden': currentStep !== steps.personal }"
                   >
                     <app-personal-details-form
                       [isEditFrom]="true"
@@ -400,8 +400,8 @@
                     ></app-personal-details-form>
                   </div>
                   <div
-                    class="mt-4"
-                    [ngClass]="{ 'd-none': currentStep !== steps.family }"
+                    class="mt-6"
+                    [ngClass]="{ 'hidden': currentStep !== steps.family }"
                   >
                     <app-family-information-form
                       [isEditFrom]="true"
@@ -410,9 +410,9 @@
                     ></app-family-information-form>
                   </div>
                   <div
-                    class="mt-4"
+                    class="mt-6"
                     [ngClass]="{
-                      'd-none': currentStep !== steps.religionBackground
+                      'hidden': currentStep !== steps.religionBackground
                     }"
                   >
                     <app-religious-background-form
@@ -422,8 +422,8 @@
                     ></app-religious-background-form>
                   </div>
                   <div
-                    class="mt-4"
-                    [ngClass]="{ 'd-none': currentStep !== steps.education }"
+                    class="mt-6"
+                    [ngClass]="{ 'hidden': currentStep !== steps.education }"
                   >
                     <app-education-details-form
                       [isEditFrom]="true"

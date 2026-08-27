@@ -1,12 +1,12 @@
 <section class="content">
-  <div class="component-content bg-color" [ngClass]="{'d-none':isLoading}" >
+  <div class="component-content bg-color" [ngClass]="{'hidden':isLoading}" >
 
-    <div class="p-3 responsive-sideBar" >
-      <div class="border-15 me-4 side-bar d-none d-md-block" *ngIf="screenWidth > 764 || !isInitialLoad" [ngClass]="{'bg-white border':!isInitialLoad}">
+    <div class="p-6 responsive-sideBar" >
+      <div class="border-15 mr-6 side-bar hidden md:block" *ngIf="screenWidth > 764 || !isInitialLoad" [ngClass]="{'bg-white border':!isInitialLoad}">
           <app-side-bar (newLoadEvent)="loadChildEmitter($event)"></app-side-bar>
       </div>
         <div class="home-box">
-          <div class="text-right float-right mb-2 d-sm-block d-md-none"> <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#filterModal"> <i class="fas fa-filter me-2"></i>Filter</button></div>
+          <div class="text-right float-right mb-2 sm:block md:hidden"> <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium border border-red-600 text-red-600 hover:bg-red-50 transition-all" data-bs-toggle="modal" data-bs-target="#filterModal"> <i class="fas fa-filter mr-2"></i>Filter</button></div>
           <app-filter-member-list></app-filter-member-list>
       </div>
     </div>

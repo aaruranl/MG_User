@@ -3,13 +3,13 @@
 <section class="content pt-0 rounded" *ngIf="memberProfile">
   <div class="component-content s-content">
     <app-top-bar></app-top-bar>
-    <div class="row m-0" *ngIf="!isMoveEdit">
-      <div class="col-12 col-md-8 col-lg-6 mx-auto p-0 my-4">
-        <div class="card border-0 shadow-lg">
-          <div class="card-body p-4 p-md-3 text-center">
+    <div class="flex flex-wrap -mx-3 m-0" *ngIf="!isMoveEdit">
+      <div class="w-full px-6 md:w-2/3 lg:w-1/2 mx-auto p-0 my-4">
+        <div class="card border-0 shadow-md-xl">
+          <div class="card-body p-6 p-md-3 text-center">
             <!-- Icon/Image -->
-            <!-- <div class="mb-4">
-              <div class="rounded-circle bg-warning bg-opacity-10 d-inline-flex align-items-center justify-content-center"
+            <!-- <div class="mb-6">
+              <div class="rounded-full bg-warning bg-opacity-10 inline-flex items-center justify-center"
                    style="width: 100px; height: 100px;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#ffc107" class="bi bi-clock-history" viewBox="0 0 16 16">
                   <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022l-.074.997zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.088l-.95.313a7.023 7.023 0 0 0-.179-.483zm.53 2.507a6.991 6.991 0 0 0-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 0 1-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 0 1-.401.432l-.707-.707z"/>
@@ -20,29 +20,29 @@
             </div> -->
 
             <!-- Profile Image -->
-            <div class="mb-4" *ngIf="memberProfile.profileImages">
+            <div class="mb-6" *ngIf="memberProfile.profileImages">
               <img [src]="memberProfile.profileImages[0].url"
                    alt="Profile"
-                   class="rounded-circle border border-3 border-warning"
+                   class="rounded-full border border-3 border-warning"
                    style="width: 120px; height: 120px; object-fit: cover;">
             </div>
 
             <!-- Title -->
-            <h3 class="fw-bold text-dark mb-3">
+            <h3 class="font-bold text-gray-900 mb-6">
               Approval Pending</h3>
 
             <!-- Profile Name -->
-            <div class="mb-4" *ngIf="memberProfile">
-              <h5 class="text-muted mb-1">Profile for</h5>
-              <h4 class="fw-semibold text-primary">
+            <div class="mb-6" *ngIf="memberProfile">
+              <h5 class="text-gray-500 mb-1">Profile for</h5>
+              <h4 class="font-semibold text-[#5c142b]">
                 {{ memberProfile.firstName }} {{ memberProfile.lastName }}
               </h4>
             </div>
 
             <!-- Message -->
-            <div class="alert alert-warning border-0 mb-4" role="alert">
+            <div class="alert alert-warning border-0 mb-6" role="alert">
               <p class="mb-0">
-                <i class="bi bi-info-circle-fill me-2"></i>
+                <i class="bi bi-info-circle-fill mr-2"></i>
                 Your profile is currently under review by our admin team.
                 This process typically takes 24-48 hours.
               </p>
@@ -50,18 +50,18 @@
 
 
             <!-- Action Buttons -->
-            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-              <button type="button" class="btn btn-outline-danger btn-lg px-4" (click)="navigateToEditForm(memberProfile.id)">
-                <i class="bi bi-pencil me-2"></i>
+            <div class="d-grid gap-2 md:flex justify-content-md-center">
+              <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium border border-red-600 text-red-600 hover:bg-red-50 transition-all inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-lg px-6" (click)="navigateToEditForm(memberProfile.id)">
+                <i class="bi bi-pencil mr-2"></i>
                 Edit Profile
               </button>
             </div>
 
             <!-- Support Contact -->
-            <div class="mt-4 pt-4 border-top">
-              <p class="text-muted small mb-2">Need help?</p>
+            <div class="mt-6 pt-4 border-top">
+              <p class="text-gray-500 small mb-2">Need help?</p>
               <a href="mailto:support&#64;marriagegate.com" class="text-decoration-none">
-                <i class="bi bi-envelope me-1"></i>
+                <i class="bi bi-envelope mr-1"></i>
                 Contact Support
               </a>
 

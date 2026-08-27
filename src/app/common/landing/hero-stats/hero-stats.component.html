@@ -1,17 +1,17 @@
-<div class="mt-5 animate-fade-in delay-500 w-100">
+<div class="mt-8 animate-fade-in delay-500 w-full">
   
   <!-- Call to Actions -->
-  <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center align-items-center mt-2">
+  <div class="flex flex-col flex-sm-flex flex-wrap -mx-3 gap-6 justify-center items-center mt-2">
     <a [routerLink]="isBlog ? '/success-stories' : '/blogs'" 
-       class="btn btn-outline-danger btn-lg px-4 py-3 rounded-pill fw-bold d-inline-flex align-items-center justify-content-center transition-all hover-scale"
+       class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium border border-red-600 text-red-600 hover:bg-red-50 transition-all inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-lg px-6 py-6 rounded-full font-bold inline-flex items-center justify-center transition-all hover-scale"
        style="min-width: 220px; font-size: 1.1rem; border-width: 2px;">
-      <i class="{{ isBlog ? 'fas fa-book-open' : 'fas fa-blog' }} me-2"></i> {{ isBlog ? 'Read Stories' : 'Read Blog' }}
+      <i class="{{ isBlog ? 'fas fa-book-open' : 'fas fa-blog' }} mr-2"></i> {{ isBlog ? 'Read Stories' : 'Read Blog' }}
     </a>
     
     <a [href]="baseUrl + 'login'" target="_blank"
-       class="btn btn-danger btn-lg px-4 py-3 rounded-pill shadow fw-bold d-inline-flex align-items-center justify-content-center transition-all hover-scale"
+       class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-lg px-6 py-6 rounded-full shadow-md font-bold inline-flex items-center justify-center transition-all hover-scale"
        style="min-width: 220px; font-size: 1.1rem; background: linear-gradient(135deg, #ef2626 0%, #c34242 100%); border: none;">
-      <i class="fas fa-heart me-2"></i> Find Your Match
+      <i class="fas fa-heart mr-2"></i> Find Your Match
     </a>
   </div>
 

@@ -1,40 +1,40 @@
 <section class="content pt-0 rounded">
   <div class="component-content s-content">
-    <div class="row m-0 mt-2">
+    <div class="flex flex-wrap -mx-3 m-0 mt-2">
       <app-top-bar></app-top-bar>
       <!-- <app-top-bar class="p-0"></app-top-bar> -->
-      <div class="col-md-9 col-sm-12 mx-auto mt-3">
-        <div class="row mt-4">
-          <!-- <div class="col-6 mx-auto">
-            <div class="m-shadow p-3">
+      <div class="col-md-9 col-sm-12 mx-auto mt-6">
+        <div class="flex flex-wrap -mx-3 mt-6">
+          <!-- <div class="w-1/2 px-6 mx-auto">
+            <div class="m-shadow-md p-6">
             <div class="text-center h5">Card Information</div>
-            <div class="mt-3">
-              <div class="p-border-shadow-25 mt-3 padding-40">
-                  <div class="row">
-                    <div class="col-12 ">
-                      <label for="floatingNumber" class="text-muted mb-1"> <span class="text-md fw-bold">Card number</span></label>
-                      <div id="floatingNumber" class="form-control" ></div>
+            <div class="mt-6">
+              <div class="p-border-shadow-md-25 mt-6 padding-40">
+                  <div class="flex flex-wrap -mx-3">
+                    <div class="w-full px-6 ">
+                      <label for="floatingNumber" class="text-gray-500 mb-1"> <span class="text-md font-bold">Card number</span></label>
+                      <div id="floatingNumber" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" ></div>
                     </div>
-                    <div class="col-6 mt-3 m-top-30">
-                      <label for="floatingExpiry" class="text-muted mb-1"><span class="text-md fw-bold">Expires</span></label>
-                      <div id="floatingExpiry" class="form-control" ></div>
+                    <div class="w-1/2 px-6 mt-6 m-top-30">
+                      <label for="floatingExpiry" class="text-gray-500 mb-1"><span class="text-md font-bold">Expires</span></label>
+                      <div id="floatingExpiry" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all" ></div>
 
                     </div>
-                    <div class="col-6 mt-3 m-top-30">
-                      <label for="floatingCvc" class="text-muted mb-1"><span class="text-md fw-bold">CVV</span></label>
+                    <div class="w-1/2 px-6 mt-6 m-top-30">
+                      <label for="floatingCvc" class="text-gray-500 mb-1"><span class="text-md font-bold">CVV</span></label>
                       <div class="input-group rounded">
-                        <div id="floatingCvc" class="form-control groupIcon" ></div>
+                        <div id="floatingCvc" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all groupIcon" ></div>
 
                       </div>
                     </div>
-                    <div class="col-sm-6 mt-3 m-top-30">
-                      <label for="floatingPost" class="fw-semibold mb-1"><span class="text-sm fw-bold">Billing postcode</span></label>
-                      <div id="floatingPost" class="form-control"></div>
+                    <div class="col-sm-6 mt-6 m-top-30">
+                      <label for="floatingPost" class="font-semibold mb-1"><span class="text-sm font-bold">Billing postcode</span></label>
+                      <div id="floatingPost" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"></div>
 
                     </div>
-                    <div class="col-12 justify-content-end d-sm-flex mt-4">
-                      <button class="btn btn-danger w-100" [disabled]="isLoading" (click)="confirmPayment()">
-                        <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>
+                    <div class="w-full px-6 justify-end d-sm-flex mt-6">
+                      <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all w-full" [disabled]="isLoading" (click)="confirmPayment()">
+                        <div class="spinner-border spinner-border-sm text-light mr-1" role="status" *ngIf="isLoading"></div>
                         Pay Now</button>
                     </div>
                   </div>
@@ -42,25 +42,25 @@
             </div>
         </div>
           </div> -->
-          <div class="col-sm-12 col-md-5" *ngIf="plan">
-            <div class="m-2 border bg-white shadow-sm border-radios-15 p-3">
-              <h4 class="fw-bold fw-normal text-muted">Order Summary</h4>
-              <div class="text-muted">Review your selected plan details</div>
+          <div class="col-sm-12 md:w-5/12" *ngIf="plan">
+            <div class="m-2 border bg-white shadow-md-sm border-radios-15 p-6">
+              <h4 class="font-bold font-normal text-gray-500">Order Summary</h4>
+              <div class="text-gray-500">Review your selected plan details</div>
 
-              <div class="mt-3">
-                <div class="d-flex justify-content-between text-lg">
-                  <div class="fw-bold text-muted">{{ plan.name }}</div>
+              <div class="mt-6">
+                <div class="flex justify-between text-lg">
+                  <div class="font-bold text-gray-500">{{ plan.name }}</div>
                   <div class="price-section mb-2">
                     <div class="price-wrapper">
                       @if (plan.trialPeriodDays > 15) {
-                        <span class="text-muted text-decoration-line-through text-sm me-1">${{ plan.price }}</span>
+                        <span class="text-gray-500 text-decoration-line-through text-sm mr-1">${{ plan.price }}</span>
                         <span class="currency">$</span>
                         <span class="price-amount">0.00</span>
                       } @else {
                         <span class="currency">$</span>
                         <span class="price-amount">{{ plan.price }}</span>
                       }
-                      <span class="price-period text-muted text-sm"
+                      <span class="price-period text-gray-500 text-sm"
                         >/
                         {{
                           plan.intervalType === billingInterval.Month
@@ -78,32 +78,32 @@
               </div>
 
               <hr />
-              <div class="mt-3">
-                <div class="d-flex justify-content-between text-lg">
-                  <div class="fw-bold text-muted">Total</div>
-                    <div class="d-flex flex-wrap align-items-baseline gap-1">
+              <div class="mt-6">
+                <div class="flex justify-between text-lg">
+                  <div class="font-bold text-gray-500">Total</div>
+                    <div class="flex flex-wrap align-items-baseline gap-1">
                       @if (plan.trialPeriodDays > 15) {
-                        <span class="text-muted text-decoration-line-through me-1">${{ plan.price }}</span>
-                        <span class="price-amount text-danger fw-bold">$0.00</span>
+                        <span class="text-gray-500 text-decoration-line-through mr-1">${{ plan.price }}</span>
+                        <span class="price-amount text-red-600 font-bold">$0.00</span>
                       } @else if (plan.discount > 0) {
-                        <span class="text-muted text-decoration-line-through me-1">${{ plan.price }}</span>
-                        <span class="price-amount text-danger fw-bold">${{ plan.discountedPrice }}</span>
+                        <span class="text-gray-500 text-decoration-line-through mr-1">${{ plan.price }}</span>
+                        <span class="price-amount text-red-600 font-bold">${{ plan.discountedPrice }}</span>
                       } @else {
                         <span class="price-amount">${{ plan.price }}</span>
                       }
-                    <span class="text-danger fw-bold text-uppercase ms-1 text-sm" *ngIf="plan.trialPeriodDays > 0 ">{{ plan.trialPeriodDays }} DAYS FREE TRIAL</span>
+                    <span class="text-red-600 font-bold text-uppercase ml-1 text-sm" *ngIf="plan.trialPeriodDays > 0 ">{{ plan.trialPeriodDays }} DAYS FREE TRIAL</span>
                     
                   </div>
                 </div>
               </div>
                     <div
-                        class="alert alert-warning d-flex align-items-center justify-content-center text-center fw-semibold small mb-1 mt-2 shadow-sm rounded"
+                        class="alert alert-warning flex items-center justify-center text-center font-semibold small mb-1 mt-2 shadow-md-sm rounded"
                        *ngIf="plan.trialPeriodDays > 15"
                       >
                         {{ promoMessage }}
                       </div>
-              <div class="mt-3" *ngIf="plan">
-                <div class="border-radios-15 dc p-3">
+              <div class="mt-6" *ngIf="plan">
+                <div class="border-radios-15 dc p-6">
                   <div class="text-md">Plan Include :</div>
                   <div class="ms-5 mt-2 text-md">
                     <li>
@@ -124,8 +124,8 @@
                 </div>
               </div>
               <!-- verify message  -->
-              <div class="mt-3">
-                <div class="border-radios-15 dc p-3">
+              <div class="mt-6">
+                <div class="border-radios-15 dc p-6">
                   <div class="justify-content mt-2 text-md">
                    <p>
                     To verify legitimate users, a temporary charge of <strong>$1</strong> may appear on your card.
@@ -139,18 +139,18 @@
           </div>
 
           <div class="col-sm-12 col-md-7" *ngIf="plan">
-            <div class="m-2 border bg-white shadow-sm border-radios-15 p-3">
+            <div class="m-2 border bg-white shadow-md-sm border-radios-15 p-6">
               <form [formGroup]="subscriptionForm">
-                <h4 class="fw-bold fw-normal text-muted">
+                <h4 class="font-bold font-normal text-gray-500">
                   Payment Information
                 </h4>
                 <div class="text-sm">Enter your payment details securely.</div>
-                <div class="h5 text-muted mt-3">Contact Details</div>
-                <div class="mt-3 mb-3">
-                  <label for="email" class="form-label">Email</label>
+                <div class="h5 text-gray-500 mt-6">Contact Details</div>
+                <div class="mt-6 mb-6">
+                  <label for="email" class="block text-sm font-semibold text-gray-700 mb-1.5">Email</label>
                   <input
                     type="email"
-                    class="form-control"
+                    class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                     formControlName="email"
                     id="email"
                     placeholder=""
@@ -162,11 +162,11 @@
                     readonly
                   />
                 </div>
-                <div class="mt-3">
-                  <label for="text" class="form-label">Name</label>
+                <div class="mt-6">
+                  <label for="text" class="block text-sm font-semibold text-gray-700 mb-1.5">Name</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                     formControlName="name"
                     id="name"
                     placeholder=""
@@ -174,49 +174,49 @@
                   />
                 </div>
                 <hr />
-                <div class="h5 text-muted mb-3">Payment Details</div>
-                <div class="row">
-                  <div class="col-12">
-                    <label for="floatingNumber" class="text-muted mb-1">
+                <div class="h5 text-gray-500 mb-6">Payment Details</div>
+                <div class="flex flex-wrap -mx-3">
+                  <div class="w-full px-6">
+                    <label for="floatingNumber" class="text-gray-500 mb-1">
                       <span class="text-md">Card number</span></label
                     >
-                    <div id="floatingNumber" class="form-control"></div>
+                    <div id="floatingNumber" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"></div>
                   </div>
-                  <div class="col-6 mt-3 m-top-30">
-                    <label for="floatingExpiry" class="text-muted mb-1"
+                  <div class="w-1/2 px-6 mt-6 m-top-30">
+                    <label for="floatingExpiry" class="text-gray-500 mb-1"
                       ><span class="text-md">Expires</span></label
                     >
-                    <div id="floatingExpiry" class="form-control"></div>
+                    <div id="floatingExpiry" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"></div>
                   </div>
-                  <div class="col-6 mt-3 m-top-30">
-                    <label for="floatingCvc" class="text-muted mb-1"
+                  <div class="w-1/2 px-6 mt-6 m-top-30">
+                    <label for="floatingCvc" class="text-gray-500 mb-1"
                       ><span class="text-md">CVV</span></label
                     >
                     <div class="input-group rounded">
                       <div
                         id="floatingCvc"
-                        class="form-control groupIcon"
+                        class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all groupIcon"
                       ></div>
                     </div>
                   </div>
-                  <!-- <div class="col-sm-6 mt-3 m-top-30">
-                  <label for="floatingPost" class="fw-semibold mb-1"><span class="text-sm fw-normal">
+                  <!-- <div class="col-sm-6 mt-6 m-top-30">
+                  <label for="floatingPost" class="font-semibold mb-1"><span class="text-sm font-normal">
                       Post Code</span></label>
-                  <div id="floatingPost" class="form-control"></div>
+                  <div id="floatingPost" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"></div>
 
                 </div> -->
                 </div>
                 <hr />
-                <div class="h5 text-muted mb-3">Billing Address</div>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="mt-3">
-                      <label for="address" class="form-label"
-                        >Address <span class="text-danger">*</span>
+                <div class="h5 text-gray-500 mb-6">Billing Address</div>
+                <div class="flex flex-wrap -mx-3">
+                  <div class="w-full px-6">
+                    <div class="mt-6">
+                      <label for="address" class="block text-sm font-semibold text-gray-700 mb-1.5"
+                        >Address <span class="text-red-600">*</span>
                       </label>
                       <input
                         type="text"
-                        class="form-control"
+                        class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                         formControlName="address"
                         autocomplete="off"
                         id="address"
@@ -228,7 +228,7 @@
                         }"
                       />
                       <div
-                        class="text-xs text-danger mt-1"
+                        class="text-xs text-red-600 mt-1"
                         *ngIf="
                           isSubmitted && subscriptionForm.get('address')?.errors
                         "
@@ -237,14 +237,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-6">
-                    <div class="mt-3">
-                      <label for="city" class="form-label"
-                        >City <span class="text-danger">*</span></label
+                  <div class="w-1/2 px-6">
+                    <div class="mt-6">
+                      <label for="city" class="block text-sm font-semibold text-gray-700 mb-1.5"
+                        >City <span class="text-red-600">*</span></label
                       >
                       <input
                         type="text"
-                        class="form-control"
+                        class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                         formControlName="city"
                         id="city"
                         placeholder=""
@@ -255,7 +255,7 @@
                         }"
                       />
                       <div
-                        class="text-xs text-danger mt-1"
+                        class="text-xs text-red-600 mt-1"
                         *ngIf="
                           isSubmitted && subscriptionForm.get('city')?.errors
                         "
@@ -264,14 +264,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-6">
-                    <div class="mt-3">
-                      <label for="country" class="form-label"
-                        >Country <span class="text-danger">*</span></label
+                  <div class="w-1/2 px-6">
+                    <div class="mt-6">
+                      <label for="country" class="block text-sm font-semibold text-gray-700 mb-1.5"
+                        >Country <span class="text-red-600">*</span></label
                       >
                       <input
                         type="text"
-                        class="form-control"
+                        class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                         formControlName="country"
                         id="country"
                         placeholder=""
@@ -283,7 +283,7 @@
                         }"
                       />
                       <div
-                        class="text-xs text-danger mt-1"
+                        class="text-xs text-red-600 mt-1"
                         *ngIf="
                           isSubmitted && subscriptionForm.get('country')?.errors
                         "
@@ -292,14 +292,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-6">
-                    <div class="mt-3">
-                      <label for="postCode" class="form-label"
-                        >Post Code <span class="text-danger">*</span></label
+                  <div class="w-1/2 px-6">
+                    <div class="mt-6">
+                      <label for="postCode" class="block text-sm font-semibold text-gray-700 mb-1.5"
+                        >Post Code <span class="text-red-600">*</span></label
                       >
                       <input
                         type="text"
-                        class="form-control"
+                        class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
                         formControlName="postcode"
                         id="postCode"
                         autocomplete="off"
@@ -311,7 +311,7 @@
                         }"
                       />
                       <div
-                        class="text-xs text-danger mt-1"
+                        class="text-xs text-red-600 mt-1"
                         *ngIf="
                           isSubmitted &&
                           subscriptionForm.get('postcode')?.errors
@@ -327,21 +327,21 @@
                   <input
                     type="checkbox"
                     id="agree"
-                    class="form-check-input me-2 border-danger"
+                    class="form-check-input mr-2 border-danger"
                     (change)="changeAgree($event)"
                   />
-                  <div class="text-xs text-muted mt-2 text-center">
+                  <div class="text-xs text-gray-500 mt-2 text-center">
                     Your payment information is secure and encrypted. By
                     completing this purchase, you agree to our
                     <a
-                      class="text-primary pointer"
+                      class="text-[#5c142b] cursor-pointer"
                       data-bs-toggle="modal"
                       data-bs-target="#staticBackdropTerms"
                       >Terms of Service</a
                     >
                     and
                     <a
-                      class="text-primary pointer"
+                      class="text-[#5c142b] cursor-pointer"
                       data-bs-toggle="modal"
                       data-bs-target="#staticBackdrop "
                       >Privacy Policy</a
@@ -350,13 +350,13 @@
                 </div>
 
                 <button
-                  class="btn btn-danger w-100"
+                  class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all w-full"
                   [disabled]="isLoading"
                   (click)="confirmPayment()"
                   [disabled]="!agreed"
                 >
                   <div
-                    class="spinner-border spinner-border-sm text-light me-1"
+                    class="spinner-border spinner-border-sm text-light mr-1"
                     role="status"
                     *ngIf="isLoading"
                   ></div>
@@ -388,7 +388,7 @@
         <h5 class="modal-title" id="staticBackdropLabel">Privacy & policy</h5>
         <button
           type="button"
-          class="btn-close"
+          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
@@ -418,7 +418,7 @@
         </h5>
         <button
           type="button"
-          class="btn-close"
+          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
