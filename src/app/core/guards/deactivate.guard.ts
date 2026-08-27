@@ -3,6 +3,11 @@ import { CanDeactivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
 import { map, take } from 'rxjs/operators';
 
+/**
+ * Functional canDeactivate guard for the billing route.
+ * Prevents navigation away from billing when the subscription is not active,
+ * except for a set of explicitly allowed routes.
+ */
 export const deactivateGuard: CanDeactivateFn<unknown> = (component, currentRoute, currentState, nextState) => {
   const authService = inject(AuthService);
   const router = inject(Router);
@@ -30,4 +35,3 @@ export const deactivateGuard: CanDeactivateFn<unknown> = (component, currentRout
     })
   );
 };
-

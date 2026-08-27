@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SignalRService {
   private hubConnection!: signalR.HubConnection;
+  private hubUrl = (environment as any).hubUrl;
   constructor() {}
 
   public startNotificationHub(): void {
     let profileId = localStorage.getItem('currentMemberId');
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(
-        `https://dev-be-mgate.azurewebsites.net/hubs/notification?profileId=${profileId}`,
+        `${this.hubUrl}notification?profileId=${profileId}`,
         {
           transport:
             signalR.HttpTransportType.WebSockets |

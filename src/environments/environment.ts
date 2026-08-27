@@ -1,5 +1,6 @@
 export const environment = {
   baseUrl: 'https://dev-be-mgate.azurewebsites.net/api/',
+  hubUrl: 'https://dev-be-mgate.azurewebsites.net/hubs/',
   baseDomain: 'https://marriagegate.com/'
 };
 

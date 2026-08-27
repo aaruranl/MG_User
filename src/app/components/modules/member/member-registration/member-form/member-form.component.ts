@@ -86,9 +86,8 @@ export class MemberFormComponent implements OnInit {
     private route: Router,
     private activeRoute: ActivatedRoute,
     private _memberService: MemberService,
-    private AuthService: AuthService,
-    private toastr: ToastrService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private toastr: ToastrService
   ) {
     this.memberId = this.activeRoute.snapshot.paramMap.get('id') || '';
   }
@@ -107,7 +106,7 @@ export class MemberFormComponent implements OnInit {
 
     this.getMainUser();
     this.getProfileQusData();
-    this.userDetails = this.AuthService.getTokenDecodeData();
+    this.userDetails = this._authService.getTokenDecodeData();
   }
 
   public loadMemberProfile(): void {

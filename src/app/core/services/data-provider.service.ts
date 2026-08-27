@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { countryCode } from '../helpers/data';
+import { countryCode } from '../../helpers/data';
 import { Country } from '../../models/countryData.model';
 import { FALLBACK_GEO_LOCATION, userGeoLocation as userGeoLocationState } from '../location.state';
 

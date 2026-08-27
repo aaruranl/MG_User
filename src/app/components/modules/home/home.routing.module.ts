@@ -1,12 +1,17 @@
 import { Routes } from '@angular/router';
 import { userRoleNames as role } from '../../../helpers/util';
-import { MemberDetailsComponent } from './member-home/member-details/member-details.component';
+
 export const HomeRoutingModules: Routes = [
  {
   path:'member',
   loadComponent: () => import('./member-home/member-home.component').then(m => m.MemberHomeComponent),
   data:{accessUsers: [role.member]},
-   children: [{ path: 'profile', component: MemberDetailsComponent },]
+  children: [
+    {
+      path: 'profile',
+      loadComponent: () => import('./member-home/member-details/member-details.component').then(m => m.MemberDetailsComponent)
+    }
+  ]
  },
  {
   path:'profile/:id',
@@ -32,6 +37,7 @@ export const HomeRoutingModules: Routes = [
  },
 
 ];
+
 
 
 

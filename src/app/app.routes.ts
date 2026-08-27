@@ -1,28 +1,27 @@
 import { Routes } from '@angular/router';
-import { DeActiveService } from './core/middleware/de-active.service';
-import { CanActivateService } from './core/middleware/can-active.service';
+import { deActiveGuard } from './core/guards/de-active.guard';
+import { canActivateGuard } from './core/guards/can-activate.guard';
 import { userRoleNames as role } from './helpers/util';
-import { AuthGuardService } from './core/middleware/auth-guard.service';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
     loadComponent: () => import('./common/landing/landing-page/landing-page.component').then(m => m.LandingPageComponent),
-    canActivate: [DeActiveService],
+    canActivate: [deActiveGuard],
     data: { seo: { title: 'Welcome to MGATE', description: 'Join MGATE to find your perfect match. The best matrimony platform.', ogTitle: 'Welcome to MGATE', ogDescription: 'Join MGATE to find your perfect match.', ogType: 'website' } }
   },
   { path: 'welcome', redirectTo: '', pathMatch: 'full' },
   {
     path: 'contact-us',
     loadComponent: () => import('./common/landing/contact-us/contact-us.component').then(m => m.ContactUsComponent),
-    canActivate: [DeActiveService],
+    canActivate: [deActiveGuard],
     data: { seo: { title: 'Contact Us | MGATE', description: 'Get in touch with MGATE support team for any queries or help.', ogTitle: 'Contact Us | MGATE', ogDescription: 'Get in touch with MGATE support team.', ogType: 'website' } }
   },
   {
     path: 'pricing',
     loadComponent: () => import('./common/landing/pricing/pricing.component').then(m => m.PricingComponent),
-    canActivate: [DeActiveService],
+    canActivate: [deActiveGuard],
     data: { seo: { title: 'Pricing Plans | MGATE', description: 'Explore MGATE affordable pricing plans to unlock premium matrimony features.', ogTitle: 'Pricing Plans | MGATE', ogDescription: 'Explore MGATE affordable pricing plans.', ogType: 'website' } }
   },
   {
@@ -46,7 +45,7 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./components/auth/login/login.component').then(m => m.LoginComponent),
-    canActivate: [DeActiveService],
+    canActivate: [deActiveGuard],
     data: { seo: { title: 'Login | MGATE', description: 'Login to your MGATE account to connect with potential matches.', ogTitle: 'Login | MGATE', ogDescription: 'Login to your MGATE account.', ogType: 'website' } }
   },
   {
@@ -57,7 +56,7 @@ export const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./components/modules/home/home.routing.module').then(m => m.HomeRoutingModules),
-    canActivate: [CanActivateService],
+    canActivate: [canActivateGuard],
     data: { accessUsers: [role.member] }
   },
   {

@@ -1,44 +1,42 @@
 
 import { Routes } from '@angular/router';
-import { AuthGuardService } from '../../../core/middleware/auth-guard.service';
+import { authGuard } from '../../../core/guards/auth.guard';
 import { userRoleNames as role } from '../../../helpers/util';
-import { DeActiveService } from '../../../core/middleware/de-active.service';
-import { deactivateGuard } from '../../../core/middleware/deactivate.guard';
-import { LeaveApprovalGuard } from '../../../core/middleware/approval.guard';
-import { MemberFormComponent } from './member-registration/member-form/member-form.component';
+import { deactivateGuard } from '../../../core/guards/deactivate.guard';
+import { leaveApprovalGuard } from '../../../core/guards/approval.guard';
 
 
 export const MembersRoutingModules: Routes = [
 {
   path:'plans',
-  loadComponent:()=> import('./subscription-plan/subscription-plan.component').then(m => m.SubscriptionPlanComponent),
-  canActivate:[AuthGuardService],
+  loadComponent:()=>import('./subscription-plan/subscription-plan.component').then(m => m.SubscriptionPlanComponent),
+  canActivate:[authGuard],
   data:{accessUsers: [role.member]}
  },
  {
   path:'payment/:id',
-  loadComponent:()=> import('./stripe-payment/stripe-payment.component').then(m => m.StripePaymentComponent),
-  canActivate:[AuthGuardService],
+  loadComponent:()=>import('./stripe-payment/stripe-payment.component').then(m => m.StripePaymentComponent),
+  canActivate:[authGuard],
   data:{accessUsers: [role.member]}
  },
  {
   path:'profiles',
-  loadComponent:()=> import('./profile-selection/profile-selection.component').then(m => m.ProfileSelectionComponent),
-  canActivate:[AuthGuardService],
+  loadComponent:()=>import('./profile-selection/profile-selection.component').then(m => m.ProfileSelectionComponent),
+  canActivate:[authGuard],
   data:{accessUsers: [role.member]}
  },
 
  {
   path:'member-registration',
   loadComponent:() => import('./member-registration/member-form/member-form.component').then(m => m.MemberFormComponent),
-  canActivate:[AuthGuardService],
+  canActivate:[authGuard],
   data:{accessUsers: [role.member]}
  },
 
  {
   path:'member-registration/edit/:id',
   loadComponent:() => import('./member-registration/member-form/member-form.component').then(m => m.MemberFormComponent),
-  canActivate:[AuthGuardService],
+  canActivate:[authGuard],
   data:{accessUsers: [role.member]}
  },
  {
@@ -49,14 +47,14 @@ export const MembersRoutingModules: Routes = [
 },
 {
   path:'approval',
-  loadComponent:()=> import('./approval/approval.component').then(m => m.ApprovalComponent),
-  canDeactivate: [LeaveApprovalGuard],
-  children: [{ path: 'modify/edit/:id', component: MemberFormComponent },]
+  loadComponent:()=>import('./approval/approval.component').then(m => m.ApprovalComponent),
+  canDeactivate: [leaveApprovalGuard],
+  children: [
+    {
+      path: 'modify/edit/:id',
+      loadComponent: () => import('./member-registration/member-form/member-form.component').then(m => m.MemberFormComponent)
+    }
+  ]
 },
-// {
-//   path:'modify/edit/:id',
-//   loadComponent:() => import('./member-registration/member-edit-form/member-edit-form.component').then(m => m.MemberEditFormComponent),
-//   data:{accessUsers: [role.member]}
-//  },
 
 ];

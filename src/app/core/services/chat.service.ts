@@ -11,6 +11,7 @@ import { ChatMessage, ChatParticipant } from '../../models/index.model';
 export class ChatService {
   private hubConnection!: signalR.HubConnection;
   private baseUrl = (environment as any).baseUrl;
+  private hubUrl = (environment as any).hubUrl;
   private participant: ChatParticipant | null = null;
 
   constructor(private http: HttpClient) { }
@@ -18,7 +19,7 @@ export class ChatService {
    public startConnection(): void {
     let profileId = localStorage.getItem('currentMemberId');
     this.hubConnection = new signalR.HubConnectionBuilder()
-       .withUrl(`https://dev-be-mgate.azurewebsites.net/hubs/chat?profileId=${profileId}`, {
+       .withUrl(`${this.hubUrl}chat?profileId=${profileId}`, {
        transport: signalR.HttpTransportType.WebSockets |
              signalR.HttpTransportType.ServerSentEvents |
              signalR.HttpTransportType.LongPolling,
