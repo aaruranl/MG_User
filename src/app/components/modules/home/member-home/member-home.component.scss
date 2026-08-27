@@ -1,45 +1,37 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
 .bg-color {
-  background-color: #f7f7f7;
-  background-size: cover;
-//  min-height: 100vh;
+  background-color: var(--mg-bg-app, #faf8f5);
+  min-height: calc(100vh - 4rem);
+}
+
+.responsive-sideBar {
+  display: flex;
+  gap: 1.5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
 }
 
 .side-bar {
-  position: fixed;
-  height: 80vh;
-  overflow: hidden;
-  width: 20%;
-}
-.home-box{
- margin-left: 23%;
- width: 75%;
-}
-.side-bar {
-  position: fixed;
-  height: 80vh;
-  overflow: hidden;
-  width: 20%;
+  position: sticky;
+  top: 5rem;
+  height: calc(100vh - 6rem);
+  width: 20rem;
+  flex-shrink: 0;
 }
 
-@media (max-width: 480px) {
-  .home-box{
-    margin-left: 0%;
-    width: 100%;
-    }
+.home-box {
+  flex: 1;
+  min-width: 0;
 }
 
-@media (min-width: 481px) and (max-width: 995px) {
-  .home-box {
-    margin-left: 40%;
-    width: 59%;
+@media (max-width: 768px) {
+  .responsive-sideBar {
+    padding: 1rem 0.5rem;
   }
-
-  .side-bar{
-      position: fixed;
-      height: 80vh;
-      overflow: hidden;
-      width: 35%;
-  }
-
 }
 
