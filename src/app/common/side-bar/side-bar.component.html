@@ -31,62 +31,24 @@
     
     <!-- Origin Country Selection -->
     <div class="p-4 rounded-2xl bg-amber-50/30 border border-amber-200/40 space-y-2">
-      <label class="block font-bold text-gray-800 uppercase tracking-wider text-[11px]">Origin Country</label>
-      <ng-select
-        [items]="countryList"
-        bindLabel="country"
-        bindValue="country"
-        [ngModelOptions]="{standalone: true}"
-        [clearable]="true"
-        [searchable]="true"
+      <app-country-dropdown
+        label="Origin Country"
         [multiple]="true"
         [(ngModel)]="selectedCountry"
-        (change)="ngSelectChange()"
+        (countryChange)="ngSelectChange()"
         placeholder="Select origin country"
-      >
-        <ng-template ng-label-tmp let-item="item">
-          <div class="flex items-center gap-2">
-            <img class="w-4 h-3 object-cover rounded-xs" [src]="item.flags?.svg" alt="" />
-            <span>{{ item.country }}</span>
-          </div>
-        </ng-template>
-        <ng-template ng-option-tmp let-item="item">
-          <div class="flex items-center gap-2 py-1">
-            <img class="w-5 h-3.5 object-cover rounded-xs" [src]="item.flags?.svg" alt="" />
-            <span>{{ item.country }}</span>
-          </div>
-        </ng-template>
-      </ng-select>
+      ></app-country-dropdown>
     </div>
 
     <!-- Living Country Selection -->
     <div class="p-4 rounded-2xl bg-gray-50 border border-gray-100 space-y-2">
-      <label class="block font-bold text-gray-800 uppercase tracking-wider text-[11px]">Living Country</label>
-      <ng-select
-        [items]="countryList"
-        bindLabel="country"
-        bindValue="country"
-        [ngModelOptions]="{standalone: true}"
-        [clearable]="true"
-        [searchable]="true"
+      <app-country-dropdown
+        label="Living Country"
         [multiple]="true"
         [(ngModel)]="selectedLivingCountry"
-        (change)="ngSelectChange()"
+        (countryChange)="ngSelectChange()"
         placeholder="Select living country"
-      >
-        <ng-template ng-label-tmp let-item="item">
-          <div class="flex items-center gap-2">
-            <img class="w-4 h-3 object-cover rounded-xs" [src]="item.flags?.svg" alt="" />
-            <span>{{ item.country }}</span>
-          </div>
-        </ng-template>
-        <ng-template ng-option-tmp let-item="item">
-          <div class="flex items-center gap-2 py-1">
-            <img class="w-5 h-3.5 object-cover rounded-xs" [src]="item.flags?.svg" alt="" />
-            <span>{{ item.country }}</span>
-          </div>
-        </ng-template>
-      </ng-select>
+      ></app-country-dropdown>
     </div>
 
     <!-- Religion Selection -->

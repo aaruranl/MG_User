@@ -7,9 +7,11 @@ import { UserFamilyInfo, UserProfile } from '../../../../../../models/index.mode
 import { DataProviderService } from '../../../../../../core/services/data-provider.service';
 import { MemberService } from '../../../../../../core/services/member.service';
 
+import { CountryDropdownComponent } from '../../../../../../common/country-dropdown/country-dropdown.component';
+
 @Component({
   selector: 'app-family-information-form',
-  imports: [COMMON_DIRECTIVES, FORM_MODULES],
+  imports: [COMMON_DIRECTIVES, FORM_MODULES, CountryDropdownComponent],
   templateUrl: './family-information-form.component.html',
   styleUrl: './family-information-form.component.scss'
 })

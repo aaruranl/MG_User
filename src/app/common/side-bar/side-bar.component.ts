@@ -23,9 +23,11 @@ import { COMMON_DIRECTIVES, FORM_MODULES } from '../common-imports';
 import { SubCommunity } from './../../models/member/community.model';
 import { MemberService } from './../../core/services/member.service';
 
+import { CountryDropdownComponent } from '../country-dropdown/country-dropdown.component';
+
 @Component({
   selector: 'app-side-bar',
-  imports: [CommonModule, COMMON_DIRECTIVES, FORM_MODULES, NgxSliderModule],
+  imports: [CommonModule, COMMON_DIRECTIVES, FORM_MODULES, NgxSliderModule, CountryDropdownComponent],
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.scss',
   encapsulation: ViewEncapsulation.None,

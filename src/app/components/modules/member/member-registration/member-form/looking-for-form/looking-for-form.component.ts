@@ -7,9 +7,11 @@ import { MatchPreferences, UserProfile } from '../../../../../../models/index.mo
 import { DataProviderService } from '../../../../../../core/services/data-provider.service';
 import { MemberService } from './../../../../../../core/services/member.service';
 
+import { CountryDropdownComponent } from '../../../../../../common/country-dropdown/country-dropdown.component';
+
 @Component({
   selector: 'app-looking-for-form',
-  imports: [FORM_MODULES, COMMON_DIRECTIVES],
+  imports: [FORM_MODULES, COMMON_DIRECTIVES, CountryDropdownComponent],
   templateUrl: './looking-for-form.component.html',
   styleUrl: './looking-for-form.component.scss'
 })

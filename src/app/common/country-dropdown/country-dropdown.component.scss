@@ -1,0 +1,12 @@
+.country-scroll-list {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(92, 20, 43, 0.2) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(92, 20, 43, 0.2);
+    border-radius: 4px;
+  }
+}
