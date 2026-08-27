@@ -97,38 +97,7 @@ export class NavigationBarComponent {
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    const clickedInsideMessage = this.eRef.nativeElement
-      .querySelector('.message-box')
-      ?.contains(target);
-    const clickedInsideNotification = this.eRef.nativeElement
-      .querySelector('.notification-box')
-      ?.contains(target);
-    const clickedInsideFriendRequest = this.eRef.nativeElement
-      .querySelector('.friend-request-box')
-      ?.contains(target); // new
-    const clickedMessageIcon = this.eRef.nativeElement
-      .querySelector('.mes')
-      ?.contains(target);
-    const clickedNotificationIcon = this.eRef.nativeElement
-      .querySelector('.noti')
-      ?.contains(target);
-    const clickedProfileIcon = this.eRef.nativeElement
-      .querySelector('.profi')
-      ?.contains(target);
-    const clickedFriendRequestIcon = this.eRef.nativeElement
-      .querySelector('.friend')
-      ?.contains(target); // new
-
-    const clickedInsideRelevant =
-      clickedInsideMessage ||
-      clickedInsideNotification ||
-      clickedInsideFriendRequest ||
-      clickedMessageIcon ||
-      clickedNotificationIcon ||
-      clickedProfileIcon ||
-      clickedFriendRequestIcon;
-
-    if (!clickedInsideRelevant) {
+    if (!this.eRef.nativeElement.contains(target)) {
       this.isNotificationOpen = false;
       this.isMessageOpen = false;
       this.isProfileOpen = false;
