@@ -1,0 +1,14 @@
+<section class="content">
+  <div class="component-content mt-3">
+    <div
+      class="col-11 col-md-10 col-lg-8 mx-auto bg-white pb-3"
+      *ngIf="!isLoading"
+    >
+      <app-member-profile-modal
+        [memberProfile]="filterMemberViewData"
+        [isPopUp]="false"
+      ></app-member-profile-modal>
+    </div>
+    <app-loading *ngIf="isLoading"></app-loading>
+  </div>
+</section>

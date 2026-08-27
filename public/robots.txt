@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /welcome
+Allow: /contact-us
+Allow: /pricing
+Allow: /privacy-policy
+Allow: /help-center
+Allow: /terms-and-condition
+Disallow: /admin
+Disallow: /home
+Disallow: /member
+
+Sitemap: https://www.marriagegate.com/sitemap.xml

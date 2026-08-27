@@ -1,0 +1,257 @@
+<div class="landing-body d-flex flex-column min-vh-100 bg-light">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg sticky-top bg-white shadow-nav py-2">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" routerLink="/">
+        <img
+          src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
+          alt="MarriageGate Logo"
+          height="40"
+          class="d-inline-block align-text-top"
+        />
+      </a>
+      <!-- Mobile Home Icon -->
+      <a
+        class="nav-link d-md-none me-2"
+        routerLink="/"
+        routerLinkActive="active"
+      >
+        <i class="fas fa-home fs-5"></i>
+      </a>
+      <button
+        class="navbar-toggler d-md-none"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center gap-2">
+          <li class="nav-item">
+            <a class="nav-link px-3 rounded" routerLink="/" routerLinkActive="active-nav">
+              <i class="fas fa-home me-1"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-3 rounded" routerLink="/pricing" routerLinkActive="active-nav">
+              <i class="fas fa-tags me-1"></i> Pricing
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-3 rounded" routerLink="/contact-us" routerLinkActive="active-nav">
+              <i class="fas fa-envelope me-1"></i> Contact Us
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-3 rounded active-nav" routerLink="/blogs" routerLinkActive="active-nav">
+              <i class="fas fa-blog me-1"></i> Blogs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-3 rounded" routerLink="/success-stories" routerLinkActive="active-nav">
+              <i class="fas fa-heart me-1"></i> Stories
+            </a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn bg-danger text-white bg-danger-hover px-4 fw-medium" [href]="baseUrl + 'login'" target="_blank">Join</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Loading State -->
+  <div class="container py-5 text-center d-flex flex-column justify-content-center" style="min-height: 100vh;" *ngIf="isLoading">
+    <div class="spinner-border text-danger" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Not Found State -->
+  <div class="container py-5 text-center" *ngIf="!isLoading && !blog">
+    <div class="py-5">
+      <i class="fas fa-search-minus fa-4x text-muted mb-4"></i>
+      <h2 class="fw-bold mb-3">Article Not Found</h2>
+      <p class="text-muted-foreground mb-4">The article you are looking for does not exist or has been removed.</p>
+      <a routerLink="/blogs" class="btn btn-danger px-4 py-2 rounded-pill fw-medium transition-all hover-scale">
+        Browse All Articles
+      </a>
+    </div>
+  </div>
+
+  <!-- Content State -->
+  <ng-container *ngIf="!isLoading && blog">
+    
+    <!-- Hero Header -->
+    <section class="position-relative hero-section">
+      <!-- Background Image -->
+      <div class="position-absolute top-0 start-0 w-100 h-100 hero-bg-image" 
+           [style.backgroundImage]="'url(' + blog.coverImage + ')'">
+      </div>
+      
+      <!-- Gradient Overlay for Readability -->
+      <div class="position-absolute top-0 start-0 w-100 h-100 hero-overlay"></div>
+      
+      <div class="container position-relative z-2 h-100 d-flex align-items-end pb-5">
+        <div class="row w-100">
+          <div class="col-lg-9 mx-auto text-white">
+            <span class="badge bg-danger px-3 py-2 rounded-pill fw-semibold mb-3">
+              {{ blog.category }}
+            </span>
+            <h1 class="display-4 fw-bold mb-3 animate-fade-in text-shadow-sm">{{ blog.title }}</h1>
+            <div class="d-flex align-items-center text-light animate-fade-in delay-300">
+              <i class="far fa-calendar-alt me-2"></i> 
+              <span class="fw-medium">{{ blog.createdDate | date:'longDate' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Area -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row">
+          <!-- Main Content -->
+          <div class="col-lg-8 mx-auto">
+            
+            <!-- Back Button -->
+            <a routerLink="/blogs" class="btn btn-link text-muted-foreground text-decoration-none p-0 mb-4 d-inline-flex align-items-center hover-danger transition-all">
+              <i class="fas fa-arrow-left me-2"></i> Back to all articles
+            </a>
+
+            <!-- Article Body -->
+            <div class="article-content ql-editor" [innerHTML]="blog.content | safeHtml"></div>
+            
+            <!-- Share Section -->
+            <div class="border-top mt-5 pt-4 d-flex align-items-center justify-content-between">
+              <span class="fw-bold">Share this article:</span>
+              <div class="d-flex gap-2">
+                <a href="javascript:void(0)" class="btn btn-outline-secondary rounded-circle btn-sm d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" title="Share on Facebook">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="javascript:void(0)" class="btn btn-outline-secondary rounded-circle btn-sm d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" title="Share on Twitter">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="javascript:void(0)" class="btn btn-outline-secondary rounded-circle btn-sm d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" title="Share via Email">
+                  <i class="fas fa-envelope"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </ng-container>
+
+  <footer class="py-4 footer-bg border-top position-relative mt-auto">
+    <div class="container py-3 position-relative">
+      <div class="row g-5">
+        <div class="col-lg-3">
+          <div class="mb-3">
+            <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="MarriageGate Logo" height="40">
+          </div>
+          <p class="text-muted-foreground">
+            Recognized around the globe as the most trusted matrimonial platform for connecting hearts and building lasting relationships.
+          </p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <h5 class="fw-semibold mb-3">Quick Links</h5>
+          <ul class="list-unstyled text-muted-foreground">
+            <li class="mb-2"><a routerLink="/" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Home</a></li>
+            <li class="mb-2"><a routerLink="/contact-us" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Contact</a></li>
+            <li class="mb-2"><a routerLink="/pricing" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Pricing</a></li>
+            <li class="mb-2"><a [href]="baseUrl + 'login'" target="_blank" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Join</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <h5 class="fw-semibold mb-3">Support</h5>
+          <ul class="list-unstyled text-muted-foreground">
+            <li class="mb-2"><a routerLink="/privacy-policy" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Privacy Policy</a></li>
+            <li class="mb-2"><a routerLink="/terms-and-condition" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Terms and Condition</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <h5 class="fw-semibold mb-3">Follow Us</h5>
+          <ul class="list-unstyled text-muted-foreground">
+            <li class="mb-2">
+              <a href="https://www.instagram.com/marriage.gate" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
+                <i class="fab fa-instagram me-2 social-icon"></i>
+                <span>Instagram</span>
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="https://www.facebook.com/marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
+                <i class="fab fa-facebook me-2 social-icon"></i>
+                <span>Facebook</span>
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="https://wa.me/41779053799" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
+                <i class="fab fa-whatsapp me-2 social-icon"></i>
+                <span>WhatsApp</span>
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="https://www.tiktok.com/@marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
+                <i class="fab fa-tiktok me-2 social-icon"></i>
+                <span>TikTok</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-top mt-5 pt-4 text-center footer-copyright">
+        <p>&copy; {{ currentYear }} MarriageGate. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav d-lg-none">
+    <div class="mobile-nav-container">
+      <a class="mobile-nav-item" routerLink="/pricing" routerLinkActive="active">
+        <i class="fas fa-tags"></i>
+        <span>Pricing</span>
+      </a>
+      <a class="mobile-nav-item mobile-nav-join" [href]="baseUrl + 'login'" target="_blank">
+        <span>Join</span>
+      </a>
+      <a class="mobile-nav-item" data-bs-toggle="offcanvas" href="#mobileMenuOffcanvas" role="button" aria-controls="mobileMenuOffcanvas">
+        <i class="fas fa-bars"></i>
+        <span>Menu</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Mobile Offcanvas Menu -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenuOffcanvas" aria-labelledby="mobileMenuOffcanvasLabel" style="width: 280px;">
+    <div class="offcanvas-header border-bottom py-3">
+      <h5 class="offcanvas-title fw-bold" id="mobileMenuOffcanvasLabel">MarriageGate</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+      <div class="list-group list-group-flush fs-6">
+        <a routerLink="/" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-home text-danger me-3" style="width: 20px;"></i> Home
+        </a>
+        <a routerLink="/pricing" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-tags text-danger me-3" style="width: 20px;"></i> Pricing
+        </a>
+        <a routerLink="/blogs" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-blog text-danger me-3" style="width: 20px;"></i> Blog
+        </a>
+        <a routerLink="/success-stories" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-heart text-danger me-3" style="width: 20px;"></i> Success Story
+        </a>
+        <a routerLink="/contact-us" class="list-group-item list-group-item-action py-3 px-4 border-0" data-bs-dismiss="offcanvas">
+          <i class="fas fa-envelope text-danger me-3" style="width: 20px;"></i> Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+/* otp-input.component.scss */
+.otp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.otp-input-container {
+  display: flex;
+  gap: 12px;
+}
+
+.otp-input {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 500;
+  color: #333;
+  background-color: #fff;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #4285f4;
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.25);
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  &[type=number] {
+    -moz-appearance: textfield;
+  }
+}
+
+.otp-input.ng-valid {
+  border-color: #34a853;
+  background-color: rgba(52, 168, 83, 0.05);
+}
+
+.otp-input.ng-invalid.ng-dirty {
+  border-color: #ea4335;
+  background-color: rgba(234, 67, 53, 0.05);
+}
+@media (max-width: 480px) {
+  .otp-input {
+    width: 34px !important;
+    height: 37px !important;
+
+  }
+}

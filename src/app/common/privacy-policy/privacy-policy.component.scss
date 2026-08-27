@@ -1,0 +1,194 @@
+.container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #e64545 0%, #f82323 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .meta-info {
+            font-size: 0.95em;
+            opacity: 0.95;
+            margin-top: 15px;
+        }
+
+        .content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: #f12727;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #f12727;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        thead tr {
+            background: linear-gradient(135deg, #f56762 0%, #e92a2a 100%);
+            color: white;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid #e5e7eb;
+        }
+
+        tbody tr {
+            background: #f9fafb;
+        }
+
+        tbody tr:nth-child(even) {
+            background: white;
+        }
+
+        tbody tr:hover {
+            background: #f3f4f6;
+        }
+
+        .highlight-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            border-left: 4px solid #f12727;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+
+        .contact-section {
+            background: #f3f4f6;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+
+        .contact-section h2 {
+            color: #667eea;
+            margin-top: 0;
+            border-bottom: none;
+        }
+
+        .contact-info {
+            margin-top: 15px;
+        }
+
+        .contact-info p {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            table {
+                font-size: 0.85em;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+
+         @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 0.70em;
+            }
+
+            th, td {
+                padding: 7px;
+            }
+        }

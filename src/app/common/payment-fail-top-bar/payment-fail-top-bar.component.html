@@ -1,0 +1,60 @@
+<section class="nav-parent">
+  <div class="row m-0 bg-white py-2">
+
+    <!-- Logo -->
+    <div class="col-6">
+      <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
+           alt="logo" class="logo-svg">
+    </div>
+
+    <!-- User Section -->
+    <div class="col-6" *ngIf="mainUser">
+      <div class="d-flex justify-content-end">
+
+        <!-- Custom Profile Menu -->
+        <div class="profile-btn px-2 py-auto" (click)="menuOpen = !menuOpen">
+          <div class="d-flex user-dropdown py-1">
+            <img [src]="mainUser.image"
+                 class="list-profile object-fit-cover me-3"
+                 alt="Profile">
+
+            <div class="text-muted fw-bold my-auto">
+              <div class="text-md me-1">
+                {{mainUser.firstName}} {{mainUser.lastName}}
+                <span class="ms-3">
+                  <i class="fas" [ngClass]="menuOpen ? 'fa-angle-up' : 'fa-angle-down'"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MENU PANEL -->
+        <div class="custom-menu shadow-sm" *ngIf="menuOpen">
+
+          <div class="menu-item" (click)="enterPlanAndBilling()">
+            <i class="fas fa-credit-card text-muted"></i>
+            <span>Plan & Billing</span>
+          </div>
+
+          <div class="menu-item" (click)="enterSettings()">
+            <i class="fas fa-cog text-muted"></i>
+            <span>Settings & privacy</span>
+          </div>
+
+          <div class="menu-item" (click)="enterPrivacyPolicy()">
+            <i class="fas fa-question-circle text-muted"></i>
+            <span>Help & support</span>
+          </div>
+
+          <div class="menu-item" (click)="_authLogout()">
+            <i class="fas fa-sign-out-alt text-muted"></i>
+            <span>Log out</span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

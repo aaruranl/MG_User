@@ -1,0 +1,14 @@
+.text-area{
+  width: 100%;
+  border: solid 1px #e7d2d2;
+}
+.text-area:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: inherit;
+}
+::ng-deep .errorSelect {
+    .ng-select-container {
+        border: 1.5px solid red !important;;
+    }
+}

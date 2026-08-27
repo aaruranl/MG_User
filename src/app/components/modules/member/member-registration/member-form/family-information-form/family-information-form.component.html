@@ -1,0 +1,91 @@
+<form [formGroup]="userFamilyInfoForm">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="form-group mb-3">
+        <label for="fatherName" class="mb-1">Father's Name<span class="text-danger">*</span> </label>
+        <input type="text" id="fatherName" formControlName="fatherName" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userFamilyInfoForm.get('fatherName')?.errors}">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('fatherName')?.errors">Father's name is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="form-group mb-3">
+        <label for="motherName" class="mb-1">Mother's Name<span class="text-danger">*</span> </label>
+        <input type="text" id="motherName" formControlName="motherName" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userFamilyInfoForm.get('motherName')?.errors}">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('motherName')?.errors">Mother's name is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="form-group mb-3">
+        <label for="fatherOccupation" class="mb-1">Father's Occupation<span class="text-danger">*</span> </label>
+        <input type="text" id="fatherOccupation" formControlName="fatherOccupation" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userFamilyInfoForm.get('fatherOccupation')?.errors}">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('fatherOccupation')?.errors">Father's occupation is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="form-group mb-3">
+        <label for="matherOccupation" class="mb-1">Mother's Occupation<span class="text-danger">*</span> </label>
+        <input type="text" id="matherOccupation" formControlName="matherOccupation" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userFamilyInfoForm.get('matherOccupation')?.errors}">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('matherOccupation')?.errors">Mother's occupation is required</div>
+
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="form-group mb-3">
+        <label for="siblings" class="mb-1">Number Of Siblings<span class="text-danger">*</span> </label>
+        <input type="number" id="siblings" formControlName="siblings" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userFamilyInfoForm.get('siblings')?.errors}">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userFamilyInfoForm.get('siblings')?.errors?.['required']">Number of siblings is required</div>
+
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <label for="matherOccupation" class="mb-1">Family Type<span class="text-danger">*</span> </label>
+      <ng-select  [ngClass]="{'errorSelect': isSubmitted && selectedFamily < 1}" [items]="familyTypeList" bindLabel="name" bindValue="id" [searchable]="false" [(ngModel)]="selectedFamily" [clearable]="false" formControlName="familyType"></ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="email text-sm" class="mb-2">Origin Country<span class="text-danger">*</span> </label>
+      <ng-select
+      [items]="countryList"
+      bindLabel="country"
+      bindValue="country"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="false"
+      [searchable]="false"
+      [(ngModel)]="selectedCountry"
+
+      >
+
+      <!-- Label template -->
+      <ng-template ng-label-tmp let-item="item">
+        <div class="d-flex">
+          <div>
+            <img class="me-2" src={{item.flags?.svg}} alt="" width="30px">
+          </div>
+          <div>
+            {{item.country}}
+          </div>
+        </div>
+      </ng-template>
+      <!-- Option template -->
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <div class="d-flex">
+          <div>
+            <img src={{item.flags?.svg}} alt="" width="30px" class="me-2">
+          </div>
+
+          <div class="">
+            {{item.country}}
+          </div>
+        </div>
+      </ng-template>
+    </ng-select>
+    </div>
+    <button class="btn btn-danger me-3 w-100 mt-5" [disabled]="isLoading" (click)="next()">
+      {{ isEditFrom ? 'UPDATE' : 'NEXT'}} <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isLoading"></div></button>
+  </div>
+</form>

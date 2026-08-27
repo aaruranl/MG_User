@@ -1,0 +1,45 @@
+.bg-color {
+  background-color: #f7f7f7;
+  background-size: cover;
+//  min-height: 100vh;
+}
+
+.side-bar {
+  position: fixed;
+  height: 80vh;
+  overflow: hidden;
+  width: 20%;
+}
+.home-box{
+ margin-left: 23%;
+ width: 75%;
+}
+.side-bar {
+  position: fixed;
+  height: 80vh;
+  overflow: hidden;
+  width: 20%;
+}
+
+@media (max-width: 480px) {
+  .home-box{
+    margin-left: 0%;
+    width: 100%;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 995px) {
+  .home-box {
+    margin-left: 40%;
+    width: 59%;
+  }
+
+  .side-bar{
+      position: fixed;
+      height: 80vh;
+      overflow: hidden;
+      width: 35%;
+  }
+
+}
+

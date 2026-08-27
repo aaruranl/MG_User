@@ -1,0 +1,23 @@
+<section class="content">
+  <div class="component-content bg-color" [ngClass]="{'d-none':isLoading}" >
+
+    <div class="p-3 responsive-sideBar" >
+      <div class="border-15 me-4 side-bar d-none d-md-block" *ngIf="screenWidth > 764 || !isInitialLoad" [ngClass]="{'bg-white border':!isInitialLoad}">
+          <app-side-bar (newLoadEvent)="loadChildEmitter($event)"></app-side-bar>
+      </div>
+        <div class="home-box">
+          <div class="text-right float-right mb-2 d-sm-block d-md-none"> <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#filterModal"> <i class="fas fa-filter me-2"></i>Filter</button></div>
+          <app-filter-member-list></app-filter-member-list>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="modal fade" id="filterModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true" *ngIf="screenWidth <= 764">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <app-side-bar></app-side-bar>
+      </div>
+    </div>
+  </div>
+</div>

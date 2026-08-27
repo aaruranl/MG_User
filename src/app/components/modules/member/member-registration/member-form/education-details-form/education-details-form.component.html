@@ -1,0 +1,133 @@
+
+<form [formGroup]="userEducationFrom">
+  <div class="row">
+    <div class="fw-bold text-muted mb-3 mt-3">Education</div>
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Highest Education</label>
+      <ng-select
+        [items]="educationList"
+        bindLabel="name"
+        bindValue="id"
+        [ngModelOptions]="{standalone: true}"
+        [clearable]="true"
+        [(ngModel)]="selectedEducation"
+        (change)="changeHightEduction()"
+      >
+      </ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Qualification<span class="text-danger" *ngIf="selectedEducation">*</span></label>
+      <input type="text" id="qualification" formControlName="qualification" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('qualification')?.errors}">
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userEducationFrom.get('qualification')?.errors">Qualification is required</div>
+    </div>
+
+    <div class="col-12 col-md-12 mb-3">
+      <label for="diet" class="mb-1">Institute<span class="text-danger" *ngIf="selectedEducation">*</span></label>
+      <input type="text" id="institute" formControlName="institute" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('institute')?.errors}">
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userEducationFrom.get('institute')?.errors">institute is required</div>
+    </div>
+
+
+    <div class="fw-bold text-muted mb-3 mt-2">Job</div>
+
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Sector</label>
+      <ng-select
+      [items]="sectorList"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="selectedSector === 0 ? false : true"
+      [searchable]="true"
+      [(ngModel)]="selectedSector"
+      (change)="changeJobSector()"
+      >
+      </ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Job Type <span class="text-danger" *ngIf="selectedSector">*</span></label>
+      <ng-select
+      [items]="jobTypeList"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="selectedJob === ''? false : true"
+      [searchable]="true"
+      [ngClass]="{'errorSelect': isSubmitted && selectedJob  === '' && selectedSector !== null && selectedSector }"
+      [disabled]="!selectedSector"
+      [(ngModel)]="selectedJob"
+      >
+      </ng-select>
+ <div class="text-xs text-danger mt-1"
+       *ngIf="isSubmitted && selectedJob === '' && selectedSector">
+    Job Type is required
+  </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Job Title <span class="text-danger" *ngIf="selectedSector">*</span></label>
+      <input type="text" id="jobTitle" formControlName="jobTitle" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('jobTitle')?.errors}">
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userEducationFrom.get('jobTitle')?.errors">jobTitle is required</div>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Company Name <span class="text-danger" *ngIf="selectedSector">*</span></label>
+      <input type="text" id="companyName" formControlName="companyName" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('companyName')?.errors}">
+      <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userEducationFrom.get('companyName')?.errors">Company name is required</div>
+    </div>
+
+
+    <div class="fw-bold text-muted mb-3 mt-3">Income</div>
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Salary <span class="text-danger" *ngIf="selectedSector">*</span></label>
+        <input type="number" id="salaryDetails" formControlName="salaryDetails" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userEducationFrom.get('salaryDetails')?.errors}" (change)="changeSalary()">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userEducationFrom.get('salaryDetails')?.errors">Salary is required</div>
+        <div class="form-check mt-1">
+          <input class="form-check-input small-check" type="checkbox" [value]="true" id="flexCheckChecked" formControlName="isVisible">
+          <label class="form-check-label ms-2 text-sm" for="flexCheckChecked">
+            Make it visible.
+          </label>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Currency <span class="text-danger" *ngIf="selectedSector">*</span></label>
+      <ng-select
+      [items]="currencyList"
+      bindLabel="code"
+      bindValue="code"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="true"
+      [searchable]="true"
+      [ngClass]="{'errorSelect': isSubmitted && selectedCurrency < 1 && userEducationFrom.get('salaryDetails')!.value !== null}"
+      [disabled]="!userEducationFrom.get('salaryDetails')!.value"
+      [(ngModel)]="selectedCurrency">
+    </ng-select>
+    <div class="text-xs text-danger mt-1"
+       *ngIf="isSubmitted && userEducationFrom.get('salaryDetails')?.value && !selectedCurrency">
+    Currency is required
+  </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Salary Type</label>
+      <div class="d-flex">
+        <div class="me-3">
+          <div class="form-check">
+            <input class="form-check-input pointer" type="radio" name="isYearly" id="monthly" [value]="false" formControlName="isYearly">
+            <label class="form-check-label ms-2" for="monthly">Monthly</label>
+          </div>
+        </div>
+        <div class="me-3">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="isYearly" id="yearly" [value]="true" formControlName="isYearly">
+            <label class="form-check-label ms-2 pointer" for="yearly">Yearly</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <button class="btn btn-danger me-3 w-100 mt-5" (click)="next()" [disabled]="isLoading"> <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>   {{isEditFrom ? 'UPDATE' : 'FINISH'}}</button>
+  </div>
+</form>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 800">
+  <!-- Base gradient background -->
+  <defs>
+    <linearGradient id="baseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff0000" />
+      <stop offset="50%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#ffd700" />
+    </linearGradient>
+
+    <!-- Wave gradient -->
+    <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255, 0, 0, 0.3)" />
+      <stop offset="100%" stop-color="rgba(255, 215, 0, 0.3)" />
+    </linearGradient>
+
+    <!-- Animation for waves -->
+    <animateTransform
+      xlink:href="#wave1"
+      attributeName="transform"
+      attributeType="XML"
+      type="rotate"
+      from="0 600 400"
+      to="360 600 400"
+      dur="30s"
+      repeatCount="indefinite" />
+
+    <animateTransform
+      xlink:href="#wave2"
+      attributeName="transform"
+      attributeType="XML"
+      type="rotate"
+      from="0 600 400"
+      to="360 600 400"
+      dur="20s"
+      repeatCount="indefinite" />
+  </defs>
+
+  <!-- Base background rectangle -->
+  <rect width="100%" height="100%" fill="url(#baseGradient)" />
+
+  <!-- Wave elements -->
+  <ellipse id="wave1" cx="600" cy="700" rx="800" ry="400" fill="url(#waveGradient)" opacity="0.7">
+    <animateTransform
+      attributeName="transform"
+      attributeType="XML"
+      type="rotate"
+      from="0 600 400"
+      to="360 600 400"
+      dur="30s"
+      repeatCount="indefinite" />
+  </ellipse>
+
+  <ellipse id="wave2" cx="600" cy="650" rx="900" ry="450" fill="url(#waveGradient)" opacity="0.5">
+    <animateTransform
+      attributeName="transform"
+      attributeType="XML"
+      type="rotate"
+      from="0 600 400"
+      to="-360 600 400"
+      dur="20s"
+      repeatCount="indefinite" />
+  </ellipse>
+</svg>

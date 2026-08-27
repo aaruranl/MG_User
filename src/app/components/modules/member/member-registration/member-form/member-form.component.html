@@ -1,0 +1,413 @@
+<app-top-bar *ngIf="mainUser && mainUser.memberCount === 0"></app-top-bar>
+<section
+  class="content"
+  [ngClass]="{ 'p-0': mainUser && mainUser.memberCount === 0 }"
+>
+  <div class="component-content">
+    <div
+      class="row m-0"
+      [ngClass]="
+        currentStep === steps.family || currentStep === steps.lookingFor
+          ? 'bg-small'
+          : 'bg-color'
+      "
+    >
+      <div class="col-12 col-md-12 col-lg-10 mx-auto">
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="col-12 py-3">
+                <!-- <app-top-bar></app-top-bar> -->
+                <div class="row mt-2">
+                  <div class="col-12 col-sm-10 col-md-8 col-lg-7 mx-auto">
+                    <div class="text-white">
+                      <div *ngIf="currentStep === steps.lookingFor">
+                        <div
+                          class="dashboard-header p-card"
+                          style="animation-delay: 0.1s"
+                        >
+                          <div class="header-content p-2">
+                            <div class="header-icon p-4 d-none d-sm-block">
+                              <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="header-text">
+                              <h2 class="header-title text-lg">
+                                Profile Matching Criteria
+                              </h2>
+                              <p class="header-subtitle">
+                                The following information is used to match user
+                                profiles based on preferences.
+                              </p>
+                            </div>
+                            <!-- <div class="header-decoration">
+                              <div class="floating-shapes">
+                                <div class="shape shape-1"></div>
+                                <div class="shape shape-2"></div>
+                                <div class="shape shape-3"></div>
+                              </div>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="currentStep === steps.basic">
+                        <div
+                          class="dashboard-header p-card"
+                          style="animation-delay: 0.1s"
+                        >
+                          <div class="header-content p-2">
+                            <div class="header-icon p-4 d-none d-sm-block">
+                              <i class="fas fa-id-card"></i>
+                            </div>
+                            <div class="header-text">
+                              <h2 class="header-title text-lg">
+                                Personal Information
+                              </h2>
+                              <p class="header-subtitle">
+                                Please provide your basic personal details to
+                                get started.
+                              </p>
+                            </div>
+                            <!-- <div class="header-decoration">
+                              <div class="floating-shapes">
+                                <div class="shape shape-1"></div>
+                                <div class="shape shape-2"></div>
+                                <div class="shape shape-3"></div>
+                              </div>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="currentStep === steps.contact">
+                        <div
+                          class="dashboard-header p-card"
+                          style="animation-delay: 0.1s"
+                        >
+                          <div class="header-content p-2">
+                            <div class="header-icon p-4 d-none d-sm-block">
+                              <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="header-text">
+                              <h2 class="header-title text-lg">
+                                Contact Details
+                              </h2>
+                              <p class="header-subtitle">
+                                These details help your matched connections
+                                reach out to you.
+                              </p>
+                            </div>
+                            <!-- <div class="header-decoration">
+                              <div class="floating-shapes">
+                                <div class="shape shape-1"></div>
+                                <div class="shape shape-2"></div>
+                                <div class="shape shape-3"></div>
+                              </div>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+
+                      <div *ngIf="currentStep === steps.personal">
+                        <div
+                          class="dashboard-header p-card"
+                          style="animation-delay: 0.1s"
+                        >
+                          <div class="header-content p-2">
+                            <div class="header-icon p-4 d-none d-sm-block">
+                              <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="header-text">
+                              <h2 class="header-title text-lg">
+                                Personal Details
+                              </h2>
+                              <p class="header-subtitle">
+                                These details describe your lifestyle and can
+                                help you connect with like-minded individuals.
+                              </p>
+                            </div>
+                            <!-- <div class="header-decoration">
+                              <div class="floating-shapes">
+                                <div class="shape shape-1"></div>
+                                <div class="shape shape-2"></div>
+                                <div class="shape shape-3"></div>
+                              </div>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+
+                      <div *ngIf="currentStep === steps.family">
+                        <div
+                          class="dashboard-header p-card"
+                          style="animation-delay: 0.1s"
+                        >
+                          <div class="header-content p-2">
+                            <div class="header-icon p-4 d-none d-sm-block">
+                              <i class="fas fa-user-friends"></i>
+                            </div>
+                            <div class="header-text">
+                              <h2 class="header-title text-lg">
+                                Family Information
+                              </h2>
+                              <p class="header-subtitle">
+                                These details describe your lifestyle and can
+                                help you connect with like-minded individuals.
+                              </p>
+                            </div>
+                            <!-- <div class="header-decoration">
+                              <div class="floating-shapes">
+                                <div class="shape shape-1"></div>
+                                <div class="shape shape-2"></div>
+                                <div class="shape shape-3"></div>
+                              </div>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="currentStep === steps.religionBackground">
+                        <div
+                          class="dashboard-header p-card"
+                          style="animation-delay: 0.1s"
+                        >
+                          <div class="header-content p-2">
+                            <div class="header-icon p-4 d-none d-sm-block">
+                              <i class="fas fa-praying-hands"></i>
+                            </div>
+                            <div class="header-text">
+                              <h2 class="header-title text-lg">
+                                Religious Background
+                              </h2>
+                              <p class="header-subtitle">
+                                This information, helps find matches that align
+                                with your religious and cultural beliefs.
+                              </p>
+                            </div>
+                            <!-- <div class="header-decoration">
+                              <div class="floating-shapes">
+                                <div class="shape shape-1"></div>
+                                <div class="shape shape-2"></div>
+                                <div class="shape shape-3"></div>
+                              </div>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="currentStep === steps.education">
+                        <div
+                          class="dashboard-header p-card"
+                          style="animation-delay: 0.1s"
+                        >
+                          <div class="header-content p-2">
+                            <div class="header-icon p-4 d-none d-sm-block">
+                              <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="header-text">
+                              <h2 class="header-title text-lg">
+                                Education & Career
+                              </h2>
+                              <p class="header-subtitle">
+                                Your education and career details help match
+                                profiles with similar professional and academic
+                                backgrounds.
+                              </p>
+                            </div>
+                            <!-- <div class="header-decoration">
+                              <div class="floating-shapes">
+                                <div class="shape shape-1"></div>
+                                <div class="shape shape-2"></div>
+                                <div class="shape shape-3"></div>
+                              </div>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="m-shadow p-3 profile-card pointer">
+                      <div class="px-2">
+                        <div
+                          [ngClass]="
+                            mainUser && mainUser.memberCount > 0
+                              ? 'd-flex justify-content-between'
+                              : 'text-center'
+                          "
+                          *ngIf="mainUser && mainUser.memberCount > 0"
+                        >
+                          <i
+                            class="fas fa-arrow-left fs-5 mt-2 text-danger"
+                            (click)="goBack()"
+                          ></i>
+                          <div class="text-xl fw-bold text-center fs-4">
+                            USER REGISTRATION
+                          </div>
+                          <div></div>
+                        </div>
+
+                        <div
+                          [ngClass]="
+                            mainUser &&
+                            mainUser.memberCount === 0 &&
+                            currentStep !== steps.lookingFor
+                              ? 'd-flex justify-content-between'
+                              : 'text-center'
+                          "
+                          *ngIf="mainUser && mainUser.memberCount === 0"
+                        >
+                          <i
+                            class="fas fa-arrow-left fs-5 mt-2 text-danger"
+                            (click)="goBack()"
+                            *ngIf="currentStep !== steps.lookingFor"
+                          ></i>
+                          <div class="text-xl fw-bold text-center fs-4">
+                            USER REGISTRATION
+                          </div>
+                          <div></div>
+                        </div>
+
+                        <!-- <div class="mt-1">Complete this form to make your profile even better.</div> -->
+                        <div class="mt-4 fw-bold text-md">
+                          STEP {{ currentStep + 1 }} OF 7
+                        </div>
+                        <div
+                          class="text-muted text-md mb-1"
+                          *ngIf="currentStep === steps.lookingFor"
+                        >
+                          Matching Information
+                        </div>
+                        <div
+                          class="text-muted text-md mb-1"
+                          *ngIf="currentStep === steps.basic"
+                        >
+                          Personal Information
+                        </div>
+                        <div
+                          class="text-muted text-md mb-1"
+                          *ngIf="currentStep === steps.contact"
+                        >
+                          Contact Details
+                        </div>
+                        <div
+                          class="text-muted text-md mb-1"
+                          *ngIf="currentStep === steps.personal"
+                        >
+                          Personal Details
+                        </div>
+                        <div
+                          class="text-muted text-md mb-1"
+                          *ngIf="currentStep === steps.family"
+                        >
+                          Family Information
+                        </div>
+                        <div
+                          class="text-muted text-md mb-1"
+                          *ngIf="currentStep === steps.religionBackground"
+                        >
+                          Religious Background
+                        </div>
+                        <div
+                          class="text-muted text-md mb-1"
+                          *ngIf="currentStep === steps.education"
+                        >
+                          Education & Career
+                        </div>
+                        <div class="progress">
+                          <div
+                            class="progress-bar"
+                            role="progressbar"
+                            [ngStyle]="{ width: getProgressWidth() }"
+                            aria-valuenow="15"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                          ></div>
+                        </div>
+                        <!-- FORMS -->
+                        <div
+                          class="mt-4"
+                          [ngClass]="{
+                            'd-none': currentStep !== steps.lookingFor
+                          }"
+                        >
+                          <app-looking-for-form
+                            (userMatchingDetailsEmitter)="
+                              getUserLookingForDetails($event)
+                            "
+                          ></app-looking-for-form>
+                        </div>
+                        <div
+                          class="mt-4"
+                          [ngClass]="{ 'd-none': currentStep !== steps.basic }"
+                        >
+                          <app-member-profile-form
+                            (basicDetailsEmitter)="
+                              getUserBasicDetailsEmitter($event)
+                            "
+                            [hideGender]="isHideGender"
+                          ></app-member-profile-form>
+                        </div>
+                        <div
+                          class="mt-4"
+                          [ngClass]="{
+                            'd-none': currentStep !== steps.contact
+                          }"
+                        >
+                          <app-contact-info-form
+                            (contactDetailsEmitter)="
+                              getUserContactDetailsEmitter($event)
+                            "
+                          ></app-contact-info-form>
+                        </div>
+                        <div
+                          class="mt-4"
+                          [ngClass]="{
+                            'd-none': currentStep !== steps.personal
+                          }"
+                        >
+                          <app-personal-details-form
+                            (personalDetailsEmitter)="
+                              getUserPersonalDetailsEmitter($event)
+                            "
+                          ></app-personal-details-form>
+                        </div>
+                        <div
+                          class="mt-4"
+                          [ngClass]="{ 'd-none': currentStep !== steps.family }"
+                        >
+                          <app-family-information-form
+                            (userFamilyEmitter)="
+                              getUserFamilyDetailsEmitter($event)
+                            "
+                          ></app-family-information-form>
+                        </div>
+                        <div
+                          class="mt-4"
+                          [ngClass]="{
+                            'd-none': currentStep !== steps.religionBackground
+                          }"
+                        >
+                          <app-religious-background-form
+                            (userReligiousEmitter)="
+                              getUserReligiousEmitter($event)
+                            "
+                          ></app-religious-background-form>
+                        </div>
+                        <div
+                          class="mt-4"
+                          [ngClass]="{
+                            'd-none': currentStep !== steps.education
+                          }"
+                        >
+                          <app-education-details-form
+                            (userEducationEmitter)="getEducationDetails($event)"
+                          ></app-education-details-form>
+                        </div>
+                      </div>
+                      <app-loading *ngIf="isLoading"></app-loading>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

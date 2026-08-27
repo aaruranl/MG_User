@@ -1,0 +1,481 @@
+<div class="landing-body">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg sticky-top bg-white shadow-nav py-2">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" routerLink="/">
+        <img
+          src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
+          alt="MarriageGate Logo"
+          height="40"
+          class="d-inline-block align-text-top"
+        />
+      </a>
+      <!-- Mobile Home Icon -->
+      <a
+        class="nav-link d-md-none me-2"
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <i class="fas fa-home fs-5"></i>
+      </a>
+      <button
+        class="navbar-toggler d-md-none"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center gap-2">
+          <li class="nav-item">
+            <a
+              class="nav-link px-3 rounded"
+              routerLink="/"
+              routerLinkActive="active-nav"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              <i class="fas fa-home me-1"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link px-3 rounded active-nav"
+              routerLink="/pricing"
+              routerLinkActive="active-nav"
+            >
+              <i class="fas fa-tags me-1"></i> Pricing
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link px-3 rounded"
+              routerLink="/contact-us"
+              routerLinkActive="active-nav"
+            >
+              <i class="fas fa-envelope me-1"></i> Contact Us
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-3 rounded" routerLink="/blogs" routerLinkActive="active-nav">
+              <i class="fas fa-blog me-1"></i> Blogs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-3 rounded" routerLink="/success-stories" routerLinkActive="active-nav">
+              <i class="fas fa-heart me-1"></i> Stories
+            </a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a
+              class="btn bg-primary text-white bg-primary-hover px-4 fw-medium"
+              [href]="baseUrl + 'login'"
+              target="_blank"
+              >Join</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <section class="pricing-hero py-5 text-center">
+    <div class="container py-5">
+      <span class="custom-badge mb-3 animate-pulse">
+        <i class="fas fa-crown me-2"></i> Premium Plans
+      </span>
+      <h1 class="display-4 fw-bold mb-3">
+        Choose Your <span class="text-gradient-primary">Perfect Plan</span>
+      </h1>
+      <p class="lead text-muted-foreground mx-auto" style="max-width: 700px">
+        Select the plan that best suits your needs and start enjoying premium
+        features today!
+      </p>
+    </div>
+  </section>
+
+  <!-- Pricing Cards Section -->
+  <section class="py-5 bg-background">
+    <div class="container py-5">
+      <div class="row g-4 justify-content-center">
+        <!-- Pricing Card Loop -->
+        <div class="col-lg-4 col-md-6" *ngFor="let plan of pricingPlans">
+          <div
+            class="card pricing-card h-100 border-0 shadow-lg rounded-4 p-4 position-relative animate-fade-in"
+            [ngClass]="{ 'popular-plan': plan.popular }"
+          >
+            <!-- Popular Badge -->
+            <div class="popular-badge" *ngIf="plan.popular">
+              <i class="fas fa-star me-1"></i> Most Popular
+            </div>
+
+            <!-- Free Trial Badge -->
+            <div class="trial-badge mb-3"  *ngIf="plan.badge">
+              {{ plan.badge }}
+            </div>
+
+            <!-- Plan Name -->
+            <h3 class="h4 fw-bold mb-3 text-foreground">{{ plan.name }}</h3>
+
+            <!-- Price -->
+            <div class="price-section mb-3">
+              <!-- If Trial Period > 15 days -->
+              <ng-container *ngIf="plan.trialPeriodDays > 15; else normalPricing">
+                <div class="text-center">
+
+                  <span class="text-muted text-decoration-line-through fs-3">
+                    ${{ plan.price | number:'1.2-2' }}
+                  </span>
+                </div>
+                <div class="d-flex align-items-baseline justify-content-center gap-1">
+                  <span class="fw-bold fs-1">$0.00</span>
+                  <span class="text-muted small">/ {{ plan.period }}</span>
+                </div>
+              </ng-container>
+
+              <ng-template #normalPricing>
+                <!-- If Discount Available -->
+                <ng-container *ngIf="plan.discount && plan.discount > 0; else noDiscount">
+                  <div class="text-center">
+                    <span class="text-muted text-decoration-line-through fs-3">
+                      ${{ plan.price | number:'1.2-2' }}
+                    </span>
+                  </div>
+
+                  <!-- Discounted Price + Period -->
+                  <div class="d-flex align-items-baseline justify-content-center gap-1">
+                    <span class="fw-bold fs-1">
+                      ${{ plan.discountedPrice | number:'1.2-2' }}
+                    </span>
+                    <span class="text-muted small">
+                      / {{ plan.period }}
+                    </span>
+                  </div>
+
+                  <!-- Discount Badge -->
+                  <div class="mt-2 text-center price-discount-badge">
+                    <span class="badge bg-success px-3 py-1">
+                      {{ plan.discount }}% OFF
+                    </span>
+                  </div>
+                </ng-container>
+
+                <ng-template #noDiscount>
+                  <div class="d-flex align-items-baseline justify-content-center gap-1">
+                    <span class="fw-bold fs-4">
+                      ${{ plan.price | number:'1.2-2' }}
+                    </span>
+                    <span class="text-muted small">
+                      / {{ plan.period }}
+                    </span>
+                  </div>
+                </ng-template>
+              </ng-template>
+            </div>
+
+            <!-- Cancel Anytime -->
+            <p class="text-success fw-medium small mb-4">
+              <i class="fas fa-check-circle me-1"></i> Cancel any time
+            </p>
+
+            <!-- Features List -->
+            <ul class="list-unstyled mb-4 flex-grow-1">
+              <li class="mb-3" *ngFor="let feature of plan.features">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <span class="text-muted-foreground">{{ feature.text }}</span>
+                <div *ngIf="feature.tooltip" class="ms-4 text-muted" style="font-size: 0.8rem; white-space: pre-line;">
+                  ({{ feature.tooltip }})
+                </div>
+              </li>
+            </ul>
+
+            <!-- CTA Button -->
+            <a
+              class="btn btn-lg w-100 rounded-3 fw-medium choose-plan-btn"
+              [ngClass]="
+                plan.popular
+                  ? 'bg-primary text-white bg-primary-hover'
+                  : 'btn-outline-primary'
+              "
+              [href]="baseUrl + 'login'"
+              target="_blank"
+            >
+              Get Started
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Info -->
+      <div class="row mt-5 pt-5">
+        <div class="col-lg-10 mx-auto text-center">
+          <h3 class="h4 fw-bold mb-3">All Plans Include</h3>
+          <div class="row g-4 mt-3">
+            <div class="col-md-3 col-6">
+              <div class="icon-feature">
+                <i class="fas fa-shield-alt text-primary fs-3 mb-2"></i>
+                <p class="small fw-medium mb-0">100% Secure</p>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="icon-feature">
+                <i class="fas fa-user-check text-primary fs-3 mb-2"></i>
+                <p class="small fw-medium mb-0">Verified Profiles</p>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="icon-feature">
+                <i class="fas fa-headset text-primary fs-3 mb-2"></i>
+                <p class="small fw-medium mb-0">24/7 Support</p>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="icon-feature">
+                <i class="fas fa-mobile-alt text-primary fs-3 mb-2"></i>
+                <p class="small fw-medium mb-0">Mobile App</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-5 bg-muted-30">
+    <div class="container py-5">
+      <div class="text-center mb-5">
+        <h2 class="display-6 fw-bold mb-3">Frequently Asked Questions</h2>
+        <p class="lead text-muted-foreground">
+          Have questions? We've got answers.
+        </p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="accordion" id="pricingFAQ">
+            <!-- FAQ Item 1 -->
+            <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button rounded-3 fw-medium"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#faq1"
+                >
+                  How does the free trial work?
+                </button>
+              </h2>
+              <div
+                id="faq1"
+                class="accordion-collapse collapse show"
+                data-bs-parent="#pricingFAQ"
+              >
+                <div class="accordion-body text-muted-foreground">
+                  Once you activate your subscription,
+                  you’ll receive a 7- day free trial. During this period, your profile can be reviewed and approved,
+                  allowing you full access to the matchmaking platform. You can explore all premium features and experience the service before making any commitment.
+                  You may cancel at any time within the 7- day trial period.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed rounded-3 fw-medium"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#faq2"
+                >
+                  Can I upgrade or downgrade my plan?
+                </button>
+              </h2>
+              <div
+                id="faq2"
+                class="accordion-collapse collapse"
+                data-bs-parent="#pricingFAQ"
+              >
+                <div class="accordion-body text-muted-foreground">
+                  Yes, you can upgrade or downgrade your plan at any time from your account settings.
+                  Upgrades take effect immediately, giving you instant access to higher-tier features.
+                  Downgrades will be applied at the end of your current billing cycle, so you can continue using your existing premium features without losing any value.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed rounded-3 fw-medium"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#faq3"
+                >
+                  What payment methods do you accept?
+                </button>
+              </h2>
+              <div
+                id="faq3"
+                class="accordion-collapse collapse"
+                data-bs-parent="#pricingFAQ"
+              >
+                <div class="accordion-body text-muted-foreground">
+                  We accept all major credit and debit cards. To activate your subscription,
+                  you’ll need to enter your 16-digit card number, expiry date,
+                  and CVC code during the checkout process.
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed rounded-3 fw-medium"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#faq4"
+                >
+                  Is my data secure?
+                </button>
+              </h2>
+              <div
+                id="faq4"
+                class="accordion-collapse collapse"
+                data-bs-parent="#pricingFAQ"
+              >
+                <div class="accordion-body text-muted-foreground">
+                  Absolutely. We use bank-level encryption and comply with international data protection standards to keep your information safe.
+                  You also have full control over your privacy, with options to hide sensitive details such as your contact information and salary from other users.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-4 footer-bg border-top position-relative">
+    <div class="container py-3 position-relative">
+      <div class="row g-5">
+        <div class="col-lg-3">
+          <div class="mb-3">
+            <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="MarriageGate Logo" height="40">
+          </div>
+          <p class="text-muted-foreground">
+            Recognized around the globe as the most trusted matrimonial platform for connecting hearts and building lasting relationships.
+          </p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <h5 class="fw-semibold mb-3">Quick Links</h5>
+          <ul class="list-unstyled text-muted-foreground">
+            <li class="mb-2"><a routerLink="/" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Home</a></li>
+            <li class="mb-2"><a routerLink="/contact-us" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Contact</a></li>
+            <li class="mb-2"><a routerLink="/pricing" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Pricing</a></li>
+            <li class="mb-2"><a [href]="baseUrl + 'login'" target="_blank" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Join</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <h5 class="fw-semibold mb-3">Support</h5>
+          <ul class="list-unstyled text-muted-foreground">
+            <li class="mb-2"><a routerLink="/privacy-policy" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Privacy Policy</a></li>
+            <li class="mb-2"><a routerLink="/terms-and-condition" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right me-2 small"></i>Terms and Condition</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <h5 class="fw-semibold mb-3">Follow Us</h5>
+          <ul class="list-unstyled text-muted-foreground">
+            <li class="mb-2">
+              <a href="https://www.instagram.com/marriage.gate" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
+                <i class="fab fa-instagram me-2 social-icon"></i>
+                <span>Instagram</span>
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="https://www.facebook.com/marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
+                <i class="fab fa-facebook me-2 social-icon"></i>
+                <span>Facebook</span>
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="https://wa.me/41779053799" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
+                <i class="fab fa-whatsapp me-2 social-icon"></i>
+                <span>WhatsApp</span>
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="https://www.tiktok.com/@marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary d-flex align-items-center">
+                <i class="fab fa-tiktok me-2 social-icon"></i>
+                <span>TikTok</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-top mt-5 pt-4 text-center footer-copyright">
+        <p>&copy; {{ currentYear }} MarriageGate. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav d-lg-none">
+    <div class="mobile-nav-container">
+      <a
+        class="mobile-nav-item active"
+        routerLink="/pricing"
+        routerLinkActive="active"
+      >
+        <i class="fas fa-tags"></i>
+        <span>Pricing</span>
+      </a>
+      <a
+        class="mobile-nav-item mobile-nav-join"
+        [href]="baseUrl + 'login'"
+        target="_blank"
+      >
+        <span>Join</span>
+      </a>
+      <a class="mobile-nav-item" data-bs-toggle="offcanvas" href="#mobileMenuOffcanvas" role="button" aria-controls="mobileMenuOffcanvas">
+        <i class="fas fa-bars"></i>
+        <span>Menu</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Mobile Offcanvas Menu -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenuOffcanvas" aria-labelledby="mobileMenuOffcanvasLabel" style="width: 280px;">
+    <div class="offcanvas-header border-bottom py-3">
+      <h5 class="offcanvas-title fw-bold" id="mobileMenuOffcanvasLabel">MarriageGate</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+      <div class="list-group list-group-flush fs-6">
+        <a routerLink="/" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-home text-danger me-3" style="width: 20px;"></i> Home
+        </a>
+        <a routerLink="/pricing" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-tags text-danger me-3" style="width: 20px;"></i> Pricing
+        </a>
+        <a routerLink="/blogs" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-blog text-danger me-3" style="width: 20px;"></i> Blog
+        </a>
+        <a routerLink="/success-stories" class="list-group-item list-group-item-action py-3 px-4 border-0 border-bottom" data-bs-dismiss="offcanvas">
+          <i class="fas fa-heart text-danger me-3" style="width: 20px;"></i> Success Story
+        </a>
+        <a routerLink="/contact-us" class="list-group-item list-group-item-action py-3 px-4 border-0" data-bs-dismiss="offcanvas">
+          <i class="fas fa-envelope text-danger me-3" style="width: 20px;"></i> Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

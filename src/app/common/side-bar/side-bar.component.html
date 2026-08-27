@@ -1,0 +1,500 @@
+
+<div class="content-side p-3" >
+  <div class="mb-3 d-flex justify-content-between align-items-center" *ngIf="!isLoading && !isInitialLoad">
+    <div class="text-lg fw-bold text-muted d-none d-md-block">
+       <i class="fas fa-filter"></i> Filter
+    </div>
+    <div class="btn btn-danger d-block d-sm-block d-md-none" data-bs-dismiss="modal" aria-label="Close">Apply Filter</div>
+    <div class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" (click)="clearFilter()">Clear Filter</div>
+  </div>
+
+<div class="mt-2 mb-2" *ngIf="!isLoading && !isInitialLoad">
+  <div class="input-group">
+     <span class="input-group-text">
+      <i class="fas fa-search text-muted"></i>
+    </span>
+    <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchMembers(searchText)" placeholder="Search" />
+  </div>
+</div>
+
+  <ul class="list-group" id="accordionFilter" *ngIf="!isLoading && !isInitialLoad">
+
+    <!-- Basic Info -->
+    <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterBasic" id="default-coll"> <i class="fas fa-user me-2 text-muted"></i>Basic Info</li>
+    <div class="collapse" id="filterBasic" data-bs-parent="#accordionFilter">
+      <div class="card card-body">
+
+        <label class="fw-500">Origin Country</label>
+        <!-- country dropdown -->
+        <div class="my-2">
+           <ng-select
+            [items]="countryList"
+            bindLabel="country"
+            bindValue="country"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="true"
+            [searchable]="true"
+            [multiple]="true"
+            [(ngModel)]="selectedCountry"
+            (change)="ngSelectChange()"
+           >
+
+            <!-- Label template -->
+            <ng-template ng-label-tmp let-item="item">
+              <div class="d-flex">
+                <div>
+                  <img class="me-2" src={{item.flags?.svg}} alt="" width="30px">
+                </div>
+                <div>
+                  {{item.country}}
+                </div>
+              </div>
+            </ng-template>
+            <!-- Option template -->
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <div class="d-flex">
+                <div>
+                  <img src={{item.flags?.svg}} alt="" width="30px" class="me-2">
+                </div>
+
+                <div class="">
+                  {{item.country}}
+                </div>
+              </div>
+            </ng-template>
+          </ng-select>
+        </div>
+
+        <label class="fw-500">Living Country</label>
+        <!-- country dropdown -->
+        <div class="my-2">
+           <ng-select
+            [items]="countryList"
+            bindLabel="country"
+            bindValue="country"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="true"
+            [searchable]="true"
+            [multiple]="true"
+            [(ngModel)]="selectedLivingCountry"
+             (change)="ngSelectChange()"
+           >
+
+            <!-- Label template -->
+            <ng-template ng-label-tmp let-item="item">
+              <div class="d-flex">
+                <div>
+                  <img class="me-2" src={{item.flags?.svg}} alt="" width="30px">
+                </div>
+                <div>
+                  {{item.country}}
+                </div>
+              </div>
+            </ng-template>
+            <!-- Option template -->
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <div class="d-flex">
+                <div>
+                  <img src={{item.flags?.svg}} alt="" width="30px" class="me-2">
+                </div>
+
+                <div class="">
+                  {{item.country}}
+                </div>
+              </div>
+            </ng-template>
+          </ng-select>
+        </div>
+
+        <!-- <label class="fw-500">Province</label>
+        <div class="my-2">
+          <ng-select [items]="stateAndProvince" bindLabel="name" [multiple]="true" bindValue="name" [clearable]="true"
+          [searchable]="true" [(ngModel)]="selectedProvince"  [ngModelOptions]="{standalone: true}" ></ng-select>
+        </div> -->
+
+        <div class="mt-3">
+          <label class="fw-500">Age Range</label>
+          <div class="row mt-2">
+            <div class="col-6">
+              <div class="text-sm">Min</div>
+              <input id="minAge" type="number" class="form-control" [(ngModel)]="minAgeValue" disabled="">
+            </div>
+            <div class="col-6">
+              <div class="text-sm">Max</div>
+              <input id="minAge" type="number" class="form-control" [(ngModel)]="maxAgeValue" disabled="">
+            </div>
+          </div>
+        </div>
+        <div class="custom-slider">
+          <ngx-slider [(value)]="minAgeValue" [(highValue)]="maxAgeValue" [options]="ageOptions"  (userChangeEnd)="ngSelectChange()" ></ngx-slider>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Lifestyle -->
+    <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterLifestyle"> <i class="fas fa-utensils text-muted me-2"></i>Lifestyle</li>
+    <div class="collapse" id="filterLifestyle" data-bs-parent="#accordionFilter">
+      <div class="card card-body rounded-0">
+        <div>
+          <label class="fw-500">Food Habits</label>
+          <div class="form-check mt-2" *ngFor="let d of dietList">
+            <input
+              class="form-check-input small-check"
+              type="checkbox"
+              [id]="'diet_' + d.id"
+              [value]="d.id"
+              (change)="onDietChange($event)"
+              [checked]="foodHabit.includes(d.id)"
+            >
+            <label class="form-check-label ms-2 text-sm" [for]="'diet_' + d.id">
+              {{ d.name }}
+            </label>
+          </div>
+        </div>
+
+
+        <div class="mt-3">
+          <label class="fw-500">Drink Habits</label>
+          <div class="form-check mt-2" *ngFor="let dr of drinkHabitList">
+            <input
+              class="form-check-input small-check"
+              type="checkbox"
+              [id]="'dr_' + dr.id"
+              [value]="dr.id"
+              (change)="onDrinkChange($event)"
+              [checked]="drinkHabit.includes(dr.id)"
+            >
+            <label class="form-check-label ms-2 text-sm" [for]="'dr_' + dr.id">
+              {{ dr.name }}
+            </label>
+          </div>
+        </div>
+
+
+        <div class="mt-3">
+          <label class="fw-500">Smoke Habits</label>
+          <div class="form-check mt-2" *ngFor="let s of SmokeHabitList">
+            <input
+              class="form-check-input small-check"
+              type="checkbox"
+              [id]="'sm_' + s.id"
+              [value]="s.id"
+              (change)="onSmokeChange($event)"
+              [checked]="smokeHabit.includes(s.id)"
+            >
+            <label class="form-check-label ms-2 text-sm" [for]="'sm_' + s.id">
+              {{ s.name }}
+            </label>
+          </div>
+        </div>
+
+        <div class="mt-3">
+        <label class="fw-500">Willing to Relocate</label>
+        <div class="form-check mt-2" *ngFor="let w of welcomeRelocateList">
+            <input
+              class="form-check-input small-check"
+              type="checkbox"
+              [id]="'wg_' + w.id"
+              [value]="w.id"
+              (change)="onRelocateChange($event)"
+              [checked]="welcomeRelocate.includes(w.id)"
+            >
+            <label class="form-check-label ms-2 text-sm" [for]="'wg_' + w.id">
+              {{ w.name }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Physical Attributes -->
+    <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterPhysical"><i class="fas fa-dumbbell me-2 text-muted "></i>Physical Attributes</li>
+    <div class="collapse" id="filterPhysical" data-bs-parent="#accordionFilter">
+      <div class="card card-body rounded-0">
+         <div class="mt-3">
+          <label class="fw-500">Body Type</label>
+          <div class="form-check mt-2" *ngFor="let bt of bodyTypeList">
+            <input
+              class="form-check-input small-check"
+              type="checkbox"
+              [id]="'bt_' + bt.id"
+              [value]="bt.id"
+              (change)="onBodyTypeChange($event)"
+              [checked]="bodyType.includes(bt.id)"
+            >
+            <label class="form-check-label ms-2 text-sm" [for]="'bt_' + bt.id">
+              {{ bt.name }}
+            </label>
+          </div>
+         </div>
+
+
+         <div class="mt-3">
+            <label class="fw-500">Skin Complexion</label>
+            <div class="form-check mt-2" *ngFor="let c of complexionList">
+            <input
+              class="form-check-input small-check"
+              type="checkbox"
+              [id]="'c_' + c.id"
+              [value]="c.id"
+              (change)="onComplexionChange($event)"
+              [checked]="complexion.includes(c.id)"
+            >
+            <label class="form-check-label ms-2 text-sm" [for]="'c_' + c.id">
+              {{ c.name }}
+            </label>
+          </div>
+         </div>
+
+
+         <div class="mt-3">
+           <label class="fw-500">Height Range</label>
+            <div class="row mt-2">
+              <div class="col-6">
+                <div class="text-sm">Min(Cm)</div>
+                <input id="minAge" type="number" class="form-control" [(ngModel)]="minHeightValue" disabled="">
+              </div>
+              <div class="col-6">
+                <div class="text-sm">Max(Cm)</div>
+                <input id="minAge" type="number" class="form-control" [(ngModel)]="maxHeightValue" disabled="">
+              </div>
+            </div>
+             <div class="custom-slider"> <ngx-slider
+              [(value)]="minHeightValue"
+              [(highValue)]="maxHeightValue"
+              [options]="HeightOptions"
+               (userChangeEnd)="ngSelectChange()"
+              >
+            </ngx-slider></div>
+
+         </div>
+
+         <div class="mt-3">
+          <label class="fw-500">Weight Range</label>
+           <div class="row mt-2">
+              <div class="col-6">
+                <div class="text-sm">Min(Kg)</div>
+                <input id="minAge" type="number" class="form-control" [(ngModel)]="minWeightValue" disabled="">
+              </div>
+              <div class="col-6">
+                <div class="text-sm">Max(Kg)</div>
+                <input id="minAge" type="number" class="form-control" [(ngModel)]="maxWeightValue" disabled="">
+              </div>
+            </div>
+             <div class="custom-slider">
+              <ngx-slider [(value)]="minWeightValue" [(highValue)]="maxWeightValue" [options]="weightOptions" (userChangeEnd)="ngSelectChange()"> </ngx-slider>
+             </div>
+
+         </div>
+
+      </div>
+    </div>
+
+    <!-- Cultural Background -->
+    <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterCulture"> <i class="fas fa-globe-americas me-2 text-muted"></i>Cultural Background</li>
+    <div class="collapse" id="filterCulture" data-bs-parent="#accordionFilter">
+      <div class="card card-body rounded-0">
+         <div class="mt-3">
+            <label class="fw-500">Religion</label>
+
+          <ng-select
+            [items]="religionList"
+            bindLabel="name"
+            bindValue="id"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="true"
+            [searchable]="true"
+            [multiple]="true"
+            [(ngModel)]="selectedReligion"
+            (change)="ngSelectChange()"
+           ></ng-select>
+         </div>
+        <div class="mt-3">
+          <label class="fw-500">Community</label>
+
+           <ng-select
+            [items]="communityList"
+            bindLabel="name"
+            bindValue="id"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="true"
+            [searchable]="true"
+            [multiple]="true"
+            [(ngModel)]="selectedCommunity"
+            (change)="ngSelectChange()"
+           ></ng-select>
+        </div>
+
+         <div class="mt-3">
+          <label class="fw-500">Marital Status</label>
+          <ng-select
+            [items]="marriageStatusList"
+            bindLabel="name"
+            bindValue="id"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="true"
+            [searchable]="true"
+            [multiple]="true"
+            [(ngModel)]="selectedMarriageStatus"
+            (change)="ngSelectChange()"
+           ></ng-select>
+         </div>
+
+
+        <div class="mt-3">
+          <label class="fw-500">Known Languages</label>
+          <ng-select
+            [items]="knownLanguagesList"
+            bindLabel="name"
+            bindValue="name"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="true"
+            [searchable]="true"
+            [multiple]="true"
+            [(ngModel)]="selectedKnowLanguages"
+             (change)="ngSelectChange()"
+           ></ng-select>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Career & Education -->
+    <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterCareer"><i class="fas fa-briefcase me-2 text-muted "></i>Career & Education</li>
+    <div class="collapse" id="filterCareer" data-bs-parent="#accordionFilter">
+      <div class="card card-body rounded-0">
+        <div class="mt-3"></div>
+        <label class="fw-500">Job Sectors</label>
+        <div class="form-check mt-2" *ngFor="let sec of sectorList">
+
+            <input
+              class="form-check-input small-check"
+              type="checkbox"
+              [id]="'js_' + sec.id"
+              [value]="sec.id"
+              (change)="onJobSectorChange($event)"
+              [checked]="sector.includes(sec.id)"
+            >
+            <label class="form-check-label ms-2 text-sm" [for]="'js_' + sec.id">
+              {{ sec.name }}
+            </label>
+          </div>
+
+        <div class="mt-3">
+          <label class="fw-500">Job Types</label>
+            <ng-select
+            [items]="jobTypeList"
+            bindLabel="name"
+            bindValue="id"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="true"
+            [searchable]="true"
+            [multiple]="true"
+            [(ngModel)]="selectedJobType"
+             (change)="ngSelectChange()"
+           ></ng-select>
+        </div>
+
+
+        <div class="mt-3">
+          <label class="fw-500">Education Qualifications</label>
+            <ng-select
+            [items]="educationList"
+            bindLabel="name"
+            bindValue="id"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="true"
+            [searchable]="true"
+            [multiple]="true"
+            [(ngModel)]="selectedEducation"
+             (change)="ngSelectChange()"
+           ></ng-select>
+        </div>
+
+        <div class="mt-3">
+  <label class="fw-500">Salary</label>
+  <div class="row mt-2">
+    <div class="col-12 mb-2">
+      <div class="text-sm">Currency</div>
+      <ng-select
+        [items]="currencyList"
+        bindLabel="code"
+        bindValue="code"
+        [ngModelOptions]="{standalone: true}"
+        [clearable]="true"
+        [searchable]="true"
+        [multiple]="false"
+        [(ngModel)]="selectedCurrency"
+        (change)="onCurrencyChange()"
+      >
+      </ng-select>
+    </div>
+
+    <ng-container *ngIf="selectedCurrency">
+      <div class="col-6">
+        <div class="text-sm">Min</div>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="minSalaryValue"
+          (ngModelChange)="onMinSalaryChange($event)"
+        >
+      </div>
+
+      <div class="col-6">
+        <div class="text-sm">Max</div>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="maxSalaryValue"
+          (ngModelChange)="onMaxSalaryChange($event)"
+        >
+        <div class="text-danger text-sm mt-1" *ngIf="salaryMaxError">
+          {{ salaryMaxError }}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+      </div>
+    </div>
+
+    <!-- Astrology -->
+    <li class="list-group-item pointer fw-bold bg-light" data-bs-toggle="collapse" data-bs-target="#filterAstro"><i class="fas fa-star me-2 text-muted"></i>Astrology</li>
+    <div class="collapse" id="filterAstro" data-bs-parent="#accordionFilter">
+      <div class="card card-body rounded-0">
+        <div class="mt-3">
+          <label class="fw-500" >Nakshathiram</label>
+           <ng-select
+            [items]="natshathiraList"
+            bindLabel="name"
+            bindValue="id"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="true"
+            [searchable]="true"
+            [multiple]="true"
+            [(ngModel)]="selectedNatshathira"
+             (change)="ngSelectChange()"
+           ></ng-select>
+        </div>
+        <div class="mt-3">
+          <label class="fw-500" >Raasi</label>
+           <ng-select
+            [items]="rasiList"
+            bindLabel="name"
+            bindValue="id"
+            [ngModelOptions]="{standalone: true}"
+            [clearable]="true"
+            [searchable]="true"
+            [multiple]="true"
+            [(ngModel)]="selectedRasi"
+            (change)="ngSelectChange()"
+           ></ng-select>
+        </div>
+      </div>
+    </div>
+
+  </ul>
+</div>
+

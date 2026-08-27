@@ -1,0 +1,93 @@
+
+<form [formGroup]="profileMatchingForm">
+  <div class="row">
+    <div class="col-12 col-md-12 mb-3">
+      <label for="diet" class="mb-1 fw-bold text-muted">I am creating this Profile for?<span class="text-danger">*</span></label>
+      <ng-select
+      [items]="lookingForList"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="false"
+      [readonly]="isEditFrom"
+      [searchable]="true"
+      [(ngModel)]="SelectedLookingFor">
+
+    </ng-select>
+    </div>
+    <!-- <div class="text-md fw-bold text-muted mb-3 mt-3" *ngIf="SelectedLookingFor === 1 || SelectedLookingFor === 6 || SelectedLookingFor === 7">Looking For in a Match</div> -->
+    <!-- <div class="col-12 col-md-12 mb-3" *ngIf="SelectedLookingFor === 1 || SelectedLookingFor === 6 || SelectedLookingFor === 7">
+      <label for="diet" class="mb-1 ">Looking For Gender<span class="text-danger">*</span></label>
+      <div class="d-flex">
+        <div class="me-3">
+          <div class="form-check">
+            <input class="form-check-input pointer" type="radio" name="gender" id="genderMale" [value]="1" formControlName="gender">
+            <label class="form-check-label ms-2" for="genderMale">Male</label>
+          </div>
+        </div>
+        <div class="me-3">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="gender" id="genderFemale" [value]="2" formControlName="gender">
+            <label class="form-check-label ms-2 pointer " for="genderFemale">Female</label>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="col-12 col-md-3">
+      <div class="form-group mb-3">
+        <label for="minAge" class="mb-1">Min Age <span class="text-danger">*</span></label>
+        <input type="number" id="minAge" formControlName="minAge" class="form-control"  [ngClass]="{'errorBorder': isSubmitted && profileMatchingForm.get('minAge')?.errors}">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && profileMatchingForm.get('minAge')?.errors" class="error-message">
+          <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && profileMatchingForm.get('minAge')?.errors?.['required']">Min age is required</div>
+          <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && profileMatchingForm.get('minAge')?.errors?.['min']">Age must be greater than 18.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="form-group mb-3">
+        <label for="maxAge" class="mb-1">Max Age <span class="text-danger">*</span></label>
+        <input type="number" id="maxAge" formControlName="maxAge" class="form-control"  [ngClass]="{'errorBorder': isSubmitted && (profileMatchingForm.get('maxAge')?.errors || profileMatchingForm.hasError('minGreaterThanMax'))}">
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && profileMatchingForm.get('maxAge')?.errors" class="error-message">
+          <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && profileMatchingForm.get('maxAge')?.errors?.['required']">Max age is required</div>
+          <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && profileMatchingForm.get('maxAge')?.errors?.['max']">Age must be lower than 60.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mb-3">
+      <label for="email text-sm" class="mb-1">Preferred Country<span class="text-danger">*</span> </label>
+      <ng-select [items]="countryList" bindLabel="country" bindValue="country" [ngModelOptions]="{standalone: true}" [clearable]="false"
+      [searchable]="false" [(ngModel)]="selectedCountry">
+      <!-- Label template -->
+      <ng-template ng-label-tmp let-item="item">
+        <div class="d-flex">
+          <div>
+            <img class="me-2" src={{item.flags?.svg}} alt="" width="30px">
+          </div>
+          <div>
+            {{item.country}}
+          </div>
+        </div>
+      </ng-template>
+      <!-- Option template -->
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <div class="d-flex">
+          <div>
+            <img src={{item.flags?.svg}} alt="" width="30px" class="me-2">
+          </div>
+
+          <div class="">
+            {{item.country}}
+          </div>
+        </div>
+      </ng-template>
+    </ng-select>
+    </div>
+    <div class="text-danger mb-3" *ngIf="profileMatchingForm.hasError('minGreaterThanMax') && profileMatchingForm.touched">
+         Max age must be greater than min age.
+      </div>
+
+    <button class="btn btn-danger me-3 w-100 mt-2" [disabled]="isLoading" (click)="next()">  <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isLoading"></div>
+      {{isEditFrom ? 'UPDATE' : 'NEXT'}}</button>
+</div>
+</form>

@@ -1,0 +1,170 @@
+<form [formGroup]="userPersonalDetailsForm">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <label for="aboutMe" class="mb-1">About me <span class="text-danger">*</span></label>
+      <div class="form-group mb-3">
+        <textarea class="text-area" id="aboutMe" [rows]="4" formControlName = "aboutMe" [ngClass]="{'errorBorder': isSubmitted && userPersonalDetailsForm.get('aboutMe')?.errors}" [minlength]="20" [maxlength]="500"></textarea>
+        <div class="text-xs text-muted">Minimum 20 characters, maximum 500 characters</div>
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userPersonalDetailsForm.get('aboutMe')?.errors?.['required']">About me is required</div>
+         <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userPersonalDetailsForm.get('aboutMe')?.errors?.['minlength']">Minimum 20 characters required</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <label for="disability" class="mb-1">Disability</label>
+      <div class="form-group mb-3">
+        <textarea class="text-area" id="disability" [rows]="4" formControlName = "disability"></textarea>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="motherTongue" class="mb-1">Mother Tongue<span class="text-danger">*</span></label>
+      <ng-select
+      [items]="motherTongueList"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="false"
+      [searchable]="true"
+      [(ngModel)]="selectedMotherTongue"
+      >
+      </ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Diet<span class="text-danger">*</span></label>
+      <ng-select
+      [items]="dietList"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="false"
+      [searchable]="false"
+      [(ngModel)]="selectedDiet"
+      >
+      </ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Smoking<span class="text-danger">*</span></label>
+      <ng-select
+      [items]="SmokeHabit"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="false"
+      [searchable]="true"
+      [(ngModel)]="selectedSmoke"
+      >
+      </ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Drinking<span class="text-danger">*</span></label>
+      <ng-select
+      [items]="drinkHabit"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="false"
+      [searchable]="true"
+      [(ngModel)]="selectedDrinking"
+      >
+      </ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Body Type<span class="text-danger">*</span></label>
+      <ng-select
+      [items]="bodyTypeList"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="false"
+      [searchable]="true"
+      [(ngModel)]="selectedBodyType"
+      >
+      </ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Complexion<span class="text-danger">*</span></label>
+      <ng-select
+      [items]="complexionList"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="false"
+      [searchable]="false"
+      [(ngModel)]="SelectedComplexion"
+      >
+      </ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Blood Group</label>
+      <ng-select
+      [items]="bloodGroupList"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="selectedBloodGroup == 0 ? false : true"
+      [searchable]="true"
+      [(ngModel)]="selectedBloodGroup"
+      >
+      </ng-select>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <label for="motherTongue" class="mb-1">Languages know<span class="text-danger">*</span></label>
+      <ng-select
+      [ngClass]="{'errorSelect': isSubmitted && (selectedKnowLanguage.length < 1 || selectedKnowLanguage.length > 5)}"
+      [multiple]="true"
+      [items]="knownLanguagesList"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="false"
+      [searchable]="true"
+      [(ngModel)]="selectedKnowLanguage"
+      >
+      </ng-select>
+     <div class="text-xs text-muted">You can select up to 5 languages</div>
+     <div class="text-xs text-danger" *ngIf="isSubmitted && (selectedKnowLanguage.length < 1 || selectedKnowLanguage.length > 5)">Maximum 5 languages can be selected</div>
+
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+
+        <label class="mb-1">Willing To Relocated <span class="text-danger">*</span> </label>
+        <div class="d-flex">
+          <div class="me-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="canReLocated" id="yes" [value]="1" formControlName="canReLocated">
+              <label class="form-check-label pointer ms-2" for="yes">
+                Yes
+              </label>
+            </div>
+          </div>
+          <div class="me-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="canReLocated" id="no" [value]="2" formControlName="canReLocated">
+              <label class="form-check-label pointer ms-2" for="no">
+               No
+              </label>
+            </div>
+          </div>
+          <div class="me-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="canReLocated" id="maybe" [value]="3" formControlName="canReLocated">
+              <label class="form-check-label pointer ms-2" for="maybe">
+               Maybe
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-danger me-3 w-100 mt-5" (click)="next()" [disabled]="isLoading">
+     {{isEditFrom ? 'UPDATE' : 'NEXT'}} <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isLoading"></div></button>
+</form>

@@ -1,0 +1,431 @@
+<section class="content pt-0 rounded">
+  <div class="component-content s-content">
+    <div class="row m-0 mt-2">
+      <app-top-bar></app-top-bar>
+      <!-- <app-top-bar class="p-0"></app-top-bar> -->
+      <div class="col-md-9 col-sm-12 mx-auto mt-3">
+        <div class="row mt-4">
+          <!-- <div class="col-6 mx-auto">
+            <div class="m-shadow p-3">
+            <div class="text-center h5">Card Information</div>
+            <div class="mt-3">
+              <div class="p-border-shadow-25 mt-3 padding-40">
+                  <div class="row">
+                    <div class="col-12 ">
+                      <label for="floatingNumber" class="text-muted mb-1"> <span class="text-md fw-bold">Card number</span></label>
+                      <div id="floatingNumber" class="form-control" ></div>
+                    </div>
+                    <div class="col-6 mt-3 m-top-30">
+                      <label for="floatingExpiry" class="text-muted mb-1"><span class="text-md fw-bold">Expires</span></label>
+                      <div id="floatingExpiry" class="form-control" ></div>
+
+                    </div>
+                    <div class="col-6 mt-3 m-top-30">
+                      <label for="floatingCvc" class="text-muted mb-1"><span class="text-md fw-bold">CVV</span></label>
+                      <div class="input-group rounded">
+                        <div id="floatingCvc" class="form-control groupIcon" ></div>
+
+                      </div>
+                    </div>
+                    <div class="col-sm-6 mt-3 m-top-30">
+                      <label for="floatingPost" class="fw-semibold mb-1"><span class="text-sm fw-bold">Billing postcode</span></label>
+                      <div id="floatingPost" class="form-control"></div>
+
+                    </div>
+                    <div class="col-12 justify-content-end d-sm-flex mt-4">
+                      <button class="btn btn-danger w-100" [disabled]="isLoading" (click)="confirmPayment()">
+                        <div class="spinner-border spinner-border-sm text-light me-1" role="status" *ngIf="isLoading"></div>
+                        Pay Now</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+          </div> -->
+          <div class="col-sm-12 col-md-5" *ngIf="plan">
+            <div class="m-2 border bg-white shadow-sm border-radios-15 p-3">
+              <h4 class="fw-bold fw-normal text-muted">Order Summary</h4>
+              <div class="text-muted">Review your selected plan details</div>
+
+              <div class="mt-3">
+                <div class="d-flex justify-content-between text-lg">
+                  <div class="fw-bold text-muted">{{ plan.name }}</div>
+                  <div class="price-section mb-2">
+                    <div class="price-wrapper">
+                      @if (plan.trialPeriodDays > 15) {
+                        <span class="text-muted text-decoration-line-through text-sm me-1">${{ plan.price }}</span>
+                        <span class="currency">$</span>
+                        <span class="price-amount">0.00</span>
+                      } @else {
+                        <span class="currency">$</span>
+                        <span class="price-amount">{{ plan.price }}</span>
+                      }
+                      <span class="price-period text-muted text-sm"
+                        >/
+                        {{
+                          plan.intervalType === billingInterval.Month
+                            ? "month"
+                            : plan.intervalType === billingInterval.Year
+                            ? "year"
+                            : plan.intervalType === billingInterval.Week
+                            ? "week"
+                            : "day"
+                        }}</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <hr />
+              <div class="mt-3">
+                <div class="d-flex justify-content-between text-lg">
+                  <div class="fw-bold text-muted">Total</div>
+                    <div class="d-flex flex-wrap align-items-baseline gap-1">
+                      @if (plan.trialPeriodDays > 15) {
+                        <span class="text-muted text-decoration-line-through me-1">${{ plan.price }}</span>
+                        <span class="price-amount text-danger fw-bold">$0.00</span>
+                      } @else if (plan.discount > 0) {
+                        <span class="text-muted text-decoration-line-through me-1">${{ plan.price }}</span>
+                        <span class="price-amount text-danger fw-bold">${{ plan.discountedPrice }}</span>
+                      } @else {
+                        <span class="price-amount">${{ plan.price }}</span>
+                      }
+                    <span class="text-danger fw-bold text-uppercase ms-1 text-sm" *ngIf="plan.trialPeriodDays > 0 ">{{ plan.trialPeriodDays }} DAYS FREE TRIAL</span>
+                    
+                  </div>
+                </div>
+              </div>
+                    <div
+                        class="alert alert-warning d-flex align-items-center justify-content-center text-center fw-semibold small mb-1 mt-2 shadow-sm rounded"
+                       *ngIf="plan.trialPeriodDays > 15"
+                      >
+                        {{ promoMessage }}
+                      </div>
+              <div class="mt-3" *ngIf="plan">
+                <div class="border-radios-15 dc p-3">
+                  <div class="text-md">Plan Include :</div>
+                  <div class="ms-5 mt-2 text-md">
+                    <li>
+                      <b>{{ plan.subscriptionPlanFeature.memberCount }}</b>
+                      Member included
+                    </li>
+                    <li>
+                      <b>{{
+                        plan.subscriptionPlanFeature.sendFriendRequestCount
+                      }}</b>
+                      Friend requests per month
+                    </li>
+                    <li>Advanced search filters</li>
+                    <li>Personalized match suggestions</li>
+                    <li>Unlimited matches</li>
+                    <li>Priority customer support</li>
+                  </div>
+                </div>
+              </div>
+              <!-- verify message  -->
+              <div class="mt-3">
+                <div class="border-radios-15 dc p-3">
+                  <div class="justify-content mt-2 text-md">
+                   <p>
+                    To verify legitimate users, a temporary charge of <strong>$1</strong> may appear on your card.
+                     This charge will be <strong>refunded automatically </strong> within <strong>2 to 3</strong> business days.
+                   </p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-md-7" *ngIf="plan">
+            <div class="m-2 border bg-white shadow-sm border-radios-15 p-3">
+              <form [formGroup]="subscriptionForm">
+                <h4 class="fw-bold fw-normal text-muted">
+                  Payment Information
+                </h4>
+                <div class="text-sm">Enter your payment details securely.</div>
+                <div class="h5 text-muted mt-3">Contact Details</div>
+                <div class="mt-3 mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    formControlName="email"
+                    id="email"
+                    placeholder=""
+                    #addressInput
+                    [ngClass]="{
+                      errorBorder:
+                        isSubmitted && subscriptionForm.get('email')?.errors
+                    }"
+                    readonly
+                  />
+                </div>
+                <div class="mt-3">
+                  <label for="text" class="form-label">Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="name"
+                    id="name"
+                    placeholder=""
+                    readonly
+                  />
+                </div>
+                <hr />
+                <div class="h5 text-muted mb-3">Payment Details</div>
+                <div class="row">
+                  <div class="col-12">
+                    <label for="floatingNumber" class="text-muted mb-1">
+                      <span class="text-md">Card number</span></label
+                    >
+                    <div id="floatingNumber" class="form-control"></div>
+                  </div>
+                  <div class="col-6 mt-3 m-top-30">
+                    <label for="floatingExpiry" class="text-muted mb-1"
+                      ><span class="text-md">Expires</span></label
+                    >
+                    <div id="floatingExpiry" class="form-control"></div>
+                  </div>
+                  <div class="col-6 mt-3 m-top-30">
+                    <label for="floatingCvc" class="text-muted mb-1"
+                      ><span class="text-md">CVV</span></label
+                    >
+                    <div class="input-group rounded">
+                      <div
+                        id="floatingCvc"
+                        class="form-control groupIcon"
+                      ></div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-sm-6 mt-3 m-top-30">
+                  <label for="floatingPost" class="fw-semibold mb-1"><span class="text-sm fw-normal">
+                      Post Code</span></label>
+                  <div id="floatingPost" class="form-control"></div>
+
+                </div> -->
+                </div>
+                <hr />
+                <div class="h5 text-muted mb-3">Billing Address</div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="mt-3">
+                      <label for="address" class="form-label"
+                        >Address <span class="text-danger">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="address"
+                        autocomplete="off"
+                        id="address"
+                        placeholder=""
+                        [ngClass]="{
+                          errorBorder:
+                            isSubmitted &&
+                            subscriptionForm.get('address')?.errors
+                        }"
+                      />
+                      <div
+                        class="text-xs text-danger mt-1"
+                        *ngIf="
+                          isSubmitted && subscriptionForm.get('address')?.errors
+                        "
+                      >
+                        Address is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mt-3">
+                      <label for="city" class="form-label"
+                        >City <span class="text-danger">*</span></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="city"
+                        id="city"
+                        placeholder=""
+                        autocomplete="off"
+                        [ngClass]="{
+                          errorBorder:
+                            isSubmitted && subscriptionForm.get('city')?.errors
+                        }"
+                      />
+                      <div
+                        class="text-xs text-danger mt-1"
+                        *ngIf="
+                          isSubmitted && subscriptionForm.get('city')?.errors
+                        "
+                      >
+                        City is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mt-3">
+                      <label for="country" class="form-label"
+                        >Country <span class="text-danger">*</span></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="country"
+                        id="country"
+                        placeholder=""
+                        autocomplete="off"
+                        [ngClass]="{
+                          errorBorder:
+                            isSubmitted &&
+                            subscriptionForm.get('country')?.errors
+                        }"
+                      />
+                      <div
+                        class="text-xs text-danger mt-1"
+                        *ngIf="
+                          isSubmitted && subscriptionForm.get('country')?.errors
+                        "
+                      >
+                        Country is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mt-3">
+                      <label for="postCode" class="form-label"
+                        >Post Code <span class="text-danger">*</span></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="postcode"
+                        id="postCode"
+                        autocomplete="off"
+                        placeholder=""
+                        [ngClass]="{
+                          errorBorder:
+                            isSubmitted &&
+                            subscriptionForm.get('postcode')?.errors
+                        }"
+                      />
+                      <div
+                        class="text-xs text-danger mt-1"
+                        *ngIf="
+                          isSubmitted &&
+                          subscriptionForm.get('postcode')?.errors
+                        "
+                      >
+                        Postcode is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-check mb-2">
+                  <input
+                    type="checkbox"
+                    id="agree"
+                    class="form-check-input me-2 border-danger"
+                    (change)="changeAgree($event)"
+                  />
+                  <div class="text-xs text-muted mt-2 text-center">
+                    Your payment information is secure and encrypted. By
+                    completing this purchase, you agree to our
+                    <a
+                      class="text-primary pointer"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdropTerms"
+                      >Terms of Service</a
+                    >
+                    and
+                    <a
+                      class="text-primary pointer"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop "
+                      >Privacy Policy</a
+                    >.
+                  </div>
+                </div>
+
+                <button
+                  class="btn btn-danger w-100"
+                  [disabled]="isLoading"
+                  (click)="confirmPayment()"
+                  [disabled]="!agreed"
+                >
+                  <div
+                    class="spinner-border spinner-border-sm text-light me-1"
+                    role="status"
+                    *ngIf="isLoading"
+                  ></div>
+                  START FREE TRIAL
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-loading *ngIf="isLoading"></app-loading>
+  </div>
+</section>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Privacy & policy</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body p-0">
+        <app-privacy-policy></app-privacy-policy>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdropTerms"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabelTerms">
+          Terms & Conditions
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body p-0">
+        <app-terms-and-condition></app-terms-and-condition>
+      </div>
+    </div>
+  </div>
+</div>

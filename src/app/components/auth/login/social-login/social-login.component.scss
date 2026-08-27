@@ -1,0 +1,47 @@
+
+.google-btn {
+  background-color: #fff;
+  color: #757575;
+  border: 1px solid #ddd;
+}
+
+.google-btn:hover {
+  background-color: #f1f1f1;
+}
+
+// .facebook-btn {
+//   background-color: #3b5998;
+//   color: white;
+//   border-radius: 5px;
+// }
+
+// .facebook-btn:hover {
+//   background-color: #344e86;
+// }
+
+.login-buttons {
+  display: flex;
+  flex-direction: column;
+
+}
+.google-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.facebook-btn {
+//  background-color: #3b5998;
+//  color: white;
+  width: 39px;
+}
+// .facebook-btn:hover {
+//   background-color: #344e86;
+//    border-radius: 5px;
+// }
+
+
+::ng-deep .nsm7Bb-HzV7m-LgbsSe.MFS4be-v3pZbf-Ia7Qfc {
+ background-color: #ffffff !important;
+ border: 1px solid rgb(218, 217, 217) !important;
+}

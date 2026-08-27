@@ -1,0 +1,687 @@
+<app-payment-fail-top-bar
+  [mainUser]="mainUser"
+  *ngIf="mainUser && !mainUser.isActiveSubscription"
+></app-payment-fail-top-bar>
+<section class="content">
+  <div class="component-content">
+    <div class="row m-0 p-0">
+      <div
+        class="col-12 col-sm-8 col-md-10 col-lg-8 mx-auto mt-3 mb-3"
+        *ngIf="!isPlanBillingLoading"
+      >
+        <h3>Plan and Billing</h3>
+        <div class="text-md">
+          Manage your subscription plan and billing preferences
+        </div>
+
+        <div class="mt-3">
+          <div class="border p-3 bg-white border-15">
+            <div>
+              <i class="fas fa-credit-card me-3"></i
+              ><span class="fw-bold text-muted fs-4">Current Plan</span>
+            </div>
+            <div
+              class="mt-3 d-flex justify-content-between"
+              *ngIf="!isPlanBillingLoading && currentPlan"
+            >
+              <div>
+                <div class="text-lg fw-bold text-muted">
+                  {{ currentPlan.planName }}
+                </div>
+                <div class="price-section mb-2 mt-2">
+                  <div class="price-wrapper">
+                    <span class="currency">$</span>
+                    <span class="price-amount">{{ currentPlan.price | number:'1.2-2' }}</span>
+                    <span class="price-period"
+                      >/
+                      {{
+                        currentPlan.intervalType === billingInterval.Month
+                          ? "month"
+                          : currentPlan.intervalType === billingInterval.Year
+                            ? "year"
+                            : currentPlan.intervalType === billingInterval.Week
+                              ? "week"
+                              : "day"
+                      }}
+                    </span>
+                  </div>
+                </div>
+                @if (currentPlan.downgradeSubscriptionDate) {
+                  <div class="text-primary">
+                    Your plan will be downgraded to
+                    {{ currentPlan.downgradeSubscriptionPlan?.name }} on
+                    {{ currentPlan.downgradeSubscriptionDate | date }}.
+                  </div>
+                }
+              </div>
+              <div>
+                <div
+                  [ngClass]="{
+                    'text-danger': currentPlan.isRequestToCancel,
+                    'text-primary':
+                      currentPlan.subscriptionStatus ==
+                        subscriptionStatus.Trialing &&
+                      !currentPlan.isRequestToCancel,
+                  }"
+                >
+                  <i class="fas fa-calendar-alt me-2"></i
+                  ><span class="me-3"
+                    >{{
+                      currentPlan.subscriptionStatus ==
+                        subscriptionStatus.Trialing &&
+                      !currentPlan.isRequestToCancel
+                        ? "Trial ends"
+                        : currentPlan.isRequestToCancel
+                          ? "Cancel"
+                          : "Renews"
+                    }}
+                    on {{ currentPlan.currentPeriodEnd | date }}</span
+                  >
+                </div>
+                <div>
+                  <i class="fas fa-user me-2"></i
+                  ><span class="me-3"
+                    >Remaining members:
+                    <b>{{ currentPlan.remainingMemberCount }}</b></span
+                  >
+                </div>
+                <div>
+                  <i class="fas fa-envelope me-2"></i
+                  ><span class="me-3"
+                    >Remaining requests:
+                    <b
+                      >{{ currentPlan.remainingFriendRequestCount }}/month</b
+                    ></span
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- <div class="d-flex justify-content-center" *ngIf="isPlanBillingLoading">
+                <div class="spinner-border text-danger" role="status" >
+              <span class="visually-hidden">Loading...</span>
+             </div>
+            </div> -->
+            <hr />
+
+            <div class="mt-3 d-flex" *ngIf="currentPlan">
+              <!-- <div class="btn dim-btn text-danger me-3">View Invoice</div> -->
+
+              @if (currentPlan.isPaymentFailed) {
+                <button
+                  class="btn btn-primary"
+                  (click)="retrievePayment()"
+                  [disabled]="isRetrieveLoading"
+                >
+                  <div
+                    class="spinner-border spinner-border-sm text-light me-1"
+                    *ngIf="isRetrieveLoading"
+                  ></div>
+                  Retrieve Payment
+                </button>
+              } @else {
+                <button
+                  *ngIf="!currentPlan.isPaymentFailed"
+                  class="btn"
+                  [disabled]="isPlanBillingLoading"
+                  [ngClass]="
+                    !currentPlan.isRequestToCancel
+                      ? 'dim-btn text-danger'
+                      : 'dim-green'
+                  "
+                  (click)="
+                    currentPlan.isRequestToCancel
+                      ? reactivePayment()
+                      : cancelSubscription(currentPlan.subscriptionIdString)
+                  "
+                >
+                  <div
+                    class="spinner-border spinner-border-sm text-light me-1"
+                    *ngIf="isCancelLoading"
+                  ></div>
+                  {{
+                    !currentPlan.isRequestToCancel
+                      ? "Cancel Subscription"
+                      : "Reactive Plan"
+                  }}
+                </button>
+              }
+
+              <button
+                class="btn btn-danger ms-3"
+                data-bs-toggle="modal"
+                data-bs-target="#view-invoice"
+              >
+                View Invoice
+              </button>
+            </div>
+            @if (currentPlan.isPaymentFailed) {
+              <div class="text-danger text-sm mt-2 fw-bold">
+                {{ currentPlan.paymentFailureReason }}
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- CART CHANGE -->
+        <div class="mt-4">
+          <h3>Payment Method</h3>
+          <div class="mt-3">
+            <div class="row">
+              <div class="col-12">
+                <div class="border p-3 bg-white border-15">
+                  <div
+                    class="row"
+                    *ngIf="
+                      currentPlan && !isPlanBillingLoading && !isPaymentChange
+                    "
+                  >
+                    <div class="col-4">
+                      <div class="d-flex">
+                        <div class="me-3">
+                          <img
+                            width="60"
+                            [src]="currentPlan.cardImage"
+                            alt="{{ currentPlan.cardType }}"
+                          />
+                        </div>
+                        <div class="me-2">
+                          <div class="text-md">
+                            {{ currentPlan.cardType | titlecase }}
+                          </div>
+                          <div class="text-xs">
+                            {{ currentPlan.last4Digit }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="col-8 text-right my-auto text-danger pointer"
+                      (click)="changePaymentMethod()"
+                    >
+                      <i class="fas fa-pencil-alt me-1"></i> Change
+                    </div>
+                  </div>
+                  <div *ngIf="isPaymentChange">
+                    <div class="h5 text-muted mb-3">Payment Details</div>
+                    <div class="row">
+                      <div class="col-12">
+                        <label for="floatingNumber" class="text-muted mb-1">
+                          <span class="text-md">Card number</span></label
+                        >
+                        <div id="floatingNumber" class="form-control"></div>
+                      </div>
+                      <div class="col-6 mt-3 m-top-30">
+                        <label for="floatingExpiry" class="text-muted mb-1"
+                          ><span class="text-md">Expires</span></label
+                        >
+                        <div id="floatingExpiry" class="form-control"></div>
+                      </div>
+                      <div class="col-6 mt-3 m-top-30">
+                        <label for="floatingCvc" class="text-muted mb-1"
+                          ><span class="text-md">CVV</span></label
+                        >
+                        <div class="input-group rounded">
+                          <div
+                            id="floatingCvc"
+                            class="form-control groupIcon"
+                          ></div>
+                        </div>
+                      </div>
+                      <!-- <div class="col-sm-6 mt-3 m-top-30">
+                            <label for="floatingPost" class="fw-semibold mb-1"><span class="text-sm fw-normal">
+                                Post Code</span></label>
+                            <div id="floatingPost" class="form-control"></div>
+
+                          </div> -->
+                      <div class="col-12 justify-content-end d-sm-flex mt-4">
+                        <button
+                          class="btn btn-danger w-100 me-3"
+                          (click)="confirmPayment()"
+                          [disabled]="isLoading"
+                        >
+                          <div
+                            class="spinner-border spinner-border-sm text-light me-1"
+                            role="status"
+                            *ngIf="isChangeLoading"
+                          ></div>
+                          Change Now
+                        </button>
+                        <button
+                          class="btn btn-light w-100"
+                          (click)="cancelChangeMethod()"
+                        >
+                          <div
+                            class="spinner-border spinner-border-sm text-light me-1"
+                            role="status"
+                            *ngIf="isChangeLoading"
+                          ></div>
+                          Cancel
+                        </button>
+                      </div>
+                      <div class="text-xs text-muted mt-2 text-center">
+                        Your payment information is secure and encrypted. By
+                        completing this purchase, you agree to our Terms of
+                        Service and Privacy Policy.
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="d-flex justify-content-center" *ngIf="isPlanBillingLoading">
+                      <div class="spinner-border text-danger" role="status" >
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                      </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4" *ngIf="availablePlans">
+          <h3>Change Plan</h3>
+          <div class="mt-3">
+            <!-- Subscription Cards -->
+            <div
+              class="row g-4"
+              *ngIf="!isAvailablePlanLoading && availablePlans"
+            >
+              <!-- Free Plan -->
+              <div
+                class="col-lg-4 col-md-6 col-sm-12 col-12"
+                *ngFor="let plan of availablePlans.subscriptionPlans"
+              >
+                <div class="subscription-card-container">
+                  <div class="card subscription-card h-100 pointer border mb-5">
+                    <div class="text-center fw-bold pt-3 fs-4">
+                      <div class="mb-2 text-muted">
+                        <span class=""></span>
+                        <span
+                          class=""
+                          *ngIf="
+                            plan.subscriptionType === subscriptionType.Free
+                          "
+                          >Free Plan</span
+                        >
+                        <span
+                          class=""
+                          *ngIf="
+                            plan.subscriptionType === subscriptionType.Silver
+                          "
+                          >Silver Plan</span
+                        >
+                        <span
+                          class=""
+                          *ngIf="
+                            plan.subscriptionType === subscriptionType.Gold
+                          "
+                          >Gold Plan</span
+                        >
+                        <span
+                          class=""
+                          *ngIf="
+                            plan.subscriptionType === subscriptionType.Platinum
+                          "
+                          >Platinum Plan</span
+                        >
+                      </div>
+                    </div>
+
+                    <div class="card-body text-center pb-0 pt-1">
+                      <div class="price-section mb-2">
+                        <div class="price-wrapper">
+                          <span class="currency" *ngIf="plan.discount === 0">$</span>
+                          @if (plan.discount > 0) {
+                            <span class="price-amount original-price text-sm">${{ plan.price | number:'1.2-2' }}</span>
+                            <span class="ms-2 price-amount discounted-price">{{ plan.discountedPrice | number:'1.2-2' }}</span>
+                          }@else {
+                            <span class="price-amount">{{ plan.price | number:'1.2-2' }}</span>
+                          }
+
+                          <span class="price-period text-sm">
+                            /
+                            {{
+                              plan.intervalType === billingInterval.Month
+                                ? "month"
+                                : plan.intervalType === billingInterval.Year
+                                  ? "year"
+                                  : plan.intervalType === billingInterval.Week
+                                    ? "week"
+                                    : "day"
+                            }}
+                          </span>
+                        </div>
+                        <div *ngIf="plan.discount !== 0" class="text-xs text-center badge badge bg-success text-white p-2 mt-2">
+                          <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="15px" width="15px" version="1.1" id="Layer_1" viewBox="0 0 503.467 503.467" xml:space="preserve">
+                                <g transform="translate(1)">
+                                  <path style="fill:#ECF4F7;" d="M353.987,86.904c-6.827,7.68-10.24,17.067-10.24,28.16c0,23.893,18.773,42.667,42.667,42.667   c23.893,0,42.667-18.773,42.667-42.667s-18.773-42.667-42.667-42.667C373.613,72.397,362.52,78.37,353.987,86.904L353.987,86.904z    M245.613,51.064l21.333-21.333l0,0c17.067-17.067,34.133-25.6,59.733-25.6h136.533c18.773,0,34.133,15.36,34.133,34.133v136.533   c0,17.067-3.413,29.867-11.093,41.813c-4.267,5.973-8.533,11.947-14.507,17.92l-230.4,230.4l-23.04,23.04   c-13.653,13.653-34.987,13.653-48.64,0L12.654,330.957C-1,317.304-1,295.971,12.654,283.171L245.613,51.064z"/>
+                                  <path style="fill:#FF7474;" d="M353.987,87.04c7.68-8.533,19.627-14.507,32.427-14.507c23.893,0,42.667,18.773,42.667,42.667   s-18.773,42.667-42.667,42.667c-23.893,0-42.667-18.773-42.667-42.667C343.747,104.107,348.013,94.72,353.987,87.04z    M487.107,216.747l-151.04,265.387c-9.387,16.213-30.72,22.187-46.933,12.8L242.2,465.92l0,0l230.4-230.4   C477.72,228.693,482.84,222.72,487.107,216.747L487.107,216.747z"/>
+                                </g>
+                                <path style="fill:#51565F;" d="M307.2,503.467c-6.827,0-12.8-1.707-18.773-5.12l-19.627-12.8c-1.707-1.707-2.56-4.267-0.853-5.973  c1.707-1.707,4.267-2.56,5.973-0.853l18.773,11.947c13.653,8.533,32.427,3.413,40.96-11.093l98.133-166.4  c0.853-1.707,3.413-2.56,5.973-1.707c1.707,0.853,2.56,3.413,1.707,5.973l-98.133,166.4C332.8,496.64,320,503.467,307.2,503.467z   M195.413,502.614c-10.24,0-19.627-3.413-27.307-11.093L11.093,334.507C3.413,327.68,0,317.44,0,307.2  c0-10.24,4.267-19.627,11.093-27.307L238.08,52.907c-29.013-6.827-55.467-11.093-77.653-13.653  c-37.547-3.413-40.96,3.413-40.96,3.413c-0.853,1.707,7.68,13.653,56.32,33.28c2.56,0.853,3.413,3.413,2.56,5.12  c-0.853,2.56-3.413,3.413-5.12,2.56c-43.52-17.067-64-31.573-61.44-42.667c1.707-5.973,8.533-13.653,50.347-9.387  C186.027,33.28,215.04,38.4,245.76,46.08l19.627-19.627C284.16,7.68,302.933,0,328.533,0h136.533c21.333,0,38.4,17.067,38.4,38.4  v136.533c0,25.6-7.68,43.52-26.453,63.147l-253.44,253.44C215.04,499.2,204.8,502.614,195.413,502.614z M248.32,55.467l-230.4,230.4  c-5.973,5.973-8.533,12.8-8.533,21.333c0,7.68,3.413,15.36,8.533,21.333l157.013,157.013c11.947,11.947,30.72,11.947,41.813,0  l253.44-253.44c17.067-17.067,24.747-34.133,24.747-56.32V39.253c0-16.213-13.653-29.867-29.867-29.867H328.533  c-23.04,0-39.253,6.827-56.32,24.747l0,0L256,50.347c2.56,0.853,5.12,1.707,8.533,2.56c37.547,10.24,72.533,22.187,98.133,34.133  c37.547,17.92,40.107,27.307,38.4,33.28c-1.707,5.973-8.533,9.387-20.48,10.24c-2.56,0-4.267-1.707-4.267-4.267  s1.707-4.267,4.267-4.267c10.24-0.853,12.8-3.413,12.8-4.267c0,0,0-7.68-34.133-23.893c0,0-0.853,0-0.853-0.853  c-5.12,6.827-7.68,14.507-7.68,23.04c0,21.333,17.067,38.4,38.4,38.4c21.333,0,38.4-17.067,38.4-38.4s-17.067-38.4-38.4-38.4  c-2.56,0-4.267-1.707-4.267-4.267c0-2.56,1.707-4.267,4.267-4.267c25.6,0,46.933,21.333,46.933,46.933s-21.333,46.933-46.933,46.933  c-25.6,0-46.933-21.333-46.933-46.933c0-9.387,2.56-18.773,8.533-26.453c-23.893-10.24-54.613-20.48-87.893-29.867  C256.854,58.027,252.587,57.174,248.32,55.467z M208.213,366.934c-2.56,0-4.267-1.707-4.267-4.267V243.2  c0-2.56,1.707-4.267,4.267-4.267s4.267,1.707,4.267,4.267v119.467C212.48,365.227,210.773,366.934,208.213,366.934z M148.48,332.8  c-6.827,0-12.8-5.973-12.8-12.8s5.973-12.8,12.8-12.8s12.8,5.973,12.8,12.8S155.307,332.8,148.48,332.8z M148.48,315.734  c-2.56,0-4.267,1.707-4.267,4.267s1.707,4.267,4.267,4.267s4.267-1.707,4.267-4.267S151.04,315.734,148.48,315.734z M267.947,281.6  c-6.827,0-12.8-5.973-12.8-12.8c0-6.827,5.973-12.8,12.8-12.8s12.8,5.973,12.8,12.8C280.747,275.627,274.773,281.6,267.947,281.6z   M267.947,264.534c-2.56,0-4.267,1.707-4.267,4.267c0,2.56,1.707,4.267,4.267,4.267s4.267-1.707,4.267-4.267  C272.213,266.24,270.507,264.534,267.947,264.534z"/>
+                                </svg>
+                          </span>
+                          %{{plan.discount}} off</div>
+                      </div>
+
+                      <div class="features-list">
+                        <ul class="list-unstyled text-start">
+                          <li class="feature-item mb-3">
+                            <i class="fas fa-check me-2 text-success"></i>
+                            <span class="fw-semibold me-1">{{
+                              plan.subscriptionPlanFeature.memberCount
+                            }}</span>
+                            <span class="text-muted"> Members included</span>
+                            <div class="ms-4 text-muted" style="font-size: 0.8rem; white-space: pre-line;">
+                              (This plan allows you to create <br>
+up to {{ plan.subscriptionPlanFeature.memberCount }} family member profiles.)
+                            </div>
+                          </li>
+                          <li class="feature-item mb-3">
+                            <i class="fas fa-check me-2 text-success"></i>
+                            <span class="fw-semibold me-1">{{
+                              plan.subscriptionPlanFeature
+                                .sendFriendRequestCount
+                            }}</span>
+                            <span class="text-muted">
+                              Friend requests per month</span
+                            >
+                          </li>
+                          <li class="feature-item mb-3">
+                            <i class="fas fa-check me-1 text-success"></i>
+                            <span class="fw-semibold"></span>
+                            <span class="text-muted">
+                              Advanced search filters</span
+                            >
+                          </li>
+                          <li class="feature-item mb-3">
+                            <i class="fas fa-check me-1 text-success"></i>
+                            <span class="fw-semibold"></span>
+                            <span class="text-muted">
+                              Personalized match suggestions</span
+                            >
+                          </li>
+
+                          <li class="feature-item mb-3">
+                            <i class="fas fa-check me-1 text-success"></i>
+                            <span class="fw-semibold"></span>
+                            <span class="text-muted"> Unlimited matches</span>
+                          </li>
+                          <li class="feature-item mb-3">
+                            <i class="fas fa-check me-2 text-success"></i>
+                            <span class="fw-semibold"></span>
+                            <span class="text-muted"
+                              >Priority customer support
+                            </span>
+                          </li>
+                          <!-- <li class="feature-item mb-3">
+                            <i class="fas fa-sync-alt me-2"></i>
+                            <span class="text-muted">Billed every
+                              <span
+                                class="fw-semibold">{{plan.interval === billingInterval.Month ? 'month' : plan.interval === billingInterval.Year ? 'year' : plan.interval === billingInterval.Week ? 'week' : 'day' }}</span></span>
+                          </li> -->
+                        </ul>
+                      </div>
+                      <button
+                        class="btn w-100 mb-2 bg-white"
+                        [ngClass]="
+                          currentPlan.canChangeSubscription
+                            ? 'btn-danger text-white'
+                            : 'btn-striped text-danger'
+                        "
+                        data-bs-toggle="modal"
+                        data-bs-target="#switchPlan"
+                        (click)="newPlanId = plan.subscriptionType"
+                        [disabled]="!currentPlan.canChangeSubscription"
+                      >
+                        <span class=""> Switch Plan</span>
+                        <!-- <span class="" *ngIf="plan.subscriptionType === subscriptionType.Silver">Continue with Silver Plan</span>
+                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Gold">Continue with Gold Plan</span>
+                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Platinum">Continue with Platinum Plan</span> -->
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="d-flex justify-content-center" *ngIf="isAvailablePlanLoading">
+                <div class="spinner-border text-danger" role="status" >
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+      <app-loading *ngIf="isPlanBillingLoading"></app-loading>
+    </div>
+  </div>
+</section>
+<div
+  class="modal fade"
+  id="switchPlan"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Change Plan</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          id="close-btn"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center text-lg mb-3">
+          Do you want to switch your plan?
+        </div>
+        <div class="text-center d-flex">
+          <button
+            type="button"
+            class="btn btn-light w-75 me-3"
+            data-bs-dismiss="modal"
+          >
+            No
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger w-75"
+            (click)="switchPlan()"
+            [disabled]="isSwitchPlanLoading"
+          >
+            <div
+              class="spinner-border spinner-border-sm text-light me-1"
+              role="status"
+              *ngIf="isSwitchPlanLoading"
+            ></div>
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="view-invoice"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header py-1">
+        <h4>Invoice</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="mt-4 mb-4">
+          <div class="col-12 col-sm-10 mx-auto">
+            <div class="text-muted my-2 fw-bold mx-2">
+              totalCount : {{ totalItemCount }}
+            </div>
+            <div class="mt-3">
+              <div class="border p-3 bg-white border-15">
+                <div *ngIf="!isInvoiceLoading && invoices">
+                  <div
+                    class="row border p-2 border-15 bg-danger text-white mb-2 m-0"
+                  >
+                    <div class="col-3">Plan</div>
+                    <div class="col-3">Date</div>
+                    <div class="col-3">Amount</div>
+                    <div class="col-3">Status</div>
+                  </div>
+                  <div
+                    class="row border p-2 border-15 mt-2 m-0"
+                    *ngFor="
+                      let invoice of invoices
+                        | paginate
+                          : {
+                              itemsPerPage: itemsPerPage,
+                              currentPage: currentPage,
+                              totalItems: totalItemCount,
+                            }
+                    "
+                  >
+                    <div class="col-3">{{ invoice.planName }}</div>
+                    <div class="col-3">{{ invoice.invoiceDate | date }}</div>
+                    <div class="col-3">{{ invoice.amount }}</div>
+                    <div class="col-3">
+                      <span
+                        class="badge"
+                        [ngClass]="{
+                          'bg-primary': invoice.status === 'FREE TRIAL',
+                          'bg-success': invoice.status === 'PAID',
+                          'bg-secondary': invoice.status === 'FAIL',
+                        }"
+                        >{{ invoice.status }}</span
+                      >
+                    </div>
+                  </div>
+                  <!-- PAGINATION -->
+                  <div
+                    class="row mb-auto pagination mt-4"
+                    *ngIf="totalItemCount > 4"
+                  >
+                    <div class="col-6 col-sm-4 mt-auto">
+                      <div class="pull-left">
+                        <div class="form-group row">
+                          <label
+                            class="col-sm-4 col-form-label text-sm fw-bold pt-0"
+                            ><small>Entries per page</small></label
+                          >
+                          <div class="col-sm-4 page-input">
+                            <input
+                              type="number"
+                              class="form-control"
+                              [(ngModel)]="itemsPerPage"
+                              min="1"
+                              (change)="changePerPageValue(itemsPerPage)"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-8 text-right">
+                      <div class="text-xs">
+                        <pagination-controls
+                          (pageChange)="pageChanged($event)"
+                          [maxSize]="5"
+                          [previousLabel]="'Prev'"
+                        ></pagination-controls>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="d-flex justify-content-center"
+                  *ngIf="isInvoiceLoading"
+                >
+                  <div class="spinner-border text-danger" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary d-none"
+  data-bs-toggle="modal"
+  data-bs-target="#retrieve-staticBackdrop"
+  id="open-retrieve-payment-modal"
+>
+  retrieve payment
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="retrieve-staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12 text-center">
+            <img
+              src="https://cdni.iconscout.com/illustration/premium/thumb/payment-failed-illustration-svg-download-png-3822060.png"
+              alt="payment-declined"
+              width="300"
+              class="mb-3"
+            />
+            <h4>Your previous payment method was declined.</h4>
+            <div class="text-center text-md mb-3 text-muted">
+              Please update your payment information to continue your
+              subscription.
+            </div>
+            <div class="text-center d-flex justify-content-center">
+              <button
+                type="button"
+                class="btn btn-danger w-75"
+                data-bs-dismiss="modal"
+              >
+                Ok
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

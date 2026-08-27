@@ -1,0 +1,288 @@
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+ // background: rgba(0, 0, 0, 0.4); /* semi-transparent black */
+  z-index: 1050; /* higher than most elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Demo container - remove this in production */
+        .demo-container {
+            text-align: center;
+        }
+
+        .demo-text {
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Main loader wrapper */
+        .mg-loader-wrapper {
+            display: inline-block;
+            text-align: center;
+        }
+
+        /* Main loader styles */
+        .mg-loader {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .loader-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #a00000, #6b0000);
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.3),
+                        inset 0 -2px 8px rgba(0, 0, 0, 0.3),
+                        inset 0 2px 8px rgba(255, 255, 255, 0.1);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .loader-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dots {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 4px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(145deg, #f4d03f, #c9a000);
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(244, 208, 63, 0.5);
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .mg-text {
+            font-size: 38px;
+            font-weight: bold;
+            background: linear-gradient(145deg, #f4d03f 0%, #e8c547 50%, #c9a000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            line-height: 1;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        .heart-shape {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 52px;
+            height: 13px;
+            border: 2.5px solid #c9a000;
+            border-top: none;
+            border-radius: 0 0 26px 26px;
+            animation: heartPulse 2s ease-in-out infinite;
+        }
+
+        .spinner-ring {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border: 2px solid transparent;
+            border-top-color: rgba(244, 208, 63, 0.6);
+            border-right-color: rgba(244, 208, 63, 0.6);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate 1.5s linear infinite;
+        }
+
+        /* Loading dots animation */
+        .loading-dots {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            align-items: center;
+            height: 20px;
+        }
+
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(145deg, #a00000, #6b0000);
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(139, 0, 0, 0.4);
+            animation: dotBounce 1.4s ease-in-out infinite;
+        }
+
+        .loading-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes dotBounce {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+            30% {
+                transform: translateY(-12px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        @keyframes shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        @keyframes heartPulse {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateX(-50%) scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Inline variant - can be used next to text */
+        .mg-loader-wrapper.inline .mg-loader {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 8px;
+        }
+
+        .inline .loader-bg {
+            border-radius: 12px;
+        }
+
+        .inline .dots {
+            gap: 12px;
+            margin-bottom: 2px;
+        }
+
+        .inline .dot {
+            width: 5px;
+            height: 5px;
+        }
+
+        .inline .mg-text {
+            font-size: 24px;
+            letter-spacing: -1px;
+        }
+
+        .inline .heart-shape {
+            bottom: 6px;
+            width: 32px;
+            height: 8px;
+            border-width: 2px;
+            border-radius: 0 0 16px 16px;
+        }
+
+        .inline .spinner-ring {
+            width: 58px;
+            height: 58px;
+        }
+
+        .inline .loading-dots {
+            height: 16px;
+        }
+
+        .inline .loading-dot {
+            width: 6px;
+            height: 6px;
+        }
+
+        /* Mini variant - very small */
+        .mg-loader-wrapper.mini .mg-loader {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 6px;
+        }
+
+        .mini .loader-bg {
+            border-radius: 8px;
+        }
+
+        .mini .dots {
+            gap: 8px;
+            margin-bottom: 1px;
+        }
+
+        .mini .dot {
+            width: 3px;
+            height: 3px;
+        }
+
+        .mini .mg-text {
+            font-size: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .mini .heart-shape {
+            bottom: 4px;
+            width: 20px;
+            height: 5px;
+            border-width: 1.5px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .mini .spinner-ring {
+            width: 38px;
+            height: 38px;
+            border-width: 1.5px;
+        }
+
+        .mini .loading-dots {
+            height: 12px;
+            gap: 4px;
+        }
+
+        .mini .loading-dot {
+            width: 4px;
+            height: 4px;
+        }

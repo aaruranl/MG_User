@@ -1,0 +1,28 @@
+<app-mobile-top-bar *ngIf="!isLoading && isLogin && currentUserType === userType.MEMBER && currentMember && currentMember.memberApproval === 2"></app-mobile-top-bar>
+<app-navigation-bar *ngIf="!isLoading && isLogin && currentUserType === userType.MEMBER && mainUser && mainUser.isActiveSubscription && memberList.length > 0 && currentMember && currentMember.memberApproval === 2 && !isMobile" [hideProps]="hideNavProps"></app-navigation-bar>
+
+<router-outlet class="main-content"></router-outlet>
+
+<div class="modal fade" id="staticBackdrops" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4 overflow-hidden shadow-lg">
+      <div class="modal-body p-0">
+        <app-member-profile-modal [memberProfile]="filterMemberViewData"></app-member-profile-modal>
+      </div>
+    </div>
+  </div>
+</div>
+<app-loading *ngIf="isLoading"></app-loading>
+
+<div *ngIf="!cookieConsent" class="cookie-banner">
+  <div class="col-11 col-md-8 col-lg-6 mx-auto glass-panel p-4 rounded-4 shadow-lg border border-warning-subtle">
+    <p class="text-white-50 mb-3 small">
+      Marriagegate uses <a href="/privacy-policy" class="text-warning text-decoration-underline">cookies</a> and similar technologies to ensure optimal performance and security. We collect minimal location telemetry to format country codes accurately and safeguard your matrimonial experience.
+    </p>
+    <div class="d-flex gap-2">
+      <button class="btn btn-sm btn-gold px-4" (click)="accept()">Accept All</button>
+      <button class="btn btn-sm btn-outline-light px-3" (click)="reject()">Reject</button>
+    </div>
+  </div>
+</div>

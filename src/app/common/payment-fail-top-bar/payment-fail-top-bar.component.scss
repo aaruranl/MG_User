@@ -1,0 +1,59 @@
+.logo-svg{
+  width: 250px !important;
+}
+
+.profile-btn{
+  border: 1px solid #e6b28a;
+}
+
+.list-profile {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .logo-svg{
+    width: 200px !important;
+  }
+}
+
+
+.custom-menu {
+  position: absolute;
+  top: 55px;
+  right: 10px;
+  background: #fff;
+  border-radius: 6px;
+  width: 220px;
+  padding: 6px 0;
+  z-index: 2000;
+}
+
+.menu-item {
+  padding: 10px 15px;
+  display: flex;
+  gap: 12px;
+  cursor: pointer;
+  color: #555;
+  align-items: center;
+}
+
+.menu-item:hover {
+  background: #f8f9fa;
+}
+
+.profile-btn {
+  cursor: pointer;
+  position: relative;
+}
+
+.list-profile {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+

@@ -1,0 +1,295 @@
+<section class="content">
+  <div class="component-content">
+    <div class="row m-0 mt-3 m-list-participent">
+      <div class="col-11 col-sm-10 mx-auto border bg-white border-15 mb-5" *ngIf="!isLoadingPar" >
+        <div class="row chat-main" *ngIf="participants.length > 0 && isGetParticipant">
+          <div class="col-12 col-sm-4 p-0 chat-list" *ngIf="screenWidth > 546">
+             <div class="search-wrapper">
+                <input
+                  type="text"
+                  class="search-field"
+                  placeholder="Search conversations..."
+                  [(ngModel)]="searchTerm">
+              </div>
+             <div *ngFor="let member of filteredParticipants()" class="d-flex align-items-center p-3 border-bottom member-item conversation-item pointer" (click)="getPrivateMessage(member)" [ngClass]="{'bg-danger text-white':selectedParticipant && selectedParticipant.receiverProfileId === member.receiverProfileId}">
+              <!-- Avatar -->
+              <div class="position-relative me-3">
+                <div class="rounded-circle d-flex align-items-center justify-content-center fw-semibold text-white" >
+                <img [src]="member.profileImage" [alt]="member.name" class="avatar-image" onerror="this.style.display='none'">
+                </div>
+                <span *ngIf="member.isActive" class="position-absolute bottom-0 end-0 rounded-circle border border-2 border-white bg-success" style="width: 12px; height: 12px;"></span>
+              </div>
+              <!-- Member Info -->
+              <div class="flex-grow-1 min-w-0">
+                <div class="d-flex align-items-center justify-content-between">
+                  <h6 class="mb-0 text-truncate fw-medium">
+                    {{ member.name }}
+                  </h6>
+                  <!-- <span class="text-sm" *ngIf="member.receiverProfileId !== member.receiverProfileId">{{member.isOnline ? 'Online' : (member.lastOnlineAt  ? 'Last seen at ' + member.lastOnlineAt : '')}}</span> -->
+                </div>
+                <small>
+                  <!-- {{ member. === 'online' ? 'Active now' : 'Last seen ' + member.lastSeen }} -->
+                   <div class="recent-message"> {{member.isSentByMe ? 'You: ' : ''}} {{ member.lastMessage }} </div>
+                </small>
+              </div>
+            </div>
+          </div>
+          <!-- CHAT BOX CONTAINER -->
+           <div class="col-12 col-sm-8 p-3 border-start" *ngIf="screenWidth > 546" >
+            <div class="d-flex border-bottom pb-2" *ngIf="selectedParticipant">
+              <span class="me-2 d-block d-sm-none" (click)="isOpenChat = false"><i class="fas fa-arrow-left fs-5 mt-2 text-danger" ></i></span>
+              <div class="">
+                <img src={{selectedParticipant.profileImage}} [alt]="selectedParticipant.name" class="avatar-image" width="52px" onerror="this.style.display='none'">
+              </div>
+              <div class="ms-3 text-sm my-auto">
+                <div class="fw-bold text-muted">{{selectedParticipant.name}}</div>
+                <div class="text-muted" >{{selectedParticipant.isOnline ? 'Online' : (selectedParticipant.lastOnlineAt  ? 'Last seen at ' + selectedParticipant.lastOnlineAt : '')}}</div>
+              </div>
+            </div>
+            <div class="flex-grow-1 overflow-auto mt-3 mb-2 px-2 m-box" id="chatMessages" #chatMessages >
+              <div *ngIf="!isLoading">
+                <div *ngFor="let message of messagesCheck" class="mb-2">
+                  <div class="d-flex" [ngClass]="{'justify-content-end': message.isMine}">
+                    <div class="p-2 rounded" [ngClass]="{'bg-danger text-white': message.isMine, 'bg-light': !message.isMine}" style="max-width: 70%;overflow-wrap: break-word; white-space: pre-wrap;" >
+                      <div *ngIf="message.fileType === file_type.Text">{{ message.textContent }}</div>
+                      <div *ngIf="message.fileType === file_type.Image">
+                        <div *ngFor="let i of message.fileUrls " class="mt-2">
+                        <img [src]="i" class="img-fluid rounded" width="150px" />
+                        </div>
+                      </div>
+                      <!-- <span class="text-xs float-end" *ngIf="message.isMine">
+                        <i *ngIf="message.isRead" class="fas fa-check-double text-info"></i>
+                        <i *ngIf="!message.isRead" class="fas fa-check text-muted text-info"></i>
+                      </span> -->
+                    </div>
+
+
+                  </div>
+                   <!-- Timestamp below message -->
+                  <div class="mt-1 small text-muted text-xxs" [ngClass]="{'text-start': message.isMine, 'text-end': message.isMine }">
+                    {{ message.sentAt}}
+                  </div>
+                </div>
+                  <small class="text-muted bg-light p-2 typing-indicator" *ngIf="typingMembers.has(selectedParticipant.receiverProfileId)">
+                    <span>Typing<span class="dot-1">.</span><span class="dot-2">.</span><span class="dot-3">.</span></span>
+                  </small>
+
+              </div>
+
+            <div class="d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="isLoading">
+              <div class="spinner-border text-danger" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+
+          </div>
+          <!-- Image preview before sending -->
+          <div *ngIf="previewImage.length > 0" class="my-2 d-flex border">
+            <div class="position-relative" *ngFor="let i of previewImage">
+              <img [src]="i" class="img-thumbnail" style="max-width: 100px;" />
+              <button type="button" class="btn-close position-absolute top-0 end-0" aria-label="Close" (click)="clearImagePreview()"></button>
+            </div>
+          </div>
+
+          <!-- Message input area -->
+         <form (ngSubmit)="sendMessage()" enctype="multipart/form-data">
+            <div class="d-flex align-items-center gap-2 border-top pt-2 position-relative">
+              <!-- Message input -->
+              <input type="text"
+                    [(ngModel)]="newMessage"
+                    name="message"
+                    (input)="onTyping()"
+                    (blur)="stopTyping()"
+                     #minSpend
+                    class="form-control"
+                    placeholder="Type a message..." required />
+
+              <!-- Emoji Picker Toggle Button -->
+              <button type="button"
+                      class="btn btn-outline-secondary position-relative"
+                      (click)="toggleEmojiPicker()">
+                <i class="fas fa-smile"></i>
+              </button>
+
+              <!-- File Upload Button -->
+              <!-- <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
+              <button type="button" class="btn btn-outline-secondary" (click)="fileInput.click()">
+                <i class="fas fa-image"></i>
+              </button> -->
+
+              <!-- Send Button -->
+              <button type="submit" class="btn btn-danger">➤</button>
+
+              <!-- Emoji Picker Dropdown -->
+              <div *ngIf="showEmojiPicker"
+                  class="emoji-picker-dropdown position-absolute"
+                  style="bottom: 50px; right: 60px; z-index: 999;">
+                <emoji-mart
+                  set="apple"
+                  (emojiSelect)="addEmoji($event)"
+                  title="Pick your emoji…"
+                  emoji="point_up"
+                  style="box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); border-radius: 12px;"
+                ></emoji-mart>
+              </div>
+            </div>
+          </form>
+
+           </div>
+
+            <!-- CHAT MOBILE BOX CONTAINER -->
+            <div class="col-12 col-sm-4 p-0 chat-list" *ngIf="screenWidth < 546 && isOpenChat === false">
+             <div class="search-wrapper">
+                <input
+                  type="text"
+                  class="search-field"
+                  placeholder="Search conversations..."
+                  [(ngModel)]="searchTerm">
+              </div>
+             <div *ngFor="let member of filteredParticipants()" class="d-flex align-items-center p-3 border-bottom member-item conversation-item pointer" (click)="getPrivateMessage(member)" [ngClass]="{'bg-danger text-white':selectedParticipant && selectedParticipant.receiverProfileId === member.receiverProfileId}">
+              <!-- Avatar -->
+              <div class="position-relative me-3">
+                <div class="rounded-circle d-flex align-items-center justify-content-center fw-semibold text-white">
+                <img [src]="member.profileImage" [alt]="member.name" class="avatar-image" onerror="this.style.display='none'">
+                </div>
+                <span class="position-absolute bottom-0 end-0 rounded-circle border border-2 border-white bg-success" style="width: 12px; height: 12px;" *ngIf="member.isOnline"></span>
+              </div>
+              <!-- Member Info -->
+              <div class="flex-grow-1 min-w-0">
+                <div class="d-flex align-items-center justify-content-between">
+                  <h6 class="mb-0 text-truncate fw-medium">
+                    {{ member.name }}
+                  </h6>
+                  <span class="text-sm">{{member.lastSentAt}}</span>
+                </div>
+                <small >
+                  <!-- {{ member. === 'online' ? 'Active now' : 'Last seen ' + member.lastSeen }} -->
+                     <div class="recent-message"> {{member.isSentByMe ? 'You: ' : ''}} {{ member.lastMessage }} </div>
+                </small>
+              </div>
+            </div>
+          </div>
+
+           <div class="col-12 col-sm-8 p-3 border-start"  *ngIf="screenWidth < 546 && isOpenChat === true">
+            <div class="d-flex border-bottom pb-2" *ngIf="selectedParticipant">
+              <span class="me-2 d-block d-sm-none" (click)="isOpenChat = false"><i class="fas fa-arrow-left fs-5 mt-2 text-danger" ></i></span>
+              <div class="">
+                <img src={{selectedParticipant.profileImage}} [alt]="selectedParticipant.name" class="avatar-image" width="52px" onerror="this.style.display='none'">
+              </div>
+              <div class="ms-3 text-sm my-auto">
+                <div class="fw-bold text-muted">{{selectedParticipant.name}}</div>
+                <div class="text-muted" >{{selectedParticipant.isOnline ? 'Online' : (selectedParticipant.lastOnlineAt  ? 'Last seen at ' + selectedParticipant.lastOnlineAt : '')}}</div>
+
+              </div>
+            </div>
+            <div class="flex-grow-1 overflow-auto mt-3 mb-2 px-2 m-box" id="chatMessages" #chatMessages >
+              <div *ngIf="!isLoading">
+                <div *ngFor="let message of messagesCheck" class="mb-2">
+                  <div class="d-flex" [ngClass]="{'justify-content-end': message.isMine}">
+                    <div class="p-2 rounded" [ngClass]="{'bg-danger text-white': message.isMine, 'bg-light': !message.isMine}" style="max-width: 70%;overflow-wrap: break-word; white-space: pre-wrap;" >
+                      <div *ngIf="message.fileType === file_type.Text">{{ message.textContent }}</div>
+                      <div *ngIf="message.fileType === file_type.Image">
+                        <div *ngFor="let i of message.fileUrls " class="mt-2">
+                        <img [src]="i" class="img-fluid rounded" width="150px" />
+                        </div>
+                      </div>
+                      <!-- <span class="text-xs float-end" *ngIf="message.isMine">
+                        <i *ngIf="message.isRead" class="fas fa-check-double text-info"></i>
+                        <i *ngIf="!message.isRead" class="fas fa-check text-muted text-info"></i>
+                      </span> -->
+                    </div>
+
+
+                  </div>
+                   <!-- Timestamp below message -->
+                  <div class="mt-1 small text-muted text-xxs" [ngClass]="{'text-start': message.isMine, 'text-end': message.isMine }">
+                    {{ message.sentAt}}
+                  </div>
+                </div>
+                  <small class="text-muted bg-light p-2 typing-indicator" *ngIf="typingMembers.has(selectedParticipant.receiverProfileId)">
+                    <span>Typing<span class="dot-1">.</span><span class="dot-2">.</span><span class="dot-3">.</span></span>
+                  </small>
+
+              </div>
+
+            <div class="d-flex justify-content-center align-items-center" style="height: 100%;" *ngIf="isLoading">
+              <div class="spinner-border text-danger" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+
+          </div>
+          <!-- Image preview before sending -->
+          <div *ngIf="previewImage.length > 0" class="my-2 d-flex border">
+            <div class="position-relative" *ngFor="let i of previewImage">
+              <img [src]="i" class="img-thumbnail" style="max-width: 100px;" />
+              <button type="button" class="btn-close position-absolute top-0 end-0" aria-label="Close" (click)="clearImagePreview()"></button>
+            </div>
+          </div>
+
+          <!-- Message input area -->
+         <form (ngSubmit)="sendMessage()" enctype="multipart/form-data">
+            <div class="d-flex align-items-center gap-2 border-top pt-2 position-relative">
+              <!-- Message input -->
+              <input type="text"
+                    [(ngModel)]="newMessage"
+                    name="message"
+                     #minSpend
+                    (input)="onTyping()"
+                    (blur)="stopTyping()"
+                    class="form-control"
+                    placeholder="Type a message..." required />
+              <!-- Send Button -->
+              <button type="submit" class="btn btn-danger">➤</button>
+
+              <!-- Emoji Picker Dropdown -->
+              <div *ngIf="showEmojiPicker"
+                  class="emoji-picker-dropdown position-absolute"
+                  style="bottom: 50px; right: 60px; z-index: 999;">
+                <emoji-mart
+                  set="apple"
+                  (emojiSelect)="addEmoji($event)"
+                  title="Pick your emoji…"
+                  emoji="point_up"
+                  style="box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); border-radius: 12px;"
+                ></emoji-mart>
+              </div>
+            </div>
+          </form>
+
+           </div>
+        </div>
+        <div *ngIf="participants.length === 0 && isGetParticipant" class="chat-empty-card">
+          <div class="container-fluid h-100">
+            <div class="row justify-content-center align-items-center h-100">
+              <div class="col-12 col-md-8 col-lg-6">
+                <div class="">
+                  <div class="text-center py-5">
+                    <!-- Chat Icon -->
+                    <div class="mb-4">
+                      <i class="bi bi-chat-dots text-muted" style="font-size: 4rem;"></i>
+                    </div>
+
+                    <!-- Main Message -->
+                    <h4 class="text-muted mb-3">No Conversations Yet</h4>
+                    <p class="card-text text-muted mb-4">
+                      You haven't started chatting with anyone. Find and connect with matching profiles to begin conversations.
+                    </p>
+
+                    <!-- Action Button -->
+                    <button type="button" class="btn btn-danger btn-lg" [routerLink]="['/home/member']">
+                      <i class="bi bi-search me-2"></i>
+                      Find Matching Profiles
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-loading *ngIf="isLoadingPar" ></app-loading>
+    </div>
+  </div>
+</section>
+

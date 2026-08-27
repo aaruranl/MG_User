@@ -1,0 +1,25 @@
+<div class="otp-container">
+  <form [formGroup]="otpForm">
+    <div class="otp-input-container">
+      <ng-container *ngFor="let control of inputControls; let i = index; trackBy: trackByFn">
+        <input
+          type="text"
+          class="otp-input"
+          maxlength="1"
+          [formControlName]="control"
+          (input)="onInput($event, i)"
+          (keydown)="onKeyDown($event, i)"
+          (paste)="onPaste($event)"
+          autocomplete="off"
+          inputmode="numeric"
+          pattern="[0-9]*"
+        />
+      </ng-container>
+    </div>
+    <div *ngIf="isLoading" class="spinner-overlay">
+      <div class="m-spinner"></div>
+    </div>
+  </form>
+</div>
+
+

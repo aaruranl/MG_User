@@ -1,0 +1,185 @@
+<form [formGroup]="userReligiousForm">
+  <div class="row">
+    <div class="col-12 col-md-6 mb-3">
+      <label for="diet" class="mb-1">Religion
+        <span class="text-danger">*</span>
+      </label>
+      <ng-select
+      [items]="religionList"
+      bindLabel="name"
+      bindValue="id"
+      [ngModelOptions]="{standalone: true}"
+      [clearable]="false"
+      [searchable]="true"
+      [(ngModel)]="selectedReligions"
+      [disabled]="isLoading"
+      >
+      </ng-select>
+    </div>
+
+
+  <div class="col-12 col-md-6 mb-3">
+    <label for="diet" class="mb-1">Community</label>
+    <ng-select
+    [items]="communityList"
+    bindLabel="name"
+    bindValue="id"
+    [ngModelOptions]="{standalone: true}"
+    [clearable]="true"
+    [searchable]="true"
+    [(ngModel)]="selectedCommunity"
+
+    [disabled]="isLoading"
+    >
+    </ng-select>
+    <div class="form-check mt-1">
+      <input class="form-check-input small-check" type="checkbox" [value]="true" id="flexCheckChecked" formControlName="isVisible">
+      <label class="form-check-label ms-2 text-sm" for="flexCheckChecked"> Make it visible.</label>
+    </div>
+  </div>
+
+  <!-- <div class="col-12 col-md-6 mb-3">
+    <label for="diet" class="mb-1">Sub Community</label>
+    <ng-select
+    [items]="SubCommunityList"
+    bindLabel="name"
+    bindValue="id"
+    [ngModelOptions]="{standalone: true}"
+    [clearable]="true"
+    [searchable]="true"
+    [(ngModel)]="selectedSubCommunity"
+    [disabled]="isLoading"
+    [disabled]="!selectedCommunity"
+
+    >
+    </ng-select>
+  </div> -->
+
+  <div class="col-12 col-md-6 mb-3">
+    <label for="diet" class="mb-1">Raasi</label>
+    <ng-select
+    [items]="rasiList"
+    bindLabel="name"
+    bindValue="id"
+    [ngModelOptions]="{standalone: true}"
+    [clearable]="selectedRaasi === 0 ? false : true"
+    [searchable]="true"
+    [(ngModel)]="selectedRaasi"
+    (ngModelChange)="changeRasi($event)"
+    >
+    </ng-select>
+  </div>
+
+  <div class="col-12 col-md-6 mb-3">
+    <label for="diet" class="mb-1">Star/Nakshathra</label>
+    <ng-select
+    [items]="natshathiraList"
+    [disabled]="selectedRaasi === 0 || selectedRaasi === null"
+    bindLabel="name"
+    bindValue="id"
+    [ngModelOptions]="{standalone: true}"
+    [clearable]="selectedStar === 0 ? false : true"
+    [searchable]="true"
+    [(ngModel)]="selectedStar"
+    >
+    </ng-select>
+  </div>
+
+  <div class=" fw-bold text-muted mb-3 mt-3">Birth Details</div>
+ <div class="col-12 col-md-6 mb-3">
+  <div class="form-group mb-3">
+    <label for="timeOfBirth" class="mb-2">Time of Birth</label>
+
+    <div class="input-group">
+      <input type="time" id="timeOfBirth" formControlName="timeOfBirth" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('timeOfBirth')?.errors}" >
+      <button *ngIf="userReligiousForm.get('timeOfBirth')?.value" type="button" class="btn btn-light border" (click)="userReligiousForm.get('timeOfBirth')?.setValue(null)">
+        clear
+      </button>
+    </div>
+
+    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('timeOfBirth')?.errors">
+      Time of birth is required
+    </div>
+  </div>
+</div>
+
+
+<!-- DOOR NUMBER -->
+<!-- <div class="col-12 col-md-6 mb-3">
+  <label for="Door text-sm" class="mb-2">Door Number</label>
+  <input type="text" id="Door" formControlName="doorNumber" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('doorNumber')?.errors}"/>
+
+</div> -->
+<!-- GOOGLE AUTO COMPLETE -->
+    <div class="col-12 mb-3">
+      <label for="Door text-sm" class="mb-2">Search Address</label>
+      <input class="form-control" #placesRef="ngx-places" ngx-gp-autocomplete  (onAddressChange)="handleAddressChange($event)"/>
+    </div>
+
+  <div class="col-12 col-md-6 mb-3">
+    <label for="email text-sm" class="mb-2">Country<span class="text-danger">*</span> </label>
+    <!-- <ng-select
+    [items]="countryList"
+    bindLabel="country"
+    bindValue="country"
+    [ngModelOptions]="{standalone: true}"
+    [clearable]="false"
+    [searchable]="true"
+    [(ngModel)]="selectedCountry"
+    (change)="changeCountry()"
+    >
+    <ng-template ng-label-tmp let-item="item">
+      <div class="d-flex">
+        <div>
+          <img class="me-2" src={{item.flags?.svg}} alt="" width="30px">
+        </div>
+        <div>
+          {{item.country}}
+        </div>
+      </div>
+    </ng-template>
+    <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+      <div class="d-flex">
+        <div>
+          <img src={{item.flags?.svg}} alt="" width="30px" class="me-2">
+        </div>
+
+        <div class="">
+          {{item.country}}
+        </div>
+      </div>
+    </ng-template>
+  </ng-select> -->
+
+   <input type="text" id="country" formControlName="country" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('country')?.errors}"/>
+    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('country')?.errors">Country is required</div>
+  </div>
+   <div class="col-12 col-md-6 mb-3">
+    <label for="province text-sm" class="mb-2">State/Province<span class="text-danger">*</span> </label>
+    <input type="text" id="province" formControlName="stateProvince" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('stateProvince')?.errors}"/>
+    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('stateProvince')?.errors">State/Province is required</div>
+     <!-- <ng-select [items]="stateAndProvince" bindLabel="name" bindValue="name" [clearable]="false"
+      [searchable]="true" [(ngModel)]="selectedProvince"  [ngModelOptions]="{standalone: true}" ></ng-select> -->
+  </div>
+
+  <div class="col-12 col-md-6 mb-3">
+    <label for="city text-sm" class="mb-2">City/Village<span class="text-danger">*</span> </label>
+    <input type="text" id="city" formControlName="city" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('city')?.errors}"/>
+    <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('city')?.errors">City is required</div>
+  </div>
+<!-- STREET -->
+<div class="col-12 col-md-6 mb-3">
+  <label for="Street text-sm" class="mb-2">Street<span class="text-danger">*</span> </label>
+  <input type="text" id="Street" formControlName="street" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('street')?.errors}"/>
+  <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('street')?.errors">Street is required</div>
+</div>
+
+   <!-- <div class="col-12 col-md-6 mb-3">
+        <label for="province text-sm" class="mb-2">Zip Code<span class="text-danger">*</span> </label>
+        <input type="text" id="province" formControlName="zipCode" class="form-control" [ngClass]="{'errorBorder': isSubmitted && userReligiousForm.get('zipCode')?.errors}"/>
+        <div class="text-xs text-danger mt-1" *ngIf="isSubmitted && userReligiousForm.get('zipCode')?.errors">ZipCode is required</div>
+      </div> -->
+
+  <button class="btn btn-danger me-3 w-100 mt-5" (click)="next()" [disabled]="isLoading">{{isEditFrom ? 'UPDATE' : 'NEXT'}} <div class="spinner-border spinner-border-sm text-light me-1" *ngIf="isLoading"></div></button>
+</div>
+</form>
