@@ -1,139 +1,100 @@
-<div class="flex flex-wrap -mx-3 m-0 bg-white shadow-md-sm block sm:hidden">
-  <div class="w-full px-6 p-2">
-    <div class="flex justify-between items-center position-relative">
-      <!-- Logo -->
-      <div class="">
-        <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="mr-2"
-          style="width: 130px" />
+<div class="block sm:hidden bg-white/95 backdrop-blur-md border-b border-amber-200/40 px-4 py-3 sticky top-0 z-40 shadow-xs">
+  <div class="flex items-center justify-between">
+    <!-- Logo -->
+    <div [routerLink]="'/home/member'" class="cursor-pointer">
+      <img
+        src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
+        alt="logo"
+        class="h-8 w-auto object-contain"
+      />
+    </div>
+
+    <!-- Active User & Dropdowns -->
+    <div class="flex items-center gap-2" *ngIf="selectedMember">
+      <!-- Member Pill -->
+      <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200/50">
+        <img
+          [src]="selectedMember.profileImages[0]?.url"
+          class="w-6 h-6 rounded-full object-cover border border-amber-300"
+          alt="avatar"
+        />
+        <span class="text-xs font-bold text-gray-800">{{ selectedMember.firstName }}</span>
       </div>
-      <div class="actions-section mr-4" *ngIf="selectedMember">
-        <div class="text-white font-bold mr-2">
-          {{ selectedMember.firstName }}
-        </div>
-        <div class="action-button mr-1">
-          <img [src]="selectedMember.profileImages[0].url" class="p-1 rounded-full" width="44" height="44"
-            alt="profile" style="object-fit: cover;" />
-        </div>
-        <div class="action-button mr-1" (click)="toggleDropdown('friend', $event)">
+
+      <!-- Friend Request Bell -->
+      <div class="relative">
+        <button
+          type="button"
+          (click)="toggleDropdown('friend', $event)"
+          class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 text-xs"
+        >
           <i class="fas fa-user-plus"></i>
-          <div class="notification-badge" *ngIf="totalRequestList > 0">
+          <span *ngIf="totalRequestList > 0" class="absolute -top-1 -right-1 w-4 h-4 bg-red-600 text-white rounded-full text-[9px] font-bold flex items-center justify-center">
             {{ totalRequestList }}
+          </span>
+        </button>
+
+        <!-- Dropdown Box -->
+        <div
+          *ngIf="showFriendDropdown"
+          (click)="$event.stopPropagation()"
+          class="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-amber-200/60 p-3 z-50 animate-in fade-in"
+        >
+          <div class="flex justify-between items-center pb-2 border-b border-gray-100 mb-2">
+            <span class="text-xs font-bold text-gray-900">Requests</span>
+            <span class="text-[10px] text-gray-400">{{ friendRequestList.length }}</span>
           </div>
-          <div class="dropdown-box position-absolute top-100 end-0 bg-white border-0 mt-2 shadow-md-xl rounded-xl" style="
-              min-width: 330px;
-              max-width: 400px;
-              z-index: 1050;
-              right: -62px !important;
-            " *ngIf="showFriendDropdown" (click)="$event.stopPropagation()">
-            <!-- Header -->
-            <div class="px-6 py-6 border-bottom border-light">
-              <h6 class="mb-0 text-gray-900 font-bold">
-                <i class="fas fa-user-friends text-[#5c142b] mr-2"></i>Friend
-                Requests
-              </h6>
-            </div>
-
-            <!-- No requests message -->
-            <div class="px-6 py-8 text-center text-gray-500" *ngIf="!friendRequestList || friendRequestList.length === 0">
-                  <svg width="50" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-gray-500">
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="8.5" cy="7" r="4"></circle>
-                      <line x1="18" y1="8" x2="23" y2="13"></line>
-                      <line x1="23" y1="8" x2="18" y2="13"></line>
-                    </svg>
-              <div class="font-medium">No new friend requests</div>
-              <small class="text-gray-500">Check back later for new connections!</small>
-            </div>
-
-            <!-- Friend requests list -->
-            <div class="friend-requests-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 p-2" style="max-height: 400px; overflow-y: auto"
-              (scroll)="onScroll($event)">
-              <div class="friend-request-item border-bottom border-light last:border-0 position-relative m-shadow-md mt-2"
-                *ngFor="let r of friendRequestList; let last = last" [class.border-0]="last">
-                <div class="flex p-2">
-                  <img alt="pf" width="70px" height="70px" class="object-cover border border-15 profile-img"
-                    src="{{ r.profileImageURL }}" />
-                  <div class="text-sm my-auto ml-4 font-bold text-gray-500">
-                    {{ r.name }}
-                  </div>
-                  <div class="flex my-auto justify-end ml-auto" *ngIf="r.status === request.Pending">
-                    <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all h-50 mr-2" [disabled]="true" (click)="confirmFriendRequest(r.id)"
-                      [disabled]="isRequestLoading">
-                      Accept
-                    </button>
-                    <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all h-50" (click)="rejectFriendRequest(r.id)"
-                      [disabled]="isRequestLoading">
-                      Reject
-                    </button>
-                  </div>
-                  <div class="text-xs text-gray-500 font-bold my-auto ml-auto" *ngIf="r.status === request.Accepted">
-                    Friend Request Accepted
-                  </div>
-                  <div class="text-xs text-gray-500 font-bold my-auto ml-auto" *ngIf="r.status === request.Rejected">
-                    Friend Request Rejected
-                  </div>
+          <div class="max-h-60 overflow-y-auto space-y-2">
+            <div *ngFor="let r of friendRequestList" class="p-2 rounded-xl bg-gray-50 flex items-center gap-2 text-xs">
+              <img [src]="r.profileImageURL" class="w-8 h-8 rounded-full object-cover" alt="" />
+              <div class="flex-1 min-w-0">
+                <p class="font-bold text-gray-800 truncate">{{ r.name }}</p>
+                <div class="flex gap-1 mt-1" *ngIf="r.status === request.Pending">
+                  <button (click)="confirmFriendRequest(r.id)" class="px-2 py-0.5 bg-[#5c142b] text-white rounded text-[10px]">Accept</button>
+                  <button (click)="rejectFriendRequest(r.id)" class="px-2 py-0.5 bg-gray-200 text-gray-700 rounded text-[10px]">Reject</button>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="action-button" (click)="toggleDropdown('notification', $event)">
-          <!-- Header -->
-
-          <i class="fas fa-bell"></i>
-          <div class="notification-badge" *ngIf="totalUnReadCount > 0">{{totalUnReadCount}}</div>
-
-          <div class="dropdown-box position-absolute top-100 end-0 bg-white border mt-2 p-2 shadow-md-sm"
-            *ngIf="showNotificationDropdown" (click)="$event.stopPropagation()">
-              <div class="px-1 mt-2 mb-6 border-bottom border-light">
-              <h6 class="mb-0 text-gray-900 font-bold pb-3">
-                <i class="fas fa-bell text-[#5c142b] mr-2"></i>Notifications
-              </h6>
-            </div>
-            <div class="px-6 py-6 text-center text-gray-500" *ngIf="notificationList.length === 0">
-              <div>
-                <svg width="50" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                  stroke-linecap="round" stroke-linejoin="round" class="text-gray-500">
-                  <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                </svg>
-              </div>
-               <div class="font-medium">No notification yet</div>
-              <small class="text-gray-500">Check back later for new notifications!</small>
-
-            </div>
-
-            <div class="bg-white px-6 py-2" *ngIf="notificationList.length !== 0">
-                <div class="flex text-md font-bold justify-between">
-                  <div class="my-auto">
-                    <span class="mr-4 cursor-pointer" [ngClass]="{'text-[#5c142b]':!isUnread}" (click)="isUnread = false; hasMoreNotification = true; getNotifications()">All</span>
-                    <span class="cursor-pointer" [ngClass]="{'text-[#5c142b]':isUnread}" (click)="isUnread = true;  hasMoreNotification = true; getNotifications()">Unread</span>
-                  </div>
-                  <div class="border p-2 rounded cursor-pointer mark-all-bel" (click)="markAllNotificationsAsRead()"><i class="fas fa-bell-slash text-amber-500"></i></div>
-                </div>
-              </div>
-            <div *ngIf="!isNotificationLoading">
-              <div class="m-shadow-md bg-white p-6 notification-list cursor-pointer" *ngFor="let notification of notificationList">
-                <div class="flex" (click)="navigateToNotificationSection(notification)">
-                  <div>
-                    <img src="{{ notification.parsedPayload?.ImageUrl }}" [alt]="'name'" class="avatar-image"
-                      onerror="this.style.display='none'" />
-                  </div>
-                  <div class="ml-4 text-sm">
-                    <div class="font-bold">{{ notification.title }}</div>
-                    <div class="text-gray-500">{{ notification.body }}</div>
-                    <div class="text-gray-500">{{ notification.createdDate }}</div>
-                  </div>
-                  <!-- <div class="notification-badge ml-auto my-auto" *ngIf="!notification.isRead">
-                    <i class="fas fa-circle text-red-600"></i>
-                  </div> -->
-                </div>
-              </div>
+            <div *ngIf="friendRequestList.length === 0" class="text-center py-4 text-xs text-gray-400">
+              No requests
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Notifications Bell -->
+      <div class="relative">
+        <button
+          type="button"
+          (click)="toggleDropdown('notification', $event)"
+          class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700 text-xs"
+        >
+          <i class="fas fa-bell"></i>
+          <span *ngIf="totalUnReadCount > 0" class="absolute -top-1 -right-1 w-4 h-4 bg-red-600 text-white rounded-full text-[9px] font-bold flex items-center justify-center">
+            {{ totalUnReadCount }}
+          </span>
+        </button>
+
+        <div
+          *ngIf="showNotificationDropdown"
+          (click)="$event.stopPropagation()"
+          class="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-amber-200/60 p-3 z-50"
+        >
+          <div class="flex justify-between items-center pb-2 border-b border-gray-100 mb-2">
+            <span class="text-xs font-bold text-gray-900">Notifications</span>
+          </div>
+          <div class="max-h-60 overflow-y-auto space-y-2">
+            <div *ngFor="let n of notificationList" (click)="navigateToNotificationSection(n)" class="p-2 rounded-xl bg-gray-50 text-xs cursor-pointer">
+              <p class="font-bold text-gray-900">{{ n.title }}</p>
+              <p class="text-gray-600 text-[11px] truncate">{{ n.body }}</p>
+            </div>
+            <div *ngIf="notificationList.length === 0" class="text-center py-4 text-xs text-gray-400">
+              No notifications
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

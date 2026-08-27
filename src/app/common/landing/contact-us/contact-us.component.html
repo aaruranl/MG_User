@@ -1,477 +1,154 @@
-<div class="landing-body">
-  <!-- Navigation (Consistent with Landing Page) -->
-  <nav class="navbar navbar-expand-lg sticky-top bg-white shadow-md-nav py-2">
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-      <a class="navbar-brand flex items-center" routerLink="/">
-        <img
-          src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
-          alt="MarriageGate Logo"
-          height="40"
-          class="d-inline-block align-text-top"
-        />
-      </a>
-      <!-- Mobile Home Icon -->
-      <a
-        class="nav-link md:hidden mr-2"
-        routerLink="/"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <i class="fas fa-home fs-5"></i>
-      </a>
-      <button
-        class="navbar-toggler md:hidden"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto items-center gap-2">
-          <li class="nav-item">
-            <a
-              class="nav-link px-6 rounded"
-              routerLink="/"
-              routerLinkActive="active-nav"
-              [routerLinkActiveOptions]="{ exact: true }"
-            >
-              <i class="fas fa-home mr-1"></i> Home
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link px-6 rounded"
-              routerLink="/pricing"
-              routerLinkActive="active-nav"
-            >
-              <i class="fas fa-tags mr-1"></i> Pricing
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link px-6 rounded active-nav"
-              routerLink="/contact-us"
-              routerLinkActive="active-nav"
-            >
-              <i class="fas fa-envelope mr-1"></i> Contact Us
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link px-6 rounded" routerLink="/blogs" routerLinkActive="active-nav">
-              <i class="fas fa-blog mr-1"></i> Blogs
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link px-6 rounded" routerLink="/success-stories" routerLinkActive="active-nav">
-              <i class="fas fa-heart mr-1"></i> Stories
-            </a>
-          </li>
-          <li class="nav-item ms-lg-2">
-            <a
-              class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bg-primary text-white bg-primary-hover px-6 font-medium"
-              [href]="baseUrl + 'login'"
-              target="_blank"
-              >Join</a
-            >
-          </li>
-        </ul>
+<div class="min-h-screen bg-[#faf8f5] text-gray-900">
+
+  <!-- Navigation -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-amber-200/40 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a routerLink="/" class="flex items-center gap-3">
+          <img
+            src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
+            alt="MarriageGate Logo"
+            class="h-10 sm:h-12 w-auto object-contain"
+          />
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1.5 lg:gap-3">
+          <a routerLink="/" class="px-4 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-[#5c142b] hover:bg-amber-50/50 transition-all">Home</a>
+          <a routerLink="/pricing" class="px-4 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-[#5c142b] hover:bg-amber-50/50 transition-all">Pricing</a>
+          <a routerLink="/success-stories" class="px-4 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-[#5c142b] hover:bg-amber-50/50 transition-all">Stories</a>
+          <a routerLink="/blogs" class="px-4 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-[#5c142b] hover:bg-amber-50/50 transition-all">Blogs</a>
+          <a routerLink="/contact-us" routerLinkActive="text-[#5c142b] font-bold bg-amber-50/80" class="px-4 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-[#5c142b] hover:bg-amber-50/50 transition-all">Contact</a>
+        </nav>
+
+        <a
+          [href]="baseUrl + 'login'"
+          target="_blank"
+          class="px-6 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-[#5c142b] to-[#7e1e3b] shadow-md hover:shadow-xl transition-all"
+        >
+          Join Now
+        </a>
       </div>
     </div>
-  </nav>
+  </header>
 
-  <!-- Hero Header -->
-  <section class="contact-hero py-8 position-relative overflow-hidden">
-    <!-- Background Image with Opacity -->
-    <div
-      class="position-absolute top-0 start-0 w-full h-full contact-bg-image"
-      style="
-        background-image: url(&quot;https://dev1mg.blob.core.windows.net/mgate/common/contact-bg.jpeg&quot;);
-        background-size: cover;
-        background-position: center;
-      "
-    ></div>
-
-    <!-- White Overlay for Opacity Control -->
-    <div
-      class="position-absolute top-0 start-0 w-full h-full"
-      style="background-color: rgba(255, 255, 255, 0.92); z-index: 1"
-    ></div>
-
-    <div
-      class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8 text-center position-relative"
-      style="z-index: 2"
-    >
-      <span class="custom-badge mb-6 animate-pulse">
-        <i class="fas fa-headset mr-2"></i> We're Here to Help
+  <!-- Contact Us Hero & Form Container -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
+      <span class="inline-block px-4 py-1.5 rounded-full bg-amber-100/60 border border-amber-300 text-xs font-bold text-[#5c142b]">
+        We're Here For You
       </span>
-      <h1 class="display-4 font-bold mb-6">
-        Get in <span class="text-gradient-primary">Touch</span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold font-serif text-gray-900 tracking-tight">
+        Get In Touch With Our Team
       </h1>
-      <p class="lead text-gray-500-foreground mx-auto" style="max-width: 600px">
-        Have questions? We'd love to hear from you. Send us a message and we'll
-        respond as soon as possible.
+      <p class="text-sm sm:text-base text-gray-600 leading-relaxed">
+        Have questions about memberships, verification, or technical support? Our concierge team is ready to assist.
       </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- Contact Info Cards -->
+      <div class="space-y-4">
+        <div class="p-6 rounded-3xl bg-white border border-amber-200/50 shadow-sm space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 text-[#5c142b] flex items-center justify-center text-lg">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3 class="text-base font-bold text-gray-900">Email Support</h3>
+          <p class="text-xs text-gray-600">support&#64;marriagegate.com</p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-white border border-amber-200/50 shadow-sm space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 text-[#5c142b] flex items-center justify-center text-lg">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <h3 class="text-base font-bold text-gray-900">WhatsApp Concierge</h3>
+          <p class="text-xs text-gray-600">+41 77 905 37 99</p>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-white border border-amber-200/50 shadow-sm space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 text-[#5c142b] flex items-center justify-center text-lg">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3 class="text-base font-bold text-gray-900">Hours of Service</h3>
+          <p class="text-xs text-gray-600">Monday – Saturday: 9:00 AM – 8:00 PM CET</p>
+        </div>
+      </div>
+
+      <!-- Contact Message Form -->
+      <div class="lg:col-span-2 bg-white p-8 sm:p-10 rounded-3xl border border-amber-200/50 shadow-xl">
+        <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs font-bold uppercase text-gray-700 mb-2">Full Name *</label>
+              <input
+                type="text"
+                name="fullName"
+                [(ngModel)]="fullName"
+                required
+                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm transition-all"
+                placeholder="Your full name"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-gray-700 mb-2">Email Address *</label>
+              <input
+                type="email"
+                name="email"
+                [(ngModel)]="email"
+                required
+                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm transition-all"
+                placeholder="name@example.com"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-gray-700 mb-2">Subject *</label>
+            <input
+              type="text"
+              name="subject"
+              [(ngModel)]="subject"
+              required
+              class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm transition-all"
+              placeholder="How can we help you?"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-gray-700 mb-2">Message *</label>
+            <textarea
+              name="message"
+              [(ngModel)]="message"
+              required
+              rows="5"
+              class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm transition-all resize-none"
+              placeholder="Write your message in detail..."
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            [disabled]="isSubmitting"
+            class="w-full py-4 rounded-2xl font-bold text-sm text-white bg-gradient-to-r from-[#5c142b] via-[#7e1e3b] to-[#5c142b] shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-100 disabled:opacity-50 transition-all flex items-center justify-center gap-2"
+          >
+            <span *ngIf="!isSubmitting">Send Inquiry Message</span>
+            <span *ngIf="isSubmitting" class="flex items-center gap-2">
+              <div class="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin"></div>
+              Sending...
+            </span>
+          </button>
+        </form>
+      </div>
+
     </div>
   </section>
 
-  <!-- Contact Info & Form Section -->
-  <section class="py-8 contact-form-section position-relative overflow-hidden">
-    <!-- Background Image with Opacity -->
-    <div
-      class="position-absolute top-0 start-0 w-full h-full form-bg-image"
-      style="
-        background-image: url(&quot;https://dev1mg.blob.core.windows.net/mgate/common/contact-bg1.jpeg&quot;);
-        background-size: cover;
-        background-position: center;
-      "
-    ></div>
-
-    <!-- White Overlay for Opacity Control -->
-    <div
-      class="position-absolute top-0 start-0 w-full h-full"
-      style="background-color: rgba(255, 255, 255, 0.9); z-index: 1"
-    ></div>
-
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8 position-relative" style="z-index: 2">
-      <div class="flex flex-wrap -mx-3 g-5">
-        <!-- Contact Information Cards -->
-        <div class="lg:w-1/3">
-          <div class="flex flex-col gap-6">
-            <!-- Email Card -->
-            <div class="card custom-card border-0 p-6 animate-fade-in">
-              <div class="flex items-start gap-6">
-                <div class="icon-box flex-shrink-0">
-                  <i class="fas fa-envelope fs-3"></i>
-                </div>
-                <div>
-                  <h4 class="h5 font-bold mb-1">Email Us</h4>
-                  <p class="text-gray-500-foreground small mb-2">
-                    Our team is here to help.
-                  </p>
-                  <a
-                    href="mailto:support@marriagegate.com"
-                    class="text-[#5c142b] font-medium text-decoration-none"
-                    >support&#64;marriagegate.com</a
-                  >
-                </div>
-              </div>
-            </div>
-
-            <!-- WhatsApp Card -->
-            <div
-              class="card custom-card border-0 p-6 animate-fade-in delay-300"
-            >
-              <div class="flex items-start gap-6">
-                <div class="icon-box flex-shrink-0">
-                  <i class="fab fa-whatsapp fs-3"></i>
-                </div>
-                <div>
-                  <h4 class="h5 font-bold mb-1">WhatsApp</h4>
-                  <p class="text-gray-500-foreground small mb-2">
-                    Mon-Fri from 9am to 6pm.
-                  </p>
-                  <a
-                    href="https://wa.me/41779053799"
-                    target="_blank"
-                    class="text-[#5c142b] font-medium text-decoration-none"
-                    >+41 77 905 3799</a
-                  >
-                </div>
-              </div>
-            </div>
-
-            <!-- Office Card -->
-            <div
-              class="card custom-card border-0 p-6 animate-fade-in delay-500"
-            >
-              <div class="flex items-start gap-6">
-                <div class="icon-box flex-shrink-0">
-                  <i class="fas fa-map-marker-alt fs-3"></i>
-                </div>
-                <div>
-                  <h4 class="h5 font-bold mb-1">Office</h4>
-                  <p class="text-gray-500-foreground small mb-2">
-                    Come say hello at our office.
-                  </p>
-                  <p class="mb-0 font-medium small">
-                    <a href="https://share.google/srElw0XeqadGQxARY" target="_blank" rel="noopener noreferrer" class="text-[#5c142b] text-foreground text-decoration-none">
-                      Gstaldenstrasse 9, 8810 Horgen, Switzerland
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Contact Form -->
-         
-        <div class="lg:w-2/3">
-          <div
-    class="card border-0 shadow-md-xl rounded-2xl p-6 p-md-5 backdrop-blur-xl animate-fade-in position-relative"
-    style="background: rgba(255, 255, 255, 0.8)"
-  >
-    <div *ngIf="isSubmitting" class="sending-overlay">
-      <div class="sending-content">
-        <div class="spinner-border text-[#5c142b] mb-6" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-        <div class="font-medium">Sending your message...</div>
-      </div>
-    </div>
-
-         
-            <h3 class="font-bold mb-6">Send us a Message</h3>
-            <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm" [class.opacity-75]="isSubmitting">
-              <div class="flex flex-wrap -mx-3 g-4">
-                <div class="md:w-1/2">
-                  <label class="block text-sm font-semibold text-gray-700 mb-1.5 font-medium small">Full Name</label>
-                 <input
-                    type="text"
-                    class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all rounded-xl"
-                    placeholder="John Doe"
-                    [(ngModel)]="fullName"
-                    name="fullName"
-                    required
-                    #fullNameModel="ngModel"
-                  />
-
-                  <div
-                    *ngIf="fullNameModel.invalid && (fullNameModel.touched || contactForm.submitted)"
-                    class="text-red-600 small mt-1"
-                  >
-                    Full name is required.
-                  </div>
-                </div>
-                <div class="md:w-1/2">
-                  <label class="block text-sm font-semibold text-gray-700 mb-1.5 font-medium small"
-                    >Email Address</label
-                  >
-                  <input
-                  type="email"
-                  class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all rounded-xl"
-                  placeholder="john@example.com"
-                  [(ngModel)]="email"
-                  name="email"
-                  required
-                  email
-                  #emailModel="ngModel"
-                />
-
-                <div
-                  *ngIf="emailModel.invalid && (emailModel.touched || contactForm.submitted)"
-                  class="text-red-600 small mt-1"
-                >
-                  <span *ngIf="emailModel.errors?.['required']">
-                    Email is required.
-                  </span>
-
-                  <span *ngIf="emailModel.errors?.['email']">
-                    Please enter a valid email address.
-                  </span>
-                </div>
-                </div>
-                <div class="w-full px-6">
-                  <label class="block text-sm font-semibold text-gray-700 mb-1.5 font-medium small">Subject</label>
-                  <input
-                      type="text"
-                      class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all rounded-xl"
-                      placeholder="How can we help you?"
-                      [(ngModel)]="subject"
-                      name="subject"
-                      required
-                      #subjectModel="ngModel"
-                    />
-
-                    <div
-                      *ngIf="subjectModel.invalid && (subjectModel.touched || contactForm.submitted)"
-                      class="text-red-600 small mt-1"
-                    >
-                      Subject is required.
-                    </div>
-                </div>
-                <div class="w-full px-6">
-                  <label class="block text-sm font-semibold text-gray-700 mb-1.5 font-medium small">Message</label>
-                  <textarea
-                    class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all rounded-xl"
-                    rows="5"
-                    placeholder="Write your message here..."
-                    [(ngModel)]="message"
-                    name="message"
-                    required
-                  ></textarea>
-                </div>
-                <div class="w-full px-6 pt-2">
-                  <button
-                  type="submit"
-                  [disabled]="isSubmitting"
-                  class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bg-gradient-primary text-white inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-lg px-8 py-6 rounded-xl w-full font-medium shadow-md-xl bg-primary-hover"
-                >
-                  <span *ngIf="!isSubmitting">Send Message</span>
-                  <span *ngIf="isSubmitting">Sending...</span>
-                  <i class="fas fa-paper-plane ml-2"></i>
-                </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Preview Section -->
-  <!-- <section class="py-8 bg-muted-30">
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8 text-center">
-      <h2 class="font-bold mb-6">Frequently Asked Questions</h2>
-      <p class="text-gray-500-foreground mb-8">
-        Quick answers to common questions about our services.
-      </p>
-      <div class="flex flex-wrap -mx-3 g-4 justify-center">
-        <div class="md:w-1/3">
-          <div class="p-6">
-            <h5 class="font-bold">How do I verify my profile?</h5>
-            <p class="small text-gray-500-foreground">
-              Verification is done via mobile OTP and government ID upload in
-              your settings.
-            </p>
-          </div>
-        </div>
-        <div class="md:w-1/3">
-          <div class="p-6">
-            <h5 class="font-bold">Is my data secure?</h5>
-            <p class="small text-gray-500-foreground">
-              Absolutely. We use bank-level encryption and comply with international data protection standards to keep your information safe. You also have full control over your privacy, 
-              with options to hide sensitive details such as your contact information and salary from other users.
-            </p>
-          </div>
-        </div>
-        <div class="md:w-1/3">
-          <div class="p-6">
-            <h5 class="font-bold">How to report a profile?</h5>
-            <p class="small text-gray-500-foreground">
-              Use the 'Report' button on any profile page or email our safety
-              team.
-            </p>
-          </div>
-  </section> -->
-
-  <footer class="py-6 footer-bg border-top position-relative">
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-6 position-relative">
-      <div class="flex flex-wrap -mx-3 g-5">
-        <div class="lg:w-1/4">
-          <div class="mb-6">
-            <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="MarriageGate Logo" height="40">
-          </div>
-          <p class="text-gray-500-foreground">
-            Recognized around the globe as the most trusted matrimonial platform for connecting hearts and building lasting relationships.
-          </p>
-        </div>
-        <div class="col-sm-6 lg:w-1/4">
-          <h5 class="font-semibold mb-6">Quick Links</h5>
-          <ul class="list-unstyled text-gray-500-foreground">
-            <li class="mb-2"><a routerLink="/" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Home</a></li>
-            <li class="mb-2"><a routerLink="/contact-us" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Contact</a></li>
-            <li class="mb-2"><a routerLink="/pricing" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Pricing</a></li>
-            <li class="mb-2"><a [href]="baseUrl + 'login'" target="_blank" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Join</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-6 lg:w-1/4">
-          <h5 class="font-semibold mb-6">Support</h5>
-          <ul class="list-unstyled text-gray-500-foreground">
-            <li class="mb-2"><a routerLink="/privacy-policy" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Privacy Policy</a></li>
-            <li class="mb-2"><a routerLink="/terms-and-condition" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Terms and Condition</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-6 lg:w-1/4">
-          <h5 class="font-semibold mb-6">Follow Us</h5>
-          <ul class="list-unstyled text-gray-500-foreground">
-            <li class="mb-2">
-              <a href="https://www.instagram.com/marriage.gate" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
-                <i class="fab fa-instagram mr-2 social-icon"></i>
-                <span>Instagram</span>
-              </a>
-            </li>
-            <li class="mb-2">
-              <a href="https://www.facebook.com/marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
-                <i class="fab fa-facebook mr-2 social-icon"></i>
-                <span>Facebook</span>
-              </a>
-            </li>
-            <li class="mb-2">
-              <a href="https://wa.me/41779053799" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
-                <i class="fab fa-whatsapp mr-2 social-icon"></i>
-                <span>WhatsApp</span>
-              </a>
-            </li>
-            <li class="mb-2">
-              <a href="https://www.tiktok.com/@marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
-                <i class="fab fa-tiktok mr-2 social-icon"></i>
-                <span>TikTok</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="border-top mt-8 pt-4 text-center footer-copyright">
-        <p>&copy; {{ currentYear }} MarriageGate. All rights reserved.</p>
-      </div>
+  <!-- Footer -->
+  <footer class="bg-gray-950 text-gray-400 py-12 border-t border-gray-900 text-center text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+      <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo" class="h-8 mx-auto brightness-0 invert" />
+      <p>&copy; {{ currentYear }} MarriageGate. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Mobile Bottom Navigation Bar -->
-  <nav class="mobile-bottom-nav lg:hidden">
-    <div class="mobile-nav-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-      <a
-        class="mobile-nav-item"
-        routerLink="/pricing"
-        routerLinkActive="active"
-      >
-        <i class="fas fa-tags"></i>
-        <span>Pricing</span>
-      </a>
-      <a
-        class="mobile-nav-item mobile-nav-join"
-        [href]="baseUrl + 'login'"
-        target="_blank"
-      >
-        <span>Join</span>
-      </a>
-      <a class="mobile-nav-item" data-bs-toggle="offcanvas" href="#mobileMenuOffcanvas" role="button" aria-controls="mobileMenuOffcanvas">
-        <i class="fas fa-bars"></i>
-        <span>Menu</span>
-      </a>
-    </div>
-  </nav>
-
-  <!-- Mobile Offcanvas Menu -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenuOffcanvas" aria-labelledby="mobileMenuOffcanvasLabel" style="width: 280px;">
-    <div class="offcanvas-header border-bottom py-6">
-      <h5 class="offcanvas-title font-bold" id="mobileMenuOffcanvasLabel">MarriageGate</h5>
-      <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body p-0">
-      <div class="list-group list-group-flush fs-6">
-        <a routerLink="/" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-home text-red-600 mr-4" style="width: 20px;"></i> Home
-        </a>
-        <a routerLink="/pricing" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-tags text-red-600 mr-4" style="width: 20px;"></i> Pricing
-        </a>
-        <a routerLink="/blogs" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-blog text-red-600 mr-4" style="width: 20px;"></i> Blog
-        </a>
-        <a routerLink="/success-stories" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-heart text-red-600 mr-4" style="width: 20px;"></i> Success Story
-        </a>
-        <a routerLink="/contact-us" class="list-group-item list-group-item-action py-6 px-6 border-0" data-bs-dismiss="offcanvas">
-          <i class="fas fa-envelope text-red-600 mr-4" style="width: 20px;"></i> Contact Us
-        </a>
-      </div>
-    </div>
-  </div>
 </div>

@@ -1,668 +1,289 @@
-<!-- Navigation -->
-<div class="landing-body">
+<div class="min-h-screen bg-[#faf8f5] text-gray-900 selection:bg-[#5c142b] selection:text-white">
 
+  <!-- ================= LUXURY HERO NAVBAR ================= -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-amber-200/40 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Brand Logo -->
+        <a routerLink="/" class="flex items-center gap-3 group">
+          <img
+            src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
+            alt="MarriageGate Logo"
+            class="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-102"
+          />
+        </a>
 
-  <nav class="navbar navbar-expand-lg sticky-top bg-white shadow-md-nav py-2">
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-      <a class="navbar-brand flex items-center" routerLink="/">
-        <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="MarriageGate Logo" height="40"
-          class="d-inline-block align-text-top">
-      </a>
-      <!-- Mobile Home Icon -->
-      <a class="nav-link md:hidden mr-2" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <i class="fas fa-home fs-5"></i>
-      </a>
-      <button class="navbar-toggler md:hidden" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto items-center gap-2">
-          <li class="nav-item">
-            <a class="nav-link px-6 rounded active-nav" routerLink="/" routerLinkActive="active-nav" [routerLinkActiveOptions]="{ exact: true }">
-              <i class="fas fa-home mr-1"></i> Home
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link px-6 rounded" routerLink="/pricing" routerLinkActive="active-nav">
-              <i class="fas fa-tags mr-1"></i> Pricing
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link px-6 rounded" routerLink="/contact-us" routerLinkActive="active-nav">
-              <i class="fas fa-envelope mr-1"></i> Contact Us
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link px-6 rounded" routerLink="/blogs" routerLinkActive="active-nav">
-              <i class="fas fa-blog mr-1"></i> Blogs
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link px-6 rounded" routerLink="/success-stories" routerLinkActive="active-nav">
-              <i class="fas fa-heart mr-1"></i> Stories
-            </a>
-          </li>
-          <li class="nav-item ms-lg-2">
-            <a class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bg-primary text-white bg-primary-hover px-6 font-medium" [href]="baseUrl + 'login'" target="_blank">Join</a>
-          </li>
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-1.5 lg:gap-3">
+          <a routerLink="/" routerLinkActive="text-[#5c142b] font-bold bg-amber-50/80" [routerLinkActiveOptions]="{ exact: true }" class="px-4 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-[#5c142b] hover:bg-amber-50/50 transition-all">
+            Home
+          </a>
+          <a routerLink="/pricing" routerLinkActive="text-[#5c142b] font-bold bg-amber-50/80" class="px-4 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-[#5c142b] hover:bg-amber-50/50 transition-all">
+            Pricing
+          </a>
+          <a routerLink="/success-stories" routerLinkActive="text-[#5c142b] font-bold bg-amber-50/80" class="px-4 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-[#5c142b] hover:bg-amber-50/50 transition-all">
+            Stories
+          </a>
+          <a routerLink="/blogs" routerLinkActive="text-[#5c142b] font-bold bg-amber-50/80" class="px-4 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-[#5c142b] hover:bg-amber-50/50 transition-all">
+            Blogs
+          </a>
+          <a routerLink="/contact-us" routerLinkActive="text-[#5c142b] font-bold bg-amber-50/80" class="px-4 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-[#5c142b] hover:bg-amber-50/50 transition-all">
+            Contact
+          </a>
+        </nav>
+
+        <!-- Right CTA Action -->
+        <div class="flex items-center gap-3">
+          <a
+            [href]="baseUrl + 'login'"
+            target="_blank"
+            class="px-6 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-[#5c142b] via-[#7e1e3b] to-[#5c142b] shadow-md hover:shadow-xl hover:scale-102 active:scale-100 transition-all duration-200 flex items-center gap-2"
+          >
+            <span>Join Now</span>
+            <i class="fas fa-arrow-right text-amber-300 text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= DYNAMIC MULTI-RELIGION HERO SLIDER ================= -->
+  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+    <!-- Slider Background Images -->
+    <div class="absolute inset-0 z-0">
+      <div
+        *ngFor="let hero of heroImages; let i = index"
+        class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+        [ngClass]="currentHeroIndex === i ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'"
+      >
+        <img
+          [src]="hero.url"
+          [alt]="hero.title + ' Matrimony'"
+          class="w-full h-full object-cover filter brightness-[0.75] contrast-[1.1]"
+        />
+        <!-- Atmospheric Gradient Overlays -->
+        <div class="absolute inset-0 bg-gradient-to-t from-[#1a050d] via-black/40 to-black/30"></div>
+        <div class="absolute inset-0 bg-radial-at-c from-transparent via-transparent to-black/60"></div>
+      </div>
+    </div>
+
+    <!-- Hero Centered Content Card -->
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center text-white space-y-6">
+      
+      <!-- Religion Badge Indicator -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-amber-300/60 shadow-lg text-xs sm:text-sm font-bold text-amber-300">
+        <i class="fas fa-crown text-amber-400"></i>
+        <span>{{ heroImages[currentHeroIndex].title }} Matrimony Heritage</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold font-serif tracking-tight leading-tight sm:leading-none text-white drop-shadow-lg">
+        {{ heroImages[currentHeroIndex].headline }}
+      </h1>
+
+      <!-- Description Subtitle -->
+      <p class="text-base sm:text-lg text-gray-200 max-w-2xl mx-auto font-normal leading-relaxed drop-shadow-md">
+        {{ heroImages[currentHeroIndex].description }}
+      </p>
+
+      <!-- CTA Buttons & Trust Indicators -->
+      <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          [href]="baseUrl + 'login'"
+          target="_blank"
+          class="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-base text-[#3b0918] bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500 shadow-2xl hover:shadow-amber-500/20 hover:scale-102 transition-all flex items-center justify-center gap-3"
+        >
+          <i class="fas fa-sparkles text-[#3b0918]"></i>
+          <span>Begin Your Sacred Journey</span>
+          <i class="fas fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+
+      <!-- Verified Badges -->
+      <div class="pt-4 flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm font-semibold text-amber-100/90">
+        <span class="flex items-center gap-2">
+          <i class="fas fa-check-circle text-emerald-400"></i> 100% Verified Profiles
+        </span>
+        <span class="flex items-center gap-2">
+          <i class="fas fa-shield-alt text-amber-300"></i> Privacy Guarded
+        </span>
+        <span class="flex items-center gap-2">
+          <i class="fas fa-globe-americas text-blue-400"></i> Global Community
+        </span>
+      </div>
+
+      <!-- Slider Indicator Dots -->
+      <div class="pt-6 flex justify-center items-center gap-2.5">
+        <button
+          *ngFor="let hero of heroImages; let i = index"
+          (click)="setHeroIndex(i)"
+          class="h-2.5 rounded-full transition-all duration-300"
+          [ngClass]="currentHeroIndex === i ? 'w-8 bg-amber-400' : 'w-2.5 bg-white/40 hover:bg-white/70'"
+          [attr.aria-label]="'Go to slide ' + (i + 1)"
+        ></button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= KEY STATS SECTION ================= -->
+  <section class="relative z-20 -mt-10 max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-amber-200/50 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div class="space-y-1">
+        <div class="text-3xl sm:text-4xl font-extrabold font-serif text-[#5c142b]">40+</div>
+        <div class="text-xs sm:text-sm font-semibold text-gray-500">Countries Connected</div>
+      </div>
+      <div class="space-y-1">
+        <div class="text-3xl sm:text-4xl font-extrabold font-serif text-[#5c142b]">100+</div>
+        <div class="text-xs sm:text-sm font-semibold text-gray-500">Success Stories</div>
+      </div>
+      <div class="space-y-1">
+        <div class="text-3xl sm:text-4xl font-extrabold font-serif text-[#5c142b]">50+</div>
+        <div class="text-xs sm:text-sm font-semibold text-gray-500">Faith Communities</div>
+      </div>
+      <div class="space-y-1">
+        <div class="text-3xl sm:text-4xl font-extrabold font-serif text-[#5c142b]">5+</div>
+        <div class="text-xs sm:text-sm font-semibold text-gray-500">Years Experience</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY CHOOSE US ================= -->
+  <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto space-y-3 mb-12">
+      <span class="text-xs font-bold text-[#5c142b] uppercase tracking-wider">Unmatched Matrimonial Experience</span>
+      <h2 class="text-3xl sm:text-4xl font-bold font-serif text-gray-900">Why Choose MarriageGate?</h2>
+      <p class="text-sm text-gray-600">Experience a modern, trusted approach designed for discerning individuals and families worldwide.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Card 1 -->
+      <div class="p-8 rounded-3xl bg-white border border-amber-200/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 space-y-4">
+        <div class="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200/80 text-[#5c142b] flex items-center justify-center text-2xl shadow-xs">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900">100% Verified Profiles</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">Every member is authenticated with verified identification to ensure safety, authenticity, and peace of mind.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="p-8 rounded-3xl bg-white border border-amber-200/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 space-y-4">
+        <div class="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200/80 text-[#5c142b] flex items-center justify-center text-2xl shadow-xs">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900">Total Privacy & Control</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">You control who sees your photos, contact info, and horoscope details with fine-grained security preferences.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="p-8 rounded-3xl bg-white border border-amber-200/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 space-y-4">
+        <div class="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200/80 text-[#5c142b] flex items-center justify-center text-2xl shadow-xs">
+          <i class="fas fa-heart"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900">Intelligent Matchmaking</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">Advanced preference algorithms matching religion, education, astrology, values, and lifestyle compatibility.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= OUR JOURNEY MILESTONES ================= -->
+  <section class="py-20 bg-gradient-to-b from-amber-50/40 via-white to-amber-50/20 border-y border-amber-200/40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
+        <span class="text-xs font-bold text-[#5c142b] uppercase tracking-wider">Our Heritage</span>
+        <h2 class="text-3xl sm:text-4xl font-bold font-serif text-gray-900">The Journey of MarriageGate</h2>
+        <p class="text-sm text-gray-600">Connecting hearts across continents from Switzerland to the global stage.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div *ngFor="let milestone of milestones" class="p-6 rounded-2xl bg-white border border-amber-200/60 shadow-sm space-y-3 relative overflow-hidden">
+          <div class="text-2xl font-extrabold font-serif text-[#5c142b]">{{ milestone.year }}</div>
+          <h4 class="text-base font-bold text-gray-900">{{ milestone.title }}</h4>
+          <p class="text-xs text-gray-600 leading-relaxed">{{ milestone.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA BANNER ================= -->
+  <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative rounded-3xl bg-gradient-to-r from-[#3b0918] via-[#5c142b] to-[#7e1e3b] p-8 sm:p-14 text-center text-white overflow-hidden shadow-2xl">
+      <div class="relative z-10 max-w-2xl mx-auto space-y-6">
+        <h2 class="text-3xl sm:text-4xl font-bold font-serif">Ready to Find Your Soulmate?</h2>
+        <p class="text-sm sm:text-base text-amber-100/90 leading-relaxed">Join thousands of verified singles and happy couples who discovered their lifelong companion on MarriageGate.</p>
+        <div>
+          <a
+            [href]="baseUrl + 'login'"
+            target="_blank"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-base bg-gradient-to-r from-amber-400 to-yellow-500 text-[#3b0918] shadow-lg hover:scale-105 transition-all"
+          >
+            <span>Create Your Profile</span>
+            <i class="fas fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LUXURY FOOTER ================= -->
+  <footer class="bg-gray-950 text-gray-400 py-16 border-t border-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+      
+      <!-- Column 1: Brand Info -->
+      <div class="space-y-4">
+        <img
+          src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png"
+          alt="MarriageGate Logo"
+          class="h-10 w-auto brightness-0 invert"
+        />
+        <p class="text-xs text-gray-400 leading-relaxed">
+          The premier trusted matrimonial service uniting hearts across cultures, faiths, and continents.
+        </p>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div class="space-y-3">
+        <h4 class="text-sm font-bold text-white uppercase tracking-wider">Explore</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a routerLink="/" class="hover:text-amber-400 transition-colors">Home</a></li>
+          <li><a routerLink="/pricing" class="hover:text-amber-400 transition-colors">Subscription Plans</a></li>
+          <li><a routerLink="/success-stories" class="hover:text-amber-400 transition-colors">Success Stories</a></li>
+          <li><a routerLink="/blogs" class="hover:text-amber-400 transition-colors">Matrimony Insights</a></li>
         </ul>
       </div>
-    </div>
-  </nav>
 
-  <!-- Multi-Religion Hero Section Slider -->
-  <section class="position-relative flex items-end overflow-hidden" style="height: 85vh; min-height: 600px;">
-    <!-- Image Slider Container -->
-    <div class="position-absolute top-0 start-0 w-full h-full">
-      <div *ngFor="let hero of heroImages; let i = index"
-           class="hero-slide w-full h-full position-absolute top-0 start-0 transition-opacity"
-           [ngClass]="{'active': currentHeroIndex === i}">
-        <img [src]="hero.url" [alt]="hero.title + ' Wedding'" class="w-full h-full object-cover">
+      <!-- Column 3: Legal & Support -->
+      <div class="space-y-3">
+        <h4 class="text-sm font-bold text-white uppercase tracking-wider">Support</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a routerLink="/contact-us" class="hover:text-amber-400 transition-colors">Contact Support</a></li>
+          <li><a routerLink="/privacy-policy" class="hover:text-amber-400 transition-colors">Privacy Policy</a></li>
+          <li><a routerLink="/terms-and-condition" class="hover:text-amber-400 transition-colors">Terms of Service</a></li>
+        </ul>
       </div>
 
-      <!-- Multiple layered cloud gradients for natural blending -->
-      <div class="position-absolute bottom-0 start-0 w-full hero-cloud-gradient-1"></div>
-      <div class="position-absolute bottom-0 start-0 w-full hero-cloud-gradient-2"></div>
-      <div class="position-absolute bottom-0 start-0 w-full hero-cloud-gradient-3"></div>
-      <div class="position-absolute bottom-0 start-0 w-full hero-cloud-gradient-4"></div>
-      <!-- Vibrant text readability layer -->
-      <div class="position-absolute bottom-0 start-0 w-full hero-text-readability-layer"></div>
-    </div>
-
-    <!-- Content moved to bottom center -->
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 position-relative z-2 w-full" style="padding-bottom: 4rem;">
-      <div class="flex flex-wrap -mx-3 justify-center">
-        <!-- Centered Column - Content -->
-        <div class="lg:w-2/3 xl:w-7/12 hero-content text-center" [ngClass]="heroImages[currentHeroIndex].themeClass">
-          <div class="mb-6">
-            <span class="custom-badge mb-6 animate-fade-in inline-flex">
-              <i class="fas fa-crown mr-2"></i> {{ heroImages[currentHeroIndex].title }} Matrimony
-            </span>
-
-            <div class="content-slider">
-              <h1 class="display-3 font-bold mb-6 animate-fade-in">
-                <span class="text-gradient">{{ heroImages[currentHeroIndex].headline.split(' ')[0] }}</span><br>
-                <span class="text-gradient">{{ heroImages[currentHeroIndex].headline.split(' ')[1] }}</span><br>
-                <span class="text-gradient-primary">{{ heroImages[currentHeroIndex].headline.split(' ')[2] }}</span>
-              </h1>
-
-              <p class="lead text-gray-500-foreground mb-6 animate-fade-in mx-auto" style="max-width: 650px;">
-                {{ heroImages[currentHeroIndex].description }}
-              </p>
-            </div>
-          </div>
-
-          <!-- Interactive CTA Buttons -->
-          <div class="flex flex-col gap-6 animate-fade-in delay-300 items-center">
-            <div class="flex flex-col flex-sm-flex flex-wrap -mx-3 gap-6 justify-center">
-              <a [href]="baseUrl + 'login'" target="_blank"
-                class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bg-gradient-primary text-white inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-lg px-8 py-6 rounded-2xl shadow-md-xl inline-flex items-center justify-center font-medium"
-                style="position: relative; overflow: hidden; font-size: 1.125rem;">
-                <i class="fas fa-magic mr-2"></i> Begin Your Story <i class="fas fa-arrow-right ml-2"></i>
-              </a>
-            </div>
-
-            <div class="flex flex-wrap items-center justify-center gap-6 text-small text-gray-500-foreground">
-              <div class="flex items-center">
-                <i class="fas fa-check-circle text-emerald-600 mr-2"></i>
-                Verified Profiles
-              </div>
-              <div class="flex items-center">
-                <i class="fas fa-heart text-[#5c142b] mr-2"></i>
-                Trusted by Thousands
-              </div>
-            </div>
-          </div>
-
-          <!-- Slider Indicators -->
-          <div class="flex gap-2 mt-6 animate-fade-in delay-500 justify-center">
-            <div *ngFor="let hero of heroImages; let i = index"
-                 (click)="setHeroIndex(i)"
-                 class="slider-dot rounded-full transition-all cursor-pointer"
-                 [ngClass]="{'active': currentHeroIndex === i}">
-            </div>
-          </div>
+      <!-- Column 4: Social & Global -->
+      <div class="space-y-3">
+        <h4 class="text-sm font-bold text-white uppercase tracking-wider">Connect</h4>
+        <div class="flex items-center gap-3">
+          <a href="https://www.instagram.com/marriage.gate" target="_blank" class="w-9 h-9 rounded-full bg-gray-900 border border-gray-800 flex items-center justify-center text-gray-400 hover:text-amber-400 hover:border-amber-400 transition-all">
+            <i class="fab fa-instagram text-sm"></i>
+          </a>
+          <a href="https://www.facebook.com/marriagegate" target="_blank" class="w-9 h-9 rounded-full bg-gray-900 border border-gray-800 flex items-center justify-center text-gray-400 hover:text-amber-400 hover:border-amber-400 transition-all">
+            <i class="fab fa-facebook-f text-sm"></i>
+          </a>
+          <a href="https://wa.me/41779053799" target="_blank" class="w-9 h-9 rounded-full bg-gray-900 border border-gray-800 flex items-center justify-center text-gray-400 hover:text-amber-400 hover:border-amber-400 transition-all">
+            <i class="fab fa-whatsapp text-sm"></i>
+          </a>
         </div>
       </div>
+
     </div>
 
-    <!-- Scroll Indicator -->
-    <div class="position-absolute bottom-0 start-50 translate-middle-x mb-6 animate-bounce"
-      style="z-index: 20;">
-      <i class="fas fa-chevron-down text-gray-500-foreground"></i>
-    </div>
-  </section>
-
-  <!-- Stats Section -->
-  <section class="py-2 bg-background position-relative overflow-hidden">
-    <div class="stats-pattern"></div>
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-2 position-relative">
-      <div class="flex flex-wrap -mx-3 flex flex-wrap -mx-3-cols-2 flex flex-wrap -mx-3-cols-md-4 g-4 justify-center text-center">
-        <div class="col">
-          <div class="stat-icon mb-6">
-            <i class="fas fa-globe fs-1 text-[#5c142b]"></i>
-          </div>
-          <div class="h2 font-bold text-[#5c142b] mb-2">40+</div>
-          <div class="text-gray-500-foreground">Countries</div>
-        </div>
-        <div class="col">
-          <div class="stat-icon mb-6">
-            <i class="fas fa-heart fs-1 text-[#5c142b]"></i>
-          </div>
-          <div class="h2 font-bold text-[#5c142b] mb-2">100+</div>
-          <div class="text-gray-500-foreground">Success Stories</div>
-        </div>
-        <div class="col">
-          <div class="stat-icon mb-6">
-            <i class="fas fa-handshake fs-1 text-[#5c142b]"></i>
-          </div>
-          <div class="h2 font-bold text-[#5c142b] mb-2">50+</div>
-          <div class="text-gray-500-foreground">Communities</div>
-        </div>
-        <div class="col">
-          <div class="stat-icon mb-6">
-            <i class="fas fa-award fs-1 text-[#5c142b]"></i>
-          </div>
-          <div class="h2 font-bold text-[#5c142b] mb-2">5+</div>
-          <div class="text-gray-500-foreground">Years Experience</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="py-2 features-header-section position-relative">
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-2 position-relative">
-      <div class="text-center mb-6">
-        <h2 class="display-6 font-bold mb-2">Why Choose <span class="marriagegate-gradient">MarriageGate</span>?</h2>
-        <p class="lead text-gray-500-foreground mx-auto" style="max-width: 600px;">
-          We provide the most comprehensive and secure platform for finding your life partner
-        </p>
-      </div>
-
-      <div class="flex flex-wrap -mx-3 g-4 justify-center">
-        <!-- Card 1 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card custom-card h-full border-0 p-6">
-            <div class="card-body">
-              <div class="icon-box mb-6">
-                <i class="fas fa-user-shield fs-2"></i>
-              </div>
-              <h3 class="h4 font-semibold mb-6">100% Verified Profiles</h3>
-              <p class="text-gray-500-foreground">
-                Every profile goes through our rigorous verification process to ensure authenticity and safety.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card custom-card h-full border-0 p-6">
-            <div class="card-body">
-              <div class="icon-box mb-6">
-                <i class="fas fa-users fs-2"></i>
-              </div>
-              <h3 class="h4 font-semibold mb-6">Advanced Matching</h3>
-              <p class="text-gray-500-foreground">
-                Our AI-powered algorithm finds the most compatible matches based on your preferences.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card custom-card h-full border-0 p-6">
-            <div class="card-body">
-              <div class="icon-box mb-6">
-                <i class="fas fa-heart fs-2"></i>
-              </div>
-              <h3 class="h4 font-semibold mb-6">Success Stories</h3>
-              <p class="text-gray-500-foreground">
-                Over 5 lakh couples have found their perfect match and started their journey together.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card custom-card h-full border-0 p-6">
-            <div class="card-body">
-              <div class="icon-box mb-6">
-                <i class="fas fa-lock fs-2"></i>
-              </div>
-              <h3 class="h4 font-semibold mb-6">Privacy & Security</h3>
-              <p class="text-gray-500-foreground">
-                Your personal information is protected with industry-leading security measures and privacy controls.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card custom-card h-full border-0 p-6">
-            <div class="card-body">
-              <div class="icon-box mb-6">
-                <i class="fas fa-mobile-alt fs-2"></i>
-              </div>
-              <h3 class="h4 font-semibold mb-6">Mobile App Access</h3>
-              <p class="text-gray-500-foreground">
-                Connect with matches on-the-go with our user-friendly mobile application available on all platforms.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card custom-card h-full border-0 p-6">
-            <div class="card-body">
-              <div class="icon-box mb-6">
-                <i class="fas fa-headset fs-2"></i>
-              </div>
-              <h3 class="h4 font-semibold mb-6">24/7 Support</h3>
-              <p class="text-gray-500-foreground">
-                Our dedicated support team is available round the clock to assist you with any queries or concerns.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works Section -->
-  <section class="py-2 bg-background position-relative">
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-2 position-relative">
-      <div class="text-center mb-6">
-        <h2 class="display-6 font-bold mb-6">How It Works</h2>
-        <p class="lead text-gray-500-foreground mx-auto" style="max-width: 600px;">
-          Finding your perfect match is simple and straightforward with our easy-to-follow process
-        </p>
-      </div>
-
-      <div class="flex flex-wrap -mx-3 g-4 justify-center">
-        <!-- Step 1 -->
-        <div class="md:w-1/2 lg:w-1/4">
-          <div class="text-center">
-            <div class="step-number mb-6">
-              <span class="step-circle">1</span>
-            </div>
-            <h4 class="h5 font-semibold mb-6">Create Profile</h4>
-            <p class="text-gray-500-foreground">
-              Sign up and create your detailed profile with photos and preferences
-            </p>
-          </div>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="md:w-1/2 lg:w-1/4">
-          <div class="text-center">
-            <div class="step-number mb-6">
-              <span class="step-circle">2</span>
-            </div>
-            <h4 class="h5 font-semibold mb-6">Browse Matches</h4>
-            <p class="text-gray-500-foreground">
-              Explore compatible profiles based on your criteria and preferences
-            </p>
-          </div>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="md:w-1/2 lg:w-1/4">
-          <div class="text-center">
-            <div class="step-number mb-6">
-              <span class="step-circle">3</span>
-            </div>
-            <h4 class="h5 font-semibold mb-6">Connect & Chat</h4>
-            <p class="text-gray-500-foreground">
-              Start meaningful conversations with potential matches through our secure platform
-            </p>
-          </div>
-        </div>
-
-        <!-- Step 4 -->
-        <div class="md:w-1/2 lg:w-1/4">
-          <div class="text-center">
-            <div class="step-number mb-6">
-              <span class="step-circle">4</span>
-            </div>
-            <h4 class="h5 font-semibold mb-6">Find Your Match</h4>
-            <p class="text-gray-500-foreground">
-              Take the next step and begin your beautiful journey together
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Success Stories Section -->
-  <section class="py-2 bg-muted-30 position-relative">
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-2 position-relative">
-      <div class="text-center mb-6">
-        <h2 class="display-6 font-bold mb-6">Success Stories</h2>
-        <p class="lead text-gray-500-foreground mx-auto" style="max-width: 700px;">
-          MarriageGate is taking part in making sure people are having successful marriages and are happy with their better half on this beautiful journey
-        </p>
-      </div>
-
-      <div class="flex flex-wrap -mx-3 g-4">
-        <!-- Story Image 1 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card border-0 shadow-md-sm overflow-hidden h-full">
-            <img src="https://dev1mg.blob.core.windows.net/mgate/common/story/s (1).jpeg"
-                 alt="Success Story 1"
-                 class="w-full h-full object-cover"
-                 style="min-height: 300px; max-height: 400px;">
-          </div>
-        </div>
-
-        <!-- Story Image 2 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card border-0 shadow-md-sm overflow-hidden h-full">
-            <img src="https://dev1mg.blob.core.windows.net/mgate/common/story/s (2).jpeg"
-                 alt="Success Story 2"
-                 class="w-full h-full object-cover"
-                 style="min-height: 300px; max-height: 400px;">
-          </div>
-        </div>
-
-        <!-- Story Image 3 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card border-0 shadow-md-sm overflow-hidden h-full">
-            <img src="https://dev1mg.blob.core.windows.net/mgate/common/story/s (3).jpeg"
-                 alt="Success Story 3"
-                 class="w-full h-full object-cover"
-                 style="min-height: 300px; max-height: 400px;">
-          </div>
-        </div>
-
-        <!-- Story Image 4 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card border-0 shadow-md-sm overflow-hidden h-full">
-            <img src="https://dev1mg.blob.core.windows.net/mgate/common/story/s (4).jpeg"
-                 alt="Success Story 4"
-                 class="w-full h-full object-cover"
-                 style="min-height: 300px; max-height: 400px;">
-          </div>
-        </div>
-
-        <!-- Story Image 5 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card border-0 shadow-md-sm overflow-hidden h-full">
-            <img src="https://dev1mg.blob.core.windows.net/mgate/common/story/s (5).jpeg"
-                 alt="Success Story 5"
-                 class="w-full h-full object-cover"
-                 style="min-height: 300px; max-height: 400px;">
-          </div>
-        </div>
-
-        <!-- Message Card -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card border-0 shadow-md-sm h-full flex items-center justify-center text-center p-8 bg-gradient-primary">
-            <div class="text-white">
-              <i class="fas fa-heart fs-1 mb-6"></i>
-              <h3 class="h4 font-bold mb-6">Your Story Could Be Next!</h3>
-              <p class="mb-6">Join thousands of happy couples who found their perfect match through MarriageGate</p>
-              <a [href]="baseUrl + 'login'" target="_blank" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all text-[#5c142b] font-medium px-6 py-2">
-                Start Your Journey
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section class="py-2 bg-background position-relative">
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-2 position-relative">
-      <div class="text-center mb-6">
-        <h2 class="display-6 font-bold mb-6">What Our Members Say</h2>
-        <p class="lead text-gray-500-foreground mx-auto" style="max-width: 600px;">
-          Real stories from couples who found their perfect match through MarriageGate
-        </p>
-      </div>
-
-      <div class="flex flex-wrap -mx-3 g-4 justify-center">
-        <!-- Testimonial 1 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card custom-card h-full border-0 p-6">
-            <div class="card-body">
-              <div class="mb-6">
-                <i class="fas fa-star text-amber-500"></i>
-                <i class="fas fa-star text-amber-500"></i>
-                <i class="fas fa-star text-amber-500"></i>
-                <i class="fas fa-star text-amber-500"></i>
-                <i class="fas fa-star text-amber-500"></i>
-              </div>
-              <p class="text-gray-500-foreground mb-6">
-                "MarriageGate helped us find each other. The platform is user-friendly and the verification process gave us confidence. We're now happily married!"
-              </p>
-              <div class="flex items-center">
-                <div class="testimonial-avatar mr-4">
-                  <i class="fas fa-user-circle fs-2 text-[#5c142b]"></i>
-                </div>
-                <div>
-                  <div class="font-semibold">Sumana & Rahul</div>
-                  <small class="text-gray-500-foreground">Mannar, Sri lanka</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Testimonial 2 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card custom-card h-full border-0 p-6">
-            <div class="card-body">
-              <div class="mb-6">
-                <i class="fas fa-star text-amber-500"></i>
-                <i class="fas fa-star text-amber-500"></i>
-                <i class="fas fa-star text-amber-500"></i>
-                <i class="fas fa-star text-amber-500"></i>
-                <i class="fas fa-star text-amber-500"></i>
-              </div>
-              <p class="text-gray-500-foreground mb-6">
-                "The matching algorithm is excellent! We found so many compatible profiles. Thank you MarriageGate for bringing us together."
-              </p>
-              <div class="flex items-center">
-                <div class="testimonial-avatar mr-4">
-                  <i class="fas fa-user-circle fs-2 text-[#5c142b]"></i>
-                </div>
-                <div>
-                  <div class="font-semibold">Sarah & John</div>
-                  <small class="text-gray-500-foreground">Delhi, India</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Testimonial 3 -->
-        <div class="md:w-1/2 lg:w-1/3">
-          <div class="card custom-card h-full border-0 p-6">
-            <div class="card-body">
-              <div class="mb-6">
-                <i class="fas fa-star text-amber-500"></i>
-                <i class="fas fa-star text-amber-500"></i>
-                <i class="fas fa-star text-amber-500"></i>
-                <i class="fas fa-star text-amber-500"></i>
-                <i class="fas fa-star text-amber-500"></i>
-              </div>
-              <p class="text-gray-500-foreground mb-6">
-                "Professional service, verified profiles, and great support team. We couldn't have asked for a better platform to find our life partner."
-              </p>
-              <div class="flex items-center">
-                <div class="testimonial-avatar mr-4">
-                  <i class="fas fa-user-circle fs-2 text-[#5c142b]"></i>
-                </div>
-                <div>
-                  <div class="font-semibold">Ayesha & Ahmed</div>
-                  <small class="text-gray-500-foreground">Toronoto, Canada</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Our Journey Section -->
-  <section class="py-8 bg-muted-30 position-relative">
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8 position-relative">
-      <div class="text-center mb-8">
-        <h2 class="display-6 font-bold mb-6">Our Journey</h2>
-        <p class="lead text-gray-500-foreground mx-auto" style="max-width: 600px;">
-          Key milestones in our journey
-        </p>
-      </div>
-
-      <div class="timeline-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-        <div class="timeline-item" *ngFor="let milestone of milestones; let i = index">
-          <div class="timeline-year">{{ milestone.year }}</div>
-          <div class="timeline-content">
-            <h4 class="h5 font-bold mb-2">{{ milestone.title }}</h4>
-            <p class="text-gray-500-foreground mb-0">{{ milestone.description }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="py-6 position-relative overflow-hidden cta-section">
-    <!-- Background Image with Opacity -->
-    <div class="position-absolute top-0 start-0 w-full h-full cta-bg-image"
-         style="background-image: url('https://dev1mg.blob.core.windows.net/mgate/common/contact-us.jpeg'); background-size: cover; background-position: center;">
-    </div>
-
-    <!-- White Overlay for Opacity Control -->
-    <div class="position-absolute top-0 start-0 w-full h-full" style="background-color: rgba(255, 255, 255, 0.92); z-index: 1;">
-    </div>
-
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-6 text-center position-relative" style="z-index: 2;">
-      <h2 class="display-6 font-bold mb-6">Ready to Find Your Perfect Match?</h2>
-      <p class="lead text-gray-500-foreground mb-8 mx-auto" style="max-width: 600px;">
-        Join MarriageGate today and start your journey towards a beautiful married life.
-      </p>
-      <a [href]="baseUrl + 'login'" target="_blank" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bg-primary text-white inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-lg px-8 py-6 rounded-full font-medium bg-primary-hover">
-        Get Started Now <i class="fas fa-arrow-right ml-2"></i>
-      </a>
-    </div>
-  </section>
-
-  <footer class="py-6 footer-bg border-top position-relative">
-    <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-6 position-relative">
-      <div class="flex flex-wrap -mx-3 g-5">
-        <div class="lg:w-1/4">
-          <div class="mb-6">
-            <img src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="MarriageGate Logo" height="40">
-          </div>
-          <p class="text-gray-500-foreground">
-            Recognized around the globe as the most trusted matrimonial platform for connecting hearts and building lasting relationships.
-          </p>
-        </div>
-        <div class="col-sm-6 lg:w-1/4">
-          <h5 class="font-semibold mb-6">Quick Links</h5>
-          <ul class="list-unstyled text-gray-500-foreground">
-            <li class="mb-2"><a routerLink="/" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Home</a></li>
-            <li class="mb-2"><a routerLink="/contact-us" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Contact</a></li>
-            <li class="mb-2"><a routerLink="/pricing" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Pricing</a></li>
-            <li class="mb-2"><a [href]="baseUrl + 'login'" target="_blank" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Join</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-6 lg:w-1/4">
-          <h5 class="font-semibold mb-6">Support</h5>
-          <ul class="list-unstyled text-gray-500-foreground">
-            <li class="mb-2"><a routerLink="/privacy-policy" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Privacy Policy</a></li>
-            <li class="mb-2"><a routerLink="/terms-and-condition" class="text-decoration-none text-reset hover-primary"><i class="fas fa-chevron-right mr-2 small"></i>Terms and Condition</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-6 lg:w-1/4">
-          <h5 class="font-semibold mb-6">Follow Us</h5>
-          <ul class="list-unstyled text-gray-500-foreground">
-            <li class="mb-2">
-              <a href="https://www.instagram.com/marriage.gate" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
-                <i class="fab fa-instagram mr-2 social-icon"></i>
-                <span>Instagram</span>
-              </a>
-            </li>
-            <li class="mb-2">
-              <a href="https://www.facebook.com/marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
-                <i class="fab fa-facebook mr-2 social-icon"></i>
-                <span>Facebook</span>
-              </a>
-            </li>
-            <li class="mb-2">
-              <a href="https://wa.me/41779053799" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
-                <i class="fab fa-whatsapp mr-2 social-icon"></i>
-                <span>WhatsApp</span>
-              </a>
-            </li>
-            <li class="mb-2">
-              <a href="https://www.tiktok.com/@marriagegate" target="_blank" class="text-decoration-none text-reset hover-primary flex items-center">
-                <i class="fab fa-tiktok mr-2 social-icon"></i>
-                <span>TikTok</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="border-top mt-8 pt-4 text-center footer-copyright">
-        <p>&copy; {{ currentYear }} MarriageGate. All rights reserved.</p>
-      </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-gray-900 text-center text-xs text-gray-600">
+      &copy; {{ currentYear }} MarriageGate Matrimony. All rights reserved.
     </div>
   </footer>
-
-  <!-- Mobile Bottom Navigation Bar -->
-  <nav class="mobile-bottom-nav lg:hidden">
-    <div class="mobile-nav-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-      <a class="mobile-nav-item" routerLink="/pricing" routerLinkActive="active">
-        <i class="fas fa-tags"></i>
-        <span>Pricing</span>
-      </a>
-      <a class="mobile-nav-item mobile-nav-join" [href]="baseUrl + 'login'" target="_blank">
-        <span>Join</span>
-      </a>
-      <a class="mobile-nav-item" data-bs-toggle="offcanvas" href="#mobileMenuOffcanvas" role="button" aria-controls="mobileMenuOffcanvas">
-        <i class="fas fa-bars"></i>
-        <span>Menu</span>
-      </a>
-    </div>
-  </nav>
-
-  <!-- Mobile Offcanvas Menu -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenuOffcanvas" aria-labelledby="mobileMenuOffcanvasLabel" style="width: 280px;">
-    <div class="offcanvas-header border-bottom py-6">
-      <h5 class="offcanvas-title font-bold" id="mobileMenuOffcanvasLabel">MarriageGate</h5>
-      <button type="button" class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body p-0">
-      <div class="list-group list-group-flush fs-6">
-        <a routerLink="/" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-home text-red-600 mr-4" style="width: 20px;"></i> Home
-        </a>
-        <a routerLink="/pricing" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-tags text-red-600 mr-4" style="width: 20px;"></i> Pricing
-        </a>
-        <a routerLink="/blogs" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-blog text-red-600 mr-4" style="width: 20px;"></i> Blog
-        </a>
-        <a routerLink="/success-stories" class="list-group-item list-group-item-action py-6 px-6 border-0 border-bottom" data-bs-dismiss="offcanvas">
-          <i class="fas fa-heart text-red-600 mr-4" style="width: 20px;"></i> Success Story
-        </a>
-        <a routerLink="/contact-us" class="list-group-item list-group-item-action py-6 px-6 border-0" data-bs-dismiss="offcanvas">
-          <i class="fas fa-envelope text-red-600 mr-4" style="width: 20px;"></i> Contact Us
-        </a>
-      </div>
-    </div>
-  </div>
 
 </div>

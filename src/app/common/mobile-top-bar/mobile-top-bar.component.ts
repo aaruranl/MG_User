@@ -8,11 +8,11 @@ import { AuthService } from '../../core/services/auth/auth.service';
 import { FriendSignalRService } from '../../core/services/friend-signal-r.service';
 import { MemberService } from '../../core/services/member.service';
 import { SignalRService } from '../../core/services/signal-r.service';
-import { FORM_MODULES } from '../common-imports';
+import { FORM_MODULES, ROUTER_MODULES } from '../common-imports';
 
 @Component({
   selector: 'app-mobile-top-bar',
-  imports: [CommonModule, FORM_MODULES],
+  imports: [CommonModule, FORM_MODULES, ROUTER_MODULES],
   templateUrl: './mobile-top-bar.component.html',
   styleUrl: './mobile-top-bar.component.scss'
 })
