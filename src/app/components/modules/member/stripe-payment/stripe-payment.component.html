@@ -34,7 +34,7 @@
                     </div>
                     <div class="w-full px-6 justify-end d-sm-flex mt-6">
                       <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all w-full" [disabled]="isLoading" (click)="confirmPayment()">
-                        <div class="spinner-border spinner-border-sm text-light mr-1" role="status" *ngIf="isLoading"></div>
+                        <span class="btn-spinner" *ngIf="isLoading"></span>
                         Pay Now</button>
                     </div>
                   </div>
@@ -334,16 +334,14 @@
                     Your payment information is secure and encrypted. By
                     completing this purchase, you agree to our
                     <a
-                      class="text-[#5c142b] cursor-pointer"
-                      data-bs-toggle="modal"
-                      data-bs-target="#staticBackdropTerms"
+                      class="text-brand cursor-pointer underline"
+                      (click)="showTermsModal = true"
                       >Terms of Service</a
                     >
                     and
                     <a
-                      class="text-[#5c142b] cursor-pointer"
-                      data-bs-toggle="modal"
-                      data-bs-target="#staticBackdrop "
+                      class="text-brand cursor-pointer underline"
+                      (click)="showPrivacyModal = true"
                       >Privacy Policy</a
                     >.
                   </div>
@@ -355,11 +353,7 @@
                   (click)="confirmPayment()"
                   [disabled]="!agreed"
                 >
-                  <div
-                    class="spinner-border spinner-border-sm text-light mr-1"
-                    role="status"
-                    *ngIf="isLoading"
-                  ></div>
+                  <span class="btn-spinner" *ngIf="isLoading"></span>
                   START FREE TRIAL
                 </button>
               </form>
@@ -372,58 +366,34 @@
   </div>
 </section>
 
-<!-- Modal -->
-<div
-  class="modal fade"
-  id="staticBackdrop"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+<!-- Privacy Policy Modal (Angular state-driven) -->
+<div class="modal" *ngIf="showPrivacyModal">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Privacy & policy</h5>
-        <button
-          type="button"
-          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <h5 class="font-bold text-gray-900">Privacy &amp; Policy</h5>
+        <button type="button" class="p-2 rounded-xl hover:bg-gray-100 text-gray-500 transition-all" (click)="showPrivacyModal = false">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
-      <div class="modal-body p-0">
+      <div class="modal-body p-0 max-h-[80vh] overflow-y-auto">
         <app-privacy-policy></app-privacy-policy>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
-<div
-  class="modal fade"
-  id="staticBackdropTerms"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+<!-- Terms & Conditions Modal (Angular state-driven) -->
+<div class="modal" *ngIf="showTermsModal">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabelTerms">
-          Terms & Conditions
-        </h5>
-        <button
-          type="button"
-          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <h5 class="font-bold text-gray-900">Terms &amp; Conditions</h5>
+        <button type="button" class="p-2 rounded-xl hover:bg-gray-100 text-gray-500 transition-all" (click)="showTermsModal = false">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
-      <div class="modal-body p-0">
+      <div class="modal-body p-0 max-h-[80vh] overflow-y-auto">
         <app-terms-and-condition></app-terms-and-condition>
       </div>
     </div>

@@ -1,180 +1,151 @@
-<section class="content pt-0 rounded">
-  <div class="component-content s-content">
-    <div class="flex flex-wrap -mx-3 content-a-box m-0 bg-image-s">
-      <div class="w-full px-6 mx-auto p-0">
-        <app-top-bar></app-top-bar>
-        <!-- <app-top-bar class="bg-white s-content"></app-top-bar> -->
-        <div class="w-full px-6 pt-4 s-content">
-          <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-            <!-- <div class="mb-6">
-              <div class="my-auto flex hidden md:block cursor-pointer">
-                <img class="mr-2" src="https://dev1mg.blob.core.windows.net/mgate/logo/Logo.png" alt="logo"
-                  class="logo-svg">
-              </div>
-            </div> -->
+<section class="content pt-0">
+  <div class="component-content">
+    <app-top-bar></app-top-bar>
 
-            <div class="text-center mb-6" *ngIf="plans && !isLoading">
-              <h2 class="font-bold">Choose Your Perfect Plan</h2>
-              <p class="text-gray-500">
-                Select the plan that best suits your needs and start enjoying
-                premium features today!
-              </p>
+    <div class="min-h-screen bg-gradient-to-b from-[#faf9f9] via-white to-[#f5f0f0] py-10 px-4">
+      <div class="max-w-6xl mx-auto">
+
+        <!-- Header -->
+        <div class="text-center mb-10" *ngIf="plans && !isLoading">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-subtle text-brand text-xs font-bold uppercase tracking-wider border border-brand/20 mb-4">
+            <i class="fas fa-crown text-[10px]"></i>
+            Subscription Plans
+          </span>
+          <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Choose Your Perfect Plan</h1>
+          <p class="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
+            Select the plan that best suits your needs and start finding your ideal match today.
+          </p>
+        </div>
+
+        <!-- Plan Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" *ngIf="plans && !isLoading">
+          <div
+            *ngFor="let plan of plans.subscriptionPlans; let i = index"
+            class="relative flex flex-col bg-white rounded-3xl border border-gray-200 shadow-luxury hover:shadow-luxury-lg hover:-translate-y-1.5 transition-all duration-300 overflow-hidden cursor-pointer group"
+            [ngClass]="{
+              'border-gold ring-2 ring-gold/30 shadow-gold': plan.subscriptionType === subscriptionType.Gold || plan.subscriptionType === subscriptionType.Platinum
+            }"
+            (click)="moveToPayment(plan.id)"
+          >
+            <!-- Popular Badge -->
+            <div
+              class="absolute top-0 right-0 bg-gradient-to-r from-gold to-gold-dark text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-bl-2xl"
+              *ngIf="plan.subscriptionType === subscriptionType.Gold"
+            >
+              Most Popular
             </div>
 
-            <!-- Subscription Cards -->
-            <div class="flex flex-wrap -mx-3 g-4 justify-center" *ngIf="plans && !isLoading">
-              <!-- Free Plan -->
-              <div class="lg:w-1/4 md:w-1/2 col-sm-12 w-full px-6" *ngFor="let plan of plans.subscriptionPlans">
-                <div class="subscription-card-max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
-                  <div class="p-2 subscription-card h-full cursor-pointer border">
-                      <div class="mt-6 flex justify-end"><span class="p-1 ps-2 text-white bg-danger rounded-start font-bold text-xs">{{plan.trialPeriodDays}} days free trial</span> </div>
-                    <!-- <div class="text-center border-0 position-relative overflow-hidden"> -->
-                      <!-- <div class="gradient-overlay free-gradient"
-                        [ngClass]="plan.subscriptionType === subscriptionType.Free ? 'free-gradient' : plan.subscriptionType === subscriptionType.Silver ? 'silver-gradient' : plan.subscriptionType === subscriptionType.Gold ? 'gold-gradient' : 'platinum-gradient'">
+            <!-- Free Trial Tag -->
+            <div class="absolute top-3 left-3" *ngIf="plan.trialPeriodDays > 0">
+              <span class="badge badge-success text-[10px]">
+                {{ plan.trialPeriodDays }}d free trial
+              </span>
+            </div>
 
-                      </div> -->
-                      <!-- <div class="header-content">
-                        <div class="subscription-icon mb-2">
-                          <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Free">🆓</span>
-                          <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Silver">🥈</span>
-                          <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Gold">🥇</span>
-                          <span class="display-4" *ngIf="plan.subscriptionType === subscriptionType.Platinum">💎</span>
-                        </div>
-                        <h4 class="card-title text-white font-bold mb-1"> {{plan.name }}
-                        </h4>
-                        <p class="text-white-50 mb-0 small text-uppercase font-semibold letter-spacing">
-                          {{plan.subscriptionType === subscriptionType.Free ? 'Free Plan' : plan.subscriptionType === subscriptionType.Silver ? 'Silver Plan' : plan.subscriptionType === subscriptionType.Gold ? 'Gold Plan' : 'Platinum Plan'}}
-                        </p>
-                      </div> -->
-                    <!-- </div> -->
+            <!-- Plan Header -->
+            <div class="pt-10 px-6 pb-5 border-b border-gray-100">
+              <!-- Plan Icon -->
+              <div class="text-3xl mb-3">
+                <span *ngIf="plan.subscriptionType === subscriptionType.Free">🆓</span>
+                <span *ngIf="plan.subscriptionType === subscriptionType.Silver">🥈</span>
+                <span *ngIf="plan.subscriptionType === subscriptionType.Gold">🥇</span>
+                <span *ngIf="plan.subscriptionType === subscriptionType.Platinum">💎</span>
+              </div>
 
-                    <div class="text-center font-bold pt-2 fs-4">
-                      <div class="mb-2 text-gray-500">
-                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Free">Free Plan</span>
-                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Silver">Silver Plan</span>
-                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Gold">Gold Plan</span>
-                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Platinum">Platinum Plan</span>
-                        </div>
-                    </div>
+              <h3 class="text-lg font-bold text-gray-900 mb-1">{{ plan.name }}</h3>
+              <p class="text-xs text-gray-400 font-medium uppercase tracking-wide">
+                <span *ngIf="plan.subscriptionType === subscriptionType.Free">Free Plan</span>
+                <span *ngIf="plan.subscriptionType === subscriptionType.Silver">Silver Plan</span>
+                <span *ngIf="plan.subscriptionType === subscriptionType.Gold">Gold Plan</span>
+                <span *ngIf="plan.subscriptionType === subscriptionType.Platinum">Platinum Plan</span>
+              </p>
 
-                    <div class="card-body text-center pb-0">
-                      <div class="price-section mb-2">
-                        <div class="price-wrapper">
-                          <!-- <span class="currency">$</span>
-                          <span class="price-amount">{{plan.price}}</span>
-                          <span class="price-period">/
-                            {{plan.intervalType === billingInterval.Month ? 'month' : plan.intervalType === billingInterval.Year ? 'year' : plan.intervalType === billingInterval.Week ? 'week' : 'day' }}</span> -->
-                          @if (plan.trialPeriodDays > 15) {
-                            <span class="price-amount original-price text-sm">${{ plan.price | number:'1.2-2' }}</span>
-                            <span class="ml-2 price-amount discounted-price">$0.00</span>
-                          } @else if (plan.discount > 0) {
-                            <span class="price-amount original-price text-sm">${{ plan.price | number:'1.2-2' }}</span>
-                            <span class="ml-2 price-amount discounted-price">{{ plan.discountedPrice | number:'1.2-2' }}</span>
-                          } @else {
-                            <span class="currency">$</span>
-                            <span class="price-amount">{{ plan.price | number:'1.2-2' }}</span>
-                          }
+              <!-- Pricing -->
+              <div class="price-section mt-4">
+                <div class="price-wrapper">
+                  @if (plan.trialPeriodDays > 15) {
+                    <span class="original-price">${{ plan.price | number:'1.2-2' }}</span>
+                    <span class="discounted-price ml-2">$0</span>
+                  } @else if (plan.discount > 0) {
+                    <span class="original-price">${{ plan.price | number:'1.2-2' }}</span>
+                    <span class="discounted-price ml-2">${{ plan.discountedPrice | number:'1.2-2' }}</span>
+                  } @else {
+                    <span class="currency">$</span>
+                    <span class="price-amount">{{ plan.price | number:'1.2-2' }}</span>
+                  }
+                  <span class="price-period">/{{
+                    plan.intervalType === billingInterval.Month ? 'mo'
+                    : plan.intervalType === billingInterval.Year ? 'yr'
+                    : plan.intervalType === billingInterval.Week ? 'wk'
+                    : 'day'
+                  }}</span>
+                </div>
 
-                          <span class="price-period text-sm">
-                            /
-                            {{
-                              plan.intervalType === billingInterval.Month
-                                ? "month"
-                                : plan.intervalType === billingInterval.Year
-                                  ? "year"
-                                  : plan.intervalType === billingInterval.Week
-                                    ? "week"
-                                    : "day"
-                            }}
-                          </span>
-                        </div>
-                        <div *ngIf="plan.discount !== 0" class="text-xs text-center badge badge bg-success text-white p-2 mt-2">
-                          <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="15px" width="15px" version="1.1" id="Layer_1" viewBox="0 0 503.467 503.467" xml:space="preserve">
-                                <g transform="translate(1)">
-                                  <path style="fill:#ECF4F7;" d="M353.987,86.904c-6.827,7.68-10.24,17.067-10.24,28.16c0,23.893,18.773,42.667,42.667,42.667   c23.893,0,42.667-18.773,42.667-42.667s-18.773-42.667-42.667-42.667C373.613,72.397,362.52,78.37,353.987,86.904L353.987,86.904z    M245.613,51.064l21.333-21.333l0,0c17.067-17.067,34.133-25.6,59.733-25.6h136.533c18.773,0,34.133,15.36,34.133,34.133v136.533   c0,17.067-3.413,29.867-11.093,41.813c-4.267,5.973-8.533,11.947-14.507,17.92l-230.4,230.4l-23.04,23.04   c-13.653,13.653-34.987,13.653-48.64,0L12.654,330.957C-1,317.304-1,295.971,12.654,283.171L245.613,51.064z"/>
-                                  <path style="fill:#FF7474;" d="M353.987,87.04c7.68-8.533,19.627-14.507,32.427-14.507c23.893,0,42.667,18.773,42.667,42.667   s-18.773,42.667-42.667,42.667c-23.893,0-42.667-18.773-42.667-42.667C343.747,104.107,348.013,94.72,353.987,87.04z    M487.107,216.747l-151.04,265.387c-9.387,16.213-30.72,22.187-46.933,12.8L242.2,465.92l0,0l230.4-230.4   C477.72,228.693,482.84,222.72,487.107,216.747L487.107,216.747z"/>
-                                </g>
-                                <path style="fill:#51565F;" d="M307.2,503.467c-6.827,0-12.8-1.707-18.773-5.12l-19.627-12.8c-1.707-1.707-2.56-4.267-0.853-5.973  c1.707-1.707,4.267-2.56,5.973-0.853l18.773,11.947c13.653,8.533,32.427,3.413,40.96-11.093l98.133-166.4  c0.853-1.707,3.413-2.56,5.973-1.707c1.707,0.853,2.56,3.413,1.707,5.973l-98.133,166.4C332.8,496.64,320,503.467,307.2,503.467z   M195.413,502.614c-10.24,0-19.627-3.413-27.307-11.093L11.093,334.507C3.413,327.68,0,317.44,0,307.2  c0-10.24,4.267-19.627,11.093-27.307L238.08,52.907c-29.013-6.827-55.467-11.093-77.653-13.653  c-37.547-3.413-40.96,3.413-40.96,3.413c-0.853,1.707,7.68,13.653,56.32,33.28c2.56,0.853,3.413,3.413,2.56,5.12  c-0.853,2.56-3.413,3.413-5.12,2.56c-43.52-17.067-64-31.573-61.44-42.667c1.707-5.973,8.533-13.653,50.347-9.387  C186.027,33.28,215.04,38.4,245.76,46.08l19.627-19.627C284.16,7.68,302.933,0,328.533,0h136.533c21.333,0,38.4,17.067,38.4,38.4  v136.533c0,25.6-7.68,43.52-26.453,63.147l-253.44,253.44C215.04,499.2,204.8,502.614,195.413,502.614z M248.32,55.467l-230.4,230.4  c-5.973,5.973-8.533,12.8-8.533,21.333c0,7.68,3.413,15.36,8.533,21.333l157.013,157.013c11.947,11.947,30.72,11.947,41.813,0  l253.44-253.44c17.067-17.067,24.747-34.133,24.747-56.32V39.253c0-16.213-13.653-29.867-29.867-29.867H328.533  c-23.04,0-39.253,6.827-56.32,24.747l0,0L256,50.347c2.56,0.853,5.12,1.707,8.533,2.56c37.547,10.24,72.533,22.187,98.133,34.133  c37.547,17.92,40.107,27.307,38.4,33.28c-1.707,5.973-8.533,9.387-20.48,10.24c-2.56,0-4.267-1.707-4.267-4.267  s1.707-4.267,4.267-4.267c10.24-0.853,12.8-3.413,12.8-4.267c0,0,0-7.68-34.133-23.893c0,0-0.853,0-0.853-0.853  c-5.12,6.827-7.68,14.507-7.68,23.04c0,21.333,17.067,38.4,38.4,38.4c21.333,0,38.4-17.067,38.4-38.4s-17.067-38.4-38.4-38.4  c-2.56,0-4.267-1.707-4.267-4.267c0-2.56,1.707-4.267,4.267-4.267c25.6,0,46.933,21.333,46.933,46.933s-21.333,46.933-46.933,46.933  c-25.6,0-46.933-21.333-46.933-46.933c0-9.387,2.56-18.773,8.533-26.453c-23.893-10.24-54.613-20.48-87.893-29.867  C256.854,58.027,252.587,57.174,248.32,55.467z M208.213,366.934c-2.56,0-4.267-1.707-4.267-4.267V243.2  c0-2.56,1.707-4.267,4.267-4.267s4.267,1.707,4.267,4.267v119.467C212.48,365.227,210.773,366.934,208.213,366.934z M148.48,332.8  c-6.827,0-12.8-5.973-12.8-12.8s5.973-12.8,12.8-12.8s12.8,5.973,12.8,12.8S155.307,332.8,148.48,332.8z M148.48,315.734  c-2.56,0-4.267,1.707-4.267,4.267s1.707,4.267,4.267,4.267s4.267-1.707,4.267-4.267S151.04,315.734,148.48,315.734z M267.947,281.6  c-6.827,0-12.8-5.973-12.8-12.8c0-6.827,5.973-12.8,12.8-12.8s12.8,5.973,12.8,12.8C280.747,275.627,274.773,281.6,267.947,281.6z   M267.947,264.534c-2.56,0-4.267,1.707-4.267,4.267c0,2.56,1.707,4.267,4.267,4.267s4.267-1.707,4.267-4.267  C272.213,266.24,270.507,264.534,267.947,264.534z"/>
-                                </svg>
-                          </span>
-                          {{plan.discount}} % off</div>
-                        <div class="trial-text mt-2" *ngIf="plan.subscriptionType !== subscriptionType.Free">
-                          <small class="text-emerald-600 font-semibold">Cancel any time</small>
-                        </div>
-                     </div>
-
-                      <div class="features-list">
-                        <ul class="list-unstyled text-start">
-                          <li class="feature-item mb-6 flex items-start">
-                            <i class="fas fa-check mr-2 mt-1 text-emerald-600"></i>
-                            <div>
-                              <span class="font-semibold mr-1">{{plan.subscriptionPlanFeature.memberCount}}</span>
-                              <span class="text-gray-500"> Members included</span>
-                              <div class="text-gray-500 mt-1" style="font-size: 0.8rem; white-space: pre-line;">
-                                ({{ getMemberTooltip(plan) }})
-                              </div>
-                            </div>
-                          </li>
-                          <li class="feature-item mb-6">
-                            <i class="fas fa-check mr-2 text-emerald-600"></i>
-                            <span class="font-semibold mr-1">{{plan.subscriptionPlanFeature.sendFriendRequestCount}}</span>
-                            <span class="text-gray-500">
-                              Friend requests per month</span>
-                          </li>
-                          <li class="feature-item mb-6">
-                            <i class="fas fa-check mr-2 text-emerald-600"></i>
-                            <span class="font-semibold mr-1"></span>
-                            <span class="text-gray-500">
-                              Advanced search filters</span>
-                          </li>
-                          <li class="feature-item mb-6">
-                            <i class="fas fa-check mr-2 text-emerald-600"></i>
-                            <span class="font-semibold mr-1"></span>
-                            <span class="text-gray-500">
-                              Personalized match suggestions</span>
-                          </li>
-
-                          <li class="feature-item mb-6">
-                            <i class="fas fa-check mr-2 text-emerald-600"></i>
-                            <span class="font-semibold mr-1"></span>
-                            <span class="text-gray-500">
-                             Unlimited matches</span>
-                          </li>
-                          <li class="feature-item mb-6" *ngIf="plan.subscriptionType !== subscriptionType.Free">
-                            <i class="fas fa-check mr-2 text-emerald-600"></i>
-                            <span class="font-semibold mr-1"></span>
-                            <span class="text-gray-500">Priority customer support
-                             </span>
-                          </li>
-                          <!-- <li class="feature-item mb-6">
-                            <i class="fas fa-sync-alt mr-2"></i>
-                            <span class="text-gray-500">Billed every
-                              <span
-                                class="font-semibold">{{plan.interval === billingInterval.Month ? 'month' : plan.interval === billingInterval.Year ? 'year' : plan.interval === billingInterval.Week ? 'week' : 'day' }}</span></span>
-                          </li> -->
-
-                        </ul>
-                      </div>
-                      <div class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer  w-full mb-2 dim-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer bg-white text-red-600" (click)="moveToPayment(plan.id)" >
-                         <span class=""> Choose Plan</span>
-                          <!-- <span class="" *ngIf="plan.subscriptionType === subscriptionType.Silver">Continue with Silver Plan</span>
-                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Gold">Continue with Gold Plan</span>
-                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Platinum">Continue with Platinum Plan</span> -->
-                      </div>
-                    </div>
-                  </div>
+                <!-- Discount Tag -->
+                <div *ngIf="plan.discount > 0" class="mt-2">
+                  <span class="badge badge-success">{{ plan.discount }}% off</span>
+                </div>
+                <div *ngIf="plan.subscriptionType !== subscriptionType.Free" class="mt-2">
+                  <span class="text-[11px] text-emerald-600 font-semibold">Cancel anytime</span>
                 </div>
               </div>
             </div>
 
-            <app-loading *ngIf="isLoading"></app-loading>
+            <!-- Features List -->
+            <div class="flex-1 px-6 py-5 space-y-3">
+              <div class="flex items-start gap-2.5 text-sm">
+                <i class="fas fa-check text-emerald-500 mt-0.5 flex-shrink-0 text-xs"></i>
+                <div>
+                  <span class="font-semibold text-gray-900">{{ plan.subscriptionPlanFeature.memberCount }}</span>
+                  <span class="text-gray-500"> members included</span>
+                  <div class="text-[11px] text-gray-400 mt-0.5 leading-snug">({{ getMemberTooltip(plan) }})</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2.5 text-sm">
+                <i class="fas fa-check text-emerald-500 flex-shrink-0 text-xs"></i>
+                <span class="font-semibold text-gray-900">{{ plan.subscriptionPlanFeature.sendFriendRequestCount }}</span>
+                <span class="text-gray-500"> requests/month</span>
+              </div>
+              <div class="flex items-center gap-2.5 text-sm">
+                <i class="fas fa-check text-emerald-500 flex-shrink-0 text-xs"></i>
+                <span class="text-gray-500">Advanced search filters</span>
+              </div>
+              <div class="flex items-center gap-2.5 text-sm">
+                <i class="fas fa-check text-emerald-500 flex-shrink-0 text-xs"></i>
+                <span class="text-gray-500">Personalized match suggestions</span>
+              </div>
+              <div class="flex items-center gap-2.5 text-sm">
+                <i class="fas fa-check text-emerald-500 flex-shrink-0 text-xs"></i>
+                <span class="text-gray-500">Unlimited matches</span>
+              </div>
+              <div class="flex items-center gap-2.5 text-sm" *ngIf="plan.subscriptionType !== subscriptionType.Free">
+                <i class="fas fa-check text-emerald-500 flex-shrink-0 text-xs"></i>
+                <span class="text-gray-500">Priority customer support</span>
+              </div>
+            </div>
 
+            <!-- CTA Button -->
+            <div class="px-6 pb-6">
+              <button
+                type="button"
+                class="w-full py-3 rounded-2xl text-sm font-bold transition-all"
+                [ngClass]="
+                  plan.subscriptionType === subscriptionType.Gold || plan.subscriptionType === subscriptionType.Platinum
+                    ? 'bg-gradient-to-r from-brand to-brand-dark text-white shadow-luxury hover:shadow-luxury-lg'
+                    : 'bg-brand-subtle text-brand hover:bg-red-100 border border-brand/20'
+                "
+              >
+                Choose Plan
+                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+              </button>
+            </div>
           </div>
         </div>
+
+        <!-- Loading -->
+        <app-loading *ngIf="isLoading"></app-loading>
+
       </div>
     </div>
   </div>
 </section>
-
-

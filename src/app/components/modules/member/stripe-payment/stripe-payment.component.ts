@@ -28,6 +28,11 @@ export class StripePaymentComponent {
   public isCompleteCardNumber: boolean = false;
   private cardCVVElement: any;
   public isCompleteCardCVV: boolean = false;
+
+  /** Angular-driven modal state */
+  public showPrivacyModal: boolean = false;
+  public showTermsModal: boolean = false;
+
   private cardExpiryElement: any;
   public isCompleteCardExpiry: boolean = false;
   private cardPostCodeElement: any;

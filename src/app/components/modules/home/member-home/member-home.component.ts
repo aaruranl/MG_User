@@ -15,12 +15,14 @@ export class MemberHomeComponent {
  public screenWidth: number = window.innerWidth;
  public isLoading:boolean = true;
  public isInitialLoad:boolean = false;
+ public showFilterDrawer: boolean = false;
 
   constructor(public memberService:MemberService){
     effect(()=>{
       this.isInitialLoad = memberService.isInitialLoad();
     })
   }
+
 
   ngOnInit(): void {
    this.updateScreenWidth();

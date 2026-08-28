@@ -89,9 +89,7 @@
 
           <button
             type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-            (click)="deleteMemberId = p.id"
+            (click)="deleteMemberId = p.id; showDeleteModal = true"
             class="p-2 rounded-xl text-gray-400 hover:text-[#dc3545] hover:bg-red-50 transition-all cursor-pointer text-xs"
             title="Delete member"
           >
@@ -126,16 +124,8 @@
   </div>
 </section>
 
-<!-- Delete Member Confirmation Modal -->
-<div
-  class="modal fade"
-  id="staticBackdrop"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<!-- Delete Member Confirmation Modal (Angular state-driven) -->
+<div class="modal" *ngIf="showDeleteModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-3xl border-0 overflow-hidden shadow-2xl p-6 text-center">
       <div class="w-16 h-16 rounded-full bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-4 text-2xl">
@@ -146,20 +136,20 @@
       <div class="flex items-center justify-center gap-3">
         <button
           type="button"
-          class="px-5 py-2.5 rounded-xl border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-all cursor-pointer"
-          data-bs-dismiss="modal"
+          class="btn btn-light"
+          (click)="showDeleteModal = false"
           id="deleteMemberModalId"
         >
           Cancel
         </button>
         <button
           type="button"
-          class="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-md shadow-red-600/30 transition-all cursor-pointer disabled:opacity-50"
+          class="btn btn-danger"
           (click)="deleteMember()"
           [disabled]="isLoading"
         >
-          <span>Confirm Delete</span>
-          <div class="spinner-border spinner-border-sm text-white ml-2" *ngIf="isLoading"></div>
+          <span class="btn-spinner" *ngIf="isLoading"></span>
+          Confirm Delete
         </button>
       </div>
     </div>

@@ -60,6 +60,11 @@ export class BillingComponent {
 
   public newPlanId: number = 0;
 
+  /** Angular-driven modal state (replaces Bootstrap JS data-bs-* triggers) */
+  public showSwitchPlanModal: boolean = false;
+  public showInvoiceModal: boolean = false;
+  public showRetrievePaymentModal: boolean = false;
+
   /** Custom tooltip: which plan's tooltip is open (plan id) */
   public openTooltipPlanId: string | null = null;
 
@@ -440,12 +445,7 @@ export class BillingComponent {
     this.authService.isActiveSubscription$.subscribe((active: boolean | null) => {
       this.isActiveSubscription = active;
       if (!active && active) {
-        let viewModal: HTMLElement = document.getElementById(
-          'open-retrieve-payment-modal'
-        ) as HTMLElement;
-        if (viewModal) {
-          viewModal.click();
-        }
+        this.showRetrievePaymentModal = true;
       }
     });
   }

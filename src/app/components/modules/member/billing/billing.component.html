@@ -112,10 +112,7 @@
                   (click)="retrievePayment()"
                   [disabled]="isRetrieveLoading"
                 >
-                  <div
-                    class="spinner-border spinner-border-sm text-light mr-1"
-                    *ngIf="isRetrieveLoading"
-                  ></div>
+                  <span class="btn-spinner" *ngIf="isRetrieveLoading"></span>
                   Retrieve Payment
                 </button>
               } @else {
@@ -134,10 +131,7 @@
                       : cancelSubscription(currentPlan.subscriptionIdString)
                   "
                 >
-                  <div
-                    class="spinner-border spinner-border-sm text-light mr-1"
-                    *ngIf="isCancelLoading"
-                  ></div>
+                  <span class="btn-spinner" *ngIf="isCancelLoading"></span>
                   {{
                     !currentPlan.isRequestToCancel
                       ? "Cancel Subscription"
@@ -147,10 +141,10 @@
               }
 
               <button
-                class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all ml-4"
-                data-bs-toggle="modal"
-                data-bs-target="#view-invoice"
+                class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white bg-brand hover:bg-brand-dark shadow-sm transition-all ml-4"
+                (click)="showInvoiceModal = true"
               >
+                <i class="fas fa-file-invoice text-xs"></i>
                 View Invoice
               </button>
             </div>
@@ -233,28 +227,19 @@
                             <div id="floatingPost" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"></div>
 
                           </div> -->
-                      <div class="w-full px-6 justify-end d-sm-flex mt-6">
+                      <div class="w-full px-6 justify-end flex gap-3 mt-6">
                         <button
                           class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all w-full mr-4"
                           (click)="confirmPayment()"
                           [disabled]="isLoading"
                         >
-                          <div
-                            class="spinner-border spinner-border-sm text-light mr-1"
-                            role="status"
-                            *ngIf="isChangeLoading"
-                          ></div>
-                          Change Now
+                            <span class="btn-spinner" *ngIf="isChangeLoading"></span>
+                            Change Now
                         </button>
                         <button
                           class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all w-full"
                           (click)="cancelChangeMethod()"
                         >
-                          <div
-                            class="spinner-border spinner-border-sm text-light mr-1"
-                            role="status"
-                            *ngIf="isChangeLoading"
-                          ></div>
                           Cancel
                         </button>
                       </div>
@@ -427,15 +412,10 @@ up to {{ plan.subscriptionPlanFeature.memberCount }} family member profiles.)
                             ? 'inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-danger text-white'
                             : 'inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-striped text-red-600'
                         "
-                        data-bs-toggle="modal"
-                        data-bs-target="#switchPlan"
-                        (click)="newPlanId = plan.subscriptionType"
+                        (click)="showSwitchPlanModal = true; newPlanId = plan.subscriptionType"
                         [disabled]="!currentPlan.canChangeSubscription"
                       >
-                        <span class=""> Switch Plan</span>
-                        <!-- <span class="" *ngIf="plan.subscriptionType === subscriptionType.Silver">Continue with Silver Plan</span>
-                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Gold">Continue with Gold Plan</span>
-                          <span class="" *ngIf="plan.subscriptionType === subscriptionType.Platinum">Continue with Platinum Plan</span> -->
+                        Switch Plan
                       </button>
                     </div>
                   </div>
@@ -455,233 +435,104 @@ up to {{ plan.subscriptionPlanFeature.memberCount }} family member profiles.)
     </div>
   </div>
 </section>
-<div
-  class="modal fade"
-  id="switchPlan"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<!-- Switch Plan Modal (Angular state-driven) -->
+<div class="modal" *ngIf="showSwitchPlanModal">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Change Plan</h1>
+    <div class="modal-content p-6 text-center">
+      <div class="w-14 h-14 rounded-full bg-brand-subtle text-brand flex items-center justify-center mx-auto mb-4 text-xl">
+        <i class="fas fa-exchange-alt"></i>
+      </div>
+      <h3 class="font-bold text-gray-900 text-lg mb-2">Change Plan</h3>
+      <p class="text-sm text-gray-500 mb-6">Do you want to switch your plan?</p>
+      <div class="flex items-center justify-center gap-3">
         <button
           type="button"
-          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          id="close-inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <div class="text-center text-lg mb-6">
-          Do you want to switch your plan?
-        </div>
-        <div class="text-center flex">
-          <button
-            type="button"
-            class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all w-75 mr-4"
-            data-bs-dismiss="modal"
-          >
-            No
-          </button>
-          <button
-            type="button"
-            class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all w-75"
-            (click)="switchPlan()"
-            [disabled]="isSwitchPlanLoading"
-          >
-            <div
-              class="spinner-border spinner-border-sm text-light mr-1"
-              role="status"
-              *ngIf="isSwitchPlanLoading"
-            ></div>
-            Yes
-          </button>
-        </div>
+          class="btn btn-light flex-1"
+          (click)="showSwitchPlanModal = false"
+        >No, Cancel</button>
+        <button
+          type="button"
+          class="btn btn-danger flex-1"
+          (click)="switchPlan()"
+          [disabled]="isSwitchPlanLoading"
+        >
+          <span class="btn-spinner" *ngIf="isSwitchPlanLoading"></span>
+          Yes, Switch
+        </button>
       </div>
     </div>
   </div>
 </div>
 
-<div
-  class="modal fade"
-  id="view-invoice"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<!-- Invoice Modal (Angular state-driven) -->
+<div class="modal" *ngIf="showInvoiceModal">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header py-1">
-        <h4>Invoice</h4>
-        <button
-          type="button"
-          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+      <div class="modal-header">
+        <h4 class="font-bold text-gray-900"><i class="fas fa-file-invoice mr-2 text-brand"></i>Invoice</h4>
+        <button type="button" class="p-2 rounded-xl hover:bg-gray-100 text-gray-500 transition-all" (click)="showInvoiceModal = false">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
-      <div class="modal-body p-0">
-        <div class="mt-6 mb-6">
-          <div class="w-full px-6 col-sm-10 mx-auto">
-            <div class="text-gray-500 my-2 font-bold mx-2">
-              totalCount : {{ totalItemCount }}
-            </div>
-            <div class="mt-6">
-              <div class="border p-6 bg-white border-15">
-                <div *ngIf="!isInvoiceLoading && invoices">
-                  <div
-                    class="flex flex-wrap -mx-3 border p-2 border-15 bg-danger text-white mb-2 m-0"
-                  >
-                    <div class="w-1/4 px-6">Plan</div>
-                    <div class="w-1/4 px-6">Date</div>
-                    <div class="w-1/4 px-6">Amount</div>
-                    <div class="w-1/4 px-6">Status</div>
-                  </div>
-                  <div
-                    class="flex flex-wrap -mx-3 border p-2 border-15 mt-2 m-0"
-                    *ngFor="
-                      let invoice of invoices
-                        | paginate
-                          : {
-                              itemsPerPage: itemsPerPage,
-                              currentPage: currentPage,
-                              totalItems: totalItemCount,
-                            }
-                    "
-                  >
-                    <div class="w-1/4 px-6">{{ invoice.planName }}</div>
-                    <div class="w-1/4 px-6">{{ invoice.invoiceDate | date }}</div>
-                    <div class="w-1/4 px-6">{{ invoice.amount }}</div>
-                    <div class="w-1/4 px-6">
-                      <span
-                        class="badge"
-                        [ngClass]="{
-                          'bg-primary': invoice.status === 'FREE TRIAL',
-                          'bg-success': invoice.status === 'PAID',
-                          'bg-secondary': invoice.status === 'FAIL',
-                        }"
-                        >{{ invoice.status }}</span
-                      >
-                    </div>
-                  </div>
-                  <!-- PAGINATION -->
-                  <div
-                    class="flex flex-wrap -mx-3 mb-auto pagination mt-6"
-                    *ngIf="totalItemCount > 4"
-                  >
-                    <div class="w-1/2 px-6 col-sm-4 mt-auto">
-                      <div class="pull-left">
-                        <div class="form-group flex flex-wrap -mx-3">
-                          <label
-                            class="col-sm-4 col-block text-sm font-semibold text-gray-700 mb-1.5 text-sm font-bold pt-0"
-                            ><small>Entries per page</small></label
-                          >
-                          <div class="col-sm-4 page-input">
-                            <input
-                              type="number"
-                              class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:border-[#5c142b] focus:ring-2 focus:ring-[#5c142b]/20 outline-none text-sm bg-white text-gray-800 transition-all"
-                              [(ngModel)]="itemsPerPage"
-                              min="1"
-                              (change)="changePerPageValue(itemsPerPage)"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-sm-8 text-right">
-                      <div class="text-xs">
-                        <pagination-controls
-                          (pageChange)="pageChanged($event)"
-                          [maxSize]="5"
-                          [previousLabel]="'Prev'"
-                        ></pagination-controls>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  class="flex justify-center"
-                  *ngIf="isInvoiceLoading"
-                >
-                  <div class="spinner-border text-red-600" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                </div>
-              </div>
+      <div class="modal-body p-6">
+        <div *ngIf="!isInvoiceLoading && invoices">
+          <!-- Table Header -->
+          <div class="grid grid-cols-4 gap-2 bg-gradient-to-r from-brand to-brand-dark text-white text-xs font-bold px-4 py-3 rounded-xl mb-2">
+            <div>Plan</div>
+            <div>Date</div>
+            <div>Amount</div>
+            <div>Status</div>
+          </div>
+          <!-- Rows -->
+          <div
+            class="grid grid-cols-4 gap-2 border border-gray-100 px-4 py-3 rounded-xl mb-1.5 text-sm hover:bg-gray-50 transition-all"
+            *ngFor="let invoice of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItemCount }"
+          >
+            <div class="font-medium text-gray-900 truncate">{{ invoice.planName }}</div>
+            <div class="text-gray-500">{{ invoice.invoiceDate | date }}</div>
+            <div class="font-semibold text-gray-900">${{ invoice.amount }}</div>
+            <div>
+              <span class="badge" [ngClass]="{
+                'badge-warning': invoice.status === 'FREE TRIAL',
+                'badge-success': invoice.status === 'PAID',
+                'badge-danger':  invoice.status === 'FAIL'
+              }">{{ invoice.status }}</span>
             </div>
           </div>
+          <!-- Pagination -->
+          <div class="flex items-center justify-between mt-4" *ngIf="totalItemCount > 4">
+            <div class="flex items-center gap-2 text-xs text-gray-500">
+              <span>Entries per page:</span>
+              <input type="number" class="w-14 form-control text-center" [(ngModel)]="itemsPerPage" min="1" (change)="changePerPageValue(itemsPerPage)" />
+            </div>
+            <pagination-controls (pageChange)="pageChanged($event)" [maxSize]="5" [previousLabel]="'Prev'"></pagination-controls>
+          </div>
+        </div>
+        <!-- Loading -->
+        <div class="flex justify-center py-8" *ngIf="isInvoiceLoading">
+          <div class="m-spinner"></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Button trigger modal -->
-<button
-  type="button"
-  class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-[#5c142b] hover:bg-[#7e1e3b] shadow-sm transition-all hidden"
-  data-bs-toggle="modal"
-  data-bs-target="#retrieve-staticBackdrop"
-  id="open-retrieve-payment-modal"
->
-  retrieve payment
-</button>
-
-<!-- Modal -->
-<div
-  class="modal fade"
-  id="retrieve-staticBackdrop"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<!-- Retrieve Payment Modal (Angular state-driven) -->
+<div class="modal" *ngIf="showRetrievePaymentModal">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button
-          type="button"
-          class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-cursor-pointer-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+    <div class="modal-content p-6 text-center">
+      <div class="w-16 h-16 rounded-full bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-4 text-2xl">
+        <i class="fas fa-exclamation-triangle"></i>
       </div>
-      <div class="modal-body">
-        <div class="flex flex-wrap -mx-3">
-          <div class="w-full px-6 text-center">
-            <img
-              src="https://cdni.iconscout.com/illustration/premium/thumb/payment-failed-illustration-svg-download-png-3822060.png"
-              alt="payment-declined"
-              width="300"
-              class="mb-6"
-            />
-            <h4>Your previous payment method was declined.</h4>
-            <div class="text-center text-md mb-6 text-gray-500">
-              Please update your payment information to continue your
-              subscription.
-            </div>
-            <div class="text-center flex justify-center">
-              <button
-                type="button"
-                class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm transition-all w-75"
-                data-bs-dismiss="modal"
-              >
-                Ok
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h3 class="font-bold text-gray-900 text-lg mb-2">Payment Declined</h3>
+      <p class="text-sm text-gray-500 mb-6">
+        Your previous payment method was declined. Please update your payment information to continue your subscription.
+      </p>
+      <button
+        type="button"
+        class="btn btn-danger w-full"
+        (click)="showRetrievePaymentModal = false"
+      >Understood</button>
     </div>
   </div>
 </div>

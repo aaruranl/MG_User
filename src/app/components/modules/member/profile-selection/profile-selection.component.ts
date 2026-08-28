@@ -31,6 +31,8 @@ export class ProfileSelectionComponent {
   public isLoading:boolean = false;
   public deleteMemberId:string = '';
   public mainUser!:MainUser;
+  public showDeleteModal: boolean = false;
+
 
   ngOnInit(): void {
    this._getMemberProfiles();
@@ -119,9 +121,9 @@ export class ProfileSelectionComponent {
           this.memberProfiles = res;
           this.auth.setMemberList(res);
           this.isLoading = false;
-          let deleteModal: HTMLElement = document.getElementById('deleteMemberModalId') as HTMLElement;
-          deleteModal.click();
+          this.showDeleteModal = false;
           if(currentMemberId === this.deleteMemberId){
+
             localStorage.removeItem('currentMemberId');
             window.location.href = "/";
           }

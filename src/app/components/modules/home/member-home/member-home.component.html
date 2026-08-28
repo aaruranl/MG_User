@@ -1,23 +1,44 @@
 <section class="content">
-  <div class="component-content bg-color" [ngClass]="{'hidden':isLoading}" >
+  <div class="component-content bg-color" [ngClass]="{'hidden':isLoading}">
 
-    <div class="p-6 responsive-sideBar" >
-      <div class="border-15 mr-6 side-bar hidden md:block" *ngIf="screenWidth > 764 || !isInitialLoad" [ngClass]="{'bg-white border':!isInitialLoad}">
-          <app-side-bar (newLoadEvent)="loadChildEmitter($event)"></app-side-bar>
+    <div class="p-4 sm:p-6 responsive-sideBar">
+      <!-- Desktop Filter Sidebar (always visible on md+) -->
+      <div class="side-bar hidden md:block" *ngIf="screenWidth > 764 || !isInitialLoad" [ngClass]="{'bg-white border border-gray-100 rounded-3xl':!isInitialLoad}">
+        <app-side-bar (newLoadEvent)="loadChildEmitter($event)"></app-side-bar>
       </div>
-        <div class="home-box">
-          <div class="text-right float-right mb-2 sm:block md:hidden"> <button class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium border border-red-600 text-red-600 hover:bg-red-50 transition-all" data-bs-toggle="modal" data-bs-target="#filterModal"> <i class="fas fa-filter mr-2"></i>Filter</button></div>
-          <app-filter-member-list></app-filter-member-list>
+
+      <!-- Main Member List -->
+      <div class="home-box">
+        <!-- Mobile Filter Button -->
+        <div class="flex justify-end mb-4 md:hidden">
+          <button
+            class="btn btn-outline-danger"
+            (click)="showFilterDrawer = true"
+          >
+            <i class="fas fa-sliders-h text-xs"></i>
+            Filter
+          </button>
+        </div>
+        <app-filter-member-list></app-filter-member-list>
       </div>
     </div>
+
   </div>
 </section>
-<div class="modal fade" id="filterModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true" *ngIf="screenWidth <= 764">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-body p-0">
-        <app-side-bar></app-side-bar>
-      </div>
+
+<!-- Mobile Filter Drawer (Angular state-driven, replaces Bootstrap modal) -->
+<div class="modal" *ngIf="showFilterDrawer && screenWidth <= 764" (click)="showFilterDrawer = false">
+  <div class="w-full max-w-sm ml-auto h-full bg-white rounded-l-3xl shadow-2xl overflow-y-auto" (click)="$event.stopPropagation()">
+    <div class="flex items-center justify-between p-4 border-b border-gray-100">
+      <h3 class="font-bold text-gray-900 text-sm">Filter Matches</h3>
+      <button
+        type="button"
+        class="p-2 rounded-xl hover:bg-gray-100 text-gray-500 transition-all"
+        (click)="showFilterDrawer = false"
+      >
+        <i class="fas fa-times"></i>
+      </button>
     </div>
+    <app-side-bar></app-side-bar>
   </div>
 </div>
